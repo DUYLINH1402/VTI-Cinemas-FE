@@ -1,0 +1,15 @@
+@use "./../../components/cssBase.scss";
+
+.error-page {
+  .message {
+    padding-top: 30px;
+    font-size: 2rem;
+    text-align: center;
+    color: red;
+  }
+  #notFound {
+    display: inline-block;
+    text-align: center;
+    width: 50%;
+  }
+}

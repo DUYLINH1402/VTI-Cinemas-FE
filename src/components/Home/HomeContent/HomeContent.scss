@@ -1,0 +1,100 @@
+@use "./../../cssBase.scss";
+.content {
+  font-family: "Poppins", sans-serif;
+  .movie-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px; // Khoảng cách giữa nút và banner
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.6rem;
+      background-color: #fff;
+      border: 1px solid #000;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+
+      &:hover {
+        background-color: #eee;
+        transform: scale(1.05); // Hiệu ứng phóng to nhẹ khi hover
+      }
+    }
+  }
+  //   Nút xem thêm
+  .view-more-button {
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    background-color: cssBase.$primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 30px;
+    display: block;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .home__content {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(240px, 1fr)
+    ); // Thiết lập số cột tự động
+    grid-auto-rows: auto;
+    padding: 20px;
+    justify-items: center; // Căn giữa các thẻ phim
+
+    /* Giới hạn chiều cao hiển thị cho 2 hàng */
+    max-height: 750px;
+    overflow-y: hidden;
+
+    .card__movie {
+      width: 240px;
+      margin: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: left;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .card__movie__img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover; // Đảm bảo ảnh không bị méo
+        border-bottom: 1px solid #ddd;
+        transition: transform 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+
+      h3 {
+        font-size: 1.8rem;
+        color: #333;
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      p {
+        color: #666;
+        font-size: 1.4rem;
+        padding: 5px 5px;
+      }
+    }
+  }
+}

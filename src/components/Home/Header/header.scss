@@ -52,6 +52,7 @@
                 border-radius: 8px;
               }
             }
+
             a {
               padding: 15px;
               color: cssBase.$primary-color;
@@ -59,12 +60,16 @@
               display: block;
               text-align: center;
               font-size: 1.6rem;
+              &.active {
+                color: #9d3b0a; // Đổi màu chữ khi active
+              }
             }
             a:hover {
               border-radius: 15px;
               opacity: 0.9;
               background: #ccc;
             }
+
             .input-search {
               width: 200px;
               height: 30px;

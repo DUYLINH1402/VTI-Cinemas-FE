@@ -3,6 +3,7 @@ import { Home } from "./Home";
 import { ErrorPage } from "../Error/ErrorPage";
 import { Layout } from "./Layout";
 import { Movies } from "../Movies/Movies";
+import { Cinemas } from "../Cinemas/Cinemas";
 
 // Create react router dom
 const routerPage = createBrowserRouter([
@@ -17,7 +18,7 @@ const routerPage = createBrowserRouter([
       },
       {
         path: "/cinemas", // Trang Lịch chiếu theo rạp
-        element: <Movies />,
+        element: <Cinemas />,
       },
       {
         path: "/movies", // Movies page

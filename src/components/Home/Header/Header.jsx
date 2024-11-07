@@ -1,6 +1,6 @@
 import logo from "./../../../assets/image/logo.png";
 import "./header.scss";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 
 export const Header = () => {
   return (
@@ -20,7 +20,7 @@ export const Header = () => {
               <div>
                 <ul className="header__nav">
                   <li>
-                    <div class="dropdown">
+                    <div className="dropdown">
                       <select id="rap" name="rap">
                         <option>Chọn vị trí rạp</option>
                         <hr />
@@ -33,29 +33,48 @@ export const Header = () => {
                     </div>
                   </li>
                   <li>
-                    <Link id="home" to="/">
+                    {/* Khi NavLink trỏ đến /movies và người dùng đang ở URL /movies, 
+                    isActive sẽ là true, và className sẽ nhận giá trị "active", giúp áp dụng lớp CSS active.
+                    Nếu người dùng đang ở URL khác không phải /movies, 
+                    isActive sẽ là false, và className sẽ là "" (không có lớp CSS nào được áp dụng). */}
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
                       Trang chủ
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link id="cinemas" to="/cinemas">
+                    <NavLink
+                      to="/cinemas"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
                       Lịch chiếu theo rạp
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link id="movies" to="/movies">
+                    <NavLink
+                      to="/movies"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
                       Phim
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link id="events" to="/events">
+                    <NavLink
+                      to="/events"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
                       Tin tức và sự kiện
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link id="member" to="/member">
+                    <NavLink
+                      to="/member"
+                      className={({ isActive }) => (isActive ? "active" : "")}
+                    >
                       Thành viên
-                    </Link>
+                    </NavLink>
                   </li>
                   {/* Search Input */}
                   <li>
@@ -70,8 +89,8 @@ export const Header = () => {
             </div>
             {/* header-right */}
             <div className="header-right">
-              <div class="login-actions">
-                <Link to="#!" class="btn action-btn">
+              <div className="login-actions">
+                <Link to="#!" className="btn action-btn">
                   Đăng nhập
                 </Link>
               </div>

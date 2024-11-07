@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import axios from "axios";
 import { CardMovie } from "../../Cards/Cards";
 import "./HomeContent.scss";
-import Link from "antd/es/typography/Link";
+import { Link } from "react-router-dom";
 
 export const HomeContent = () => {
   const [movie, setMovie] = useState([]);

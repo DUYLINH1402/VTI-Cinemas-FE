@@ -1,5 +1,5 @@
 import "./App.css";
-import { RouterPage } from "./components/Home/RouterPage";
+import { RouterPage } from "./routes/AppRoutes";
 
 function App() {
   return (

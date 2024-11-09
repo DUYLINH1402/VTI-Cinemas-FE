@@ -1,8 +1,153 @@
+@use "./../../../src/assets/styles/cssBase.scss";
 .card-content {
   .card_carousel_img {
     a {
       display: block;
       align-items: center;
     }
+  }
+}
+// .card__movie {
+//   width: 280px; // Chiều rộng của mỗi thẻ phim, điều chỉnh theo nhu cầu
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   padding: 15px;
+//   box-sizing: border-box;
+//   border: 1px solid #e0e0e0;
+//   border-radius: 8px;
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//   transition: transform 0.3s ease;
+//   overflow: hidden;
+//   background-color: #ffffff;
+
+//   &:hover {
+//     transform: translateY(-5px); // Hiệu ứng khi hover
+//   }
+//   .line-clamp {
+//     color: #555;
+//     width: 100%;
+//     display: -webkit-box;
+//     -webkit-line-clamp: 2;
+//     -webkit-box-orient: vertical;
+//     overflow: hidden;
+//     margin-bottom: 8px;
+//   }
+
+//   a {
+//     text-decoration: none;
+//     color: inherit;
+//   }
+
+//   .card__movie__img {
+//     width: 100%;
+//     height: 300px;
+//     object-fit: cover;
+//     border-radius: 8px;
+//     margin-bottom: 12px;
+//   }
+
+//   h3 {
+//     font-size: 1.6rem;
+//     font-weight: 600;
+//     min-height: 37px;
+//     text-align: center;
+//     color: #333;
+//   }
+
+//   p {
+//     font-size: 1.4rem;
+//     color: #777;
+//     text-align: left;
+//     min-height: 30px;
+//   }
+
+//   .book-ticket-button {
+//     padding: 10px 0;
+//     background-color: #ff5722;
+//     color: #fff;
+//     border: none;
+//     border-radius: 4px;
+//     cursor: pointer;
+//     font-weight: bold;
+//     font-size: 1.4rem;
+//     transition: background-color 0.3s ease;
+//     width: 100%;
+//     text-align: center;
+//   }
+
+//   .book-ticket-button:hover {
+//     background-color: #e64a19;
+//   }
+// }
+.card__movie {
+  width: 280px; // Chiều rộng của mỗi thẻ phim, điều chỉnh theo nhu cầu
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  background-color: #ffffff;
+
+  &:hover {
+    transform: translateY(-5px); // Hiệu ứng khi hover
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card__movie__img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+
+  .line-clamp {
+    font-size: 1.4rem;
+    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 8px;
+  }
+  .title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+  }
+  p {
+    font-size: 1.4rem;
+    color: #777;
+    text-align: left;
+  }
+
+  .book-ticket-button {
+    padding: 10px 0;
+    margin-top: 8px;
+    background-color: #ff5722;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.6rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    text-align: center;
+  }
+
+  .book-ticket-button:hover {
+    background-color: #e64a19;
   }
 }

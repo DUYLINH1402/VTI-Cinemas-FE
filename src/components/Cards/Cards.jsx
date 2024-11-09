@@ -25,11 +25,13 @@ export const CardMovie = ({ item }) => {
               src={item.image}
               alt={item.movie_name}
             />
-            <h3>{item.movie_name}</h3>
-            <p>{item.description}</p>
+            <h3 className="line-clamp title">{item.movie_name}</h3>
+            <p className="line-clamp">{item.description}</p>
             <p>Rating: {item.rating}</p>
           </div>
         </Link>
+        {/* Thêm nút Đặt vé */}
+        <button className="book-ticket-button">Đặt vé</button>
       </div>
     </>
   );

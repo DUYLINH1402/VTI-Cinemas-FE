@@ -1,0 +1,115 @@
+@use "./../../assets/styles/cssBase.scss";
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; // Chiều rộng phủ toàn bộ màn hình
+  height: 100vh; // Chiều cao phủ toàn bộ màn hình
+  background: rgba(0, 0, 0, 0.5); // Nền mờ cho overlay
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; // Đảm bảo modal nằm trên các phần tử khác
+  animation: fadeIn 0.3s forwards;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 80vh; // Giới hạn chiều cao tối đa của Modal
+  overflow-y: auto; // Bật thanh cuộn dọc khi nội dung vượt quá chiều cao
+  background-color: #fff; // Màu nền trắng cho modal
+  padding: 30px; // Khoảng cách từ nội dung đến viền modal
+  border-radius: 8px; // Bo tròn các góc của modal
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Bóng đổ để modal nổi bật hơn
+  position: relative;
+
+  form {
+    display: flex;
+    flex-direction: column; // Xếp các phần tử trong form theo chiều dọc
+
+    label {
+      margin-top: 30px; // Khoảng cách giữa các trường
+      text-align: left;
+      color: #555; // Màu chữ cho label
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="password"] {
+      font-size: 1.4rem;
+      min-width: 350px;
+      padding: 10px;
+      padding-right: 40px; // Tạo khoảng trống cho biểu tượng con mắt
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      &:focus {
+        border-color: #1a73e8; // Đổi màu viền khi ô nhập liệu được chọn
+      }
+    }
+    .input-error {
+      border-color: red !important; // Đổi màu viền thành màu đỏ khi có lỗi
+    }
+
+    .error-message {
+      color: red; // Màu đỏ cho thông báo lỗi
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+
+    .password-field {
+      position: relative; // Để đặt nút "Hiển thị mật khẩu" bên trong trường mật khẩu
+    }
+
+    .submit-button {
+      background-color: #1a73e8; // Màu nền cho nút "Đăng ký"
+      color: white;
+      font-size: 1.4rem;
+      padding: 10px;
+      border: none;
+      border-radius: 4px; // Bo tròn nút đăng ký
+      cursor: pointer;
+      margin-top: 35px;
+      &:hover {
+        background-color: #155ab4; // Đổi màu nền khi hover vào nút
+      }
+    }
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    label {
+      margin-right: 10px;
+    }
+  }
+
+  .login-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.6rem;
+
+    .login-link {
+      color: #1a73e8; // Màu xanh cho link "Đăng nhập"
+      cursor: pointer; // Con trỏ thành hình bàn tay khi hover
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline; // Gạch chân khi hover vào link
+      }
+    }
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    cursor: pointer; // Con trỏ thành hình bàn tay khi hover
+    color: #333; // Màu cho nút đóng (X)
+  }
+}

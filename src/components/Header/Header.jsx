@@ -4,10 +4,23 @@ import top_scroll from "./../../../src/assets/icon/top_scroll.png";
 import logo from "./../../../src/assets/image/logo.png";
 import "./header.scss";
 import { Outlet, Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import LoginModal from "./../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 
 export const Header = () => {
+  // State để quản lý loại modal hiển thị: null, "login", "register" hoặc "forgotPassword"
+  const [modalType, setModalType] = useState(null);
+
+  // Mở các modal tương ứng
+  const openLoginModal = () => setModalType("login");
+  const openRegisterModal = () => setModalType("register");
+  const openForgotPasswordModal = () => setModalType("forgotPassword");
+  const closeModal = () => setModalType(null); // Đóng modal
+
   useEffect(() => {
-    // Hiển thị nút khi người dùng cuộn xuống
+    // Hiển thị nút cuộn lên đầu khi người dùng cuộn trang
     window.onscroll = function () {
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
       if (
@@ -20,7 +33,7 @@ export const Header = () => {
       }
     };
 
-    // Sự kiện click để cuộn lên đầu trang
+    // Sự kiện click để cuộn lên đầu trang khi nhấn nút "scrollToTopBtn"
     const scrollToTopBtn = document.getElementById("scrollToTopBtn");
     if (scrollToTopBtn) {
       scrollToTopBtn.onclick = function () {
@@ -34,15 +47,17 @@ export const Header = () => {
       <div className="navbar">
         <div className="nav-content">
           <div className="header" id="header">
-            {/* header-left */}
+            {/* Phần logo ở góc trái của header */}
             <div className="header-left">
               <Link to="/">
                 <img className="header-logo" src={logo} alt="logo" />
               </Link>
             </div>
-            {/* Navigation */}
+
+            {/* Navigation trung tâm */}
             <div className="header-center">
               <ul className="header__nav">
+                {/* Dropdown chọn vị trí rạp */}
                 <li>
                   <div className="dropdown">
                     <select id="rap" name="rap">
@@ -83,6 +98,8 @@ export const Header = () => {
                     </select>
                   </div>
                 </li>
+
+                {/* Các link điều hướng */}
                 <li>
                   <NavLink
                     to="/"
@@ -123,6 +140,7 @@ export const Header = () => {
                     Thành viên
                   </NavLink>
                 </li>
+                {/* Ô tìm kiếm */}
                 <li>
                   <input
                     type="text"
@@ -132,24 +150,53 @@ export const Header = () => {
                 </li>
               </ul>
             </div>
-            {/* header-right */}
+
+            {/* Phần login ở góc phải */}
             <div className="header-right">
               <div className="login-actions">
-                <Link to="#!" className="btn action-btn">
+                <Link
+                  to="#!"
+                  className="btn action-btn"
+                  onClick={openLoginModal}
+                >
                   Đăng nhập
                 </Link>
+                {/* Hiển thị LoginModal nếu modalType là "login" */}
+                {modalType === "login" && (
+                  <LoginModal
+                    closeModal={closeModal}
+                    openRegisterModal={openRegisterModal}
+                    openForgotPasswordModal={openForgotPasswordModal} // Truyền hàm mở ForgotPasswordModal vào LoginModal
+                  />
+                )}
+                {/* Hiển thị RegisterModal nếu modalType là "register" */}
+                {modalType === "register" && (
+                  <RegisterModal
+                    closeModal={closeModal}
+                    openLoginModal={openLoginModal}
+                  />
+                )}
+                {/* Hiển thị ForgotPasswordModal nếu modalType là "forgotPassword" */}
+                {modalType === "forgotPassword" && (
+                  <ForgotPasswordModal closeModal={closeModal} />
+                )}
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Icon hỗ trợ ở góc dưới bên phải */}
       <div className="support__icon">
         <img src={support} alt="Support icon" />
       </div>
+
+      {/* Nút cuộn lên đầu trang */}
       <div className="top__scroll">
         <img id="scrollToTopBtn" src={top_scroll} alt="Top Scroll" />
       </div>
+
+      {/* Outlet để render các route con */}
       <div id="detail">
         <Outlet />
       </div>

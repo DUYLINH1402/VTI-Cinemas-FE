@@ -36,3 +36,62 @@ export const CardMovie = ({ item }) => {
     </>
   );
 };
+
+export const CardCinema = ({ item }) => {
+  return (
+    <>
+      <div className="card__cinema">
+        <div className="image">
+          <img src={item.image} alt={item.movie_name} />
+        </div>
+        <div className="row">
+          <div className="introduce">
+            <Link to="/movieinf">
+              <h1>{item.movie_name}</h1>
+            </Link>
+            <p>Thời gian: {item.duration} phút</p>
+            <p>Thể loại: {item.genre}</p>
+          </div>
+          <div className="showtime">
+            <h3>2D</h3>
+            <button>
+              <a href="#">20:00</a>
+            </button>
+            <p>149 ghé trống</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const CardInfMovie = ({ item }) => {
+  return (
+    <>
+      <div className="card__inf">
+        <div className="image">
+          <img src={item.image} alt={item.movie_name} />
+          <div className="showtime">
+            <button>
+              <a href="#">Đặt vé</a>
+            </button>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="introduce">
+            <Link to="/movieinf">{/* <h1>{item.movie_name}</h1> */}</Link>
+            {/* <p>Thời gian: {item.duration} phút</p>
+            <p>Thể loại: {item.genre}</p> */}
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
+              ducimus assumenda eveniet incidunt sit similique quibusdam
+              repudiandae laboriosam quam porro quisquam odio vel obcaecati
+              nulla! Adipisci, aperiam. Non, hic tenetur!
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

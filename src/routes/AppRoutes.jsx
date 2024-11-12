@@ -6,12 +6,12 @@ import { Layout } from "./../components/Layout/Layout";
 import { Movies } from "../pages/Movies/Movies";
 import { Cinemas } from "../pages/Cinema/Cinemas";
 =======
-import { Home } from "./Home";
-import { ErrorPage } from "../Error/ErrorPage";
-import { Layout } from "./Layout";
-import { Movies } from "../Movies/Movies";
-import { Cinemas } from "../Cinemas/Cinemas";
->>>>>>> 5a10aeeb4ddfd4c99fdecda228ecd887a8e41f4c
+// import { Home } from "./Home";
+// import { ErrorPage } from "../Error/ErrorPage";
+// import { Layout } from "./Layout";
+// import { Movies } from "../Movies/Movies";
+// import { Cinemas } from "../Cinemas/Cinemas";
+// >>>>>>> 5a10aeeb4ddfd4c99fdecda228ecd887a8e41f4c
 
 // Create react router dom
 const routerPage = createBrowserRouter([

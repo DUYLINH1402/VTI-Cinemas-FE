@@ -95,3 +95,29 @@ export const CardInfMovie = ({ item }) => {
     </>
   );
 };
+
+export const CardShowtime = ({ item }) => {
+  return (
+    <>
+      <div className="card__showtimes">
+        <div className="image">
+          <img
+            src="https://res.cloudinary.com/ddia5yfia/image/upload/v1730809742/1._Ma%CC%86%CC%81t_Bie%CC%82%CC%81c_zjtjfn.jpg"
+            alt=""
+          />
+        </div>
+        <div className="row">
+          <div className="introduce">
+            <h1>Mắt biếc</h1>
+            <p>Một câu chuyện tình buồn về tuổi học trò.</p>
+          </div>
+          <div className="showtime">
+            <h3>2D</h3>
+            <button>20:00</button> <br />
+            <span>149 ghé trống</span>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

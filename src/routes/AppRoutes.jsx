@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "../pages/Home/Home";
-import { ErrorPage } from "../pages/Error/ErrorPage";
-import { Layout } from "./../components/Layout/Layout";
-import { Movies } from "../pages/Movies/Movies";
-import { Cinemas } from "../pages/Cinemas/Cinemas";
-import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
+import { Home } from "./Home";
+import { ErrorPage } from "../Error/ErrorPage";
+import { Layout } from "./Layout";
+import { Movies } from "../Movies/Movies";
+import { Cinemas } from "../Cinemas/Cinemas";
 
 // Create react router dom
 const routerPage = createBrowserRouter([

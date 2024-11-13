@@ -3,7 +3,17 @@ import { getDatabase, ref, get } from "firebase/database";
 import db from "../services/firebase/firebaseConfig";
 
 // const db = getDatabase();
-
+// Lấy thông tin Account
+export const getAccountFromFirebase = async (account_id) => {
+  const db = getDatabase();
+  const userRef = ref(db, `users/${account_id}`);
+  const snapshot = await get(userRef);
+  if (snapshot.exists()) {
+    return snapshot.val();
+  } else {
+    throw new Error("User data not found");
+  }
+};
 // Hàm lấy dữ liệu cho Movies
 export const fetchMoviesFromFirebase = async () => {
   const response = await axios.get(

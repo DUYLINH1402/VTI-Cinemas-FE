@@ -101,12 +101,16 @@
       }
       .header-right {
         flex: 1;
-        .login-actions {
-          .action-link {
-            color: cssBase.$primary-color;
-            margin-right: 20px;
-            font-weight: 400;
-            font-size: 1.6rem;
+        .user-info {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          display: flex;
+          align-items: center;
+          .ant-avatar > img {
+          }
+          &:hover {
+            cursor: pointer;
           }
         }
       }

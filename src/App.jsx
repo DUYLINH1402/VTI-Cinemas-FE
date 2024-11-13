@@ -1,17 +1,34 @@
+// App.jsx
 import "./App.scss";
 import { RouterPage } from "./routes/AppRoutes";
-import React from "react";
-import { Provider } from "react-redux";
+import React, { useEffect } from "react";
+import { Provider, useDispatch } from "react-redux";
 import store from "../store/store";
+import { setAuth } from "../store/authSlice"; // Import setAuth để thiết lập auth từ token
 
 function App() {
   return (
-    <>
-      <Provider store={store}>
-        <RouterPage />
-      </Provider>
-    </>
+    <Provider store={store}>
+      <AppInitializer />
+      <RouterPage />
+    </Provider>
   );
+}
+
+function AppInitializer() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Kiểm tra `authToken` từ localStorage khi ứng dụng tải lên
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      // Giả sử bạn có thể lấy lại user từ token hoặc localStorage
+      const user = JSON.parse(localStorage.getItem("user")) || null;
+      dispatch(setAuth({ user, token })); // Gọi setAuth để cập nhật Redux state
+    }
+  }, [dispatch]);
+
+  return null;
 }
 
 export default App;

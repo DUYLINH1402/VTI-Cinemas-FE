@@ -1,4 +1,36 @@
 {
+    "Account":{
+        "account1":{
+            "account_id": 1,
+            "username": "johndoe123",
+            "fullname": "John Doe",
+            "birth_date": "1990-05-15",
+            "email": "johndoe@example.com",
+            "password": "password123",
+            "phone_number": 123456789,
+            "role": "user",
+            "status": "active",
+            "address": "123 Main St, Tokyo, Japan",
+            "avatar_url": "",
+            "created_date": "2024-11-12",
+            "updated_date": "2024-11-12"
+          },
+          "account2":{
+            "account_id": 2,
+            "username": "janedoe456",
+            "fullname": "Jane Doe",
+            "birth_date": "1995-08-20",
+            "email": "janedoe@example.com",
+            "password": "password456",
+            "phone_number": 987654321,
+            "role": "admin",
+            "status": "inactive",
+            "address": "456 Elm St, Osaka, Japan",
+            "avatar_url": "",
+            "created_date": "2024-11-12",
+            "updated_date": "2024-11-12"
+          }
+    },
   "Movies": {
       "movie1": {
           "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809742/1._Ma%CC%86%CC%81t_Bie%CC%82%CC%81c_zjtjfn.jpg",

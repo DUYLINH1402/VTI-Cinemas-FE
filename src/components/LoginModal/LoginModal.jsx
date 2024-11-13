@@ -5,7 +5,7 @@ import {
   googleLogin,
   loginUser,
   facebookLogin,
-} from "../../../store/authSlice";
+} from "../../../store/authSlice.js";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import google from "../../assets/icon/google.svg";
@@ -74,20 +74,48 @@ const LoginModal = ({
   // Hàm xử lý khi submit form đăng nhập
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validate form
     const validationErrors = validateLoginForm({ emailOrPhone, password });
     setErrors(validationErrors);
 
-    // Kiểm tra xem có lỗi không trước khi thực hiện đăng nhập
     const hasErrors = Object.values(validationErrors).some((error) => error);
     if (!hasErrors) {
-      // Thực hiện đăng nhập nếu không có lỗi
-      console.log("Thông tin hợp lệ, tiến hành đăng nhập...");
-      closeModal();
+      dispatch(loginUser({ email: emailOrPhone, password }))
+        .unwrap()
+        .then((response) => {
+          const { accessToken, ...user } = response;
+          localStorage.setItem("authToken", accessToken);
+          localStorage.setItem("user", JSON.stringify(user));
+          console.log("Đăng nhập thành công!");
+          closeModal(); // Đóng modal nếu đăng nhập thành công
+        })
+        .catch((error) => {
+          console.error("Đăng nhập thất bại:", error.message);
+        });
+    }
+  };
+
+  // Hàm để chuyển mã lỗi thành thông báo cụ thể
+  const renderErrorMessage = (error) => {
+    console.log("Giá trị của error:", error); // Kiểm tra giá trị của error từ Redux
+    switch (error) {
+      case "auth/user-not-found":
+        return "Email không tồn tại.";
+      case "auth/wrong-password":
+        return "Mật khẩu không chính xác.";
+      case "auth/invalid-email":
+        return "Email không đúng định dạng.";
+      case "auth/too-many-requests":
+        return "Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.";
+      default:
+        return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
     }
   };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
+  const error = useSelector((state) => state.auth.error); // Lấy mã lỗi từ Redux store
 
   useEffect(() => {
     if (user) {
@@ -95,23 +123,43 @@ const LoginModal = ({
     }
   }, [user, navigate]);
 
-  // const handleEmailPasswordLogin = (e) => {
-  //   e.preventDefault();
-  //   const email = e.target.email.value;
-  //   const password = e.target.password.value;
-  //   dispatch(loginUser({ email, password }));
-  // };
-
-  const handleGoogleLogin = () => {
-    dispatch(googleLogin()).then(() => {
-      closeModal();
-      navigate("/");
-    });
+  const handleEmailPasswordLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    dispatch(loginUser({ email, password }));
   };
 
-  // const handleFacebookLogin = () => {
-  //   dispatch(facebookLogin());
-  // };
+  const handleGoogleLogin = () => {
+    dispatch(googleLogin())
+      .unwrap()
+      .then((response) => {
+        const { accessToken, ...user } = response; // Giả sử `response` chứa `accessToken` và `user`
+        localStorage.setItem("authToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        closeModal();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Đăng nhập Google thất bại:", error.message);
+      });
+  };
+
+  const handleFacebookLogin = () => {
+    dispatch(facebookLogin())
+      .unwrap()
+      .then((response) => {
+        const { accessToken, ...user } = response; // Giả sử `response` chứa `accessToken` và `user`
+        localStorage.setItem("authToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+        closeModal();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Đăng nhập Facebook thất bại:", error.message);
+      });
+  };
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -131,7 +179,6 @@ const LoginModal = ({
             {errors.emailOrPhone && (
               <p className="error-message">{errors.emailOrPhone}</p> // Hiển thị lỗi nếu có
             )}
-
             <label>Mật khẩu</label>
             <div className="password-field">
               <input
@@ -153,7 +200,6 @@ const LoginModal = ({
             {errors.password && (
               <p className="error-message">{errors.password}</p> // Hiển thị lỗi nếu có
             )}
-
             {/* CheckBox Nhớ mật khẩu */}
             <div className="remember-me">
               <input type="checkbox" id="rememberMe" />
@@ -161,9 +207,17 @@ const LoginModal = ({
                 Nhớ mật khẩu
               </label>
             </div>
-
+            {/* Hiển thị lỗi đăng nhập nếu có */}
+            {error && (
+              <p className="error-message">{renderErrorMessage(error)}</p>
+            )}
             {/* Nút đăng nhập */}
-            <button type="submit" className="submit-button">
+
+            <button
+              type="submit"
+              className="submit-button"
+              // onClick={handleEmailPasswordLogin}
+            >
               Đăng nhập
             </button>
           </div>
@@ -178,7 +232,12 @@ const LoginModal = ({
             >
               <img src={google} alt="Google" />
             </a>
-            <a href="#" className="social-button facebook">
+
+            <a
+              href="#"
+              className="social-button facebook"
+              onClick={handleFacebookLogin}
+            >
               <img src={facebook} alt="Facebook" />
             </a>
           </div>

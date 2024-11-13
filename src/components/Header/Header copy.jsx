@@ -5,8 +5,6 @@ import logo from "./../../../src/assets/image/logo.png";
 import "./header.scss";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { handleLogout } from "../../utils/authActions";
-import { Dropdown, Menu, Avatar } from "antd";
 import LoginModal from "./../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
@@ -14,10 +12,12 @@ import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 export const Header = () => {
   const [modalType, setModalType] = useState(null);
   const dispatch = useDispatch();
+  // Truy xuất trạng thái auth và đảm bảo `state.auth` tồn tại trước khi truy cập `isLoggedIn` và `user`
   const auth = useSelector((state) => state.auth || {});
   const isLoggedIn = auth.isLoggedIn || false;
   const user = auth.user;
 
+  // Mở các modal tương ứng
   const openLoginModal = () => setModalType("login");
   const openRegisterModal = () => setModalType("register");
   const openForgotPasswordModal = () => setModalType("forgotPassword");
@@ -43,22 +43,6 @@ export const Header = () => {
       };
     }
   }, []);
-  const onLogout = () => {
-    handleLogout(dispatch); // Truyền dispatch vào handleLogout
-  };
-  const userMenu = (
-    <Menu>
-      <Menu.Item key="profile">
-        <Link to="/profile">Trang cá nhân</Link>
-      </Menu.Item>
-      <Menu.Item key="settings">
-        <Link to="/settings">Cài đặt</Link>
-      </Menu.Item>
-      <Menu.Item key="logout" onClick={onLogout}>
-        Đăng xuất
-      </Menu.Item>
-    </Menu>
-  );
 
   return (
     <>
@@ -170,23 +154,15 @@ export const Header = () => {
             <div className="header-right">
               <div className="login-actions">
                 {isLoggedIn && user ? (
-                  // Nếu người dùng đã đăng nhập, hiển thị avatar với Dropdown
-                  <Dropdown
-                    overlay={userMenu}
-                    trigger={["click"]}
-                    placement="bottomRight"
-                  >
-                    <div
-                      className="user-info"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <span className="user-name">{user.displayName}</span>
-                      <Avatar
-                        src={user.imageUrl || user.photoURL}
-                        alt="User Avatar"
-                      />
-                    </div>
-                  </Dropdown>
+                  // Nếu người dùng đã đăng nhập, hiển thị ảnh đại diện và tên người dùng
+                  <div className="user-info">
+                    <span className="user-name">{user.displayName}</span>
+                    <img
+                      src={user.imageUrl}
+                      alt="User Avatar"
+                      className="user-avatar"
+                    />
+                  </div>
                 ) : (
                   // Nếu người dùng chưa đăng nhập, hiển thị nút Đăng nhập
                   <Link

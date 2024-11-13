@@ -1,17 +1,34 @@
-// LoginComponent.js
-import React from "react";
-import { useDispatch } from "react-redux";
-import { googleLogin, loginUser } from "./redux/authSlice";
-
-const dispatch = useDispatch();
-
-export const handleLogin = (e) => {
-  e.preventDefault();
-  const email = e.target.email.value;
-  const password = e.target.password.value;
-  dispatch(loginUser({ email, password }));
-};
-
-export const handleGoogleLogin = () => {
-  dispatch(googleLogin());
-};
+// const handleGoogleLogin = () => {
+//   dispatch(googleLogin())
+//     .unwrap()
+//     .then((userCredential) => {
+//       const user = userCredential.user; // Lấy user từ userCredential
+//       if (user) {
+//         user.getIdToken().then((token) => {
+//           localStorage.setItem("authToken", token);
+//           closeModal();
+//           navigate("/");
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Google login failed:", error.message);
+//     });
+// };
+// const handleFacebookLogin = () => {
+//   dispatch(facebookLogin())
+//     .unwrap()
+//     .then((userCredential) => {
+//       const user = userCredential.user; // Lấy user từ userCredential
+//       if (user) {
+//         user.getIdToken().then((token) => {
+//           localStorage.setItem("authToken", token);
+//           closeModal();
+//           navigate("/");
+//         });
+//       }
+//     })
+//     .catch((error) => {
+//       console.error("Facebook login failed:", error.message);
+//     });
+// };

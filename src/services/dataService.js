@@ -18,3 +18,6 @@ export const fetchCarouselData = async () => {
     ? await fetchCarouselDataFromFirebase()
     : await fetchCarouselDataFromSQL();
 };
+
+
+

@@ -21,7 +21,8 @@ export const Cinemas = () => {
     };
 
     fetchMoviesData();
-  }, []);
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   // Lấy danh sách phim của trang hiện tại
   const indexOfLastMovie = currentPage * moviesPerPage;

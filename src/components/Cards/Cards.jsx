@@ -18,7 +18,7 @@ export const CardMovie = ({ item }) => {
   return (
     <>
       <div className="card__movie">
-        <Link to="#!">
+        <Link to={`/movieinf/${item.movie_id}`}>
           <div>
             <img
               className="card__movie__img"
@@ -46,7 +46,7 @@ export const CardCinema = ({ item }) => {
         </div>
         <div className="row">
           <div className="introduce">
-            <Link to="/movieinf">
+            <Link to={`/movieinf/${item.movie_id}`}>
               <h1>{item.movie_name}</h1>
             </Link>
             <p>Thời gian: {item.duration} phút</p>
@@ -65,12 +65,12 @@ export const CardCinema = ({ item }) => {
   );
 };
 
-export const CardInfMovie = ({ item }) => {
+export const CardInfMovie = ({ movie }) => {
   return (
     <>
       <div className="card__inf">
         <div className="image">
-          <img src={item.image} alt={item.movie_name} />
+          <img src={movie.image} alt={movie.movie_name} />
           <div className="showtime">
             <button>
               <a href="#">Đặt vé</a>
@@ -80,42 +80,36 @@ export const CardInfMovie = ({ item }) => {
 
         <div className="row">
           <div className="introduce">
-            <Link to="/movieinf">{/* <h1>{item.movie_name}</h1> */}</Link>
-            {/* <p>Thời gian: {item.duration} phút</p>
-            <p>Thể loại: {item.genre}</p> */}
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius,
-              ducimus assumenda eveniet incidunt sit similique quibusdam
-              repudiandae laboriosam quam porro quisquam odio vel obcaecati
-              nulla! Adipisci, aperiam. Non, hic tenetur!
-            </p>
+            <h1>{movie.movie_name}</h1>
+            <p>Mô tả: {movie.description}</p>
+            <p>Thời gian: {movie.duration} phút</p>
+            <p>Thể loại: {movie.genre}</p>
+            <p>Đạo diễn: {movie.director} </p>
+            <p>Diễn viên: {movie.actor}</p>
+            <p>Ngôn ngữ: {movie.language}</p>
           </div>
         </div>
       </div>
-    </>
-  );
-};
 
-export const CardShowtime = ({ item }) => {
-  return (
-    <>
-      <div className="card__showtimes">
-        <div className="image">
-          <img
-            src="https://res.cloudinary.com/ddia5yfia/image/upload/v1730809742/1._Ma%CC%86%CC%81t_Bie%CC%82%CC%81c_zjtjfn.jpg"
-            alt=""
-          />
-        </div>
-        <div className="row">
-          <div className="introduce">
-            <h1>Mắt biếc</h1>
-            <p>Một câu chuyện tình buồn về tuổi học trò.</p>
-          </div>
-          <div className="showtime">
-            <h3>2D</h3>
-            <button>20:00</button> <br />
-            <span>149 ghé trống</span>
-          </div>
+      <div className="trailer">
+        <h2>Trailer</h2>
+        <iframe
+          width="600"
+          height="300"
+          src="https://www.youtube.com/embed/ITlQ0oU7tDA"
+          title="MẮT BIẾC - OFFICIAL TRAILER"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+
+      <div className="comment">
+        <h2>Gửi đánh giá và bình luận</h2>
+        <textarea placeholder="Gửi bình luận ở đây"></textarea>
+        <div className="submit">
+          <button>Gửi</button>
         </div>
       </div>
     </>

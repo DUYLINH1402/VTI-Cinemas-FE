@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react";
 import { CardInfMovie } from "../../../components/Cards/Cards";
 import "./../MovieInf/MovieInf.scss";
-import { fetchMovies } from "../../../services/dataService";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export const MovieInf = () => {
-  const [movies, setMovies] = useState([]);
+  const [movie, setMovie] = useState(null);
+  const { movie_id } = useParams();
 
-  // Call API
   useEffect(() => {
-    const fetchMoviesData = async () => {
+    const fetchMovieData = async () => {
       try {
-        const data = await fetchMovies();
-        setMovies(data);
+        const response = await axios.get(
+          "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
+        );
+        const data = response.data;
+        const findMovieById = Object.values(data).find(
+          (movie) => movie.movie_id === parseInt(movie_id)
+        );
+        setMovie(findMovieById);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
-
-    fetchMoviesData();
-  }, []);
+    fetchMovieData();
+    window.scrollTo(0, 0);
+  }, [movie_id]);
 
   return (
     <>
       <div className="content">
-        {movies && movies.length > 0 ? (
-          movies.map((item, index) => (
-            <CardInfMovie item={item} key={index}></CardInfMovie>
-          ))
-        ) : (
-          <p>No movies available</p>
-        )}
+        {movie ? <CardInfMovie movie={movie} /> : <div>No movie found</div>}
       </div>
     </>
   );

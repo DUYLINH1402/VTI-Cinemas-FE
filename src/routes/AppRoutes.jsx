@@ -26,7 +26,7 @@ const routerPage = createBrowserRouter([
         element: <Movies />,
       },
       {
-        path: "/movieinf", // Trang thông tin phim
+        path: "/movieinf/:movie_id", // Trang thông tin phim
         element: <MovieInf />,
       },
     ],

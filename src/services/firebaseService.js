@@ -39,3 +39,5 @@ export const fetchCarouselDataFromFirebase = async () => {
     throw error;
   }
 };
+
+

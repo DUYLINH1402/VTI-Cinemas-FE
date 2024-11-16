@@ -1,0 +1,131 @@
+@use "./../../assets/styles/cssBase.scss";
+
+.content {
+  margin-top: 20px;
+  .card_seat {
+    .status_seat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .status_seat > img {
+      margin-left: 40px;
+      width: 40px;
+    }
+    .status_seat > p {
+      margin-left: 5px;
+      font-size: 1.2rem;
+    }
+
+    .content_tab {
+      margin: 20px;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      height: 1000px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      .col1 {
+        max-height: 1000px;
+        img {
+          margin-top: 20px;
+          width: 800px;
+        }
+
+        .row_seat {
+          height: 800px;
+          img {
+            width: 40px;
+            float: left;
+            margin-left: 80px;
+            margin-top: 40px;
+            cursor: pointer;
+          }
+        }
+
+        .detail_seat {
+          display: grid;
+          grid-template-columns: 3fr 1fr 1fr;
+          border-top: 1px solid #ccc;
+          height: 87px;
+
+          .detail {
+            border-right: 1px solid #ccc;
+            display: flex;
+            align-items: first baseline;
+            justify-content: space-around;
+            img {
+              width: 40px;
+            }
+            p {
+              font-size: 1.2rem;
+            }
+          }
+          .price {
+            h2 {
+              margin-top: 10px;
+              font-size: 2.5rem;
+            }
+            h3 {
+              margin-top: 10px;
+              font-size: 1.5rem;
+            }
+          }
+          .timeout {
+            border-left: 1px solid #ccc;
+            h2 {
+              margin-top: 10px;
+              font-size: 2.5rem;
+            }
+            h3 {
+              margin-top: 10px;
+              font-size: 1.5rem;
+            }
+          }
+        }
+      }
+
+      .col2 {
+        border-left: 1px solid #ccc;
+        h1 {
+          font-size: 5rem;
+          margin: 20px 0;
+          text-decoration: underline;
+          color: red;
+        }
+        .detail_movie {
+          height: 900px;
+          border: 1px solid #ccc;
+          margin: 0 10px;
+          border-radius: 10px;
+          img {
+            margin: 20px 0;
+            border-radius: 10px;
+            width: 50%;
+          }
+          h1 {
+            font-size: 3rem;
+            margin-bottom: 70px;
+            color: black;
+            text-decoration: none;
+          }
+          p {
+            text-align: left;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            margin-left: 10px;
+          }
+          button {
+            width: 30%;
+            border-radius: 10px;
+            font-size: 2rem;
+            color: white;
+            background-color: #1e83c5;
+            &:hover {
+              color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

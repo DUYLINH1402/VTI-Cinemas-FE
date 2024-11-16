@@ -98,8 +98,8 @@ export const CardInfMovie = ({ movie }) => {
         <iframe
           width="600"
           height="300"
-          src="https://www.youtube.com/embed/ITlQ0oU7tDA"
-          title="MẮT BIẾC - OFFICIAL TRAILER"
+          src={movie.trailer}
+          title={movie.movie_name}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"

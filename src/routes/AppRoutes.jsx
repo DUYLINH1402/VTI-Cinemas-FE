@@ -5,6 +5,7 @@ import { Layout } from "./../components/Layout/Layout";
 import { Movies } from "../pages/Movies/Movies";
 import { Cinemas } from "../pages/Cinemas/Cinemas";
 import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
+import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
 
 // Create react router dom
 const routerPage = createBrowserRouter([
@@ -28,6 +29,10 @@ const routerPage = createBrowserRouter([
       {
         path: "/movieinf/:movie_id", // Trang thông tin phim
         element: <MovieInf />,
+      },
+      {
+        path: "/booking_seat/:movie_id",
+        element: <Booking_Seat />,
       },
     ],
   },

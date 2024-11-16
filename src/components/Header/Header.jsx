@@ -54,7 +54,7 @@ export const Header = () => {
   const userMenu = (
     <Menu>
       <Menu.Item key="profile">
-        <Link to="/profile">Trang cá nhân</Link>
+        <Link to="/members">Trang cá nhân</Link>
       </Menu.Item>
       <Menu.Item key="settings">
         <Link to="/settings">Cài đặt</Link>
@@ -155,7 +155,7 @@ export const Header = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/member"
+                    to="/members"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     Thành viên

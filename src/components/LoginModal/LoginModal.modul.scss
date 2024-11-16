@@ -17,8 +17,6 @@
 .modal-content {
   position: relative;
   background: white;
-  padding: 40px;
-  border-radius: 8px;
   width: 400px;
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -87,12 +85,8 @@
       color: #555; // Màu chữ phụ cho label
     }
 
-    input[type="text"],
-    input[type="password"] {
+    .input-modal {
       font-size: 1.4rem;
-      width: 350px;
-      padding: 10px;
-      padding-right: 40px; // Tạo khoảng trống cho biểu tượng con mắt
       margin-top: 5px;
       border-radius: 4px;
       border: 1px solid #ccc;
@@ -105,10 +99,8 @@
       position: relative;
       display: flex;
       align-items: center;
-      input {
+      .input-modal {
         flex: 1; // Đảm bảo input chiếm toàn bộ không gian trừ phần của biểu tượng con mắt
-        width: 350px;
-        padding: 10px;
         padding-right: 40px; // Tạo khoảng trống cho biểu tượng con mắt
         margin-top: 5px;
         border-radius: 4px;

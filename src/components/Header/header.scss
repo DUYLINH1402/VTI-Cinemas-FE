@@ -145,3 +145,7 @@
     cursor: pointer;
   }
 }
+.ant-dropdown {
+  position: fixed; // Đảm bảo không bị ảnh hưởng bởi scroll
+  z-index: 1050;
+}

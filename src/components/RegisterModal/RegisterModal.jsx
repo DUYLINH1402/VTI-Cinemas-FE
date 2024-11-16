@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./RegisterModal.modul.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faXmark,
+  faEye,
+  faEyeSlash,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   validateEmail,
   validatePhone,
@@ -12,15 +17,17 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/authSlice";
+import { createAccount } from "../../services/dataService";
 
 const RegisterModal = ({ closeModal, openLoginModal }) => {
+  // Quản lý trạng thái hiển thị mật khẩu và hiệu ứng đóng modal
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const dispatch = useDispatch();
   const error = useSelector((state) => state.auth.error); // Lấy lỗi từ Redux store
 
-  // Khởi tạo dữ liệu form với các trường nhập liệu
+  // Dữ liệu của form đăng ký
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,15 +36,17 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
     gender: "",
     password: "",
     confirmPassword: "",
-    acceptTerms: false,
+    acceptTerms: false, // Trạng thái checkbox chấp nhận điều khoản
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({}); // Lưu các lỗi của từng trường
 
+  // Chuyển đổi trạng thái hiển thị mật khẩu
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
+  // Xử lý cập nhật dữ liệu form khi người dùng nhập
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
@@ -46,26 +55,27 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
     }));
   };
 
+  // Xử lý kiểm tra lỗi khi rời khỏi trường nhập liệu
   const handleBlur = (field) => {
     let error = "";
     switch (field) {
       case "name":
-        error = validateName(formData.name);
+        error = validateName(formData.name); // Kiểm tra lỗi của tên
         break;
       case "email":
-        error = validateEmail(formData.email);
+        error = validateEmail(formData.email); // Kiểm tra lỗi của email
         break;
       case "phone":
-        error = validatePhone(formData.phone);
+        error = validatePhone(formData.phone); // Kiểm tra lỗi của số điện thoại
         break;
       case "password":
-        error = validatePassword(formData.password);
+        error = validatePassword(formData.password); // Kiểm tra lỗi của mật khẩu
         break;
       case "confirmPassword":
         error = validateConfirmPassword(
           formData.password,
           formData.confirmPassword
-        );
+        ); // Kiểm tra lỗi của mật khẩu xác nhận
         break;
       default:
         break;
@@ -73,10 +83,10 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
     setErrors((prevErrors) => ({ ...prevErrors, [field]: error }));
   };
 
-  // Xử lý khi người dùng nhấn nút "Đăng ký"
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const [isSubmitting, setIsSubmitting] = useState(false); // Trạng thái chờ khi submit
 
+  // Kiểm tra toàn bộ form trước khi submit
+  const handleValidation = () => {
     const validationErrors = {};
     validationErrors.name = validateName(formData.name);
     validationErrors.email = validateEmail(formData.email);
@@ -92,44 +102,62 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
 
     setErrors(validationErrors);
 
-    const hasErrors = Object.values(validationErrors).some((error) => error);
-    if (!hasErrors) {
-      // Thực hiện đăng ký nếu form hợp lệ
-      dispatch(
+    // Trả về true nếu có lỗi
+    return Object.values(validationErrors).some((error) => error);
+  };
+
+  // Xử lý khi người dùng nhấn nút "Đăng ký"
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+    // Kiểm tra lỗi trong form
+    if (handleValidation()) return;
+
+    setIsSubmitting(true); // Hiển thị trạng thái chờ
+
+    try {
+      // Dispatch action đăng ký người dùng qua Redux
+      const response = await dispatch(
         registerUser({
-          name: formData.name,
+          fullname: formData.name,
           email: formData.email,
-          phone: formData.phone,
-          birthDate: formData.birthDate,
+          phone_number: formData.phone,
+          birth_date: formData.birthDate,
           gender: formData.gender,
           password: formData.password,
         })
-      )
-        .then((response) => {
-          console.log("Phản hồi từ registerUser:", response);
-          if (response) {
-            closeModal();
-          }
-        })
-        .catch((error) => {
-          console.error("Đăng ký thất bại:", error); // Hiển thị lỗi khi đăng ký thất bại
-        });
+      ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
+
+      // Tạo tài khoản trên database (nếu cần)
+      await createAccount(formData);
+
+      alert("Đăng ký thành công!"); // Hiển thị thông báo thành công
+      closeModal(); // Đóng modal
+    } catch (error) {
+      console.error("Đăng ký thất bại:", error);
+
+      // Xử lý lỗi từ Firebase
+      if (error && error === "auth/email-already-in-use") {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email này đã được sử dụng. Vui lòng chọn email khác.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          global: "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.",
+        }));
+      }
+    } finally {
+      setIsSubmitting(false); // Kết thúc trạng thái chờ
     }
   };
 
-  const renderErrorMessage = (error) => {
-    switch (error) {
-      case "auth/email-already-in-use":
-        return "Email này đã được sử dụng.";
-      default:
-        return "Đăng ký thất bại. Vui lòng thử lại.";
-    }
-  };
-
+  // Xử lý hiệu ứng đóng modal
   const handleClose = () => {
-    setIsClosing(true);
+    setIsClosing(true); // Bật hiệu ứng fade-out
     setTimeout(() => {
-      closeModal();
+      closeModal(); // Đóng modal sau 300ms
     }, 300);
   };
 
@@ -184,6 +212,8 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
               onBlur={(e) => (e.target.type = "text")}
               value={formData.birthDate}
               onChange={handleChange}
+              min="1900-01-01"
+              max="2024-12-31"
             />
 
             <div className="checkbox-group">
@@ -270,20 +300,22 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
             {errors.acceptTerms && (
               <p className="error-message">{errors.acceptTerms}</p>
             )}
-            {error && (
-              <p className="error-message">{renderErrorMessage(error)}</p>
-            )}
+            {errors.global && <p className="error-message">{errors.global}</p>}
+
             <button
               type="button"
               className="submit-button"
               onClick={handleSubmit}
+              disabled={isSubmitting} // Hiển thị trạng thái chờ
             >
-              Đăng ký
+              {isSubmitting ? (
+                <FontAwesomeIcon icon={faSpinner} spin />
+              ) : (
+                "Đăng ký"
+              )}
             </button>
           </div>
         </form>
-
-        {error && <p className="error-message">{renderErrorMessage(error)}</p>}
 
         <button onClick={handleClose} className="close-button">
           <FontAwesomeIcon icon={faXmark} />

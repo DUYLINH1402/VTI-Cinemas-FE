@@ -2,14 +2,19 @@ import {
   fetchMoviesFromFirebase,
   fetchCarouselDataFromFirebase,
   getAccountFromFirebase,
+  createAccountToFirebase,
+  getAccountByEmailFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
   fetchCarouselDataFromSQL,
   fetchAccountFromSQL,
+  createAccountToSQL,
+  fetchAccountByEmailFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
+
 // Hàm lấy dữ liệu Account
 export const fetchAccount = async (account_id) => {
   return useFirebase
@@ -29,5 +34,15 @@ export const fetchCarouselData = async () => {
     : await fetchCarouselDataFromSQL();
 };
 
+// Hàm tạo Account mới
+export const createAccount = async (formData) => {
+  return useFirebase
+    ? await createAccountToFirebase(formData)
+    : await createAccountToSQL(formData);
+};
 
-
+export const fetchAccountByEmail = async (email) => {
+  return useFirebase
+    ? await getAccountByEmailFromFirebase(email)
+    : await fetchAccountByEmailFromSQL(email);
+};

@@ -37,8 +37,8 @@
         width: 100%;
         .header__nav {
           display: flex;
+          white-space: nowrap; /* Ngăn các mục xuống dòng */
           align-items: center;
-
           li {
             .dropdown {
               display: inline-block;
@@ -81,13 +81,6 @@
               font-family: "Poppins", sans-serif;
               font-size: 1.6rem;
             }
-            // .search-icon {
-            //   position: absolute;
-            //   width: 30px;
-            //   height: 30px;
-            //   top: 20px;
-            //   left: 50%;
-            // }
           }
         }
         // Chọn Dropdow
@@ -100,23 +93,33 @@
         }
       }
       .header-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
         flex: 1;
-        .user-info {
-          position: absolute;
-          top: 20px;
-          right: 20px;
-          display: flex;
-          align-items: center;
-          .ant-avatar > img {
-          }
-          &:hover {
-            cursor: pointer;
+        .login-actions {
+          .user-info {
+            position: absolute;
+            top: 25px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            .ant-avatar > img {
+            }
+            &:hover {
+              cursor: pointer;
+            }
+            .user-name {
+              max-width: 135px;
+              margin-right: 8px;
+            }
           }
         }
       }
     }
   }
 }
+
 .support__icon {
   position: fixed;
   bottom: 10px;

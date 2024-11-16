@@ -10,6 +10,7 @@ import { Dropdown, Menu, Avatar } from "antd";
 import LoginModal from "./../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
+import { resetError } from "../../../store/authSlice";
 
 export const Header = () => {
   const [modalType, setModalType] = useState(null);
@@ -17,11 +18,15 @@ export const Header = () => {
   const auth = useSelector((state) => state.auth || {});
   const isLoggedIn = auth.isLoggedIn || false;
   const user = auth.user;
-
+  const [error, setError] = useState("");
   const openLoginModal = () => setModalType("login");
   const openRegisterModal = () => setModalType("register");
   const openForgotPasswordModal = () => setModalType("forgotPassword");
-  const closeModal = () => setModalType(null);
+  const closeModal = () => {
+    setError(""); // Reset lỗi
+    dispatch(resetError()); // Reset lỗi trong Redux
+    setModalType(null);
+  };
 
   useEffect(() => {
     window.onscroll = function () {

@@ -10,13 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import google from "../../assets/icon/google.svg";
 import facebook from "../../assets/icon/facebook.svg";
-import {
-  faXmark,
-  faEye,
-  faEyeSlash,
-  // faGoogle,
-  // faFacebook,
-} from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import {
   validateEmailOrPhone,
   validatePassword,
@@ -96,22 +90,6 @@ const LoginModal = ({
     }
   };
 
-  // Hàm để chuyển mã lỗi thành thông báo cụ thể
-  const renderErrorMessage = (error) => {
-    console.log("Giá trị của error:", error); // Kiểm tra giá trị của error từ Redux
-    switch (error) {
-      case "auth/user-not-found":
-        return "Email không tồn tại.";
-      case "auth/wrong-password":
-        return "Mật khẩu không chính xác.";
-      case "auth/invalid-email":
-        return "Email không đúng định dạng.";
-      case "auth/too-many-requests":
-        return "Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.";
-      default:
-        return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
-    }
-  };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -123,18 +101,18 @@ const LoginModal = ({
     }
   }, [user, navigate]);
 
-  const handleEmailPasswordLogin = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    dispatch(loginUser({ email, password }));
-  };
+  // const handleEmailPasswordLogin = (e) => {
+  //   e.preventDefault();
+  //   const email = e.target.email.value;
+  //   const password = e.target.password.value;
+  //   dispatch(loginUser({ email, password }));
+  // };
 
   const handleGoogleLogin = () => {
     dispatch(googleLogin())
       .unwrap()
       .then((response) => {
-        const { accessToken, ...user } = response; // Giả sử `response` chứa `accessToken` và `user`
+        const { accessToken, ...user } = response;
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
@@ -149,7 +127,7 @@ const LoginModal = ({
     dispatch(facebookLogin())
       .unwrap()
       .then((response) => {
-        const { accessToken, ...user } = response; // Giả sử `response` chứa `accessToken` và `user`
+        const { accessToken, ...user } = response;
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
@@ -208,9 +186,7 @@ const LoginModal = ({
               </label>
             </div>
             {/* Hiển thị lỗi đăng nhập nếu có */}
-            {error && (
-              <p className="error-message">{renderErrorMessage(error)}</p>
-            )}
+            {error && <p className="error-message">{error}</p>}
             {/* Nút đăng nhập */}
 
             <button

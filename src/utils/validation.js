@@ -4,7 +4,7 @@
 export const validateEmailOrPhone = (value) => {
   if (!value) return "Vui lòng nhập email hoặc số điện thoại";
 
-  const emailPattern = /\S+@\S+\.\S+/; // Định dạng email cơ bản
+  const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // Định dạng email cơ bản
   const phonePattern = /^[0-9]{10}$/; // Định dạng cho số điện thoại 10 chữ số
 
   if (emailPattern.test(value)) {
@@ -61,4 +61,21 @@ export const validateConfirmPassword = (password, confirmPassword) => {
   if (confirmPassword !== password) return "Mật khẩu không khớp";
 
   return "";
+};
+
+// Hàm để chuyển mã lỗi thành thông báo cụ thể
+export const renderErrorMessage = (error) => {
+  console.log("Giá trị của error:", error); // Kiểm tra giá trị của error từ Redux
+  switch (error) {
+    case "auth/user-not-found":
+      return "Email không tồn tại.";
+    case "auth/wrong-password":
+      return "Mật khẩu không chính xác.";
+    case "auth/invalid-email":
+      return "Email không đúng định dạng.";
+    case "auth/too-many-requests":
+      return "Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.";
+    default:
+      return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
+  }
 };

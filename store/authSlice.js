@@ -7,29 +7,34 @@ import {
   loginWithFacebook,
 } from "../src/services/authService";
 
-// Async actions cho các chức năng đăng ký và đăng nhập
+// Async actions cho các chức năng đăng ký
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
+  // Hàm async để đăng ký người dùng với email và mật khẩu
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await registerWithEmailAndPassword(email, password);
-      console.log("registerUser Ok");
-      return response.user;
+      // console.log("registerUser Ok"); // Log khi đăng ký thành công
+      return response.user; // Trả về thông tin người dùng khi thành công
     } catch (error) {
-      return rejectWithValue(error.code); // Trả về mã lỗi từ Firebase nếu thất bại
+      return rejectWithValue(error.code); // Trả về mã lỗi nếu thất bại
     }
   }
 );
 
-// Async actions cho các chức năng đăng ký và đăng nhập
+// Async actions cho các chức năng đăng nhập
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
+  // Hàm async để đăng nhập người dùng với email và mật khẩu
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await loginWithEmailAndPassword(email, password);
-      return response;
+      if (response.error) {
+        return rejectWithValue(response.error); // Truyền lỗi vào Redux nếu có
+      }
+      return response; // Trả về thông tin đăng nhập khi thành công
     } catch (error) {
-      return rejectWithValue(error.code);
+      return rejectWithValue(error.code || error.message); // Trả về mã lỗi nếu thất bại
     }
   }
 );
@@ -37,7 +42,7 @@ export const loginUser = createAsyncThunk(
 // Async action đăng nhập bằng Google
 export const googleLogin = createAsyncThunk("auth/googleLogin", async () => {
   const response = await loginWithGoogle();
-  return response;
+  return response; // Trả về thông tin đăng nhập qua Google
 });
 
 // Async action đăng nhập bằng Facebook
@@ -45,30 +50,39 @@ export const facebookLogin = createAsyncThunk(
   "auth/facebookLogin",
   async () => {
     const response = await loginWithFacebook();
-    return response;
+    return response; // Trả về thông tin đăng nhập qua Facebook
   }
 );
 
+// Tạo slice cho auth để quản lý trạng thái đăng nhập
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null,
-    token: null,
-    status: "idle",
-    error: null,
+    user: null, // Thông tin người dùng
+    token: null, // Token xác thực
+    status: "idle", // Trạng thái xử lý (idle, loading, succeeded, failed)
+    error: null, // Thông tin lỗi (nếu có)
     isLoggedIn: false, // Trạng thái đăng nhập
   },
   reducers: {
-    // Logout action
+    // Action xử lý khi đăng nhập thất bại
+    loginFailed: (state, action) => {
+      state.error = action.payload; // Lưu lỗi trong Redux state
+    },
+    // Action reset lỗi về null
+    resetError: (state) => {
+      state.error = null;
+    },
+    // Logout action: Xóa thông tin người dùng và token khi đăng xuất
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
       localStorage.removeItem("authToken"); // Xóa token khỏi local storage
-      localStorage.removeItem("user"); // Xóa thông tin user khỏi localStorage nếu có
-      state.error = null;
+      localStorage.removeItem("user"); // Xóa thông tin user khỏi local storage
+      state.error = null; // Reset lỗi
     },
-    // Action setAuth để thiết lập trạng thái đăng nhập
+    // Action setAuth: Thiết lập trạng thái đăng nhập
     setAuth: (state, action) => {
       const { user, token } = action.payload;
       state.user = user;
@@ -78,7 +92,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Đăng nhập bằng email/password thành công
+      // Khi đăng nhập bằng email/password thành công
       .addCase(loginUser.fulfilled, (state, action) => {
         const { uid, email, displayName, photoURL, accessToken } =
           action.payload;
@@ -88,17 +102,18 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào localStorage
+        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
       })
+      // Khi đăng nhập bằng email/password thất bại
       .addCase(loginUser.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.payload; // Lưu lỗi vào Redux state
       })
-      // Đăng nhập bằng Google thành công
+      // Khi đăng nhập bằng Google thành công
       .addCase(googleLogin.fulfilled, (state, action) => {
         const { uid, email, displayName, photoURL, accessToken } =
           action.payload;
@@ -108,17 +123,18 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào localStorage
+        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
       })
+      // Khi đăng nhập bằng Google thất bại
       .addCase(googleLogin.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.payload; // Lưu lỗi nếu đăng nhập thất bại
       })
-      // Đăng nhập bằng Facebook thành công
+      // Khi đăng nhập bằng Facebook thành công
       .addCase(facebookLogin.fulfilled, (state, action) => {
         const { uid, email, displayName, photoURL, accessToken } =
           action.payload;
@@ -128,32 +144,22 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào localStorage
+        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
       })
+      // Khi đăng nhập bằng Facebook thất bại
       .addCase(facebookLogin.rejected, (state, action) => {
-        state.error = action.payload;
-      })
-      // Xử lý khi đăng ký thành công
-      .addCase(registerUser.fulfilled, (state, action) => {
-        const { email, displayName } = action.payload;
-        state.user = { email, displayName };
-        state.isLoggedIn = true;
-        state.error = null; // Xóa lỗi nếu đăng ký thành công
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        // Kiểm tra xem action.payload có tồn tại không
-        state.error = action.payload || "Đã xảy ra lỗi khi đăng ký";
+        state.error = action.payload; // Lưu lỗi nếu đăng nhập thất bại
       });
   },
 });
 
-// Xuất action logout để có thể sử dụng trong các component
-export const { logout, setAuth } = authSlice.actions;
+// Xuất action logout và setAuth để có thể sử dụng trong các component
+export const { logout, setAuth, loginFailed, resetError } = authSlice.actions;
 
 // Xuất reducer để thêm vào store chính của ứng dụng
 export default authSlice.reducer;

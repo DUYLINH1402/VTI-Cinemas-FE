@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
-import { CardInfMovie } from "../../../components/Cards/Cards";
-import "./../MovieInf/MovieInf.scss";
+import { CardSeats } from "../../components/Cards/Cards";
+import "./Booking_Seat.scss";
+import { fetchMovies } from "../../services/dataService";
 import { useParams } from "react-router-dom";
-import { fetchMovies } from "../../../services/dataService";
 
-export const MovieInf = () => {
+export const Booking_Seat = () => {
   const [movie, setMovie] = useState(null);
   const { movie_id } = useParams();
 
-  // Call API
   useEffect(() => {
-    const fetchMoviesData = async () => {
+    const fetchMovieData = async () => {
       try {
         const data = await fetchMovies();
-        const findMovieById = Object.values(data).find(
+        const findMovieById = data.find(
           (movie) => movie.movie_id === parseInt(movie_id)
         );
         setMovie(findMovieById);
@@ -21,8 +20,7 @@ export const MovieInf = () => {
         console.error("Error fetching data:", error);
       }
     };
-
-    fetchMoviesData();
+    fetchMovieData();
     window.scrollTo(0, 0);
   }, [movie_id]);
 
@@ -30,9 +28,7 @@ export const MovieInf = () => {
 
   return (
     <>
-      <div className="content">
-        {movie ? <CardInfMovie movie={movie} /> : ""}
-      </div>
+      <div className="content">{movie ? <CardSeats item={movie} /> : ""}</div>
     </>
   );
 };

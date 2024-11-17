@@ -7,7 +7,7 @@ import { Pagination } from "antd";
 export const Cinemas = () => {
   const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const moviesPerPage = 10; // Số lượng phim mỗi trang
+  const moviesPerPage = 5; // Số lượng phim mỗi trang
 
   // Call API
   useEffect(() => {

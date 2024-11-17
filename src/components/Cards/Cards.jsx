@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./card.scss";
 import { Link } from "react-router-dom";
 
@@ -119,46 +120,66 @@ export const CardInfMovie = ({ movie }) => {
 };
 
 export const CardSeats = ({ item }) => {
+  const [count, setCount] = useState(600); // Đặt thời gian ban đầu là 600 giây (10 phút)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCount((prevCount) => prevCount - 1);
+    }, 1000);
+    // Hàm cleanup để clear interval khi component unmount hoặc khi count về 0
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (count === 0) {
+      // Chuyển hướng về trang chủ khi count bằng 0
+      window.location.href = "/";
+    }
+  }, [count]);
+
   return (
     <>
       <div className="card_seat">
         <div className="status_seat">
           <img
-            src="src\assets\image\seat-unselect-normal.png"
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
             alt="Ghế trống"
           />
           <p>Ghế trống</p>
           <img
-            src="src\assets\image\seat-select-normal.png"
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
             alt="Ghế đang chọn"
           />
           <p>Ghế đang chọn</p>
 
           <img
-            src="src\assets\image\seat-process-normal.png"
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-process-normal_lzfigz.png"
             alt="Ghế Ghế đang giữ"
           />
           <p>Ghế đang giữ</p>
 
           <img
-            src="src\assets\image\seat-buy-normal.png"
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-buy-normal_ryk3xl.png"
             alt="Ghế ghế đã bán"
           />
           <p>Ghế đã bán</p>
 
           <img
-            src="src\assets\image\seat-set-normal.png"
+            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-set-normal_mmdu0h.png"
             alt="Ghế ghế đặt trước"
           />
           <p>Ghế đặt trước</p>
         </div>
         <div className="content_tab">
           <div className="col1">
-            <img src="src\assets\image\ic-screen.png" alt="màn chiếu" />
+            <img
+              src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/ic-screen_qsvlrn.png"
+              alt="màn chiếu"
+            />
             <div className="row_seat">
               <div>
                 <img
-                  src="src\assets\image\seat-unselect-normal.png"
+                  src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
                   alt="Ghế ghế chưa đặt"
                 />
               </div>
@@ -167,21 +188,21 @@ export const CardSeats = ({ item }) => {
               <div className="detail">
                 <div>
                   <img
-                    src="src\assets\image\seat-unselect-normal.png"
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
                     alt="Ghế thường"
                   />
                   <p>Ghế thường</p>
                 </div>
                 <div>
                   <img
-                    src="src\assets\image\seat-unselect-vip.png"
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png"
                     alt="Ghế Vip"
                   />
                   <p>Ghế Vip</p>
                 </div>
                 <div>
                   <img
-                    src="src\assets\image\seat-unselect-double.png"
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png"
                     alt="Ghế Đôi"
                   />
                   <p>Ghế Đôi</p>
@@ -193,7 +214,9 @@ export const CardSeats = ({ item }) => {
               </div>
               <div className="timeout">
                 <h2>Thời gian</h2>
-                <h3>10:00</h3>
+                <h3>
+                  {Math.floor(count / 60)}:{count % 60}
+                </h3>
               </div>
             </div>
           </div>
@@ -202,7 +225,7 @@ export const CardSeats = ({ item }) => {
             <div className="detail_movie">
               <img src={item.image} alt={item.movie_name} />
               <h1>{item.movie_name}</h1>
-              <p>Hình thức: 2D</p> <br />
+              <p>Hình thức: 2D</p>
               <p>Thể loại: {item.genre}</p>
               <p>Thời lượng: {item.duration} phút</p>
               <p>Rạp chiếu: </p>

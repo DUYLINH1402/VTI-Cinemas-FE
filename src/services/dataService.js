@@ -4,6 +4,7 @@ import {
   getAccountFromFirebase,
   createAccountToFirebase,
   getAccountByEmailFromFirebase,
+  fetchMoviesByTabFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -11,6 +12,7 @@ import {
   fetchAccountFromSQL,
   createAccountToSQL,
   fetchAccountByEmailFromSQL,
+  fetchMoviesByTabFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
@@ -27,6 +29,19 @@ export const fetchMovies = async () => {
     ? await fetchMoviesFromFirebase()
     : await fetchMoviesFromSQL();
 };
+
+// Hàm lấy dữ liệu Movies (hỗ trợ theo tab)
+export const fetchMoviesByTab = async (tab) => {
+  try {
+    return useFirebase
+      ? await fetchMoviesByTabFromFirebase(tab)
+      : await fetchMoviesByTabFromSQL(tab);
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    return [];
+  }
+};
+
 // Hàm lấy dữ liệu cho Carousel
 export const fetchCarouselData = async () => {
   return useFirebase

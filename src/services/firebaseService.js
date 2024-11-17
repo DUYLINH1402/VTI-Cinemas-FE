@@ -27,10 +27,51 @@ export const getAccountFromFirebase = async (account_id) => {
 };
 // Hàm lấy dữ liệu cho Movies
 export const fetchMoviesFromFirebase = async () => {
-  const response = await axios.get(
-    "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-  );
-  return Object.values(response.data);
+  try {
+    const response = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
+    );
+    return Object.values(response.data); // Chuyển đổi thành array nếu dữ liệu là object
+  } catch (error) {
+    console.error("Error fetching movies from Firebase:", error);
+    throw error; // Throw để các hàm gọi biết lỗi
+  }
+};
+// Hàm lấy dữ liệu cho Movies bằng 3 Nút lọc
+export const fetchMoviesByTabFromFirebase = async (tab) => {
+  try {
+    // Lấy toàn bộ dữ liệu từ Firebase
+    const response = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
+    );
+
+    const movies = response.data ? Object.values(response.data) : []; // Chuyển từ object sang array
+    const currentDate = new Date(); // Ngày hiện tại để so sánh
+
+    // Lọc dữ liệu dựa trên tab
+    let filteredMovies = [];
+    if (tab === "upcoming") {
+      // Phim sắp chiếu: release_date > currentDate
+      filteredMovies = movies.filter((movie) => {
+        const releaseDate = new Date(movie.release_date);
+        return releaseDate > currentDate;
+      });
+    } else if (tab === "nowShowing") {
+      // Phim đang chiếu: release_date <= currentDate
+      filteredMovies = movies.filter((movie) => {
+        const releaseDate = new Date(movie.release_date);
+        return releaseDate <= currentDate;
+      });
+    } else if (tab === "specialShows") {
+      // Suất chiếu đặc biệt: is_special_show === true
+      filteredMovies = movies.filter((movie) => movie.is_special_show);
+    }
+
+    return filteredMovies;
+  } catch (error) {
+    console.error(`Error fetching ${tab} movies from Firebase:`, error);
+    throw error;
+  }
 };
 
 // Hàm lấy dữ liệu cho Carousel

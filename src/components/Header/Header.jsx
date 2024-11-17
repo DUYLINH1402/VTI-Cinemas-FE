@@ -11,17 +11,18 @@ import LoginModal from "./../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 import { resetError } from "../../../store/authSlice";
+// import handleMemberClick from "../../utils/handleAction";
 
 export const Header = () => {
   const [modalType, setModalType] = useState(null);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth || {});
-  const isLoggedIn = auth.isLoggedIn || false;
   const user = auth.user;
   const [error, setError] = useState("");
   const openLoginModal = () => setModalType("login");
   const openRegisterModal = () => setModalType("register");
   const openForgotPasswordModal = () => setModalType("forgotPassword");
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const closeModal = () => {
     setError(""); // Reset lỗi
     dispatch(resetError()); // Reset lỗi trong Redux
@@ -50,6 +51,15 @@ export const Header = () => {
   }, []);
   const onLogout = () => {
     handleLogout(dispatch); // Truyền dispatch vào handleLogout
+  };
+  const handleMemberClick = (isLoggedIn, setModalType) => {
+    if (isLoggedIn) {
+      // Nếu đã đăng nhập, chuyển đến trang /members
+      window.location.href = "/members";
+    } else {
+      // Nếu chưa đăng nhập, mở modal đăng nhập
+      openLoginModal();
+    }
   };
   const userMenu = (
     <Menu>
@@ -157,6 +167,10 @@ export const Header = () => {
                   <NavLink
                     to="/members"
                     className={({ isActive }) => (isActive ? "active" : "")}
+                    onClick={(e) => {
+                      e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+                      handleMemberClick(isLoggedIn, setModalType);
+                    }}
                   >
                     Thành viên
                   </NavLink>

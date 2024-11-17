@@ -1,11 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth"; // Import Firebase Authentication
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBflLdTkessKwOAOOsmoj6HyP6VSaLJseI",
   authDomain: "vticinema.firebaseapp.com",
@@ -23,4 +20,7 @@ const app = initializeApp(firebaseConfig);
 // Khởi tạo đối tượng db cho Realtime Database
 const db = getDatabase(app);
 
-export default { db };
+// Khởi tạo đối tượng auth cho Firebase Authentication
+const auth = getAuth(app); // Đây là đối tượng để sử dụng Firebase Authentication
+
+export default { db, auth };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Movies.scss";
 import { CardMovie } from "../../components/Cards/Cards";
-import { fetchMovies } from "../../../src/services/dataService";
+import { fetchMoviesByTab } from "../../../src/services/dataService";
 import { Pagination } from "antd";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton"; // Import Skeleton để hiển thị khi tải dữ liệu
 
@@ -9,24 +9,27 @@ export const Movies = () => {
   const [movies, setMovies] = useState([]); // State lưu danh sách phim
   const [currentPage, setCurrentPage] = useState(1); // State lưu trang hiện tại
   const moviesPerPage = 10; // Số lượng phim hiển thị trên mỗi trang
+  const [activeTab, setActiveTab] = useState("nowShowing"); // Tab hiện tại (default là "PHIM ĐANG CHIẾU")
+
   const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
 
   // Gọi API để lấy danh sách phim khi component được render
   useEffect(() => {
-    const fetchMoviesData = async () => {
+    const fetchMoviesDataByTab = async () => {
+      setLoading(true);
       try {
-        const data = await fetchMovies(); // Gọi API lấy dữ liệu phim
-        setMovies(data); // Cập nhật state movies với dữ liệu nhận được
+        const data = await fetchMoviesByTab(activeTab); // Lấy dữ liệu theo tab
+        setMovies(data);
       } catch (error) {
-        console.error("Error fetching data:", error); // Log lỗi nếu có
+        console.error("Error fetching movies:", error);
       } finally {
-        setLoading(false); // Tắt trạng thái loading Skeleton
+        setLoading(false);
       }
     };
 
-    fetchMoviesData();
+    fetchMoviesDataByTab();
     window.scrollTo(0, 0); // Cuộn về đầu trang khi thay đổi trang
-  }, [currentPage]); // useEffect chạy lại khi currentPage thay đổi
+  }, [activeTab]); // useEffect chạy lại khi currentPage thay đổi
 
   // Tính toán danh sách phim hiển thị trên trang hiện tại
   const indexOfLastMovie = currentPage * moviesPerPage; // Vị trí phim cuối cùng trên trang hiện tại
@@ -41,9 +44,24 @@ export const Movies = () => {
       <div className="content">
         {/* Các nút lựa chọn loại phim */}
         <div className="movie-buttons">
-          <button>PHIM SẮP CHIẾU</button>
-          <button>PHIM ĐANG CHIẾU</button>
-          <button>SUẤT CHIẾU ĐẶC BIỆT</button>
+          <button
+            className={activeTab === "upcoming" ? "active" : ""}
+            onClick={() => setActiveTab("upcoming")}
+          >
+            PHIM SẮP CHIẾU
+          </button>
+          <button
+            className={activeTab === "nowShowing" ? "active" : ""}
+            onClick={() => setActiveTab("nowShowing")}
+          >
+            PHIM ĐANG CHIẾU
+          </button>
+          <button
+            className={activeTab === "specialShows" ? "active" : ""}
+            onClick={() => setActiveTab("specialShows")}
+          >
+            SUẤT CHIẾU ĐẶC BIỆT
+          </button>
         </div>
 
         {/* Phần nội dung danh sách phim */}

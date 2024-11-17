@@ -1,4 +1,3 @@
-// App.jsx
 import "./App.scss";
 import { RouterPage } from "./routes/AppRoutes";
 import React, { useEffect } from "react";
@@ -19,10 +18,10 @@ function AppInitializer() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Kiểm tra `authToken` từ localStorage khi ứng dụng tải lên
+    // Kiểm tra authToken từ localStorage khi ứng dụng tải lên
     const token = localStorage.getItem("authToken");
     if (token) {
-      // Giả sử bạn có thể lấy lại user từ token hoặc localStorage
+      // Có thể lấy lại user từ token hoặc localStorage
       const user = JSON.parse(localStorage.getItem("user")) || null;
       dispatch(setAuth({ user, token })); // Gọi setAuth để cập nhật Redux state
     }

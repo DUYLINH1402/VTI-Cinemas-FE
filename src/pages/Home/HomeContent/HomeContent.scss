@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px; // Khoảng cách giữa nút và banner
+    margin-top: 50px; // Khoảng cách giữa nút và banner
 
     button {
       min-width: 216px;
@@ -43,7 +43,7 @@
     }
   }
 
-  .home__content {
+  .home__movie {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(
@@ -55,7 +55,7 @@
     justify-items: center; // Căn giữa các thẻ phim
 
     /* Giới hạn chiều cao hiển thị cho 2 hàng */
-    max-height: 980px;
+    max-height: 1025px;
     overflow-y: hidden;
 
     // .card__movie {

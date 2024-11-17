@@ -7,6 +7,7 @@ import { Cinemas } from "../pages/Cinemas/Cinemas";
 import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
 import Members from "../pages/Members/Members";
 import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
+import FullPageSkeleton from "../components/Skeleton/FullPageSkeleton";
 
 // Create react router dom
 const routerPage = createBrowserRouter([
@@ -38,6 +39,10 @@ const routerPage = createBrowserRouter([
       {
         path: "/booking_seat/:movie_id",
         element: <Booking_Seat />,
+      },
+      {
+        path: "/events",
+        element: <FullPageSkeleton />,
       },
     ],
   },

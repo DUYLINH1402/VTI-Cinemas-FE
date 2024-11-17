@@ -83,12 +83,12 @@ export const CardInfMovie = ({ movie }) => {
         <div className="row">
           <div className="introduce">
             <h1>{movie.movie_name}</h1>
-            <p>Mô tả: {movie.description}</p>
             <p>Thời gian: {movie.duration} phút</p>
             <p>Thể loại: {movie.genre}</p>
             <p>Đạo diễn: {movie.director} </p>
             <p>Diễn viên: {movie.actor}</p>
             <p>Ngôn ngữ: {movie.language}</p>
+            <p>Mô tả: {movie.description}</p>
           </div>
         </div>
       </div>

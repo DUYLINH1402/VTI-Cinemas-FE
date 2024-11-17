@@ -5,7 +5,11 @@ import { Layout } from "./../components/Layout/Layout";
 import { Movies } from "../pages/Movies/Movies";
 import { Cinemas } from "../pages/Cinemas/Cinemas";
 import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
+<<<<<<< HEAD
+import Members from "../pages/Members/Members";
+=======
 import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
+>>>>>>> f57af03eb593efcb337fa5081d57140861b2f780
 
 // Create react router dom
 const routerPage = createBrowserRouter([
@@ -29,6 +33,10 @@ const routerPage = createBrowserRouter([
       {
         path: "/movieinf/:movie_id", // Trang thông tin phim
         element: <MovieInf />,
+      },
+      {
+        path: "/Members", // Trang thông tin phim
+        element: <Members />,
       },
       {
         path: "/booking_seat/:movie_id",

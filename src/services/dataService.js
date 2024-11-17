@@ -40,7 +40,7 @@ export const createAccount = async (formData) => {
     ? await createAccountToFirebase(formData)
     : await createAccountToSQL(formData);
 };
-
+// Hàm lấy Account By email
 export const fetchAccountByEmail = async (email) => {
   return useFirebase
     ? await getAccountByEmailFromFirebase(email)

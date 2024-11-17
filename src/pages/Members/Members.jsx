@@ -3,22 +3,20 @@ import "./Members.modul.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-
 const Members = () => {
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
+  const navigate = useNavigate();
   useEffect(() => {
-    if (!token) {
+    if (!isLoggedIn) {
       // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập hoặc trang chủ
       // Nên sử dụng Token hơn là Trạng thái isLoggedIn trong Redux
       navigate("/");
     }
-  }, [token]);
+  }, [isLoggedIn]);
+
   return (
-    <div className="content">
-      <div> {token ? <MemberTabs /> : navigate("/")}</div>
-    </div>
+    <div className="content">{isLoggedIn ? <MemberTabs /> : navigate("/")}</div>
   );
 };
 

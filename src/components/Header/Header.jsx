@@ -11,9 +11,12 @@ import LoginModal from "./../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 import { resetError } from "../../../store/authSlice";
+import { useNavigate } from "react-router-dom";
 // import handleMemberClick from "../../utils/handleAction";
 
 export const Header = () => {
+  const token = localStorage.getItem("authToken");
+  const navigate = useNavigate();
   const [modalType, setModalType] = useState(null);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth || {});
@@ -28,7 +31,6 @@ export const Header = () => {
     dispatch(resetError()); // Reset lỗi trong Redux
     setModalType(null);
   };
-
   useEffect(() => {
     window.onscroll = function () {
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
@@ -50,12 +52,13 @@ export const Header = () => {
     }
   }, []);
   const onLogout = () => {
+    localStorage.removeItem("authToken");
     handleLogout(dispatch); // Truyền dispatch vào handleLogout
   };
-  const handleMemberClick = (isLoggedIn, setModalType) => {
-    if (isLoggedIn) {
+  const handleMemberClick = (token, setModalType) => {
+    if (token) {
       // Nếu đã đăng nhập, chuyển đến trang /members
-      window.location.href = "/members";
+      navigate("/Members");
     } else {
       // Nếu chưa đăng nhập, mở modal đăng nhập
       openLoginModal();
@@ -169,7 +172,7 @@ export const Header = () => {
                     className={({ isActive }) => (isActive ? "active" : "")}
                     onClick={(e) => {
                       e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
-                      handleMemberClick(isLoggedIn, setModalType);
+                      handleMemberClick(token, setModalType);
                     }}
                   >
                     Thành viên

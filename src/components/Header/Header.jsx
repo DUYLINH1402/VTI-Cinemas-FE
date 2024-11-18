@@ -12,7 +12,6 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 import { resetError } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
-// import handleMemberClick from "../../utils/handleAction";
 
 export const Header = () => {
   const token = localStorage.getItem("authToken");
@@ -94,60 +93,11 @@ export const Header = () => {
             <div className="header-center">
               <ul className="header__nav">
                 <li>
-                  <div className="dropdown">
-                    <select id="rap" name="rap">
-                      <option>Chọn vị trí rạp</option>
-                      <optgroup label="Miền Bắc">
-                        <option value="hanoi">VTI Hà Nội Cinema</option>
-                        <option value="thanglong">VTI Thăng Long Movie</option>
-                        <option value="royalhanoi">
-                          VTI Royal Hanoi Theater
-                        </option>
-                        <option value="westlake">VTI West Lake Cinema</option>
-                        <option value="redriver">
-                          VTI Red River Film House
-                        </option>
-                      </optgroup>
-                      <optgroup label="Miền Trung">
-                        <option value="danang">VTI Đà Nẵng Star Cinema</option>
-                        <option value="hue">VTI Huế Heritage Cinema</option>
-                        <option value="donghoi">
-                          VTI Đồng Hới Film Center
-                        </option>
-                        <option value="nhatrang">
-                          VTI Nha Trang Sun Theater
-                        </option>
-                        <option value="pleiku">VTI Pleiku Movies</option>
-                      </optgroup>
-                      <optgroup label="Miền Nam">
-                        <option value="saigon">VTI Sài Gòn Film House</option>
-                        <option value="mekong">VTI Mekong Movie Center</option>
-                        <option value="vungtau">
-                          VTI Vũng Tàu Ocean Cinema
-                        </option>
-                        <option value="cantho">
-                          VTI Cần Thơ Riverside Theater
-                        </option>
-                        <option value="bienhoa">VTI Biên Hòa Galaxy</option>
-                      </optgroup>
-                    </select>
-                  </div>
-                </li>
-
-                <li>
                   <NavLink
                     to="/"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
                     Trang chủ
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/cinemas"
-                    className={({ isActive }) => (isActive ? "active" : "")}
-                  >
-                    Lịch chiếu theo rạp
                   </NavLink>
                 </li>
                 <li>
@@ -176,6 +126,14 @@ export const Header = () => {
                     }}
                   >
                     Thành viên
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    to="/contact"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Liên hệ
                   </NavLink>
                 </li>
                 <li>

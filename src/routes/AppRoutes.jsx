@@ -3,7 +3,6 @@ import { Home } from "../pages/Home/Home";
 import { ErrorPage } from "../pages/Error/ErrorPage";
 import { Layout } from "./../components/Layout/Layout";
 import { Movies } from "../pages/Movies/Movies";
-import { Cinemas } from "../pages/Cinemas/Cinemas";
 import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
 import Members from "../pages/Members/Members";
 import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
@@ -19,10 +18,6 @@ const routerPage = createBrowserRouter([
       {
         path: "/", // Home page
         element: <Home />,
-      },
-      {
-        path: "/cinemas", // Trang Lịch chiếu theo rạp
-        element: <Cinemas />,
       },
       {
         path: "/movies", // Movies page

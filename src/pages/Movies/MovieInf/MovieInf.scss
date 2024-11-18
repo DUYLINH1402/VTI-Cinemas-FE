@@ -31,7 +31,6 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-weight: bold;
         font-size: 1.6rem;
         transition: background-color 0.3s ease;
         text-align: center;
@@ -50,7 +49,7 @@
         margin-bottom: 20px;
         h1 {
           color: #03599d;
-          font-size: 3rem;
+          font-size: 2.5rem;
           margin-bottom: 10px;
         }
 
@@ -68,37 +67,44 @@
     border-bottom: 1px solid #ddd;
     margin-top: 20px;
     h2 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       color: #03599d;
       margin-bottom: 10px;
-      text-decoration: underline;
     }
     iframe {
+      border: none;
+      outline: none;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin: 20px;
     }
   }
 
   .comment {
-    margin-top: 20px;
+    margin-top: 50px;
     h2 {
       font-size: 2rem;
       color: #03599d;
       margin-bottom: 10px;
-      text-decoration: underline;
     }
     textarea {
       padding-top: 10px;
       padding-left: 10px;
+      font-size: 1.6rem;
       width: 90%;
       height: 100px;
     }
     .submit {
       margin-top: 5px;
+      margin-left: 83%;
       button {
-        margin-left: 88%;
+        padding: 10px;
+        border-radius: 8px;
+        min-width: 125px;
+        font-size: 1.6rem;
         &:hover {
-          color: red;
+          background-color: #e64a19;
+          color: rgb(249, 246, 246);
+          cursor: pointer;
         }
       }
     }

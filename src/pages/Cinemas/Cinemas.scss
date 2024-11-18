@@ -1,101 +1,101 @@
-@use "./../../assets/styles/cssBase.scss";
+// @use "./../../assets/styles/cssBase.scss";
 
-.content {
-  font-family: "Poppins", sans-serif;
-  .link__showtimes {
-    margin-top: 20px;
-    display: flex;
-    gap: 20px;
-    border-bottom: 1px solid #ddd;
+// .content {
+//   font-family: "Poppins", sans-serif;
+//   .link__showtimes {
+//     margin-top: 20px;
+//     display: flex;
+//     gap: 20px;
+//     border-bottom: 1px solid #ddd;
 
-    button {
-      width: 200px;
-      padding: 10px 20px;
-      font-size: 1.6rem;
-      background-color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+//     button {
+//       width: 200px;
+//       padding: 10px 20px;
+//       font-size: 1.6rem;
+//       background-color: #fff;
+//       border: none;
+//       border-radius: 5px;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease, transform 0.3s ease;
 
-      &:hover {
-        background-color: #eee;
-        transform: scale(1.05); // Hiệu ứng phóng to nhẹ khi hover
-      }
-    }
+//       &:hover {
+//         background-color: #eee;
+//         transform: scale(1.05); // Hiệu ứng phóng to nhẹ khi hover
+//       }
+//     }
 
-    button > a {
-      color: black;
+//     button > a {
+//       color: black;
 
-      &:hover {
-        color: red;
-      }
-    }
-  }
-  .tab__content {
-    margin-top: 10px;
-    border-bottom: 1px solid #ddd;
-    .card__cinema {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+//       &:hover {
+//         color: red;
+//       }
+//     }
+//   }
+//   .tab__content {
+//     margin-top: 10px;
+//     border-bottom: 1px solid #ddd;
+//     .card__cinema {
+//       display: grid;
+//       grid-template-columns: repeat(2, 1fr);
 
-      .image > img {
-        margin-left: 100px;
-        margin-bottom: 10px;
-        grid-column: 1;
-        object-fit: cover;
-        width: 300px;
-        height: 250;
-        border-radius: 10px;
-      }
-      .row {
-        text-align: left;
-        grid-column: 2;
-        margin-left: -100px;
-        margin-top: 10px;
+//       .image > img {
+//         margin-left: 100px;
+//         margin-bottom: 10px;
+//         grid-column: 1;
+//         object-fit: cover;
+//         width: 300px;
+//         height: 250;
+//         border-radius: 10px;
+//       }
+//       .row {
+//         text-align: left;
+//         grid-column: 2;
+//         margin-left: -100px;
+//         margin-top: 10px;
 
-        .introduce {
-          margin-bottom: 20px;
-          h1 {
-            color: #03599d;
-            font-size: 4rem;
-            margin-bottom: 10px;
+//         .introduce {
+//           margin-bottom: 20px;
+//           h1 {
+//             color: #03599d;
+//             font-size: 4rem;
+//             margin-bottom: 10px;
 
-            &:hover {
-              color: red;
-              text-decoration: underline;
-            }
-          }
+//             &:hover {
+//               color: red;
+//               text-decoration: underline;
+//             }
+//           }
 
-          p {
-            margin-top: 10px;
-            font-size: 1.5rem;
-            min-height: 20px;
-            padding: 5px;
-          }
-        }
+//           p {
+//             margin-top: 10px;
+//             font-size: 1.5rem;
+//             min-height: 20px;
+//             padding: 5px;
+//           }
+//         }
 
-        .showtime {
-          padding: 5px;
-          h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-          }
-          button {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: black;
+//         .showtime {
+//           padding: 5px;
+//           h3 {
+//             font-size: 2rem;
+//             margin-bottom: 10px;
+//           }
+//           button {
+//             font-size: 1.5rem;
+//             margin-bottom: 10px;
+//             color: black;
 
-            &:hover {
-              color: red;
-            }
-          }
-          p {
-            margin-top: 10px;
-            font-size: 1rem;
-          }
-        }
-      }
-    }
-  }
-}
+//             &:hover {
+//               color: red;
+//             }
+//           }
+//           p {
+//             margin-top: 10px;
+//             font-size: 1rem;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

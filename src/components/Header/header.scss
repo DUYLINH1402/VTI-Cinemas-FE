@@ -21,37 +21,36 @@
       padding: 12px;
 
       .header-left {
-        display: flex;
         align-items: center;
         flex: 1;
 
         .header-logo {
           display: inline-block;
-          width: 95%;
+          width: 100%;
           object-fit: cover;
         }
       }
       .header-center {
-        // position: relative;
         flex: 5;
         width: 100%;
         .header__nav {
           display: flex;
           white-space: nowrap; /* Ngăn các mục xuống dòng */
+          justify-content: center;
           align-items: center;
           li {
-            .dropdown {
-              display: inline-block;
-              select {
-                text-align: center;
-                padding: 5px;
-                width: 200px;
-                font-size: 1.5rem;
-                font-family: "Poppins", sans-serif;
-                border: 1px solid #6c6969;
-                border-radius: 8px;
-              }
-            }
+            // .dropdown {
+            //   display: inline-block;
+            //   select {
+            //     text-align: center;
+            //     padding: 5px;
+            //     width: 200px;
+            //     font-size: 1.5rem;
+            //     font-family: "Poppins", sans-serif;
+            //     border: 1px solid #6c6969;
+            //     border-radius: 8px;
+            //   }
+            // }
 
             a {
               padding: 15px;
@@ -59,7 +58,7 @@
               text-decoration: none;
               display: block;
               text-align: center;
-              font-size: 1.6rem;
+              font-size: 1.8rem;
               &.active {
                 color: #9d3b0a; // Đổi màu chữ khi active
               }
@@ -71,7 +70,7 @@
             }
 
             .input-search {
-              width: 200px;
+              width: 280px;
               height: 30px;
               border-radius: 15px;
               border: 1.8px solid #6c6969;
@@ -93,7 +92,6 @@
         }
       }
       .header-right {
-        display: flex;
         align-items: center;
         justify-content: flex-end;
         flex: 1;

@@ -32,41 +32,41 @@ export const CardMovie = ({ item }) => {
           </div>
         </Link>
         {/* Thêm nút Đặt vé */}
-        <Link to={`/booking_seat/${item.movie_id}`}>
-          <button className="book-ticket-button">Đặt vé</button>
+        <Link to={`/movieinf/${item.movie_id}`}>
+          <button className="book-ticket-button">Xem chi tiết</button>
         </Link>
       </div>
     </>
   );
 };
 
-export const CardCinema = ({ item }) => {
-  return (
-    <>
-      <div className="card__cinema">
-        <div className="image">
-          <img src={item.image} alt={item.movie_name} />
-        </div>
-        <div className="row">
-          <div className="introduce">
-            <Link to={`/movieinf/${item.movie_id}`}>
-              <h1>{item.movie_name}</h1>
-            </Link>
-            <p>Thời gian: {item.duration} phút</p>
-            <p>Thể loại: {item.genre}</p>
-          </div>
-          <div className="showtime">
-            <h3>2D</h3>
-            <Link to={`/booking_seat/${item.movie_id}`}>
-              <button>20:00</button>
-            </Link>
-            <p>149 ghé trống</p>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
+// export const CardCinema = ({ item }) => {
+//   return (
+//     <>
+//       <div className="card__cinema">
+//         <div className="image">
+//           <img src={item.image} alt={item.movie_name} />
+//         </div>
+//         <div className="row">
+//           <div className="introduce">
+//             <Link to={`/movieinf/${item.movie_id}`}>
+//               <h1>{item.movie_name}</h1>
+//             </Link>
+//             <p>Thời gian: {item.duration} phút</p>
+//             <p>Thể loại: {item.genre}</p>
+//           </div>
+//           <div className="showtime">
+//             <h3>2D</h3>
+//             <Link to={`/booking_seat/${item.movie_id}`}>
+//               <button>20:00</button>
+//             </Link>
+//             <p>149 ghé trống</p>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
 export const CardInfMovie = ({ movie }) => {
   return (
@@ -83,7 +83,7 @@ export const CardInfMovie = ({ movie }) => {
 
         <div className="row">
           <div className="introduce">
-            <h1>{movie.movie_name}</h1>
+            <h1 className="movie__title">{movie.movie_name}</h1>
             <p>Ngày phát hành: {movie.release_date}</p>
             <p>Thời gian: {movie.duration} phút</p>
             <p>Thể loại: {movie.genre}</p>
@@ -113,7 +113,7 @@ export const CardInfMovie = ({ movie }) => {
         <h2>Gửi đánh giá và bình luận</h2>
         <textarea placeholder="Gửi bình luận ở đây"></textarea>
         <div className="submit">
-          <button>Gửi</button>
+          <button className="button">Gửi</button>
         </div>
       </div>
     </>

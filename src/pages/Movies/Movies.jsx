@@ -29,7 +29,7 @@ export const Movies = () => {
 
     fetchMoviesDataByTab();
     window.scrollTo(0, 0); // Cuộn về đầu trang khi thay đổi trang
-  }, [activeTab]); // useEffect chạy lại khi currentPage thay đổi
+  }, [activeTab, currentPage]); // useEffect chạy lại khi currentPage thay đổi
 
   // Tính toán danh sách phim hiển thị trên trang hiện tại
   const indexOfLastMovie = currentPage * moviesPerPage; // Vị trí phim cuối cùng trên trang hiện tại

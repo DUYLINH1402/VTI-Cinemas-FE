@@ -24,25 +24,29 @@
       height: 1000px;
       border: 1px solid #ccc;
       border-radius: 10px;
-      .col1 {
-        max-height: 1000px;
+      div.col1 {
+        min-height: 1000px;
         img {
+          margin-right: 20px;
           margin-top: 20px;
           width: 800px;
         }
 
-        .row_seat {
+        div.row_seat {
+          margin-left: 60px;
+          margin-right: 60px;
           height: 800px;
           img {
             width: 40px;
             float: left;
-            margin-left: 80px;
-            margin-top: 100px;
+            margin-top: 50px;
+            margin-left: 20px;
+            margin-right: 25px;
             cursor: pointer;
           }
         }
 
-        .detail_seat {
+        div.detail_seat {
           display: grid;
           grid-template-columns: 3fr 1fr 1fr;
           border-top: 1px solid #ccc;
@@ -75,11 +79,11 @@
             h2 {
               margin-top: 10px;
               font-size: 2.5rem;
+              color: red;
             }
             h3 {
               margin-top: 10px;
               font-size: 2rem;
-              color: red;
             }
           }
         }

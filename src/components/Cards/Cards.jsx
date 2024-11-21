@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import "./card.scss";
 import { Link } from "react-router-dom";
+import { Seats } from "../../pages/Booking_Seat/Seats/Seats";
+import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";
+import { Ticket_Detail } from "../../pages/Booking_Seat/Ticket_Detail/Ticket_Detail";
+import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
+import { Type_Seat } from "../../pages/Booking_Seat/Timeout/Type_Seat";
+import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 
 export const CardCarousel = ({ item }) => {
   return (
@@ -120,56 +126,15 @@ export const CardInfMovie = ({ movie }) => {
   );
 };
 
-export const CardSeats = ({ item }) => {
-  const [count, setCount] = useState(600); // Đặt thời gian ban đầu là 600 giây (10 phút)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevCount) => prevCount - 1);
-    }, 1000);
-    // Hàm cleanup để clear interval khi component unmount hoặc khi count về 0
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (count === 0) {
-      // Chuyển hướng về trang chủ khi count bằng 0
-      window.location.href = "/";
-    }
-  }, [count]);
+export const CardSeats = () => {
+  const [selectedSeatPrice, setSelectedSeatPrice] = useState(0);
+  const [selectSeatName, setSelectSeatName] = useState(null);
 
   return (
     <>
       <div className="card_seat">
         <div className="status_seat">
-          <img
-            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
-            alt="Ghế trống"
-          />
-          <p>Ghế trống</p>
-          <img
-            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
-            alt="Ghế đang chọn"
-          />
-          <p>Ghế đang chọn</p>
-
-          <img
-            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-process-normal_lzfigz.png"
-            alt="Ghế Ghế đang giữ"
-          />
-          <p>Ghế đang giữ</p>
-
-          <img
-            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-buy-normal_ryk3xl.png"
-            alt="Ghế ghế đã bán"
-          />
-          <p>Ghế đã bán</p>
-
-          <img
-            src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-set-normal_mmdu0h.png"
-            alt="Ghế ghế đặt trước"
-          />
-          <p>Ghế đặt trước</p>
+          <Status_Seat />
         </div>
         <div className="content_tab">
           <div className="col1">
@@ -177,62 +142,39 @@ export const CardSeats = ({ item }) => {
               src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/ic-screen_qsvlrn.png"
               alt="màn chiếu"
             />
+
             <div className="row_seat">
-              <div>
-                <img
-                  src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
-                  alt="Ghế ghế chưa đặt"
+              <div className="seat">
+                <Seats
+                  setSelectedSeatPrice={setSelectedSeatPrice}
+                  setSelectSeatName={setSelectSeatName}
                 />
               </div>
             </div>
+
             <div className="detail_seat">
               <div className="detail">
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png"
-                    alt="Ghế thường"
-                  />
-                  <p>Ghế thường</p>
-                </div>
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png"
-                    alt="Ghế Vip"
-                  />
-                  <p>Ghế Vip</p>
-                </div>
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png"
-                    alt="Ghế Đôi"
-                  />
-                  <p>Ghế Đôi</p>
-                </div>
+                <Type_Seat />
               </div>
+
               <div className="price">
-                <h2>Giá vé</h2>
-                <h3>60.000đ</h3>
+                <h3>Giá vé</h3>
+                <Price price={selectedSeatPrice} />
               </div>
+
               <div className="timeout">
-                <h2>Thời gian</h2>
-                <h3>
-                  {Math.floor(count / 60)}:{count % 60}
-                </h3>
+                <h3>Thời gian</h3>
+                <h2>
+                  <Timeout />
+                </h2>
               </div>
             </div>
           </div>
+
           <div className="col2">
             <h1>Thông tin vé</h1>
             <div className="detail_movie">
-              <img src={item.image} alt={item.movie_name} />
-              <h1>{item.movie_name}</h1>
-              <p>Hình thức: 2D</p>
-              <p>Thể loại: {item.genre}</p>
-              <p>Thời lượng: {item.duration} phút</p>
-              <p>Rạp chiếu: </p>
-              <p>Ngày chiếu: </p>
-              <p>Giờ chiếu: </p>
-              <p>Phòng chiếu: </p>
+              <Ticket_Detail seat_name={selectSeatName} />
               <Link to="#">
                 <button>Tiếp tục</button>
               </Link>

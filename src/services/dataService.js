@@ -5,6 +5,7 @@ import {
   createAccountToFirebase,
   getAccountByEmailFromFirebase,
   fetchMoviesByTabFromFirebase,
+  fetchSeatsFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -13,6 +14,7 @@ import {
   createAccountToSQL,
   fetchAccountByEmailFromSQL,
   fetchMoviesByTabFromSQL,
+  fetchSeatsFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
@@ -61,3 +63,10 @@ export const fetchAccountByEmail = async (email) => {
     ? await getAccountByEmailFromFirebase(email)
     : await fetchAccountByEmailFromSQL(email);
 };
+
+// Hàm lấy dữ liệu Seats
+export const fetchSeats = async () => {
+  return useFirebase 
+  ? await fetchSeatsFromFirebase()
+  : await fetchSeatsFromSQL()
+}

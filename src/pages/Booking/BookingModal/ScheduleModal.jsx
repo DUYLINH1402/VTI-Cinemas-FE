@@ -8,7 +8,6 @@ const ScheduleModal = ({ onNext, onBack, onClose, selectedCinema }) => {
   const [loading, setLoading] = useState(true); // Trạng thái loading
   const [error, setError] = useState(null); // Trạng thái lỗi
   console.log(selectedCinema);
-  // console.log("Movie ID:", movieId);
 
   // Gọi API lấy danh sách suất chiếu khi Modal được mở
   useEffect(() => {

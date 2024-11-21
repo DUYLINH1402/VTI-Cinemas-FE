@@ -76,7 +76,7 @@ export const MovieInf = () => {
       {/* Modal 1: Booking */}
       {currentModal === 1 && (
         <BookingModal
-          movieId={movie.movie_id}
+          movie_id={movie_id}
           onNext={handleNextModal}
           onClose={handleCloseModal}
         />
@@ -85,6 +85,7 @@ export const MovieInf = () => {
       {/* Modal 2: Schedule */}
       {currentModal === 2 && (
         <ScheduleModal
+          movie_id={movie_id}
           onNext={handleNextModal}
           onBack={handleBackModal}
           onClose={handleCloseModal}
@@ -95,6 +96,7 @@ export const MovieInf = () => {
       {/* Modal 3: Confirmation */}
       {currentModal === 3 && (
         <ConfirmationModal
+          movie_id={movie_id}
           onBack={handleBackModal}
           onClose={handleCloseModal}
           selectedCinema={selectedCinema}

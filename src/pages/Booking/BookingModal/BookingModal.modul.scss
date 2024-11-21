@@ -2,6 +2,11 @@
   font-size: 1.4rem;
   gap: 30px;
   min-width: 600px;
+  .movie_name {
+    font-size: 2rem;
+    color: rgb(255, 55, 0);
+    margin-bottom: 10px;
+  }
   select {
     min-width: 250px;
     min-height: 35px;

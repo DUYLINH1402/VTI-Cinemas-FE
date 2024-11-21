@@ -96,6 +96,7 @@ export const MovieInf = () => {
       {/* Modal 3: Confirmation */}
       {currentModal === 3 && (
         <ConfirmationModal
+          movie_name={movie.movie_name}
           movie_id={movie_id}
           onBack={handleBackModal}
           onClose={handleCloseModal}

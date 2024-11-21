@@ -5,6 +5,8 @@ import {
   createAccountToFirebase,
   getAccountByEmailFromFirebase,
   fetchMoviesByTabFromFirebase,
+  fetchCinemasFromFirebase,
+  fetchShowtimesFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -13,24 +15,26 @@ import {
   createAccountToSQL,
   fetchAccountByEmailFromSQL,
   fetchMoviesByTabFromSQL,
+  fetchCinemasFromSQL,
+  fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
 
-// Hàm lấy dữ liệu Account
+// API lấy dữ liệu Account
 export const fetchAccount = async (account_id) => {
   return useFirebase
     ? await getAccountFromFirebase(account_id)
     : await fetchAccountFromSQL(account_id);
 };
-// Hàm lấy dữ liệu cho Movies
+// API lấy dữ liệu cho Movies
 export const fetchMovies = async () => {
   return useFirebase
     ? await fetchMoviesFromFirebase()
     : await fetchMoviesFromSQL();
 };
 
-// Hàm lấy dữ liệu Movies (hỗ trợ theo tab)
+// API lấy dữ liệu Movies (hỗ trợ theo tab)
 export const fetchMoviesByTab = async (tab) => {
   try {
     return useFirebase
@@ -42,22 +46,34 @@ export const fetchMoviesByTab = async (tab) => {
   }
 };
 
-// Hàm lấy dữ liệu cho Carousel
+// API lấy dữ liệu cho Carousel
 export const fetchCarouselData = async () => {
   return useFirebase
     ? await fetchCarouselDataFromFirebase()
     : await fetchCarouselDataFromSQL();
 };
 
-// Hàm tạo Account mới
+// API tạo Account mới
 export const createAccount = async (formData) => {
   return useFirebase
     ? await createAccountToFirebase(formData)
     : await createAccountToSQL(formData);
 };
-// Hàm lấy Account By email
+// API lấy Account By email
 export const fetchAccountByEmail = async (email) => {
   return useFirebase
     ? await getAccountByEmailFromFirebase(email)
     : await fetchAccountByEmailFromSQL(email);
+};
+// API lấy dữ liệu cho Movies
+export const fetchCinemas = async () => {
+  return useFirebase
+    ? await fetchCinemasFromFirebase()
+    : await fetchCinemasFromSQL();
+};
+// API Lấy danh sách suất chiếu thông qua dataService
+export const fetchShowtimes = async () => {
+  return useFirebase
+    ? await fetchShowtimesFromFirebase() // Gọi Firebase
+    : await fetchShowtimesFromSQL(); // Gọi SQL
 };

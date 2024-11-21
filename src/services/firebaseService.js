@@ -146,3 +146,29 @@ export const getAccountByEmailFromFirebase = async (email) => {
   const accounts = Object.values(snapshot.val());
   return accounts[0];
 };
+
+// Hàm gọi API để lấy danh sách rạp
+export const fetchCinemasFromFirebase = async () => {
+  try {
+    const response = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Cinema.json"
+    );
+    return response.data; // Trả về dữ liệu danh sách rạp
+  } catch (error) {
+    console.error("Error fetching cinemas:", error);
+    throw error;
+  }
+};
+
+// API Lấy danh sách suất chiếu từ Firebase
+export const fetchShowtimesFromFirebase = async (cinema_id) => {
+  try {
+    const response = await axios.get(
+      `https://vticinema-default-rtdb.firebaseio.com/Showtimes.json`
+    );
+    return Object.values(response.data); // Trả về danh sách suất chiếu
+  } catch (error) {
+    console.error("Error fetching showtimes from Firebase:", error);
+    throw error;
+  }
+};

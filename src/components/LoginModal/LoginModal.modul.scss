@@ -16,6 +16,7 @@
 
 .modal-content {
   position: relative;
+  padding: 40px;
   background: white;
   width: 400px;
   max-width: 90%;
@@ -124,6 +125,8 @@
       margin-top: 25px;
       label {
         margin: 0 5px;
+        font-size: 1.6rem;
+        font-weight: normal;
       }
     }
 

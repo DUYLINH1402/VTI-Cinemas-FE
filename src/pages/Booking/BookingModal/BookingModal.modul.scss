@@ -1,0 +1,36 @@
+.modal-booking-content {
+  font-size: 1.4rem;
+  gap: 30px;
+  min-width: 600px;
+  select {
+    min-width: 250px;
+    min-height: 35px;
+    text-align: center;
+  }
+  .button-chose {
+    min-width: 120px;
+    min-height: 35px;
+    margin: 5px;
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+      background-color: rgb(123, 117, 117);
+    }
+  }
+  p {
+    margin: 5px;
+  }
+  .success {
+    background-color: lightblue;
+  }
+}
+.button-action {
+  min-width: 100px;
+  min-height: 35px;
+  margin: 5px;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}

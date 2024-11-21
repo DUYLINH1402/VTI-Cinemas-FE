@@ -68,16 +68,66 @@ export const CardMovie = ({ item }) => {
 //   );
 // };
 
-export const CardInfMovie = ({ movie }) => {
+// export const CardInfMovie = ({ movie }) => {
+//   return (
+//     <>
+//       <div className="card__inf">
+//         <div className="image">
+//           <img src={movie.image} alt={movie.movie_name} />
+//           <div className="showtime">
+//             <Link to={`/booking_seat/${movie.movie_id}`}>
+//               <button>Đặt vé</button>
+//             </Link>
+//           </div>
+//         </div>
+
+//         <div className="row">
+//           <div className="introduce">
+//             <h1 className="movie__title">{movie.movie_name}</h1>
+//             <p>Ngày phát hành: {movie.release_date}</p>
+//             <p>Thời gian: {movie.duration} phút</p>
+//             <p>Thể loại: {movie.genre}</p>
+//             <p>Đạo diễn: {movie.director} </p>
+//             <p>Diễn viên: {movie.actor}</p>
+//             <p>Ngôn ngữ: {movie.language}</p>
+//             <p>Mô tả: {movie.description}</p>
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="trailer">
+//         <h2>Trailer</h2>
+//         <iframe
+//           width="600"
+//           height="300"
+//           src={movie.trailer}
+//           title={movie.movie_name}
+//           frameborder="0"
+//           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+//           referrerpolicy="strict-origin-when-cross-origin"
+//           allowfullscreen
+//         ></iframe>
+//       </div>
+
+//       <div className="comment">
+//         <h2>Gửi đánh giá và bình luận</h2>
+//         <textarea placeholder="Gửi bình luận ở đây"></textarea>
+//         <div className="submit">
+//           <button className="button">Gửi</button>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+export const CardInfMovie = ({ movie, onBookTicket }) => {
   return (
     <>
       <div className="card__inf">
         <div className="image">
           <img src={movie.image} alt={movie.movie_name} />
           <div className="showtime">
-            <Link to={`/booking_seat/${movie.movie_id}`}>
-              <button>Đặt vé</button>
-            </Link>
+            {/* Sử dụng callback để mở Modal */}
+            <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
           </div>
         </div>
 
@@ -87,7 +137,7 @@ export const CardInfMovie = ({ movie }) => {
             <p>Ngày phát hành: {movie.release_date}</p>
             <p>Thời gian: {movie.duration} phút</p>
             <p>Thể loại: {movie.genre}</p>
-            <p>Đạo diễn: {movie.director} </p>
+            <p>Đạo diễn: {movie.director}</p>
             <p>Diễn viên: {movie.actor}</p>
             <p>Ngôn ngữ: {movie.language}</p>
             <p>Mô tả: {movie.description}</p>
@@ -102,10 +152,10 @@ export const CardInfMovie = ({ movie }) => {
           height="300"
           src={movie.trailer}
           title={movie.movie_name}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
         ></iframe>
       </div>
 

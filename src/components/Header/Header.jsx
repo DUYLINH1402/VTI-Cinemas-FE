@@ -160,7 +160,9 @@ export const Header = () => {
                       className="user-info"
                       onClick={(e) => e.preventDefault()}
                     >
-                      <span className="user-name">{user.displayName}</span>
+                      <span className="user-name">
+                        {user.fullname || user.displayName}
+                      </span>
                       <Avatar
                         src={user.imageUrl || user.photoURL}
                         alt="User Avatar"

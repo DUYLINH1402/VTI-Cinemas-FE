@@ -1,0 +1,25 @@
+{
+  "Showtimes": [
+    {
+      "date": "2024-12-18",
+      "sessions": [
+        { "time": "08:40", "seatsAvailable": 136 },
+        { "time": "12:30", "seatsAvailable": 120 }
+      ]
+    },
+    {
+      "date": "2024-12-19",
+      "sessions": [
+        { "time": "10:00", "seatsAvailable": 140 },
+        { "time": "16:00", "seatsAvailable": 110 }
+      ]
+    },
+    {
+      "date": "2024-12-20",
+      "sessions": [
+        { "time": "10:00", "seatsAvailable": 140 },
+        { "time": "16:00", "seatsAvailable": 100 }
+      ]
+    }
+  ]
+}

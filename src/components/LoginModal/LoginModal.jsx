@@ -101,13 +101,6 @@ const LoginModal = ({
     }
   }, [user, navigate]);
 
-  // const handleEmailPasswordLogin = (e) => {
-  //   e.preventDefault();
-  //   const email = e.target.email.value;
-  //   const password = e.target.password.value;
-  //   dispatch(loginUser({ email, password }));
-  // };
-
   const handleGoogleLogin = () => {
     dispatch(googleLogin())
       .unwrap()

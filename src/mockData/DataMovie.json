@@ -1,648 +1,1422 @@
 {
-    "Account": {
-      "-OBoBFPgOylKCCOMaMyx": {
-        "account_id": 7,
-        "birth_date": "2024-11-06",
-        "created_date": "2024-11-16",
-        "email": "duylinh@gmail.co",
-        "fullname": "DuyLinhGCT",
-        "gender": "Nam",
-        "password": "$2a$10$NrNPteVHYpn5M/AR/Lk6ouu/Sf8GCCVro77EEiITkhFB.I638hObW",
-        "phone_number": "0934304645",
-        "role": "user",
-        "status": "active",
-        "updated_date": "2024-11-16"
-      }
+  "Account": {
+    "-OBoBFPgOylKCCOMaMyx": {
+      "account_id": 7,
+      "birth_date": "2024-11-06",
+      "created_date": "2024-11-16",
+      "email": "duylinh@gmail.co",
+      "fullname": "DuyLinhGCT",
+      "gender": "Nam",
+      "password": "$2a$10$NrNPteVHYpn5M/AR/Lk6ouu/Sf8GCCVro77EEiITkhFB.I638hObW",
+      "phone_number": "0934304645",
+      "role": "user",
+      "status": "active",
+      "updated_date": "2024-11-16"
     },
-    "Banners": {
-      "banner1": {
-        "created_at": "2024-11-05T10:30:00Z",
-        "description": "Get 50% off on all tickets this weekend!",
-        "event_id": 201,
-        "id": 1,
-        "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731769729/3_gf3qnc.jpg",
-        "is_active": true,
-        "movie_id": 101,
-        "title": "Big Sale on Tickets",
-        "updated_at": "2024-11-05T12:00:00Z"
-      },
-      "banner2": {
-        "created_at": "2024-11-01T09:00:00Z",
-        "description": "Don't miss the premiere of the latest action movie!",
-        "event_id": 202,
-        "id": 2,
-        "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813423/iDkNVZj_vi32rd.jpg",
-        "is_active": true,
-        "movie_id": 102,
-        "title": "New Movie Release",
-        "updated_at": "2024-11-01T11:00:00Z"
-      },
-      "banner3": {
-        "created_at": "2024-10-25T08:30:00Z",
-        "description": "Join us for an exclusive screening with the cast!",
-        "event_id": 203,
-        "id": 3,
-        "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813423/Bo%CC%82%CC%81_Gia%CC%80_qrx1yq.jpg",
-        "is_active": false,
-        "movie_id": 103,
-        "title": "Exclusive Screening",
-        "updated_at": "2024-10-25T10:30:00Z"
-      },
-      "banner4": {
-        "created_at": "2024-11-03T14:00:00Z",
-        "description": "Bring your kids for a fun animated movie experience!",
-        "event_id": 204,
-        "id": 4,
-        "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813422/Banner-ngang-website-2-scaled_mlasws.jpg",
-        "is_active": true,
-        "movie_id": 104,
-        "title": "Kids Special",
-        "updated_at": "2024-11-03T15:00:00Z"
-      },
-      "banner5": {
-        "created_at": "2024-10-31T22:00:00Z",
-        "description": "Prepare to be scared with our late-night horror screenings.",
-        "event_id": 205,
-        "id": 5,
-        "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731769729/47._Tha%CC%82%CC%80n_Du%CC%9Bo%CC%9B%CC%A3c_sb8qww.jpg",
-        "is_active": false,
-        "movie_id": 105,
-        "title": "Horror Night",
-        "updated_at": "2024-10-31T23:00:00Z"
-      }
+    "-OBsysCcpD0lU-Z9N3zX": {
+      "account_id": 2,
+      "birth_date": "2024-11-06",
+      "created_date": "2024-11-17",
+      "email": "duylinh2@gmail.com",
+      "fullname": "Nguyen Duy Linh",
+      "gender": "Nam",
+      "password": "$2a$10$KGz5WDdURtnEwfz3Zw9vPuMbzd8DIbPoswZpd3NypWYJJ4j2krV72",
+      "phone_number": "0934304645",
+      "role": "user",
+      "status": "active",
+      "updated_date": "2024-11-17"
     },
-    "Movies": {
-      "movie1": {
-        "actor": "Trần Nghĩa",
-        "count": 200,
-        "description": "Một câu chuyện tình buồn về tuổi học trò.",
-        "director": "Victor Vũ",
-        "duration": 114,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809742/1._Ma%CC%86%CC%81t_Bie%CC%82%CC%81c_zjtjfn.jpg",
-        "language": "Vietnamese",
-        "movie_id": 1,
-        "movie_name": "Mắt Biếc",
-        "rating": 8.2,
-        "trailer": "https://www.youtube.com/embed/ITlQ0oU7tDA",
-        "viewing_age": 13
-      },
-      "movie10": {
-        "actor": "Liên Bỉnh Phát",
-        "count": 140,
-        "description": "Câu chuyện đầy cảm xúc về nghệ thuật cải lương.",
-        "director": "Leon Quang Lê",
-        "duration": 120,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/10._Song_Lang_lhy2x9.png",
-        "language": "Vietnamese",
-        "movie_id": 10,
-        "movie_name": "Song Lang",
-        "rating": 8.3,
-        "trailer": "https://www.youtube.com/embed/wX8nGJFGwaU?si=qH9LtFCYhnAPYX-u",
-        "viewing_age": 15
-      },
-      "movie11": {
-        "actor": "Hoàng Yến Chibi",
-        "count": 175,
-        "description": "Ký ức tuổi thanh xuân của một nhóm bạn học cũ.",
-        "director": "Nguyễn Quang Dũng",
-        "duration": 118,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/11._Tha%CC%81ng_Na%CC%86m_Ru%CC%9B%CC%A3c_Ro%CC%9B%CC%83_ppm5yd.jpg",
-        "language": "Vietnamese",
-        "movie_id": 11,
-        "movie_name": "Tháng Năm Rực Rỡ",
-        "rating": 8,
-        "trailer": "https://www.youtube.com/embed/qjWoaNWZ2Xo?si=6cipAwwrEkUYusRM",
-        "viewing_age": 13
-      },
-      "movie12": {
-        "actor": "Quách Ngọc Ngoan",
-        "count": 130,
-        "description": "Hành trình xuyên thời gian của một người đàn ông bất tử.",
-        "director": "Victor Vũ",
-        "duration": 130,
-        "genre": "Thriller",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809745/12._Ngu%CC%9Bo%CC%9B%CC%80i_Ba%CC%82%CC%81t_Tu%CC%9B%CC%89_fphjsu.jpg",
-        "language": "Vietnamese",
-        "movie_id": 12,
-        "movie_name": "Người Bất Tử",
-        "rating": 7.3,
-        "trailer": "https://www.youtube.com/embed/6VEVPtFDN_U?si=FxhD4GkuIWm123oO",
-        "viewing_age": 16
-      },
-      "movie13": {
-        "actor": "Johnny Trí Nguyễn",
-        "count": 110,
-        "description": "Cuộc chiến của những anh hùng thời chiến.",
-        "director": "Charlie Nguyễn",
-        "duration": 90,
-        "genre": "Action",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809745/13._Do%CC%80ng_Ma%CC%81u_Anh_Hu%CC%80ng_o87tlp.jpg",
-        "language": "Vietnamese",
-        "movie_id": 13,
-        "movie_name": "Dòng Máu Anh Hùng",
-        "rating": 7.9,
-        "trailer": "https://www.youtube.com/embed/fldOtUA_1LA?si=WsmajbfAsfNkvHfd",
-        "viewing_age": 15
-      },
-      "movie14": {
-        "actor": "Huỳnh Đông",
-        "count": 150,
-        "description": "Cuộc phiêu lưu của một hiệp sĩ thời Trần.",
-        "director": "Victor Vũ",
-        "duration": 130,
-        "genre": "Historical",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809746/14._Thie%CC%82n_Me%CC%A3%CC%82nh_Anh_Hu%CC%80ng_gzysbw.jpg",
-        "language": "Vietnamese",
-        "movie_id": 14,
-        "movie_name": "Thiên Mệnh Anh Hùng",
-        "rating": 8.1,
-        "trailer": "https://www.youtube.com/embed/kiTeyH3xASE?si=sTz-HLxS8o41mNSW",
-        "viewing_age": 14
-      },
-      "movie15": {
-        "actor": "Thái Hòa",
-        "count": 140,
-        "description": "Cuộc hành trình dở khóc dở cười của hai anh em.",
-        "director": "Charlie Nguyễn",
-        "duration": 90,
-        "genre": "Comedy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809746/15._Te%CC%80o_Em_hhw8gf.jpg",
-        "language": "Vietnamese",
-        "movie_id": 15,
-        "movie_name": "Tèo Em",
-        "rating": 7.6,
-        "trailer": "\"https://www.youtube.com/embed/oRvzM1eX5ow?si=TAo4ZZv3S7B1DBvV",
-        "viewing_age": 12
-      },
-      "movie16": {
-        "actor": "Bảo Thanh",
-        "count": 200,
-        "description": "Câu chuyện về tình cảm gia đình và sự trưởng thành.",
-        "director": "Nguyễn Danh Dũng",
-        "duration": 120,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/16._Ve%CC%82%CC%80_Nha%CC%80_%C4%90i_Con_tgujcj.jpg",
-        "language": "Vietnamese",
-        "movie_id": 16,
-        "movie_name": "Về Nhà Đi Con",
-        "rating": 8.4,
-        "trailer": "https://www.youtube.com/embed/r-ZM97E869w?si=a-6e2vO6-Lg8nzue",
-        "viewing_age": 10
-      },
-      "movie17": {
-        "actor": "Trương Ngọc Ánh",
-        "count": 160,
-        "description": "Cuộc truy đuổi của một nữ cảnh sát để bảo vệ công lý.",
-        "director": "Cường Ngô",
-        "duration": 105,
-        "genre": "Action",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/17._Truy_Sa%CC%81t_ka75fi.jpg",
-        "language": "Vietnamese",
-        "movie_id": 17,
-        "movie_name": "Truy Sát",
-        "rating": 7.4,
-        "trailer": "https://www.youtube.com/embed/sAibeuzwd_o?si=_LS5eWpB-YH13yjo",
-        "viewing_age": 16
-      },
-      "movie18": {
-        "actor": "Ninh Dương Lan Ngọc",
-        "count": 190,
-        "description": "Cuộc sống và tình yêu của cô gái hiện đại.",
-        "director": "Bảo Nhân",
-        "duration": 105,
-        "genre": "Comedy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/18._Ga%CC%81i_Gia%CC%80_La%CC%86%CC%81m_Chie%CC%82u_w1jfko.jpg",
-        "language": "Vietnamese",
-        "movie_id": 18,
-        "movie_name": "Gái Già Lắm Chiêu",
-        "rating": 7.7,
-        "trailer": "https://www.youtube.com/embed/IxfeXhGAa9M?si=y-CSvYsyT4ahojXo",
-        "viewing_age": 15
-      },
-      "movie19": {
-        "actor": "Thịnh Vinh",
-        "count": 220,
-        "description": "Câu chuyện tuổi thơ ở vùng quê Việt Nam.",
-        "director": "Victor Vũ",
-        "duration": 115,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/19._To%CC%82i_Tha%CC%82%CC%81y_Hoa_Va%CC%80ng_Tre%CC%82n_Co%CC%89_Xanh_in1kik.jpg",
-        "language": "Vietnamese",
-        "movie_id": 19,
-        "movie_name": "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
-        "rating": 8.2,
-        "trailer": "https://www.youtube.com/embed/wmjiCP6R-7I?si=dGuCSIi8fXh8VTwC",
-        "viewing_age": 10
-      },
-      "movie2": {
-        "actor": "Kaity Nguyễn",
-        "count": 150,
-        "description": "Một chuyện tình hài hước và bất ngờ của tuổi teen.",
-        "director": "Lê Thanh Sơn",
-        "duration": 95,
-        "genre": "Romantic Comedy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/2._Em_Chu%CC%9Ba_18_skydzm.jpg",
-        "language": "Vietnamese",
-        "movie_id": 2,
-        "movie_name": "Em chưa 18",
-        "rating": 7.6,
-        "trailer": "https://www.youtube.com/embed/_affkHceSj4?si=OHnEJ2FWUYFYF2ga",
-        "viewing_age": 16
-      },
-      "movie20": {
-        "actor": "Hoài Linh",
-        "count": 130,
-        "description": "Hành trình tìm lại bản sắc dân tộc của người Việt xa xứ.",
-        "director": "Nguyễn Quang Dũng",
-        "duration": 110,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/20._Da%CC%A3_Co%CC%82%CC%89_Hoa%CC%80i_Lang_oyzo63.jpg",
-        "language": "Vietnamese",
-        "movie_id": 20,
-        "movie_name": "Dạ Cổ Hoài Lang",
-        "rating": 8,
-        "trailer": "https://www.youtube.com/embed/E6ee5bxR43s?si=d0LRq472IqFUEnW5",
-        "viewing_age": 12
-      },
-      "movie3": {
-        "actor": "Trấn Thành",
-        "count": 180,
-        "description": "Cuộc hành trình để giành lại tình yêu của chàng trai trẻ.",
-        "director": "Nhất Trung",
-        "duration": 100,
-        "genre": "Comedy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/3._Cua_La%CC%A3i_Vo%CC%9B%CC%A3_Ba%CC%82%CC%80u_dkmlxa.jpg",
-        "language": "Vietnamese",
-        "movie_id": 3,
-        "movie_name": "Cua lại vợ bầu",
-        "rating": 7.8,
-        "trailer": "https://www.youtube.com/embed/lhTtrS98uf4?si=9aS281SIURTGkrUo",
-        "viewing_age": 13
-      },
-      "movie4": {
-        "actor": "Trấn Thành",
-        "count": 250,
-        "description": "Câu chuyện về gia đình, tình cha con ở Sài Gòn.",
-        "director": "Vũ Ngọc Đãng",
-        "duration": 128,
-        "genre": "Drama",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/4._Bo%CC%82%CC%81_Gia%CC%80_x5oezd.webp",
-        "language": "Vietnamese",
-        "movie_id": 4,
-        "movie_name": "Bố Già",
-        "rating": 8.5,
-        "trailer": "https://www.youtube.com/embed/jluSu8Rw6YE?si=IwfRGz7omZEQOy6D\" title=\"YouTube video player",
-        "viewing_age": 12
-      },
-      "movie41": {
-        "actor": "Dwayne Johnson, Chris Evans",
-        "count": 202,
-        "description": "A popular movie about mystery.",
-        "director": "Jake Kasdan",
-        "duration": 106,
-        "genre": "Hành động, Phiêu lưu",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/41._Ma%CC%A3%CC%82t_Ma%CC%83_%C4%90o%CC%89_hv0y4h.jpg",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 41,
-        "movie_name": "Red One: Mật Mã Đỏ",
-        "rating": 6.6,
-        "release_date": "08-11-2024",
-        "trailer": "https://www.youtube.com/embed/2T_mKyH17mY?si=OG9IjqMhyeO6q3Kb",
-        "viewing_age": 16
-      },
-      "movie42": {
-        "actor": "Trần Nghĩa, Hoàng Yến Chibi",
-        "count": 150,
-        "description": "Ngày Xưa Có Một Chuyện Tình xoay quanh câu chuyện tình bạn, tình yêu giữa hai chàng trai và một cô gái từ thuở ấu thơ cho đến khi trưởng thành, phải đối mặt với những thử thách của số phận. Trải dài trong 4 giai đoạn từ năm 1987 - 2000, ba người bạn cùng tuổi - Vinh, Miền, Phúc đã cùng yêu, cùng bỡ ngỡ bước vào đời, va vấp và vượt qua.",
-        "director": "Nguyễn Quang Dũng",
-        "duration": 127,
-        "genre": "Tình cảm, Lãng mạn",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/42.Nga%CC%80y_Xu%CC%9Ba_Co%CC%81_Mo%CC%A3%CC%82t_Chuye%CC%A3%CC%82n_Ti%CC%80nh_ihmkmp.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 42,
-        "movie_name": "Ngày Xưa Có Một Chuyện Tình",
-        "rating": 7.1,
-        "release_date": "28-10-2024",
-        "trailer": "https://www.youtube.com/embed/qaeHlk0OXec?si=cgttoGbBzhdCFRce",
-        "viewing_age": 12
-      },
-      "movie43": {
-        "actor": "Tom Hardy, Michelle Williams",
-        "count": 239,
-        "description": "Tom Hardy sẽ tái xuất trong bom tấn Venom: The Last Dance (Tựa Việt: Venom: Kèo Cuối) và phải đối mặt với kẻ thù lớn nhất từ trước đến nay - toàn bộ chủng tộc Symbiote",
-        "director": "Andy Serkis",
-        "duration": 136,
-        "genre": "Hành động, Khoa học viễn tưởng",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/43._Ke%CC%80o_Cuo%CC%82%CC%81i_mlider.webp",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 43,
-        "movie_name": "Venom: Kèo Cuối",
-        "rating": 8.8,
-        "release_date": "25-10-2024",
-        "trailer": "https://www.youtube.com/embed/id1rfr_KZWg?si=WQbA6V1NfcZ0wS_V",
-        "viewing_age": 12
-      },
-      "movie44": {
-        "actor": "Daiki Yamashita, Nobuhiko Okamoto",
-        "count": 125,
-        "description": "Vào mùa xuân năm thứ hai, trong khi Nhật Bản đang bị tàn phá bởi các cuộc chiến, một người đàn ông bí ẩn bất ngờ xuất hiện có tên là Dark Might. Đối mặt với Deku và những người bạn, hắn tự xưng mình là biểu tượng mới thay thế All Might với tuyên bố hùng hồn: Tiếp theo là đến lượt ta!. Với dã tâm của mình, Dark Might sử dụng năng lực để tạo ra một pháo đài khổng lồ và nhốt người dân cùng anh hùng vào đó. Deku, Bakugo, Todoroki cùng lớp 1-A của trường U.A. dũng cảm đối đầu với Dark Might và tổ chức tội phạm bí ẩn do hắn cầm đầu, mang tên Gia đình Gollini. Liệu họ có thể ngăn chặn tham vọng của biểu tượng mới Dark Might và bảo vệ thế giới",
-        "director": "Kenji Nagasaki",
-        "duration": 90,
-        "genre": "Hoạt hình, Hành động",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/44._Ho%CC%A3c_Vie%CC%A3%CC%82n_Anh_Hu%CC%80ng-_You_re_Next_ybov8h.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 44,
-        "movie_name": "Học Viện Anh Hùng: You're Next",
-        "rating": 7.6,
-        "release_date": "08-11-2024",
-        "trailer": "https://www.youtube.com/embed/O_JcwpDergM?si=kzqSagad3rbRzbqE\" title=\"YouTube video player",
-        "viewing_age": 18
-      },
-      "movie45": {
-        "actor": "Park Seo-joon, Kim Ji-won",
-        "count": 251,
-        "description": "Bộ phim xoay quanh đôi bạn ngỗ nghịch Jae-hee và Heung-soo cùng những khoảnh khắc “dở khóc dở cười” khi cùng chung sống trong một ngôi nhà. Jae-hee là một cô gái “cờ xanh” với tâm hồn tự do, sống hết mình với tình yêu. Ngược lại, Heung-soo lại là một “cờ đỏ” chính hiệu khi cho rằng tình yêu là sự lãng phí cảm xúc không cần thiết. Bỏ qua những tin đồn lan tràn do người khác tạo ra, Jae-hee và Heung-soo chọn sống chung nhưng yêu theo cách riêng của họ. Hai quan điểm tình yêu trái ngược sẽ đẩy cả hai sang những ngã rẽ và kết cục khác nhau. Sau cùng, Jae-hee hay Heung-soo sẽ về đích trong hành trình học yêu này?",
-        "director": "Lee Byeong-heon",
-        "duration": 129,
-        "genre": "Hài, Lãng mạn",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/45._%C4%90o%CC%82i_Ba%CC%A3n_Ho%CC%A3c_Ye%CC%82u_wofxel.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 45,
-        "movie_name": "Đôi Bạn Học Yêu",
-        "rating": 6.5,
-        "release_date": "08-11-2024",
-        "trailer": "https://www.youtube.com/embed/EIARKqcXILM?si=x0jNaZMZTk0WpunE",
-        "viewing_age": 15
-      },
-      "movie46": {
-        "actor": "Lý Nhã Kỳ, Hứa Vĩ Văn",
-        "count": 262,
-        "description": "Phim lấy đề tài làm dâu hào môn và khai thác câu chuyện môn đăng hộ đối, lối sống và quy tắc của giới thượng lưu dưới góc nhìn hài hước và châm biếm.",
-        "director": "Victor Vũ",
-        "duration": 135,
-        "genre": "Tâm lý, Gia đình",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/46._Co%CC%82_Da%CC%82u_Ha%CC%80o_Mo%CC%82n_cssfbl.jpg",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 46,
-        "movie_name": "Cô Dâu Hào Môn",
-        "rating": 6.9,
-        "release_date": "18-10-2024",
-        "trailer": "https://www.youtube.com/embed/ZIz8QQBYcx0?si=N0POmaH8erO5sMsH\" title=\"YouTube video playe",
-        "viewing_age": 15
-      },
-      "movie47": {
-        "actor": "Ngô Thanh Vân, Quang Sự",
-        "count": 211,
-        "description": "Elizabeth Sparkle, nữ minh tinh từng làm khuynh đảo màn ảnh, giờ đây đối mặt với sự tàn phai của nhan sắc. Khi ánh hào quang dần lụi tàn, cô lao vào một cuộc hành trình đen tối để tìm lại vẻ đẹp của mình. Chìm sâu trong bóng tối, Elizabeth mua một loại thuốc bí ẩn từ những kẻ buôn lậu. Nhưng sắc đẹp có thực sự đến mà không phải trả giá",
-        "director": "Lê Văn Kiệt",
-        "duration": 99,
-        "genre": "Kinh dị, Bí ẩn",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/47._Tha%CC%82%CC%80n_Du%CC%9Bo%CC%9B%CC%A3c_xs6c0f.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 47,
-        "movie_name": "Thần Dược",
-        "rating": 7.1,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/zBIDSp17AOo?si=Zg3WA1M0QNjzMlw1",
-        "viewing_age": 18
-      },
-      "movie48": {
-        "actor": "Mario Maurer, Davika Hoorne",
-        "count": 255,
-        "description": "ABa năm sau cái chết của Yam, Yak vẫn tiếp tục săn lùng linh hồn bí ẩn mặc áo choàng đen. Gặp một cô gái có triệu chứng giống Yam, Yak phát hiện ra người bảo vệ linh hồn, pháp sư ẩn dật Puang, sống trong một khu rừng đầy nguy hiểm. Giữa những phép thuật ma quỷ và những sinh vật nguy hiểm. Khi họ đuổi theo linh hồn mặc áo choàng đen, tiếng kêu đầy ám ảnh của Tee Yod sắp quay trở lại một lần nữa...",
-        "director": "Banjong Pisanthanakun",
-        "duration": 100,
-        "genre": "Kinh dị, Giật gân",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/48._Tee_Yod-_Quy%CC%89_A%CC%86n_Ta%CC%A3ng_2_so1aoe.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 48,
-        "movie_name": "Tee Yod: Quỷ Ăn Tạng 2",
-        "rating": 6.2,
-        "release_date": "18-10-2024",
-        "trailer": "https://www.youtube.com/embed/xVVZvSybaEc?si=deagyiC4BMY6G861",
-        "viewing_age": 13
-      },
-      "movie49": {
-        "actor": "Song Kang-ho, Lee Byung-hun",
-        "count": 235,
-        "description": "Thongkam và Sek, một cặp đôi, đã làm việc không mệt mỏi để cùng nhau xây dựng cuộc sống, bao gồm việc sở hữu một ngôi nhà và một vườn sầu riêng ở Mae Hong Son. Bi kịch ập đến khi Sek đột ngột qua đời trong một vụ tai nạn, tiết lộ rằng họ chưa bao giờ kết hôn hợp pháp ở Thái Lan, khiến Thongkam không có quyền đối với tài sản của mình. Ngôi nhà và vườn cây ăn quả hiện thuộc về mẹ của Sek, người chuyển đến sống cùng con gái nuôi Mo và người làm vườn Jingna. Thongkam giờ đây phải chiến đấu để đòi lại thành quả của tình yêu và sức lao động của mình.",
-        "director": "Park Chan-wook",
-        "duration": 148,
-        "genre": "Tâm lý, Tội phạm",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/49._Thie%CC%82n_%C4%90u%CC%9Bo%CC%9B%CC%80ng_Qua%CC%89_Ba%CC%81o_q7b9vx.png",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 49,
-        "movie_name": "Thiên Đường Quả Báo",
-        "rating": 6.2,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
-        "viewing_age": 18
-      },
-      "movie5": {
-        "actor": "Lý Hải",
-        "count": 200,
-        "description": "Cuộc chiến sinh tồn đầy kịch tính trong 48 giờ.",
-        "director": "Lý Hải",
-        "duration": 100,
-        "genre": "Action",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/5._La%CC%A3%CC%82t_Ma%CC%A3%CC%86t-_48h_zuwu6q.jpg",
-        "language": "Vietnamese",
-        "movie_id": 5,
-        "movie_name": "Lật Mặt: 48h",
-        "rating": 7.7,
-        "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
-        "viewing_age": 16
-      },
-      "movie50": {
-        "actor": "Tony Jaa, Shu Qi",
-        "count": 165,
-        "description": "Theo chân John Lawlor là một đặc vụ DEA cừ khôi bất khả chiến bại, anh sẽ không tiếc hi sinh bất cứ điều gì để hoàn thành nhiệm vụ được giao.Trong khi đó, Joey Kwang là người vận chuyển hàng đầu ở Đài Bắc với tốc độ không ai sánh bằng và tư duy nhạy bén mà không ai có thể theo kịp cô. Vô tình số phận đã đưa họ đến với nhau trước khi thế lực tội phạm chia cắt họ.15 năm sau, số phận một lần nữa đẩy Joey và John va chạm nhau trong tình cảnh bất đắc dĩ vào cuối tuần tại Đài Bắc. Và cả hai sẽ khám phá ra rằng điều duy nhất khó hơn việc yêu… chính là yêu lại.",
-        "director": "Dante Lam",
-        "duration": 112,
-        "genre": "Hành động, Giật gân",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/50.Va%CC%82y_Ha%CC%83m_Ta%CC%A3i_%C4%90a%CC%80i_Ba%CC%86%CC%81c_lr0jp4.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 50,
-        "movie_name": "Vây Hãm Tại Đài Bắc",
-        "rating": 7.3,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/hIKXRfyZfEg?si=-tc5Gvq_mVNZ2ByE\"",
-        "viewing_age": 16
-      },
-      "movie51": {
-        "actor": "Ma Dong-seok, Kim Ok-bin",
-        "count": 300,
-        "description": "Sau cái chết của vợ, để trốn tránh quá khứ, Mit và cô con gái May chuyển đến một ngôi nhà mới ở khu phố ngoại ô. Trong lúc chuẩn bị xây dựng một miếu thờ thiên trước nhà mới, anh vô tình giải thoát một con quỷ đang giận dữ và ác mộng kinh hoàng ập tới cuộc sống mới của hai bố con. Mit tìm kiếm sự giúp đỡ của một thầy phù thủy để làm lễ trừ tà. Nhưng họ không biết rằng, lễ trừ tà cuối cùng sẽ mở ra nhiều bí mật đen tối về vùng đất này",
-        "director": "Na Hong-jin",
-        "duration": 119,
-        "genre": "Kinh dị, Bí ẩn",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/51.Vu%CC%80ng_%C4%90a%CC%82%CC%81t_Bi%CC%A3_Nguye%CC%82%CC%80n_Ru%CC%89a_j8no0w.jpg",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 51,
-        "movie_name": "Vùng Đất Bị Nguyền Rủa",
-        "rating": 8,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/TTHThG-pj6s?si=RWyBWT_sXGJ6dAba",
-        "viewing_age": 12
-      },
-      "movie52": {
-        "actor": "Chris Pratt, Zoe Saldana",
-        "count": 278,
-        "description": "Cuộc phiêu lưu hoành tráng theo chân hành trình của một robot — đơn vị ROZZUM 7134, gọi tắt là Roz. Roz vô tình dạt vào hoang đảo sau một sự cố và nơi đây trở thành địa điểm sống mới của cô. Tại đây, Roz kết thân và nhận nuôi một chú ngỗng con, đặt tên là Brightbill. Roz và Brightbill dần dần thân thiết với các bạn thú trên đảo, song sau đó phải chống chọi, bảo vệ “nhà mới” trước sự xâm lăng của nhà máy từng sản xuất ra Roz.",
-        "director": "James Gunn",
-        "duration": 124,
-        "genre": "Khoa học viễn tưởng, Phiêu lưu",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/52._Robot_Hoang_Da%CC%83_pawita.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 52,
-        "movie_name": "Robot Hoang Dã",
-        "rating": 7,
-        "release_date": "11-10-2024",
-        "trailer": "https://www.youtube.com/embed/2l8_FNIBWLM?si=b3qhiVWsm1_y0sYp",
-        "viewing_age": 15
-      },
-      "movie53": {
-        "actor": "Vera Farmiga, Patrick Wilson",
-        "count": 278,
-        "description": "Một kẻ lạ mặt Jun-woo (JaeHyun NCT) dự báo cái chết sẽ đến với Jeong-yun (PARK Ju-hyun) trong 6 tiếng sắp tới. Từ phớt lờ, đến hoang mang, và nhận ra hiểm họa gần kề, cô buộc phải đồng hành cùng kẻ tiên tri bí ẩn. Càng cố tìm hiểu cô lại nhận ra Jun-woo chính là manh mối duy nhất liên quan đến những vụ án sát nhân hàng loạt. Căng thẳng tột độ, liệu Jun-woo đã nhìn thấy tương lai hay chỉ đang giăng bẫy một nạn nhân xấu số",
-        "director": "James Wan",
-        "duration": 146,
-        "genre": "Kinh dị, Siêu nhiên",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/53._Tie%CC%82n_Tri_Tu%CC%9B%CC%89_Tha%CC%82%CC%80n_edhugl.jpg",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 53,
-        "movie_name": "Tiên Tri Tử Thần",
-        "rating": 8.7,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/new1kh3wnIA?si=kLXoF6-RsM-wlGTY\" title=\"YouTube video player",
-        "viewing_age": 15
-      },
-      "movie54": {
-        "actor": "Nguyễn Ngọc Quỳnh, Trần Bảo Sơn",
-        "count": 200,
-        "description": "Năm 1992, một cô gái rơi từ mái của trường trung học cơ sở. Bên cạnh thi thể của cô ấy là một máy ghi âm cassette vẫn đang ghi lại... 32 năm sau, Honoka được thuê dạy các lớp học hè tại ngôi trường đó. Một ngày nọ, cô nghe thấy tiếng ngâm nga từ trên mái và một giọng nói hét lên: “Hãy lắng nghe âm thanh của tôi!” sau đó là tiếng rơi thịch của một học sinh. Honoka cùng các học sinh của mình, Hitomi và Takeru, bắt đầu nghi ngờ rằng hai vụ tai nạn này có liên quan đến nhau. Họ tìm trong kỷ yếu của năm 1992 và phát hiện bức ảnh của Sana, một bạn cùng lớp đam mê thu thập “âm thanh của mọi người” để viết bài hát của mình. Honoka, Hitomi, và Takeru nhanh chóng nhận ra rằng Sana chính là nguyên nhân của những vụ tai nạn, và bất cứ ai nghe bài hát của cô ấy đều có thể trở thành nạn nhân tiếp theo.",
-        "director": "Lê Hoàng",
-        "duration": 96,
-        "genre": "Kinh dị, Tâm lý",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/54._Tie%CC%82%CC%81ng_Go%CC%A3i_Cu%CC%89a_Oa%CC%81n_Ho%CC%82%CC%80n_rlyann.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 54,
-        "movie_name": "Tiếng Gọi Của Oán Hồn",
-        "rating": 9,
-        "release_date": "01-11-2024",
-        "trailer": "https://www.youtube.com/embed/Z6362SLEHXA?si=yIvUkwA2ISncq89U",
-        "viewing_age": 12
-      },
-      "movie55": {
-        "actor": "Leonardo DiCaprio, Brad Pitt",
-        "count": 219,
-        "description": "ễ hội trường bỗng biến thành sân chơi khát máu của thế lực bí ẩn buộc nhóm học sinh phải tham gia vào những trò chơi kỳ dị và tàn bạo. Không có ngoại lệ nào dành cho kẻ yếu, thua một trò chơi mất cả mạng người. Liệu trong một thế giới tàn khốc sẽ luôn tồn tại một lối thoát hay đó chỉ là niềm tin ảo của những trái tim đang hoảng loạn trước cái chết?",
-        "director": "Quentin Tarantino",
-        "duration": 107,
-        "genre": "Tâm lý, Tội phạm",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168835/55.Tro%CC%80_Cho%CC%9Bi_Nha%CC%82n_Ti%CC%81nh_ooovpu.jpg",
-        "is_special_show": true,
-        "language": "Vietnamese",
-        "movie_id": 55,
-        "movie_name": "Trò Chơi Nhân Tính",
-        "rating": 6.4,
-        "release_date": "25-10-2024",
-        "trailer": "https://www.youtube.com/embed/KvmVQpkv4Pw?si=VzDgqf1zIXoEljTk",
-        "viewing_age": 16
-      },
-      "movie56": {
-        "actor": "Ethan Hawke, Lena Headey",
-        "count": 134,
-        "description": "Sau một tai nạn, cô gái trẻ Retno mất mẹ, trong khi cha cô rơi vào tình trạng hôn mê. Cô cùng chị gái mình quyết định đưa cha về chăm sóc, nhưng quãng thời gian này trở thành địa ngục với cả gia đình khi những sự kiện ghê rợn liên tiếp xảy ra. Cùng lúc đó, sự xuất hiện của người con trai ngoài giá thú của cha cô châm ngòi cho cuộc chiến tranh giành khoản thừa kế, đồng thời mở ra những bí ẩn kinh hoàng trong quá khứ.",
-        "director": "Scott Derrickson",
-        "duration": 97,
-        "genre": "Kinh dị, Giật gân",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168836/56._A%CC%81c_Quy%CC%89_Truy_Ho%CC%82%CC%80n_xdqdbj.jpg",
-        "is_special_show": false,
-        "language": "Vietnamese",
-        "movie_id": 56,
-        "movie_name": "Ác Quỷ Truy Hồn",
-        "rating": 7.7,
-        "release_date": "18-10-2024",
-        "trailer": "https://www.youtube.com/embed/IPhJ5T1cCHw?si=qNm1-rM3o0LL6NRN",
-        "viewing_age": 13
-      },
-      "movie6": {
-        "actor": "Ngô Thanh Vân",
-        "count": 300,
-        "description": "Một bà mẹ đơn thân phải giải cứu con gái bị bắt cóc.",
-        "director": "Lê Văn Kiệt",
-        "duration": 98,
-        "genre": "Action",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/6._Hai_Phu%CC%9Bo%CC%9B%CC%A3ng_q81evr.webp",
-        "language": "Vietnamese",
-        "movie_id": 6,
-        "movie_name": "Hai Phượng",
-        "rating": 8.1,
-        "trailer": "https://www.youtube.com/embed/THXPCF6UHh8?si=0IvxmtcZFDpMt2bo",
-        "viewing_age": 18
-      },
-      "movie7": {
-        "actor": "Hạ Vi",
-        "count": 180,
-        "description": "Phiên bản mới của câu chuyện cổ tích Tấm Cám.",
-        "director": "Ngô Thanh Vân",
-        "duration": 120,
-        "genre": "Fantasy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/7._Ta%CC%82%CC%81m_Ca%CC%81m-_Chuye%CC%A3%CC%82n_Chu%CC%9Ba_Ke%CC%82%CC%89_hpmvek.jpg",
-        "language": "Vietnamese",
-        "movie_id": 7,
-        "movie_name": "Tấm Cám: Chuyện Chưa Kể",
-        "rating": 7,
-        "trailer": "https://www.youtube.com/embed/Ud-YVnRK_kY?si=jNZbxUNbWPzZjnBe",
-        "viewing_age": 10
-      },
-      "movie8": {
-        "actor": "Thái Hòa",
-        "count": 220,
-        "description": "Cuộc sống và tình yêu của chàng trai ngây ngô.",
-        "director": "Charlie Nguyễn",
-        "duration": 105,
-        "genre": "Comedy",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/8._%C4%90e%CC%82%CC%89_Mai_Ti%CC%81nh_dbftvk.jpg",
-        "language": "Vietnamese",
-        "movie_id": 8,
-        "movie_name": "Để Mai Tính",
-        "rating": 7.8,
-        "trailer": "https://www.youtube.com/embed/JQPzSUqEBVQ?si=wftf5S5mirr9zw7w",
-        "viewing_age": 12
-      },
-      "movie9": {
-        "actor": "Thu Trang",
-        "count": 160,
-        "description": "Cuộc đấu tranh của những kẻ mạnh mẽ trong thế giới ngầm.",
-        "director": "Thu Trang",
-        "duration": 105,
-        "genre": "Action",
-        "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/9._Chi%CC%A3_Mu%CC%9Bo%CC%9B%CC%80i_Ba_oh40xa.jpg",
-        "language": "Vietnamese",
-        "movie_id": 9,
-        "movie_name": "Chị Mười Ba",
-        "rating": 7.5,
-        "trailer": "https://www.youtube.com/embed/Ncwkodt5dA4?si=W5Bkc3fvri4TkPdU",
-        "viewing_age": 16
-      }
+    "-OC41tArh0eFJYphvAWf": {
+      "account_id": 3,
+      "birth_date": "2024-11-04",
+      "created_date": "2024-11-19",
+      "email": "vtiacademy.edu@gmail.com",
+      "fullname": "VTICinema",
+      "gender": "Nữ",
+      "password": "$2a$10$5Oe2S7qPg1Hi1316et4CO./iS2M5OevOCpDxGKQZTVy9R0KxAInHm",
+      "phone_number": "0934304645",
+      "role": "user",
+      "status": "active",
+      "updated_date": "2024-11-19"
     }
+  },
+  "Banners": {
+    "banner1": {
+      "created_at": "2024-11-05T10:30:00Z",
+      "description": "Get 50% off on all tickets this weekend!",
+      "event_id": 201,
+      "id": 1,
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731769729/3_gf3qnc.jpg",
+      "is_active": true,
+      "movie_id": 101,
+      "title": "Big Sale on Tickets",
+      "updated_at": "2024-11-05T12:00:00Z"
+    },
+    "banner2": {
+      "created_at": "2024-11-01T09:00:00Z",
+      "description": "Don't miss the premiere of the latest action movie!",
+      "event_id": 202,
+      "id": 2,
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813423/iDkNVZj_vi32rd.jpg",
+      "is_active": true,
+      "movie_id": 102,
+      "title": "New Movie Release",
+      "updated_at": "2024-11-01T11:00:00Z"
+    },
+    "banner3": {
+      "created_at": "2024-10-25T08:30:00Z",
+      "description": "Join us for an exclusive screening with the cast!",
+      "event_id": 203,
+      "id": 3,
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813423/Bo%CC%82%CC%81_Gia%CC%80_qrx1yq.jpg",
+      "is_active": false,
+      "movie_id": 103,
+      "title": "Exclusive Screening",
+      "updated_at": "2024-10-25T10:30:00Z"
+    },
+    "banner4": {
+      "created_at": "2024-11-03T14:00:00Z",
+      "description": "Bring your kids for a fun animated movie experience!",
+      "event_id": 204,
+      "id": 4,
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730813422/Banner-ngang-website-2-scaled_mlasws.jpg",
+      "is_active": true,
+      "movie_id": 104,
+      "title": "Kids Special",
+      "updated_at": "2024-11-03T15:00:00Z"
+    },
+    "banner5": {
+      "created_at": "2024-10-31T22:00:00Z",
+      "description": "Prepare to be scared with our late-night horror screenings.",
+      "event_id": 205,
+      "id": 5,
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731769729/47._Tha%CC%82%CC%80n_Du%CC%9Bo%CC%9B%CC%A3c_sb8qww.jpg",
+      "is_active": false,
+      "movie_id": 105,
+      "title": "Horror Night",
+      "updated_at": "2024-10-31T23:00:00Z"
+    }
+  },
+  "Movies": {
+    "movie1": {
+      "actor": "Trần Nghĩa",
+      "count": 200,
+      "description": "Một câu chuyện tình buồn về tuổi học trò.",
+      "director": "Victor Vũ",
+      "duration": 114,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809742/1._Ma%CC%86%CC%81t_Bie%CC%82%CC%81c_zjtjfn.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 1,
+      "movie_name": "Mắt Biếc",
+      "rating": 8.2,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/ITlQ0oU7tDA",
+      "viewing_age": 13
+    },
+    "movie10": {
+      "actor": "Liên Bỉnh Phát",
+      "count": 140,
+      "description": "Câu chuyện đầy cảm xúc về nghệ thuật cải lương.",
+      "director": "Leon Quang Lê",
+      "duration": 120,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/10._Song_Lang_lhy2x9.png",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 10,
+      "movie_name": "Song Lang",
+      "rating": 8.3,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/wX8nGJFGwaU?si=qH9LtFCYhnAPYX-u",
+      "viewing_age": 15
+    },
+    "movie11": {
+      "actor": "Hoàng Yến Chibi",
+      "count": 175,
+      "description": "Ký ức tuổi thanh xuân của một nhóm bạn học cũ.",
+      "director": "Nguyễn Quang Dũng",
+      "duration": 118,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/11._Tha%CC%81ng_Na%CC%86m_Ru%CC%9B%CC%A3c_Ro%CC%9B%CC%83_ppm5yd.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 11,
+      "movie_name": "Tháng Năm Rực Rỡ",
+      "rating": 8,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/qjWoaNWZ2Xo?si=6cipAwwrEkUYusRM",
+      "viewing_age": 13
+    },
+    "movie12": {
+      "actor": "Quách Ngọc Ngoan",
+      "count": 130,
+      "description": "Hành trình xuyên thời gian của một người đàn ông bất tử.",
+      "director": "Victor Vũ",
+      "duration": 130,
+      "genre": "Thriller",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809745/12._Ngu%CC%9Bo%CC%9B%CC%80i_Ba%CC%82%CC%81t_Tu%CC%9B%CC%89_fphjsu.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 12,
+      "movie_name": "Người Bất Tử",
+      "rating": 7.3,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/6VEVPtFDN_U?si=FxhD4GkuIWm123oO",
+      "viewing_age": 16
+    },
+    "movie13": {
+      "actor": "Johnny Trí Nguyễn",
+      "count": 110,
+      "description": "Cuộc chiến của những anh hùng thời chiến.",
+      "director": "Charlie Nguyễn",
+      "duration": 90,
+      "genre": "Action",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809745/13._Do%CC%80ng_Ma%CC%81u_Anh_Hu%CC%80ng_o87tlp.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 13,
+      "movie_name": "Dòng Máu Anh Hùng",
+      "rating": 7.9,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/fldOtUA_1LA?si=WsmajbfAsfNkvHfd",
+      "viewing_age": 15
+    },
+    "movie14": {
+      "actor": "Huỳnh Đông",
+      "count": 150,
+      "description": "Cuộc phiêu lưu của một hiệp sĩ thời Trần.",
+      "director": "Victor Vũ",
+      "duration": 130,
+      "genre": "Historical",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809746/14._Thie%CC%82n_Me%CC%A3%CC%82nh_Anh_Hu%CC%80ng_gzysbw.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 14,
+      "movie_name": "Thiên Mệnh Anh Hùng",
+      "rating": 8.1,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/kiTeyH3xASE?si=sTz-HLxS8o41mNSW",
+      "viewing_age": 14
+    },
+    "movie15": {
+      "actor": "Thái Hòa",
+      "count": 140,
+      "description": "Cuộc hành trình dở khóc dở cười của hai anh em.",
+      "director": "Charlie Nguyễn",
+      "duration": 90,
+      "genre": "Comedy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809746/15._Te%CC%80o_Em_hhw8gf.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 15,
+      "movie_name": "Tèo Em",
+      "rating": 7.6,
+      "release_date": "2024-12-01",
+      "trailer": "\"https://www.youtube.com/embed/oRvzM1eX5ow?si=TAo4ZZv3S7B1DBvV",
+      "viewing_age": 12
+    },
+    "movie16": {
+      "actor": "Bảo Thanh",
+      "count": 200,
+      "description": "Câu chuyện về tình cảm gia đình và sự trưởng thành.",
+      "director": "Nguyễn Danh Dũng",
+      "duration": 120,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/16._Ve%CC%82%CC%80_Nha%CC%80_%C4%90i_Con_tgujcj.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 16,
+      "movie_name": "Về Nhà Đi Con",
+      "rating": 8.4,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/r-ZM97E869w?si=a-6e2vO6-Lg8nzue",
+      "viewing_age": 10
+    },
+    "movie17": {
+      "actor": "Trương Ngọc Ánh",
+      "count": 160,
+      "description": "Cuộc truy đuổi của một nữ cảnh sát để bảo vệ công lý.",
+      "director": "Cường Ngô",
+      "duration": 105,
+      "genre": "Action",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/17._Truy_Sa%CC%81t_ka75fi.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 17,
+      "movie_name": "Truy Sát",
+      "rating": 7.4,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/sAibeuzwd_o?si=_LS5eWpB-YH13yjo",
+      "viewing_age": 16
+    },
+    "movie18": {
+      "actor": "Ninh Dương Lan Ngọc",
+      "count": 190,
+      "description": "Cuộc sống và tình yêu của cô gái hiện đại.",
+      "director": "Bảo Nhân",
+      "duration": 105,
+      "genre": "Comedy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/18._Ga%CC%81i_Gia%CC%80_La%CC%86%CC%81m_Chie%CC%82u_w1jfko.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 18,
+      "movie_name": "Gái Già Lắm Chiêu",
+      "rating": 7.7,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/IxfeXhGAa9M?si=y-CSvYsyT4ahojXo",
+      "viewing_age": 15
+    },
+    "movie19": {
+      "actor": "Thịnh Vinh",
+      "count": 220,
+      "description": "Câu chuyện tuổi thơ ở vùng quê Việt Nam.",
+      "director": "Victor Vũ",
+      "duration": 115,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/19._To%CC%82i_Tha%CC%82%CC%81y_Hoa_Va%CC%80ng_Tre%CC%82n_Co%CC%89_Xanh_in1kik.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 19,
+      "movie_name": "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
+      "rating": 8.2,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/wmjiCP6R-7I?si=dGuCSIi8fXh8VTwC",
+      "viewing_age": 10
+    },
+    "movie2": {
+      "actor": "Kaity Nguyễn",
+      "count": 150,
+      "description": "Một chuyện tình hài hước và bất ngờ của tuổi teen.",
+      "director": "Lê Thanh Sơn",
+      "duration": 95,
+      "genre": "Romantic Comedy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/2._Em_Chu%CC%9Ba_18_skydzm.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 2,
+      "movie_name": "Em chưa 18",
+      "rating": 7.6,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/_affkHceSj4?si=OHnEJ2FWUYFYF2ga",
+      "viewing_age": 16
+    },
+    "movie20": {
+      "actor": "Hoài Linh",
+      "count": 130,
+      "description": "Hành trình tìm lại bản sắc dân tộc của người Việt xa xứ.",
+      "director": "Nguyễn Quang Dũng",
+      "duration": 110,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809747/20._Da%CC%A3_Co%CC%82%CC%89_Hoa%CC%80i_Lang_oyzo63.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 20,
+      "movie_name": "Dạ Cổ Hoài Lang",
+      "rating": 8,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/E6ee5bxR43s?si=d0LRq472IqFUEnW5",
+      "viewing_age": 12
+    },
+    "movie3": {
+      "actor": "Trấn Thành",
+      "count": 180,
+      "description": "Cuộc hành trình để giành lại tình yêu của chàng trai trẻ.",
+      "director": "Nhất Trung",
+      "duration": 100,
+      "genre": "Comedy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/3._Cua_La%CC%A3i_Vo%CC%9B%CC%A3_Ba%CC%82%CC%80u_dkmlxa.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 3,
+      "movie_name": "Cua lại vợ bầu",
+      "rating": 7.8,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/lhTtrS98uf4?si=9aS281SIURTGkrUo",
+      "viewing_age": 13
+    },
+    "movie4": {
+      "actor": "Trấn Thành",
+      "count": 250,
+      "description": "Câu chuyện về gia đình, tình cha con ở Sài Gòn.",
+      "director": "Vũ Ngọc Đãng",
+      "duration": 128,
+      "genre": "Drama",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/4._Bo%CC%82%CC%81_Gia%CC%80_x5oezd.webp",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 4,
+      "movie_name": "Bố Già",
+      "rating": 8.5,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/jluSu8Rw6YE?si=IwfRGz7omZEQOy6D\" title=\"YouTube video player",
+      "viewing_age": 12
+    },
+    "movie41": {
+      "actor": "Dwayne Johnson, Chris Evans",
+      "count": 202,
+      "description": "A popular movie about mystery.",
+      "director": "Jake Kasdan",
+      "duration": 106,
+      "genre": "Hành động, Phiêu lưu",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/41._Ma%CC%A3%CC%82t_Ma%CC%83_%C4%90o%CC%89_hv0y4h.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 41,
+      "movie_name": "Red One: Mật Mã Đỏ",
+      "rating": 6.6,
+      "release_date": "08-11-2024",
+      "trailer": "https://www.youtube.com/embed/2T_mKyH17mY?si=OG9IjqMhyeO6q3Kb",
+      "viewing_age": 16
+    },
+    "movie42": {
+      "actor": "Trần Nghĩa, Hoàng Yến Chibi",
+      "count": 150,
+      "description": "Ngày Xưa Có Một Chuyện Tình xoay quanh câu chuyện tình bạn, tình yêu giữa hai chàng trai và một cô gái từ thuở ấu thơ cho đến khi trưởng thành, phải đối mặt với những thử thách của số phận. Trải dài trong 4 giai đoạn từ năm 1987 - 2000, ba người bạn cùng tuổi - Vinh, Miền, Phúc đã cùng yêu, cùng bỡ ngỡ bước vào đời, va vấp và vượt qua.",
+      "director": "Nguyễn Quang Dũng",
+      "duration": 127,
+      "genre": "Tình cảm, Lãng mạn",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/42.Nga%CC%80y_Xu%CC%9Ba_Co%CC%81_Mo%CC%A3%CC%82t_Chuye%CC%A3%CC%82n_Ti%CC%80nh_ihmkmp.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 42,
+      "movie_name": "Ngày Xưa Có Một Chuyện Tình",
+      "rating": 7.1,
+      "release_date": "28-10-2024",
+      "trailer": "https://www.youtube.com/embed/qaeHlk0OXec?si=cgttoGbBzhdCFRce",
+      "viewing_age": 12
+    },
+    "movie43": {
+      "actor": "Tom Hardy, Michelle Williams",
+      "count": 239,
+      "description": "Tom Hardy sẽ tái xuất trong bom tấn Venom: The Last Dance (Tựa Việt: Venom: Kèo Cuối) và phải đối mặt với kẻ thù lớn nhất từ trước đến nay - toàn bộ chủng tộc Symbiote",
+      "director": "Andy Serkis",
+      "duration": 136,
+      "genre": "Hành động, Khoa học viễn tưởng",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/43._Ke%CC%80o_Cuo%CC%82%CC%81i_mlider.webp",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 43,
+      "movie_name": "Venom: Kèo Cuối",
+      "rating": 8.8,
+      "release_date": "25-10-2024",
+      "trailer": "https://www.youtube.com/embed/id1rfr_KZWg?si=WQbA6V1NfcZ0wS_V",
+      "viewing_age": 12
+    },
+    "movie44": {
+      "actor": "Daiki Yamashita, Nobuhiko Okamoto",
+      "count": 125,
+      "description": "Vào mùa xuân năm thứ hai, trong khi Nhật Bản đang bị tàn phá bởi các cuộc chiến, một người đàn ông bí ẩn bất ngờ xuất hiện có tên là Dark Might. Đối mặt với Deku và những người bạn, hắn tự xưng mình là biểu tượng mới thay thế All Might với tuyên bố hùng hồn: Tiếp theo là đến lượt ta!. Với dã tâm của mình, Dark Might sử dụng năng lực để tạo ra một pháo đài khổng lồ và nhốt người dân cùng anh hùng vào đó. Deku, Bakugo, Todoroki cùng lớp 1-A của trường U.A. dũng cảm đối đầu với Dark Might và tổ chức tội phạm bí ẩn do hắn cầm đầu, mang tên Gia đình Gollini. Liệu họ có thể ngăn chặn tham vọng của biểu tượng mới Dark Might và bảo vệ thế giới",
+      "director": "Kenji Nagasaki",
+      "duration": 90,
+      "genre": "Hoạt hình, Hành động",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/44._Ho%CC%A3c_Vie%CC%A3%CC%82n_Anh_Hu%CC%80ng-_You_re_Next_ybov8h.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 44,
+      "movie_name": "Học Viện Anh Hùng: You're Next",
+      "rating": 7.6,
+      "release_date": "08-11-2024",
+      "trailer": "https://www.youtube.com/embed/O_JcwpDergM?si=kzqSagad3rbRzbqE\" title=\"YouTube video player",
+      "viewing_age": 18
+    },
+    "movie45": {
+      "actor": "Park Seo-joon, Kim Ji-won",
+      "count": 251,
+      "description": "Bộ phim xoay quanh đôi bạn ngỗ nghịch Jae-hee và Heung-soo cùng những khoảnh khắc “dở khóc dở cười” khi cùng chung sống trong một ngôi nhà. Jae-hee là một cô gái “cờ xanh” với tâm hồn tự do, sống hết mình với tình yêu. Ngược lại, Heung-soo lại là một “cờ đỏ” chính hiệu khi cho rằng tình yêu là sự lãng phí cảm xúc không cần thiết. Bỏ qua những tin đồn lan tràn do người khác tạo ra, Jae-hee và Heung-soo chọn sống chung nhưng yêu theo cách riêng của họ. Hai quan điểm tình yêu trái ngược sẽ đẩy cả hai sang những ngã rẽ và kết cục khác nhau. Sau cùng, Jae-hee hay Heung-soo sẽ về đích trong hành trình học yêu này?",
+      "director": "Lee Byeong-heon",
+      "duration": 129,
+      "genre": "Hài, Lãng mạn",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/45._%C4%90o%CC%82i_Ba%CC%A3n_Ho%CC%A3c_Ye%CC%82u_wofxel.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 45,
+      "movie_name": "Đôi Bạn Học Yêu",
+      "rating": 6.5,
+      "release_date": "08-11-2024",
+      "trailer": "https://www.youtube.com/embed/EIARKqcXILM?si=x0jNaZMZTk0WpunE",
+      "viewing_age": 15
+    },
+    "movie46": {
+      "actor": "Lý Nhã Kỳ, Hứa Vĩ Văn",
+      "count": 262,
+      "description": "Phim lấy đề tài làm dâu hào môn và khai thác câu chuyện môn đăng hộ đối, lối sống và quy tắc của giới thượng lưu dưới góc nhìn hài hước và châm biếm.",
+      "director": "Victor Vũ",
+      "duration": 135,
+      "genre": "Tâm lý, Gia đình",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/46._Co%CC%82_Da%CC%82u_Ha%CC%80o_Mo%CC%82n_cssfbl.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 46,
+      "movie_name": "Cô Dâu Hào Môn",
+      "rating": 6.9,
+      "release_date": "18-10-2024",
+      "trailer": "https://www.youtube.com/embed/ZIz8QQBYcx0?si=N0POmaH8erO5sMsH\" title=\"YouTube video playe",
+      "viewing_age": 15
+    },
+    "movie47": {
+      "actor": "Ngô Thanh Vân, Quang Sự",
+      "count": 211,
+      "description": "Elizabeth Sparkle, nữ minh tinh từng làm khuynh đảo màn ảnh, giờ đây đối mặt với sự tàn phai của nhan sắc. Khi ánh hào quang dần lụi tàn, cô lao vào một cuộc hành trình đen tối để tìm lại vẻ đẹp của mình. Chìm sâu trong bóng tối, Elizabeth mua một loại thuốc bí ẩn từ những kẻ buôn lậu. Nhưng sắc đẹp có thực sự đến mà không phải trả giá",
+      "director": "Lê Văn Kiệt",
+      "duration": 99,
+      "genre": "Kinh dị, Bí ẩn",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168832/47._Tha%CC%82%CC%80n_Du%CC%9Bo%CC%9B%CC%A3c_xs6c0f.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 47,
+      "movie_name": "Thần Dược",
+      "rating": 7.1,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/zBIDSp17AOo?si=Zg3WA1M0QNjzMlw1",
+      "viewing_age": 18
+    },
+    "movie48": {
+      "actor": "Mario Maurer, Davika Hoorne",
+      "count": 255,
+      "description": "ABa năm sau cái chết của Yam, Yak vẫn tiếp tục săn lùng linh hồn bí ẩn mặc áo choàng đen. Gặp một cô gái có triệu chứng giống Yam, Yak phát hiện ra người bảo vệ linh hồn, pháp sư ẩn dật Puang, sống trong một khu rừng đầy nguy hiểm. Giữa những phép thuật ma quỷ và những sinh vật nguy hiểm. Khi họ đuổi theo linh hồn mặc áo choàng đen, tiếng kêu đầy ám ảnh của Tee Yod sắp quay trở lại một lần nữa...",
+      "director": "Banjong Pisanthanakun",
+      "duration": 100,
+      "genre": "Kinh dị, Giật gân",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/48._Tee_Yod-_Quy%CC%89_A%CC%86n_Ta%CC%A3ng_2_so1aoe.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 48,
+      "movie_name": "Tee Yod: Quỷ Ăn Tạng 2",
+      "rating": 6.2,
+      "release_date": "18-10-2024",
+      "trailer": "https://www.youtube.com/embed/xVVZvSybaEc?si=deagyiC4BMY6G861",
+      "viewing_age": 13
+    },
+    "movie49": {
+      "actor": "Song Kang-ho, Lee Byung-hun",
+      "count": 235,
+      "description": "Thongkam và Sek, một cặp đôi, đã làm việc không mệt mỏi để cùng nhau xây dựng cuộc sống, bao gồm việc sở hữu một ngôi nhà và một vườn sầu riêng ở Mae Hong Son. Bi kịch ập đến khi Sek đột ngột qua đời trong một vụ tai nạn, tiết lộ rằng họ chưa bao giờ kết hôn hợp pháp ở Thái Lan, khiến Thongkam không có quyền đối với tài sản của mình. Ngôi nhà và vườn cây ăn quả hiện thuộc về mẹ của Sek, người chuyển đến sống cùng con gái nuôi Mo và người làm vườn Jingna. Thongkam giờ đây phải chiến đấu để đòi lại thành quả của tình yêu và sức lao động của mình.",
+      "director": "Park Chan-wook",
+      "duration": 148,
+      "genre": "Tâm lý, Tội phạm",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/49._Thie%CC%82n_%C4%90u%CC%9Bo%CC%9B%CC%80ng_Qua%CC%89_Ba%CC%81o_q7b9vx.png",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 49,
+      "movie_name": "Thiên Đường Quả Báo",
+      "rating": 6.2,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
+      "viewing_age": 18
+    },
+    "movie5": {
+      "actor": "Lý Hải",
+      "count": 200,
+      "description": "Cuộc chiến sinh tồn đầy kịch tính trong 48 giờ.",
+      "director": "Lý Hải",
+      "duration": 100,
+      "genre": "Action",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809743/5._La%CC%A3%CC%82t_Ma%CC%A3%CC%86t-_48h_zuwu6q.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 5,
+      "movie_name": "Lật Mặt: 48h",
+      "rating": 7.7,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
+      "viewing_age": 16
+    },
+    "movie50": {
+      "actor": "Tony Jaa, Shu Qi",
+      "count": 165,
+      "description": "Theo chân John Lawlor là một đặc vụ DEA cừ khôi bất khả chiến bại, anh sẽ không tiếc hi sinh bất cứ điều gì để hoàn thành nhiệm vụ được giao.Trong khi đó, Joey Kwang là người vận chuyển hàng đầu ở Đài Bắc với tốc độ không ai sánh bằng và tư duy nhạy bén mà không ai có thể theo kịp cô. Vô tình số phận đã đưa họ đến với nhau trước khi thế lực tội phạm chia cắt họ.15 năm sau, số phận một lần nữa đẩy Joey và John va chạm nhau trong tình cảnh bất đắc dĩ vào cuối tuần tại Đài Bắc. Và cả hai sẽ khám phá ra rằng điều duy nhất khó hơn việc yêu… chính là yêu lại.",
+      "director": "Dante Lam",
+      "duration": 112,
+      "genre": "Hành động, Giật gân",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/50.Va%CC%82y_Ha%CC%83m_Ta%CC%A3i_%C4%90a%CC%80i_Ba%CC%86%CC%81c_lr0jp4.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 50,
+      "movie_name": "Vây Hãm Tại Đài Bắc",
+      "rating": 7.3,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/hIKXRfyZfEg?si=-tc5Gvq_mVNZ2ByE\"",
+      "viewing_age": 16
+    },
+    "movie51": {
+      "actor": "Ma Dong-seok, Kim Ok-bin",
+      "count": 300,
+      "description": "Sau cái chết của vợ, để trốn tránh quá khứ, Mit và cô con gái May chuyển đến một ngôi nhà mới ở khu phố ngoại ô. Trong lúc chuẩn bị xây dựng một miếu thờ thiên trước nhà mới, anh vô tình giải thoát một con quỷ đang giận dữ và ác mộng kinh hoàng ập tới cuộc sống mới của hai bố con. Mit tìm kiếm sự giúp đỡ của một thầy phù thủy để làm lễ trừ tà. Nhưng họ không biết rằng, lễ trừ tà cuối cùng sẽ mở ra nhiều bí mật đen tối về vùng đất này",
+      "director": "Na Hong-jin",
+      "duration": 119,
+      "genre": "Kinh dị, Bí ẩn",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168833/51.Vu%CC%80ng_%C4%90a%CC%82%CC%81t_Bi%CC%A3_Nguye%CC%82%CC%80n_Ru%CC%89a_j8no0w.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 51,
+      "movie_name": "Vùng Đất Bị Nguyền Rủa",
+      "rating": 8,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/TTHThG-pj6s?si=RWyBWT_sXGJ6dAba",
+      "viewing_age": 12
+    },
+    "movie52": {
+      "actor": "Chris Pratt, Zoe Saldana",
+      "count": 278,
+      "description": "Cuộc phiêu lưu hoành tráng theo chân hành trình của một robot — đơn vị ROZZUM 7134, gọi tắt là Roz. Roz vô tình dạt vào hoang đảo sau một sự cố và nơi đây trở thành địa điểm sống mới của cô. Tại đây, Roz kết thân và nhận nuôi một chú ngỗng con, đặt tên là Brightbill. Roz và Brightbill dần dần thân thiết với các bạn thú trên đảo, song sau đó phải chống chọi, bảo vệ “nhà mới” trước sự xâm lăng của nhà máy từng sản xuất ra Roz.",
+      "director": "James Gunn",
+      "duration": 124,
+      "genre": "Khoa học viễn tưởng, Phiêu lưu",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/52._Robot_Hoang_Da%CC%83_pawita.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 52,
+      "movie_name": "Robot Hoang Dã",
+      "rating": 7,
+      "release_date": "11-10-2024",
+      "trailer": "https://www.youtube.com/embed/2l8_FNIBWLM?si=b3qhiVWsm1_y0sYp",
+      "viewing_age": 15
+    },
+    "movie53": {
+      "actor": "Vera Farmiga, Patrick Wilson",
+      "count": 278,
+      "description": "Một kẻ lạ mặt Jun-woo (JaeHyun NCT) dự báo cái chết sẽ đến với Jeong-yun (PARK Ju-hyun) trong 6 tiếng sắp tới. Từ phớt lờ, đến hoang mang, và nhận ra hiểm họa gần kề, cô buộc phải đồng hành cùng kẻ tiên tri bí ẩn. Càng cố tìm hiểu cô lại nhận ra Jun-woo chính là manh mối duy nhất liên quan đến những vụ án sát nhân hàng loạt. Căng thẳng tột độ, liệu Jun-woo đã nhìn thấy tương lai hay chỉ đang giăng bẫy một nạn nhân xấu số",
+      "director": "James Wan",
+      "duration": 146,
+      "genre": "Kinh dị, Siêu nhiên",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/53._Tie%CC%82n_Tri_Tu%CC%9B%CC%89_Tha%CC%82%CC%80n_edhugl.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 53,
+      "movie_name": "Tiên Tri Tử Thần",
+      "rating": 8.7,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/new1kh3wnIA?si=kLXoF6-RsM-wlGTY\" title=\"YouTube video player",
+      "viewing_age": 15
+    },
+    "movie54": {
+      "actor": "Nguyễn Ngọc Quỳnh, Trần Bảo Sơn",
+      "count": 200,
+      "description": "Năm 1992, một cô gái rơi từ mái của trường trung học cơ sở. Bên cạnh thi thể của cô ấy là một máy ghi âm cassette vẫn đang ghi lại... 32 năm sau, Honoka được thuê dạy các lớp học hè tại ngôi trường đó. Một ngày nọ, cô nghe thấy tiếng ngâm nga từ trên mái và một giọng nói hét lên: “Hãy lắng nghe âm thanh của tôi!” sau đó là tiếng rơi thịch của một học sinh. Honoka cùng các học sinh của mình, Hitomi và Takeru, bắt đầu nghi ngờ rằng hai vụ tai nạn này có liên quan đến nhau. Họ tìm trong kỷ yếu của năm 1992 và phát hiện bức ảnh của Sana, một bạn cùng lớp đam mê thu thập “âm thanh của mọi người” để viết bài hát của mình. Honoka, Hitomi, và Takeru nhanh chóng nhận ra rằng Sana chính là nguyên nhân của những vụ tai nạn, và bất cứ ai nghe bài hát của cô ấy đều có thể trở thành nạn nhân tiếp theo.",
+      "director": "Lê Hoàng",
+      "duration": 96,
+      "genre": "Kinh dị, Tâm lý",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168834/54._Tie%CC%82%CC%81ng_Go%CC%A3i_Cu%CC%89a_Oa%CC%81n_Ho%CC%82%CC%80n_rlyann.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 54,
+      "movie_name": "Tiếng Gọi Của Oán Hồn",
+      "rating": 9,
+      "release_date": "01-11-2024",
+      "trailer": "https://www.youtube.com/embed/Z6362SLEHXA?si=yIvUkwA2ISncq89U",
+      "viewing_age": 12
+    },
+    "movie55": {
+      "actor": "Leonardo DiCaprio, Brad Pitt",
+      "count": 219,
+      "description": "ễ hội trường bỗng biến thành sân chơi khát máu của thế lực bí ẩn buộc nhóm học sinh phải tham gia vào những trò chơi kỳ dị và tàn bạo. Không có ngoại lệ nào dành cho kẻ yếu, thua một trò chơi mất cả mạng người. Liệu trong một thế giới tàn khốc sẽ luôn tồn tại một lối thoát hay đó chỉ là niềm tin ảo của những trái tim đang hoảng loạn trước cái chết?",
+      "director": "Quentin Tarantino",
+      "duration": 107,
+      "genre": "Tâm lý, Tội phạm",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168835/55.Tro%CC%80_Cho%CC%9Bi_Nha%CC%82n_Ti%CC%81nh_ooovpu.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 55,
+      "movie_name": "Trò Chơi Nhân Tính",
+      "rating": 6.4,
+      "release_date": "25-10-2024",
+      "trailer": "https://www.youtube.com/embed/KvmVQpkv4Pw?si=VzDgqf1zIXoEljTk",
+      "viewing_age": 16
+    },
+    "movie56": {
+      "actor": "Ethan Hawke, Lena Headey",
+      "count": 134,
+      "description": "Sau một tai nạn, cô gái trẻ Retno mất mẹ, trong khi cha cô rơi vào tình trạng hôn mê. Cô cùng chị gái mình quyết định đưa cha về chăm sóc, nhưng quãng thời gian này trở thành địa ngục với cả gia đình khi những sự kiện ghê rợn liên tiếp xảy ra. Cùng lúc đó, sự xuất hiện của người con trai ngoài giá thú của cha cô châm ngòi cho cuộc chiến tranh giành khoản thừa kế, đồng thời mở ra những bí ẩn kinh hoàng trong quá khứ.",
+      "director": "Scott Derrickson",
+      "duration": 97,
+      "genre": "Kinh dị, Giật gân",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731168836/56._A%CC%81c_Quy%CC%89_Truy_Ho%CC%82%CC%80n_xdqdbj.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 56,
+      "movie_name": "Ác Quỷ Truy Hồn",
+      "rating": 7.7,
+      "release_date": "18-10-2024",
+      "trailer": "https://www.youtube.com/embed/IPhJ5T1cCHw?si=qNm1-rM3o0LL6NRN",
+      "viewing_age": 13
+    },
+    "movie6": {
+      "actor": "Ngô Thanh Vân",
+      "count": 300,
+      "description": "Một bà mẹ đơn thân phải giải cứu con gái bị bắt cóc.",
+      "director": "Lê Văn Kiệt",
+      "duration": 98,
+      "genre": "Action",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/6._Hai_Phu%CC%9Bo%CC%9B%CC%A3ng_q81evr.webp",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 6,
+      "movie_name": "Hai Phượng",
+      "rating": 8.1,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/THXPCF6UHh8?si=0IvxmtcZFDpMt2bo",
+      "viewing_age": 18
+    },
+    "movie7": {
+      "actor": "Hạ Vi",
+      "count": 180,
+      "description": "Phiên bản mới của câu chuyện cổ tích Tấm Cám.",
+      "director": "Ngô Thanh Vân",
+      "duration": 120,
+      "genre": "Fantasy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/7._Ta%CC%82%CC%81m_Ca%CC%81m-_Chuye%CC%A3%CC%82n_Chu%CC%9Ba_Ke%CC%82%CC%89_hpmvek.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 7,
+      "movie_name": "Tấm Cám: Chuyện Chưa Kể",
+      "rating": 7,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/Ud-YVnRK_kY?si=jNZbxUNbWPzZjnBe",
+      "viewing_age": 10
+    },
+    "movie8": {
+      "actor": "Thái Hòa",
+      "count": 220,
+      "description": "Cuộc sống và tình yêu của chàng trai ngây ngô.",
+      "director": "Charlie Nguyễn",
+      "duration": 105,
+      "genre": "Comedy",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/8._%C4%90e%CC%82%CC%89_Mai_Ti%CC%81nh_dbftvk.jpg",
+      "is_special_show": false,
+      "language": "Vietnamese",
+      "movie_id": 8,
+      "movie_name": "Để Mai Tính",
+      "rating": 7.8,
+      "release_date": "2024-11-15",
+      "trailer": "https://www.youtube.com/embed/JQPzSUqEBVQ?si=wftf5S5mirr9zw7w",
+      "viewing_age": 12
+    },
+    "movie9": {
+      "actor": "Thu Trang",
+      "count": 160,
+      "description": "Cuộc đấu tranh của những kẻ mạnh mẽ trong thế giới ngầm.",
+      "director": "Thu Trang",
+      "duration": 105,
+      "genre": "Action",
+      "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1730809744/9._Chi%CC%A3_Mu%CC%9Bo%CC%9B%CC%80i_Ba_oh40xa.jpg",
+      "is_special_show": true,
+      "language": "Vietnamese",
+      "movie_id": 9,
+      "movie_name": "Chị Mười Ba",
+      "rating": 7.5,
+      "release_date": "2024-12-01",
+      "trailer": "https://www.youtube.com/embed/Ncwkodt5dA4?si=W5Bkc3fvri4TkPdU",
+      "viewing_age": 16
+    }
+  },
+  "Seats": {
+    "A": {
+      "A01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
+        "price": 50000,
+        "seat_id": "a1",
+        "seat_name": "A1",
+        "status": false
+      },
+      "A02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a2",
+        "seat_name": "A2",
+        "status": false
+      },
+      "A03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a3",
+        "seat_name": "A3",
+        "status": false
+      },
+      "A04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a4",
+        "seat_name": "A4",
+        "status": false
+      },
+      "A05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a5",
+        "seat_name": "A5",
+        "status": false
+      },
+      "A06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a6",
+        "seat_name": "A6",
+        "status": false
+      },
+      "A07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a7",
+        "seat_name": "A7",
+        "status": false
+      },
+      "A08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a8",
+        "seat_name": "A8",
+        "status": false
+      },
+      "A09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a9",
+        "seat_name": "A9",
+        "status": false
+      },
+      "A10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "a10",
+        "seat_name": "A10",
+        "status": false
+      }
+    },
+    "B": {
+      "B01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b1",
+        "seat_name": "B1",
+        "status": false
+      },
+      "B02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b2",
+        "seat_name": "B2",
+        "status": false
+      },
+      "B03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b3",
+        "seat_name": "B3",
+        "status": false
+      },
+      "B04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b4",
+        "seat_name": "B4",
+        "status": false
+      },
+      "B05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b5",
+        "seat_name": "B5",
+        "status": false
+      },
+      "B06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b6",
+        "seat_name": "B6",
+        "status": false
+      },
+      "B07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b7",
+        "seat_name": "B7",
+        "status": false
+      },
+      "B08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b8",
+        "seat_name": "B8",
+        "status": false
+      },
+      "B09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b9",
+        "seat_name": "B9",
+        "status": false
+      },
+      "B10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "b10",
+        "seat_name": "B10",
+        "status": false
+      }
+    },
+    "C": {
+      "C01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c1",
+        "seat_name": "C1",
+        "status": false
+      },
+      "C02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c2",
+        "seat_name": "C2",
+        "status": false
+      },
+      "C03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c3",
+        "seat_name": "C3",
+        "status": false
+      },
+      "C04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c4",
+        "seat_name": "C4",
+        "status": false
+      },
+      "C05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c5",
+        "seat_name": "C5",
+        "status": false
+      },
+      "C06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c6",
+        "seat_name": "C6",
+        "status": false
+      },
+      "C07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c7",
+        "seat_name": "C7",
+        "status": false
+      },
+      "C08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c8",
+        "seat_name": "C8",
+        "status": false
+      },
+      "C09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c9",
+        "seat_name": "C9",
+        "status": false
+      },
+      "C10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "price": 50000,
+        "seat_id": "c10",
+        "seat_name": "C10",
+        "status": false
+      }
+    },
+    "D": {
+      "D01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d1",
+        "seat_name": "D1",
+        "status": false
+      },
+      "D02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d2",
+        "seat_name": "D2",
+        "status": false
+      },
+      "D03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d3",
+        "seat_name": "D3",
+        "status": false
+      },
+      "D04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d4",
+        "seat_name": "D4",
+        "status": false
+      },
+      "D05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d5",
+        "seat_name": "D5",
+        "status": false
+      },
+      "D06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d6",
+        "seat_name": "D6",
+        "status": false
+      },
+      "D07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d7",
+        "seat_name": "D7",
+        "status": false
+      },
+      "D08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d8",
+        "seat_name": "D8",
+        "status": false
+      },
+      "D09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d9",
+        "seat_name": "D9",
+        "status": false
+      },
+      "D10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "d10",
+        "seat_name": "D10",
+        "status": false
+      }
+    },
+    "E": {
+      "E01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e1",
+        "seat_name": "E1",
+        "status": false
+      },
+      "E02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e2",
+        "seat_name": "E2",
+        "status": false
+      },
+      "E03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e3",
+        "seat_name": "E3",
+        "status": false
+      },
+      "E04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e4",
+        "seat_name": "E4",
+        "status": false
+      },
+      "E05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e5",
+        "seat_name": "E5",
+        "status": false
+      },
+      "E06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e6",
+        "seat_name": "E6",
+        "status": false
+      },
+      "E07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e7",
+        "seat_name": "E7",
+        "status": false
+      },
+      "E08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e8",
+        "seat_name": "E8",
+        "status": false
+      },
+      "E09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e9",
+        "seat_name": "E9",
+        "status": false
+      },
+      "E10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "e10",
+        "seat_name": "E10",
+        "status": false
+      }
+    },
+    "F": {
+      "F01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f1",
+        "seat_name": "F1",
+        "status": false
+      },
+      "F02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f2",
+        "seat_name": "F2",
+        "status": false
+      },
+      "F03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f3",
+        "seat_name": "F3",
+        "status": false
+      },
+      "F04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f4",
+        "seat_name": "F4",
+        "status": false
+      },
+      "F05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f5",
+        "seat_name": "F5",
+        "status": false
+      },
+      "F06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f6",
+        "seat_name": "F6",
+        "status": false
+      },
+      "F07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f7",
+        "seat_name": "F7",
+        "status": false
+      },
+      "F08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f8",
+        "seat_name": "F8",
+        "status": false
+      },
+      "F09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f9",
+        "seat_name": "F9",
+        "status": false
+      },
+      "F10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "f10",
+        "seat_name": "F10",
+        "status": false
+      }
+    },
+    "G": {
+      "G01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g1",
+        "seat_name": "G1",
+        "status": false
+      },
+      "G02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g2",
+        "seat_name": "G2",
+        "status": false
+      },
+      "G03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g3",
+        "seat_name": "G3",
+        "status": false
+      },
+      "G04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g4",
+        "seat_name": "G4",
+        "status": false
+      },
+      "G05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g5",
+        "seat_name": "G5",
+        "status": false
+      },
+      "G06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g6",
+        "seat_name": "G6",
+        "status": false
+      },
+      "G07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g7",
+        "seat_name": "G7",
+        "status": false
+      },
+      "G08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g8",
+        "seat_name": "G8",
+        "status": false
+      },
+      "G09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g9",
+        "seat_name": "G9",
+        "status": false
+      },
+      "G10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
+        "price": 60000,
+        "seat_id": "g10",
+        "seat_name": "G10",
+        "status": false
+      }
+    },
+    "H": {
+      "DB01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db1",
+        "seat_name": "DB1",
+        "status": false
+      },
+      "DB02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db2",
+        "seat_name": "DB2",
+        "status": false
+      },
+      "DB03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db3",
+        "seat_name": "DB3",
+        "status": false
+      },
+      "DB04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db4",
+        "seat_name": "DB4",
+        "status": false
+      },
+      "DB05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db5",
+        "seat_name": "DB5",
+        "status": false
+      },
+      "DB06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db6",
+        "seat_name": "DB6",
+        "status": false
+      },
+      "DB07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db7",
+        "seat_name": "DB7",
+        "status": false
+      },
+      "DB08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db8",
+        "seat_name": "DB8",
+        "status": false
+      },
+      "DB09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db9",
+        "seat_name": "DB9",
+        "status": false
+      },
+      "DB10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
+        "price": 120000,
+        "seat_id": "db10",
+        "seat_name": "DB10",
+        "status": false
+      }
+    },
+    "a1": {
+      "status": true
+    },
+    "b1": {
+      "status": true
+    },
+    "db1": {
+      "status": true
+    },
+    "undefined": {
+      "status": true
+    }
+  },
+  "Cinema": {
+  "cinema1": {
+    "cinema_id": 1,
+    "cinema_name": "VTI Hà Nội Cinema",
+    "city": "Hà Nội",
+    "location": "123 Đường ABC, Hà Nội"
+  },
+  "cinema2": {
+    "cinema_id": 2,
+    "cinema_name": "VTI Thăng Long Movie",
+    "city": "Hà Nội",
+    "location": "456 Đường DEF, Hà Nội"
+  },
+  "cinema3": {
+    "cinema_id": 3,
+    "cinema_name": "VTI Royal Hanoi Theater",
+    "city": "Hà Nội",
+    "location": "789 Đường GHI, Hà Nội"
+  },
+  "cinema4": {
+    "cinema_id": 4,
+    "cinema_name": "VTI West Lake Cinema",
+    "city": "Hà Nội",
+    "location": "101 Đường JKL, Hà Nội"
+  },
+  "cinema5": {
+    "cinema_id": 5,
+    "cinema_name": "VTI Red River Film House",
+    "city": "Hà Nội",
+    "location": "102 Đường MNO, Hà Nội"
+  },
+  "cinema6": {
+    "cinema_id": 6,
+    "cinema_name": "VTI Đà Nẵng Star Cinema",
+    "city": "Đà Nẵng",
+    "location": "123 Đường ABC, Đà Nẵng"
+  },
+  "cinema7": {
+    "cinema_id": 7,
+    "cinema_name": "VTI Huế Heritage Cinema",
+    "city": "Huế",
+    "location": "456 Đường DEF, Huế"
+  },
+  "cinema8": {
+    "cinema_id": 8,
+    "cinema_name": "VTI Đồng Hới Film Center",
+    "city": "Đồng Hới",
+    "location": "789 Đường GHI, Đồng Hới"
+  },
+  "cinema9": {
+    "cinema_id": 9,
+    "cinema_name": "VTI Nha Trang Sun Theater",
+    "city": "Nha Trang",
+    "location": "101 Đường JKL, Nha Trang"
+  },
+  "cinema10": {
+    "cinema_id": 10,
+    "cinema_name": "VTI Pleiku Movies",
+    "city": "Pleiku",
+    "location": "102 Đường MNO, Pleiku"
+  },
+  "cinema11": {
+    "cinema_id": 11,
+    "cinema_name": "VTI Sài Gòn Film House",
+    "city": "Sài Gòn",
+    "location": "123 Đường ABC, Sài Gòn"
+  },
+  "cinema12": {
+    "cinema_id": 12,
+    "cinema_name": "VTI Mekong Movie Center",
+    "city": "Mekong",
+    "location": "456 Đường DEF, Mekong"
+  },
+  "cinema13": {
+    "cinema_id": 13,
+    "cinema_name": "VTI Vũng Tàu Ocean Cinema",
+    "city": "Vũng Tàu",
+    "location": "789 Đường GHI, Vũng Tàu"
+  },
+  "cinema14": {
+    "cinema_id": 14,
+    "cinema_name": "VTI Cần Thơ Riverside Theater",
+    "city": "Cần Thơ",
+    "location": "101 Đường JKL, Cần Thơ"
+  },
+  "cinema15": {
+    "cinema_id": 15,
+    "cinema_name": "VTI Biên Hòa Galaxy",
+    "city": "Biên Hòa",
+    "location": "102 Đường MNO, Biên Hòa"
   }
+},
+  "Showtimes": [
+    {
+      "date": "2024-12-18",
+      "sessions": [
+        { "time": "08:40", "seatsAvailable": 136 },
+        { "time": "12:30", "seatsAvailable": 120 }
+      ]
+    },
+    {
+      "date": "2024-12-19",
+      "sessions": [
+        { "time": "10:00", "seatsAvailable": 140 },
+        { "time": "16:00", "seatsAvailable": 110 }
+      ]
+    },
+    {
+      "date": "2024-12-20",
+      "sessions": [
+        { "time": "10:00", "seatsAvailable": 140 },
+        { "time": "16:00", "seatsAvailable": 100 }
+      ]
+    }
+  ]
+}
+
+

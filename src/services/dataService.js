@@ -6,6 +6,8 @@ import {
   getAccountByEmailFromFirebase,
   fetchMoviesByTabFromFirebase,
   fetchSeatsFromFirebase,
+  fetchCinemasFromFirebase,
+  fetchShowtimesFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -15,6 +17,8 @@ import {
   fetchAccountByEmailFromSQL,
   fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
+  fetchCinemasFromSQL,
+  fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
@@ -69,4 +73,16 @@ export const fetchSeats = async () => {
   return useFirebase
     ? await fetchSeatsFromFirebase()
     : await fetchSeatsFromSQL();
+};
+// API lấy dữ liệu Cinemas
+export const fetchCinemas = async () => {
+  return useFirebase
+    ? await fetchCinemasFromFirebase()
+    : await fetchCinemasFromSQL();
+};
+// API lấy dữ liệu Showtimes
+export const fetchShowtimes = async () => {
+  return useFirebase
+    ? await fetchShowtimesFromFirebase()
+    : await fetchShowtimesFromSQL();
 };

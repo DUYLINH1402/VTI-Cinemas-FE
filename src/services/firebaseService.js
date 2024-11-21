@@ -146,3 +146,15 @@ export const getAccountByEmailFromFirebase = async (email) => {
   const accounts = Object.values(snapshot.val());
   return accounts[0];
 };
+
+// Hàm lưu thông tin Seats
+export const fetchSeatsFromFirebase = async () => {
+  try {
+    const reponse = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Seats.json"
+    );
+    return Object.values(reponse.data)
+  } catch (error) {
+    console.error("Error fetching seats from Firebase:", error);
+  }
+}

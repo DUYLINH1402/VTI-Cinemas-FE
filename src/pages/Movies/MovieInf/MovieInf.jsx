@@ -26,8 +26,6 @@ export const MovieInf = () => {
     window.scrollTo(0, 0);
   }, [movie_id]);
 
-  console.log(movie);
-
   return (
     <>
       <div className="content">

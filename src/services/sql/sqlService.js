@@ -71,3 +71,9 @@ export const createAccountToSQL = async (formData) => {
     console.error("Lỗi khi lưu dữ liệu vào SQL:", error);
   }
 };
+
+// Hàm lấy dữ liệu Seat 
+export const fetchSeatsFromSQL = async () => {
+  const reponse = await api.get("/seat");
+  return reponse.data
+}

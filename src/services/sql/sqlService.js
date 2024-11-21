@@ -92,3 +92,9 @@ export const fetchShowtimesFromSQL = async () => {
     throw error;
   }
 };
+
+// Hàm lấy dữ liệu Seat
+export const fetchSeatsFromSQL = async () => {
+  const reponse = await api.get("/seat");
+  return reponse.data;
+};

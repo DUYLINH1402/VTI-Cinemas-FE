@@ -11,7 +11,6 @@ import {
   child,
 } from "firebase/database";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import bcrypt from "bcryptjs";
 import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 

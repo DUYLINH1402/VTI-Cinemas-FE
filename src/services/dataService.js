@@ -67,7 +67,12 @@ export const fetchAccountByEmail = async (email) => {
     ? await getAccountByEmailFromFirebase(email)
     : await fetchAccountByEmailFromSQL(email);
 };
-
+// API Update Account By email
+export const updateAccount = async (formData) => {
+  return useFirebase
+    ? await updateAccountToFirebase(formData)
+    : await updateAccountToSQL(formData);
+};
 // Hàm lấy dữ liệu Seats
 export const fetchSeats = async () => {
   return useFirebase

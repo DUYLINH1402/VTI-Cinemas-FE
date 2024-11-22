@@ -4,12 +4,15 @@ import React, { useEffect } from "react";
 import { Provider, useDispatch } from "react-redux";
 import store from "../store/store";
 import { setAuth } from "../store/authSlice"; // Import setAuth để thiết lập auth từ token
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <Provider store={store}>
       <AppInitializer />
       <RouterPage />
+      <ToastContainer />
     </Provider>
   );
 }

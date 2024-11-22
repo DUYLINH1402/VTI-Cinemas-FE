@@ -67,7 +67,7 @@ export const createAccountToSQL = async (accountRequest) => {
       // birth_date: accountRequest.birthDate,
       // gender: accountRequest.gender,
       password: accountRequest.password, // Có thể mã hóa trước khi gửi
-                          // => bên be đã mã hóa chỉ cần truyền dữ liệu String 
+      // => bên be đã mã hóa chỉ cần truyền dữ liệu String
     });
 
     console.log("Lưu dữ liệu vào SQL thành công:", response.data);
@@ -93,19 +93,18 @@ export const fetchMovieFormSql = async (cinema_id) => {
     const response = await api.get(`/cinema/findMovies/${cinema_id}`);
     return response.data;
   } catch (error) {
-      console.error("Error fetching movie", error);
-      
+    console.error("Error fetching movie", error);
   }
-}
+};
 // sau đó khi người dùng ấn vào phim cụ thể sẽ show ra lịch chiếu
-export const fetchShowTimesOnMovie =async (movie_id)=>{
+export const fetchShowTimesOnMovie = async (movie_id) => {
   try {
     const reponse = api.get(`/showtime/findByMovie/${movie_id}`);
     return reponse.data; // => cái này sẽ trả về lịch chiếu phim trong ngày hôm đó không hiện những ngày khác
   } catch (error) {
     console.error("Error fetching showtime by movie", error);
   }
-}
+};
 // còn phương thức của anh thì gộp chung khá nhiều cũng khá rộng.
 //Em nghĩ cứ ghép lại từ cái api nhỏ thui ạ. function em đã tab thu gọn r _tzanlam
 // export const fetchShowtimesFromSQL = async () => {
@@ -118,25 +117,24 @@ export const fetchShowTimesOnMovie =async (movie_id)=>{
 //   }
 // };
 
-// sau khi chọn xong phim thì sẽ hiện ra các button là các ghế cụ thể logic em nghĩ sẽ là: 
+// sau khi chọn xong phim thì sẽ hiện ra các button là các ghế cụ thể logic em nghĩ sẽ là:
 // chọn cinema => chọn phim => chọn giờ chiếu => tìm kiếm xem phòng nào chiếu phim đó giờ đó
 // sau đó fetchSeat theo movie với start time tìm ra room rồi kiếm ra seatRoom
 const fetchSeatRoomByMovieIdAndStartTime = async (movie_id, start_time) => {
   try {
-    return api.get(`/showtime/findSeatRoomByMovieAndStartTime/${movie_id}/${start_time}`.data);
+    return api.get(
+      `/showtime/findSeatRoomByMovieAndStartTime/${movie_id}/${start_time}`.data
+    );
   } catch (error) {
-    console.error("Error fetching SeatRoom by Movie and StartTime"+ error);
+    console.error("Error fetching SeatRoom by Movie and StartTime" + error);
   }
-}
+};
 // nãy giờ em chỉnh đang làm 1 trường hợp đối với phim được chiếu trong ngày hôm đó thui nhé
 
-const createTikcet = async(TicketRequest) => {
+const createTikcet = async (TicketRequest) => {
   try {
-    
-  } catch (error) {
-    
-  }
-}
+  } catch (error) {}
+};
 // Hàm lấy dữ liệu Seat
 export const fetchSeatsFromSQL = async () => {
   const reponse = await api.get("/seat");

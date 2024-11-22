@@ -1,20 +1,36 @@
 import "./UserProfile.modul.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { fetchAccountByEmail } from "../../../../services/dataService";
 
 export const UserProfile = () => {
+  const user = JSON.parse(localStorage.getItem("user")); // Lấy dữ liệu và chuyển thành object
+  const email = user?.email || ""; // Lấy email từ user object, hoặc trả về chuỗi rỗng nếu không có
+  console.log(email);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    name: user.fullname || user.displayName,
+    email: user.email,
+    phone: user.phone_number,
     passport: "",
-    dob: "",
+    birthDate: user.birth_date,
     gender: "Nam",
     city: "",
     district: "",
     address: "",
-    avatar: null,
+    avatar: user.photoURL,
   });
+  useEffect(() => {
+    const fetchDataAccountByEmail = async () => {
+      try {
+        const data = await fetchAccountByEmail(email);
+        setFormData(data);
+      } catch (error) {
+        console.error("Lỗi khi lấy thông tin người dùng:", error);
+      }
+    };
 
+    fetchDataAccountByEmail();
+  }, [email]);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -79,6 +95,7 @@ export const UserProfile = () => {
               <div>
                 <label>Email</label>
                 <input
+                  readOnly
                   className="input-modal"
                   type="email"
                   name="email"
@@ -112,7 +129,7 @@ export const UserProfile = () => {
                   className="input-modal"
                   type="date"
                   name="birthDate"
-                  value={formData.dob}
+                  value={formData.birthDate}
                   onChange={handleInputChange}
                 />
               </div>

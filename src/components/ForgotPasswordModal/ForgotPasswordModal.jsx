@@ -3,12 +3,15 @@ import "./ForgotPasswordModal.modul.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailOrPhone } from "../../utils/validation";
+import { forgotPassword } from "../../services/firebaseService";
+import { toast } from "react-toastify"; // Toast thông báo thay cho Alert
 
 // Component ForgotPasswordModal để xử lý yêu cầu quên mật khẩu
 const ForgotPasswordModal = ({ closeModal }) => {
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu trữ thông tin email hoặc số điện thoại
   const [errors, setErrors] = useState({ emailOrPhone: "" }); // State lưu trữ lỗi của input
-
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   // State để quản lý hiệu ứng đóng modal
   const [isClosing, setIsClosing] = useState(false);
 
@@ -19,16 +22,30 @@ const ForgotPasswordModal = ({ closeModal }) => {
   };
 
   // Xử lý khi submit form
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const emailOrPhoneError = validateEmailOrPhone(emailOrPhone);
 
     if (!emailOrPhoneError) {
-      // Nếu không có lỗi, tiến hành xử lý yêu cầu quên mật khẩu
-      console.log("Thông tin hợp lệ, tiến hành gửi yêu cầu quên mật khẩu...");
-      closeWithAnimation();
+      try {
+        // Gửi yêu cầu reset mật khẩu qua Firebase
+        await forgotPassword.resetPassword(emailOrPhone);
+        // Thông báo thành công bằng Toast
+        toast.success(
+          "Yêu cầu quên mật khẩu đã được gửi. Vui lòng kiểm tra email."
+        );
+        setMessage(
+          "Yêu cầu quên mật khẩu đã được gửi. Vui lòng kiểm tra email."
+        );
+        setEmailOrPhone(""); // Reset input
+        setErrors({ emailOrPhone: "" }); // Xóa lỗi
+        closeWithAnimation();
+      } catch (error) {
+        console.error("Error resetting password:", error);
+        setErrors({ emailOrPhone: "Không thể gửi yêu cầu quên mật khẩu." });
+        toast.error("Không thể gửi yêu cầu quên mật khẩu.");
+      }
     } else {
-      // Nếu có lỗi, hiển thị lỗi
       setErrors({ emailOrPhone: emailOrPhoneError });
     }
   };

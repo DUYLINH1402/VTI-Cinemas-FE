@@ -10,9 +10,11 @@ import {
   orderByChild,
   child,
 } from "firebase/database";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+const auth = getAuth();
+
 import bcrypt from "bcryptjs";
 import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
-
 // const db = getDatabase();
 // Lấy thông tin Account
 export const getAccountFromFirebase = async (account_id) => {
@@ -183,4 +185,16 @@ export const fetchShowtimesFromFirebase = async (cinema_id) => {
     console.error("Error fetching showtimes from Firebase:", error);
     throw error;
   }
+};
+
+// RESET Password
+export const forgotPassword = {
+  resetPassword: async (email) => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+    } catch (error) {
+      console.error("Error resetting password:", error);
+      throw error;
+    }
+  },
 };

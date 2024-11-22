@@ -1,51 +1,86 @@
 import "./UserProfile.modul.scss";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fetchAccountByEmail } from "../../../../services/dataService";
+import {
+  fetchAccountByEmail,
+  updateAccount,
+} from "../../../../services/dataService"; // Import các hàm API
+import { toast } from "react-toastify"; // Thư viện thông báo (toast)
 
+// Component UserProfile để hiển thị và cập nhật thông tin cá nhân
 export const UserProfile = () => {
-  const user = JSON.parse(localStorage.getItem("user")); // Lấy dữ liệu và chuyển thành object
-  const email = user?.email || ""; // Lấy email từ user object, hoặc trả về chuỗi rỗng nếu không có
-  console.log(email);
+  // Lấy thông tin user từ localStorage và parse thành object
+  const user = JSON.parse(localStorage.getItem("user"));
+  const email = user?.email || ""; // Lấy email từ user hoặc trả về chuỗi rỗng nếu không có
+
+  // State chứa dữ liệu form để hiển thị và chỉnh sửa
   const [formData, setFormData] = useState({
     name: user.fullname || user.displayName,
     email: user.email,
     phone: user.phone_number,
-    passport: "",
+    passport: user.passport,
     birthDate: user.birth_date,
-    gender: "Nam",
-    city: "",
-    district: "",
-    address: "",
-    avatar: user.photoURL,
+    gender: user.gender,
+    city: user.city,
+    district: user.district,
+    address: user.address,
+    avatar_url:
+      user.avatar_url || user.photoURL || "https://via.placeholder.com/150", // URL ảnh mặc định nếu không có
   });
+
+  // useEffect: Gọi API để lấy thông tin chi tiết người dùng khi component render
   useEffect(() => {
     const fetchDataAccountByEmail = async () => {
       try {
-        const data = await fetchAccountByEmail(email);
-        setFormData(data);
+        const data = await fetchAccountByEmail(email); // Gọi API lấy thông tin
+        setFormData(data); // Cập nhật state formData với dữ liệu từ API
       } catch (error) {
-        console.error("Lỗi khi lấy thông tin người dùng:", error);
+        console.error("Lỗi khi lấy thông tin người dùng:", error); // Log lỗi nếu có
       }
     };
 
-    fetchDataAccountByEmail();
-  }, [email]);
+    fetchDataAccountByEmail(); // Gọi hàm lấy dữ liệu
+  }, [email]); // Chạy lại khi email thay đổi
+
+  // Xử lý khi input thay đổi
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value } = e.target; // Lấy name và value từ input
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value, // Cập nhật giá trị của key tương ứng trong formData
+    }));
   };
 
+  // Xử lý khi người dùng tải lên ảnh
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; // Lấy file được chọn
     if (file) {
-      setFormData({ ...formData, avatar: URL.createObjectURL(file) });
+      setFormData({ ...formData, avatar_url: URL.createObjectURL(file) }); // Hiển thị ảnh tạm thời
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form data submitted: ", formData);
+  // Xử lý khi người dùng nhấn nút "Cập nhật"
+  const handleSubmit = async () => {
+    // Loại bỏ các giá trị null/undefined trước khi gửi dữ liệu
+    const sanitizedFormData = Object.fromEntries(
+      Object.entries(formData).filter(
+        ([_, value]) => value !== undefined && value !== null
+      )
+    );
+
+    // Kiểm tra dữ liệu formData
+    if (!formData || Object.keys(formData).length === 0) {
+      throw new Error("formData không hợp lệ hoặc không được truyền đúng."); // Báo lỗi nếu dữ liệu không hợp lệ
+    }
+
+    try {
+      // Gọi API để cập nhật thông tin
+      await updateAccount(sanitizedFormData);
+      toast.success("Cập nhật thông tin thành công!"); // Hiển thị thông báo thành công
+    } catch (error) {
+      console.error("Lỗi khi cập nhật thông tin:", error.message);
+      toast.error(`Cập nhật thất bại: ${error.message}`); // Hiển thị thông báo lỗi
+    }
   };
 
   return (
@@ -53,10 +88,11 @@ export const UserProfile = () => {
       <div>
         <div className="profile-info ">
           <h2 className="title">Thông tin cá nhân</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
+            {/* Khu vực tải ảnh đại diện */}
             <div className="avatar-section">
               <img
-                src={formData.avatar || "https://via.placeholder.com/150"}
+                src={formData.avatar_url} // Hiển thị ảnh đại diện
                 alt="Avatar"
                 className="avatar-preview"
               />
@@ -70,17 +106,19 @@ export const UserProfile = () => {
                   id="avatar"
                   accept="image/*"
                   style={{ display: "none" }}
-                  onChange={handleFileUpload}
+                  onChange={handleFileUpload} // Xử lý khi tải ảnh
                 />
                 <button
                   type="button"
                   className="save-btn"
-                  onClick={() => alert("Ảnh đã được lưu!")}
+                  onClick={() => alert("Ảnh đã được lưu!")} // Thông báo tạm thời
                 >
                   Lưu ảnh
                 </button>
               </div>
             </div>
+
+            {/* Form chỉnh sửa thông tin cá nhân */}
             <div className="form-grid">
               <div>
                 <label>Họ tên</label>
@@ -95,7 +133,7 @@ export const UserProfile = () => {
               <div>
                 <label>Email</label>
                 <input
-                  readOnly
+                  readOnly // Không cho phép chỉnh sửa email
                   className="input-modal"
                   type="email"
                   name="email"
@@ -175,10 +213,14 @@ export const UserProfile = () => {
                 />
               </div>
             </div>
+
+            {/* Link đổi mật khẩu */}
             <div className="change-password">
               <a href="#">Đổi mật khẩu?</a>
             </div>
-            <button type="submit" className="update-btn">
+
+            {/* Nút cập nhật */}
+            <button onClick={handleSubmit} type="button" className="update-btn">
               Cập nhật
             </button>
           </form>

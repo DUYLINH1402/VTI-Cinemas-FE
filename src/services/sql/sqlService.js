@@ -140,3 +140,14 @@ export const fetchSeatsFromSQL = async () => {
   const reponse = await api.get("/seat");
   return reponse.data;
 };
+
+// API Update Account by Email
+export const updateAccountToSQL = async (email, formData) => {
+  try {
+    const response = await axios.put(`/api/users/${email}`, formData); // endpoint API
+    console.log("Cập nhật thông tin thành công:", response.data);
+  } catch (error) {
+    console.error("Lỗi khi cập nhật thông tin SQL:", error);
+    throw error;
+  }
+};

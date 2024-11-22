@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/authSlice";
 import { createAccount } from "../../services/dataService";
+import { toast } from "react-toastify";
 
 const RegisterModal = ({ closeModal, openLoginModal }) => {
   // Quản lý trạng thái hiển thị mật khẩu và hiệu ứng đóng modal
@@ -131,9 +132,10 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
       // Tạo tài khoản trên database (nếu cần)
       await createAccount(formData);
 
-      alert("Đăng ký thành công!"); // Hiển thị thông báo thành công
+      toast.success("Đăng ký thành công!"); // Hiển thị thông báo thành công
       closeModal(); // Đóng modal
     } catch (error) {
+      toast.error("Đăng ký thất bại!");
       console.error("Đăng ký thất bại:", error);
 
       // Xử lý lỗi từ Firebase

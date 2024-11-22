@@ -15,9 +15,7 @@ const Members = () => {
     }
   }, [isLoggedIn]);
 
-  return (
-    <div className="content">{isLoggedIn ? <MemberTabs /> : navigate("/")}</div>
-  );
+  return <div className="content">{isLoggedIn ? <MemberTabs /> : null}</div>;
 };
 
 export default Members;

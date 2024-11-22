@@ -11,11 +11,11 @@ import {
   child,
 } from "firebase/database";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-const auth = getAuth();
-
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import bcrypt from "bcryptjs";
 import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
-// const db = getDatabase();
+
+const auth = getAuth();
 // Lấy thông tin Account
 export const getAccountFromFirebase = async (account_id) => {
   const db = getDatabase();
@@ -116,11 +116,17 @@ export const createAccountToFirebase = async (formData) => {
       fullname: formData.name,
       email: formData.email,
       phone_number: formData.phone,
+      passport: "",
       birth_date: formData.birthDate,
       gender: formData.gender,
       password: hashedPassword,
       role: "user", // Role mặc định
       status: "active", // Trạng thái tài khoản
+      city: "",
+      district: "",
+      address: "",
+      avatar_url:
+        "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
       created_date: new Date().toISOString().split("T")[0],
       updated_date: new Date().toISOString().split("T")[0],
     });
@@ -139,14 +145,24 @@ export const getAccountByEmailFromFirebase = async (email) => {
   const accountRef = ref(db, "Account");
   const emailQuery = query(accountRef, orderByChild("email"), equalTo(email));
 
-  const snapshot = await get(emailQuery);
-  if (!snapshot.exists()) {
-    throw new Error("Tài khoản không tồn tại.");
-  }
+  try {
+    const snapshot = await get(emailQuery);
+    if (!snapshot.exists()) {
+      throw new Error("Tài khoản không tồn tại trong hệ thống.");
+    }
 
-  // Trả về tài khoản đầu tiên tìm được
-  const accounts = Object.values(snapshot.val());
-  return accounts[0];
+    // Kiểm tra xem có key hợp lệ hay không
+    const accountKey = Object.keys(snapshot.val())[0]; // Lấy key đầu tiên
+    if (!accountKey) {
+      throw new Error("Không thể xác định accountKey.");
+    }
+
+    const accountData = snapshot.val()[accountKey];
+    return { ...accountData, accountKey }; // Trả về cả dữ liệu và key
+  } catch (error) {
+    console.error("Lỗi khi lấy tài khoản từ Firebase:", error.message);
+    throw error;
+  }
 };
 
 // Hàm lưu thông tin Seats
@@ -197,4 +213,35 @@ export const forgotPassword = {
       throw error;
     }
   },
+};
+
+// API Update Account
+export const updateAccountToFirebase = async (email, formData) => {
+  const db = getDatabase();
+  // console.log("Form data nhận được trong Firebase:", formData);
+  try {
+    // Lấy thông tin tài khoản dựa trên email
+    const accountData = await getAccountByEmailFromFirebase(email);
+
+    // Kiểm tra accountKey
+    const accountKey = accountData.accountKey;
+    if (!accountKey) {
+      throw new Error("Không thể xác định accountKey để cập nhật.");
+    }
+
+    const userRef = ref(db, `Account/${accountKey}`);
+    // console.log("accountKey:", accountKey);
+    // console.log("formData:", formData);
+    // Cập nhật thông tin tài khoản
+    await set(userRef, {
+      ...accountData, // Giữ dữ liệu cũ
+      ...formData, // Ghi đè bằng dữ liệu mới
+      updated_date: new Date().toISOString(),
+    });
+
+    // console.log("Cập nhật thông tin thành công.");
+  } catch (error) {
+    console.error("Lỗi khi cập nhật thông tin Firebase:", error.message);
+    throw error;
+  }
 };

@@ -164,7 +164,7 @@ export const Header = () => {
                         {user.fullname || user.displayName}
                       </span>
                       <Avatar
-                        src={user.imageUrl || user.photoURL}
+                        src={user.avatar_url || user.photoURL}
                         alt="User Avatar"
                       />
                     </div>

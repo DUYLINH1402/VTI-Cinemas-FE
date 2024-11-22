@@ -8,6 +8,7 @@ import {
   fetchSeatsFromFirebase,
   fetchCinemasFromFirebase,
   fetchShowtimesFromFirebase,
+  updateAccountToFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -69,9 +70,10 @@ export const fetchAccountByEmail = async (email) => {
 };
 // API Update Account By email
 export const updateAccount = async (formData) => {
+  // console.log("Form data trước khi gọi updateAccountToFirebase:", formData);
   return useFirebase
-    ? await updateAccountToFirebase(formData)
-    : await updateAccountToSQL(formData);
+    ? await updateAccountToFirebase(formData.email, formData)
+    : await updateAccountToSQL(formData.email, formData);
 };
 // Hàm lấy dữ liệu Seats
 export const fetchSeats = async () => {

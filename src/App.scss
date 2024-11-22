@@ -12,10 +12,18 @@
 
 .Toastify__toast--success {
   font-size: 1.4rem; /* Cỡ chữ riêng cho toast success */
+  color: #28a745;
 }
 
 .Toastify__toast--error {
   font-size: 1.4rem; /* Cỡ chữ riêng cho toast error */
+}
+.Toastify__toast--info {
+  background-color: #007bff;
+}
+
+.Toastify__toast--warning {
+  background-color: #ffc107;
 }
 /*******  COMMON   ********/
 a {

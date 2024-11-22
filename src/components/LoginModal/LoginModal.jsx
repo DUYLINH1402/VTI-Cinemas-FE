@@ -16,7 +16,8 @@ import {
   validatePassword,
   validateLoginForm,
 } from "../../utils/validation";
-
+import { toast } from "react-toastify";
+import { saveUserToDatabase } from "../../utils/authActions.js";
 // Component LoginModal để xử lý đăng nhập người dùng
 const LoginModal = ({
   closeModal,
@@ -81,10 +82,12 @@ const LoginModal = ({
           const { accessToken, ...user } = response;
           localStorage.setItem("authToken", accessToken);
           localStorage.setItem("user", JSON.stringify(user));
+          toast.success("Đăng nhập thành công!");
           console.log("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
         })
         .catch((error) => {
+          toast.error("Đăng nhập thất bại!");
           console.error("Đăng nhập thất bại:", error.message);
         });
     }
@@ -108,10 +111,14 @@ const LoginModal = ({
         const { accessToken, ...user } = response;
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
+        // Sau khi đăng nhập, đồng bộ dữ liệu người dùng
+        saveUserToDatabase(user);
         closeModal();
         navigate("/");
+        toast.success("Đăng nhập Google thành công!");
       })
       .catch((error) => {
+        toast.error("Đăng nhập Google thất bại!");
         console.error("Đăng nhập Google thất bại:", error.message);
       });
   };
@@ -125,8 +132,10 @@ const LoginModal = ({
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
         navigate("/");
+        toast.success("Đăng nhập Facebook thành công!");
       })
       .catch((error) => {
+        toast.error("Đăng nhập Facebook thất bại!");
         console.error("Đăng nhập Facebook thất bại:", error.message);
       });
   };

@@ -9,6 +9,7 @@ import {
   fetchCinemasFromFirebase,
   fetchShowtimesFromFirebase,
   updateAccountToFirebase,
+  fetchMoviesByIdFromFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -19,6 +20,7 @@ import {
   fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
   fetchCinemasFromSQL,
+  fetchMoviesByIdFromSQL,
   // fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
@@ -36,7 +38,12 @@ export const fetchMovies = async () => {
     ? await fetchMoviesFromFirebase()
     : await fetchMoviesFromSQL();
 };
-
+// API lấy dữ liệu cho MoviesBYID
+export const fetchMoviesById = async (movie_id) => {
+  return useFirebase
+    ? await fetchMoviesByIdFromFirebase(movie_id)
+    : await fetchMoviesByIdFromSQL(movie_id);
+};
 // API lấy dữ liệu Movies (hỗ trợ theo tab)
 export const fetchMoviesByTab = async (tab) => {
   try {

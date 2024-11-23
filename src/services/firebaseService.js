@@ -38,6 +38,27 @@ export const fetchMoviesFromFirebase = async () => {
     throw error; // Throw để các hàm gọi biết lỗi
   }
 };
+// Hàm lấy dữ liệu cho Movies By Id
+export const fetchMoviesByIdFromFirebase = async (movie_id) => {
+  try {
+    const response = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
+    );
+
+    if (response.data) {
+      // Chuyển dữ liệu từ object sang array và lọc theo `movie_id`
+      const movies = Object.values(response.data);
+      const movie = movies.find((m) => m.movie_id === parseInt(movie_id, 10)); // So khớp `movie_id`
+      return movie || null;
+    } else {
+      console.log("No data found in Firebase.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching movie by ID from Firebase:", error);
+    throw error;
+  }
+};
 // Hàm lấy dữ liệu cho Movies bằng 3 Nút lọc
 export const fetchMoviesByTabFromFirebase = async (tab) => {
   try {
@@ -46,7 +67,7 @@ export const fetchMoviesByTabFromFirebase = async (tab) => {
       "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
     );
 
-    const movies = response.data ? Object.values(response.data) : []; // Chuyển từ object sang array
+    const movies = response.data ? Object.values(response.data) : [];
     const currentDate = new Date(); // Ngày hiện tại để so sánh
 
     // Lọc dữ liệu dựa trên tab

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./HomeContent.scss";
 import { Link } from "react-router-dom";
 import { CardMovie } from "../../../components/Cards/Cards";
-import { fetchMoviesByTab } from "../../../services/dataService"; // Import fetchMovies
+import { fetchMoviesByTab } from "../../../services/dataService";
 import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton"; // Skeleton loader
 
 export const HomeContent = () => {

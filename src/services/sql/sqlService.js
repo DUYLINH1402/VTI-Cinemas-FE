@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "./api";
-// api phải là http://localhost:8081
 
+// api phải là http://localhost:8081
 // API lấy thông tin Account bằng ID
 export const fetchAccountFromSQL = async (account_id) => {
   const response = await api.get(`/api/account/findId/${account_id}`); // endpoint của backend
@@ -23,6 +23,17 @@ export const fetchMoviesFromSQL = async () => {
   }
 };
 
+// API lấy dữ liệu MoviesById từ SQL
+export const fetchMoviesByIdFromSQL = async (movie_id) => {
+  try {
+    // console.log("ID to fetch:", movie_id);
+    const response = await api.get(`movie/find/${movie_id}`); // endpoint của backend
+    return response.data; // Trả về dữ liệu từ API
+  } catch (error) {
+    console.error("Error fetching movies from SQL:", error);
+    throw error; // Throw lỗi để xử lý ở nơi gọi
+  }
+};
 // API lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ FIX OK)
 export const fetchMoviesByTabFromSQL = async (tab) => {
   let endpoint = "/movie";

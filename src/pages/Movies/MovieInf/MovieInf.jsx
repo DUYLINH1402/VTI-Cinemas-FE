@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { CardInfMovie } from "../../../components/Cards/Cards";
 import "./../MovieInf/MovieInf.scss";
 import { Link, useParams } from "react-router-dom";
-import { fetchMovies } from "../../../services/dataService";
+import { fetchMoviesById } from "../../../services/dataService";
 
 import BookingModal from "../../Booking/BookingModal/BookingModal.jsx";
 import ScheduleModal from "../../Booking/BookingModal/ScheduleModal.jsx";
 import ConfirmationModal from "../../Booking/BookingModal/ConfirmationModal.jsx";
 
 export const MovieInf = () => {
-  const { movie_id } = useParams();
+  const { movie_id } = useParams(); // 'id' là tên param trong Route
   const [movie, setMovie] = useState(null); // Phim hiện tại
   const [currentModal, setCurrentModal] = useState(0); // Trạng thái Modal
   const [selectedCinema, setSelectedCinema] = useState(null);
@@ -19,19 +19,19 @@ export const MovieInf = () => {
   const handleBookTicket = (movie) => {
     setMovie(movie); // Lưu thông tin phim
     setCurrentModal(1); // Mở Modal 1
-    console.log("Current Modal State:", currentModal);
+    // console.log("Current Modal State:", currentModal);
   };
   // Hàm mở Modal tiếp theo
   const handleNextModal = (data) => {
-    console.log("Current Modal:", currentModal, "Data:", data);
+    // console.log("Current Modal:", currentModal, "Data:", data);
     if (currentModal === 1) {
       setSelectedCinema(data); // Lưu thông tin rạp
       setCurrentModal(2); // Chuyển sang Modal 2
-      console.log("Current Modal State:", currentModal);
+      // console.log("Current Modal State:", currentModal);
     } else if (currentModal === 2) {
       setSelectedSchedule(data); // Lưu lịch chiếu
       setCurrentModal(3); // Chuyển sang Modal 3
-      console.log("Current Modal State:", currentModal);
+      // console.log("Current Modal State:", currentModal);
     }
   };
 
@@ -47,23 +47,20 @@ export const MovieInf = () => {
 
   // Call API
   useEffect(() => {
-    const fetchMoviesData = async () => {
+    const fetchMovieByIdData = async (movie_id) => {
       try {
-        const data = await fetchMovies();
-        const findMovieById = Object.values(data).find(
-          (movie) => movie.movie_id === parseInt(movie_id)
-        );
+        const findMovieById = await fetchMoviesById(movie_id);
         setMovie(findMovieById);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-    fetchMoviesData();
+    fetchMovieByIdData(movie_id);
     window.scrollTo(0, 0);
   }, [movie_id]);
 
-  console.log("Current Modal State:", currentModal);
+  // console.log("Current Modal State:", currentModal);
 
   return (
     <>

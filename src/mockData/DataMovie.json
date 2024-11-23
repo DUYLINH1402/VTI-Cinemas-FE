@@ -711,6 +711,7 @@
       "viewing_age": 16
     }
   },
+    "Seats":
   {
     "A": {
       "A01": {
@@ -1389,8 +1390,8 @@
     },
     "undefined": {
       "status": true
-    }
-  },
+    },
+  
   "Cinema": {
   "cinema1": {
     "cinema_id": 1,

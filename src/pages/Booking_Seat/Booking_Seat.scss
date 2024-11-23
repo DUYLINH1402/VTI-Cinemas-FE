@@ -1,7 +1,9 @@
 @use "./../../assets/styles/cssBase.scss";
 
 .content {
+  font-family: "Poppins", sans-serif;
   margin-top: 20px;
+  width: 1500px;
   .card_seat {
     .status_seat {
       display: flex;
@@ -21,11 +23,10 @@
       margin: 20px;
       display: grid;
       grid-template-columns: 2fr 1fr;
-      height: 1000px;
+      height: 600px;
       border: 1px solid #ccc;
       border-radius: 10px;
       div.col1 {
-        min-height: 1000px;
         img {
           margin-right: 20px;
           margin-top: 20px;
@@ -35,35 +36,23 @@
         div.row_seat {
           margin-left: 60px;
           margin-right: 60px;
-          height: 800px;
+          height: 400px;
           img {
             width: 40px;
             float: left;
-            margin-top: 50px;
-            margin-left: 20px;
-            margin-right: 25px;
+            margin-top: 5px;
+            margin-left: 25px;
+            margin-right: 20px;
             cursor: pointer;
           }
         }
 
         div.detail_seat {
           display: grid;
-          grid-template-columns: 3fr 1fr 1fr;
+          grid-template-columns: 2.5fr 0.5fr;
           border-top: 1px solid #ccc;
           height: 87px;
 
-          .detail {
-            border-right: 1px solid #ccc;
-            display: flex;
-            align-items: first baseline;
-            justify-content: space-around;
-            img {
-              width: 40px;
-            }
-            p {
-              font-size: 1.2rem;
-            }
-          }
           .price {
             h2 {
               margin-top: 10px;
@@ -92,22 +81,24 @@
       .col2 {
         border-left: 1px solid #ccc;
         h1 {
-          font-size: 3rem;
+          font-size: 2.5rem;
           margin: 10px 0;
           text-decoration: underline;
           color: red;
         }
         .detail_movie {
+          height: auto;
+          width: 350px;
           position: sticky;
           top: 100px;
           border: 1px solid #ccc;
-          margin: 0 70px;
+          margin-left: 80px;
           border-radius: 10px;
           img {
             margin: 10px 0;
             border-radius: 10px;
             width: 40%;
-            height: 200px;
+            height: 150px;
           }
           h1 {
             font-size: 2rem;
@@ -118,19 +109,18 @@
           p {
             text-align: left;
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             margin-left: 10px;
           }
-          button {
-            width: 30%;
-            border-radius: 10px;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 10px;
-            background-color: #1e83c5;
-            &:hover {
-              color: red;
-            }
+        }
+        button {
+          width: 30%;
+          border-radius: 10px;
+          font-size: 1.5rem;
+          color: white;
+          background-color: #1e83c5;
+          &:hover {
+            color: red;
           }
         }
       }

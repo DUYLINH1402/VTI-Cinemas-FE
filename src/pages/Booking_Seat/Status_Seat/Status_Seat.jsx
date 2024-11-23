@@ -23,12 +23,6 @@ export const Status_Seat = () => {
         alt="Ghế ghế đã bán"
       />
       <p>Ghế đã bán</p>
-
-      <img
-        src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-set-normal_mmdu0h.png"
-        alt="Ghế ghế đặt trước"
-      />
-      <p>Ghế đặt trước</p>
     </>
   );
 };

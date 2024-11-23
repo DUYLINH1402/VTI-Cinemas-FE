@@ -5,7 +5,6 @@ import { Seats } from "../../pages/Booking_Seat/Seats/Seats";
 import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../../pages/Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
-import { Type_Seat } from "../../pages/Booking_Seat/Timeout/Type_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 
 export const CardCarousel = ({ item }) => {
@@ -99,7 +98,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
 
 export const CardSeats = () => {
   const [selectedSeatPrice, setSelectedSeatPrice] = useState(0);
-  const [selectSeatName, setSelectSeatName] = useState(null);
+  const [selectSeatName, setSelectSeatName] = useState([]);
 
   return (
     <>
@@ -124,10 +123,6 @@ export const CardSeats = () => {
             </div>
 
             <div className="detail_seat">
-              <div className="detail">
-                <Type_Seat />
-              </div>
-
               <div className="price">
                 <h3>Giá vé</h3>
                 <Price price={selectedSeatPrice} />

@@ -53,7 +53,7 @@ export const Detail_Movie = ({ movie, cinema, date, time, seat_name }) => {
       <p>Ngày chiếu: {date}</p>
       <p>Giờ chiếu: {time}</p>
       <p>Phòng chiếu: P1</p>
-      <p>Ghế ngồi: {seat_name}</p>
+      <p>Ghế ngồi: {seat_name.join(", ")}</p>
     </>
   );
 };

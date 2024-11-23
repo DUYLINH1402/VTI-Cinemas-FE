@@ -711,584 +711,674 @@
       "viewing_age": 16
     }
   },
-  "Seats": {
+    "Seats":
+  {
     "A": {
       "A01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a1",
         "seat_name": "A1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a2",
         "seat_name": "A2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a3",
         "seat_name": "A3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a4",
         "seat_name": "A4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a5",
         "seat_name": "A5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a6",
         "seat_name": "A6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a7",
         "seat_name": "A7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a8",
         "seat_name": "A8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a9",
         "seat_name": "A9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "A10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "a10",
         "seat_name": "A10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "B": {
       "B01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b1",
         "seat_name": "B1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b2",
         "seat_name": "B2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b3",
         "seat_name": "B3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b4",
         "seat_name": "B4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b5",
         "seat_name": "B5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b6",
         "seat_name": "B6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b7",
         "seat_name": "B7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b8",
         "seat_name": "B8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b9",
         "seat_name": "B9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "B10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "b10",
         "seat_name": "B10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "C": {
       "C01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c1",
         "seat_name": "C1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c2",
         "seat_name": "C2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c3",
         "seat_name": "C3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c4",
         "seat_name": "C4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c5",
         "seat_name": "C5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c6",
         "seat_name": "C6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c7",
         "seat_name": "C7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c8",
         "seat_name": "C8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c9",
         "seat_name": "C9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "C10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
         "price": 50000,
         "seat_id": "c10",
         "seat_name": "C10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "D": {
       "D01": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d1",
         "seat_name": "D1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+  
       },
       "D02": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d2",
         "seat_name": "D2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D03": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d3",
         "seat_name": "D3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D04": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d4",
         "seat_name": "D4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D05": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d5",
         "seat_name": "D5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D06": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d6",
         "seat_name": "D6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D07": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d7",
         "seat_name": "D7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D08": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d8",
         "seat_name": "D8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D09": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d9",
         "seat_name": "D9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "D10": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "d10",
         "seat_name": "D10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "E": {
       "E01": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e1",
         "seat_name": "E1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E02": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e2",
         "seat_name": "E2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E03": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e3",
         "seat_name": "E3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E04": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e4",
         "seat_name": "E4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E05": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e5",
         "seat_name": "E5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E06": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e6",
         "seat_name": "E6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E07": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e7",
         "seat_name": "E7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E08": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e8",
         "seat_name": "E8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E09": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e9",
         "seat_name": "E9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "E10": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "e10",
         "seat_name": "E10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "F": {
       "F01": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f1",
         "seat_name": "F1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F02": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f2",
         "seat_name": "F2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F03": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f3",
         "seat_name": "F3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F04": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f4",
         "seat_name": "F4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F05": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f5",
         "seat_name": "F5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F06": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f6",
         "seat_name": "F6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F07": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f7",
         "seat_name": "F7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F08": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f8",
         "seat_name": "F8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F09": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f9",
         "seat_name": "F9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "F10": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "f10",
         "seat_name": "F10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "G": {
       "G01": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g1",
         "seat_name": "G1",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G02": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g2",
         "seat_name": "G2",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G03": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g3",
         "seat_name": "G3",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G04": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g4",
         "seat_name": "G4",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G05": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g5",
         "seat_name": "G5",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G06": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g6",
         "seat_name": "G6",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G07": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g7",
         "seat_name": "G7",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G08": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g8",
         "seat_name": "G8",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G09": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g9",
         "seat_name": "G9",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
       "G10": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-vip_nfap56.png",
-        "price": 60000,
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
         "seat_id": "g10",
         "seat_name": "G10",
-        "status": false
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
     },
+  
     "H": {
-      "DB01": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db1",
-        "seat_name": "DB1",
-        "status": false
+      "H01": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h1",
+        "seat_name": "H1",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        
       },
-      "DB02": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db2",
-        "seat_name": "DB2",
-        "status": false
+      "H02": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h2",
+        "seat_name": "H2",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB03": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db3",
-        "seat_name": "DB3",
-        "status": false
+      "H03": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h3",
+        "seat_name": "H3",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB04": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db4",
-        "seat_name": "DB4",
-        "status": false
+      "H04": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h4",
+        "seat_name": "HB4",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB05": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db5",
-        "seat_name": "DB5",
-        "status": false
+      "H05": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h5",
+        "seat_name": "H5",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB06": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db6",
-        "seat_name": "DB6",
-        "status": false
+      "H06": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h6",
+        "seat_name": "H6",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB07": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db7",
-        "seat_name": "DB7",
-        "status": false
+      "H07": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h7",
+        "seat_name": "H7",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB08": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db8",
-        "seat_name": "DB8",
-        "status": false
+      "H08": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h8",
+        "seat_name": "H8",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB09": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db9",
-        "seat_name": "DB9",
-        "status": false
+      "H09": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h9",
+        "seat_name": "H9",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       },
-      "DB10": {
-        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-unselect-double_k8nf4w.png",
-        "price": 120000,
-        "seat_id": "db10",
-        "seat_name": "DB10",
-        "status": false
+      "H10": {
+        "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
+        "status": false,
+        "price": 50000,
+        "seat_id": "h10",
+        "seat_name": "H10",
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
       }
-    },
+    }
+  },
     "a1": {
       "status": true
     },
@@ -1300,8 +1390,8 @@
     },
     "undefined": {
       "status": true
-    }
-  },
+    },
+  
   "Cinema": {
   "cinema1": {
     "cinema_id": 1,

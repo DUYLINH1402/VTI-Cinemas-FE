@@ -1,7 +1,12 @@
+function formatNumber(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
 export const Price = ({ price }) => {
+  const formattedPrice = formatNumber(price) + " VNĐ";
   return (
     <>
-      <h2>{price}đ</h2>
+      <h2>{formattedPrice}</h2>
     </>
   );
 };

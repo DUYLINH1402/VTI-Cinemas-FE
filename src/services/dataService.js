@@ -19,7 +19,7 @@ import {
   fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
   fetchCinemasFromSQL,
-  fetchShowtimesFromSQL,
+  // fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";

@@ -1,5 +1,6 @@
 import axios from "axios";
 import api from "./api";
+// api phải là http://localhost:8081
 
 // API lấy thông tin Account bằng ID
 export const fetchAccountFromSQL = async (account_id) => {
@@ -7,7 +8,6 @@ export const fetchAccountFromSQL = async (account_id) => {
   return response.data;
 };
 // API lấy thông tin Account bằng Email
-// api phải là http://localhost:8081
 export const fetchAccountByEmailFromSQL = async (loginRequest) => {
   const response = await api.get(`/api/login/email`, loginRequest); // endpoint của backend
   return response.data;
@@ -23,7 +23,7 @@ export const fetchMoviesFromSQL = async () => {
   }
 };
 
-// API lấy dữ liệu cho Movies bằng 3 Nút lọc
+// API lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ FIX OK)
 export const fetchMoviesByTabFromSQL = async (tab) => {
   let endpoint = "/movie";
   switch (tab) {
@@ -51,7 +51,7 @@ export const fetchMoviesByTabFromSQL = async (tab) => {
 
 // API lấy dữ liệu Carousel từ SQL
 export const fetchCarouselDataFromSQL = async () => {
-  const response = await api.get("/carousel"); // endpoint của backend
+  const response = await api.get("/banner/find"); // endpoint của backend
   return response.data;
 };
 

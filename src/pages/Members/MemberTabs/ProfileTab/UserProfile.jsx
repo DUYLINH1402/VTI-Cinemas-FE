@@ -6,13 +6,78 @@ import {
   updateAccount,
 } from "../../../../services/dataService"; // Import các hàm API
 import { toast } from "react-toastify"; // Thư viện thông báo (toast)
+// import { uploadImageToCloudinary } from "../../../../services/cloudinaryService"; // Hàm upload ảnh lên Cloudinary
 
 // Component UserProfile để hiển thị và cập nhật thông tin cá nhân
 export const UserProfile = () => {
   // Lấy thông tin user từ localStorage và parse thành object
   const user = JSON.parse(localStorage.getItem("user"));
   const email = user?.email || ""; // Lấy email từ user hoặc trả về chuỗi rỗng nếu không có
+  const [selectedImage, setSelectedImage] = useState(null); // Ảnh được chọn
+  const [imageURL, setImageURL] = useState(""); // URL của ảnh sau khi upload
 
+  // // Xử lý khi người dùng tải lên ảnh
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setSelectedImage(file); // Lưu ảnh vào state
+  //     const previewURL = URL.createObjectURL(file); // Tạo URL preview
+  //     setImageURL(previewURL); // Hiển thị preview
+  //   }
+  // };
+
+  // // Xử lý khi người dùng Submit Update ảnh
+  // const handleUploadImage = async () => {
+  //   if (!selectedImage) {
+  //     alert("Vui lòng chọn ảnh trước khi upload!");
+  //     return;
+  //   }
+
+  //   try {
+  //     const downloadURL = await uploadImageToCloudinary(selectedImage); // Gọi hàm upload
+  //     setImageURL(downloadURL); // Cập nhật URL sau khi upload
+  //     alert("Upload ảnh thành công!");
+  //   } catch (error) {
+  //     console.error("Lỗi khi upload ảnh:", error.message);
+  //     alert("Upload ảnh thất bại!");
+  //   }
+  // };
+
+  // const uploadImageToCloudinary = async (file) => {
+  //   const formData = new FormData();
+  //   formData.append("file", file); // Thêm file ảnh vào formData
+  //   formData.append("upload_preset", "VTICinemas_avatar"); // Thay bằng tên preset bạn đã tạo
+  //   formData.append("folder", "avatarUser"); // (Tùy chọn) Thêm folder để quản lý
+
+  //   const response = await fetch(
+  //     `https://api.cloudinary.com/v1_1/ddia5yfia/image/upload`, // Thay <your-cloud-name> bằng Cloud name
+  //     {
+  //       method: "POST",
+  //       body: formData,
+  //     }
+  //   );
+
+  //   if (!response.ok) {
+  //     throw new Error("Upload ảnh thất bại");
+  //   }
+
+  //   const data = await response.json();
+  //   return data.secure_url; // URL ảnh sau khi upload thành công
+  // };
+
+  // const handleSaveImageURL = async () => {
+  //   try {
+  //     const updatedFormData = {
+  //       ...formData,
+  //       avatar_url: imageURL, // Thêm URL ảnh vào formData
+  //     };
+  //     await updateAccount(updatedFormData); // Gọi API cập nhật tài khoản
+  //     alert("Cập nhật ảnh thành công!");
+  //   } catch (error) {
+  //     console.error("Lỗi khi cập nhật ảnh:", error.message);
+  //     alert("Cập nhật ảnh thất bại!");
+  //   }
+  // };
   // State chứa dữ liệu form để hiển thị và chỉnh sửa
   const [formData, setFormData] = useState({
     name: user.fullname || user.displayName,
@@ -49,14 +114,6 @@ export const UserProfile = () => {
       ...prev,
       [name]: value, // Cập nhật giá trị của key tương ứng trong formData
     }));
-  };
-
-  // Xử lý khi người dùng tải lên ảnh
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0]; // Lấy file được chọn
-    if (file) {
-      setFormData({ ...formData, avatar_url: URL.createObjectURL(file) }); // Hiển thị ảnh tạm thời
-    }
   };
 
   // Xử lý khi người dùng nhấn nút "Cập nhật"
@@ -101,17 +158,17 @@ export const UserProfile = () => {
                   Tải ảnh lên
                 </label>
                 <input
+                  accept="image/*"
                   className="input-modal"
                   type="file"
                   id="avatar"
-                  accept="image/*"
                   style={{ display: "none" }}
-                  onChange={handleFileUpload} // Xử lý khi tải ảnh
+                  // onChange={handleImageChange} // Xử lý khi tải ảnh
                 />
                 <button
                   type="button"
                   className="save-btn"
-                  onClick={() => alert("Ảnh đã được lưu!")} // Thông báo tạm thời
+                  // onClick={handleUploadImage} // Thông báo tạm thời
                 >
                   Lưu ảnh
                 </button>

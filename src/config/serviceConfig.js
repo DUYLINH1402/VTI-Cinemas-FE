@@ -1,4 +1,3 @@
-// serviceConfig.js
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
 
 export default useFirebase;

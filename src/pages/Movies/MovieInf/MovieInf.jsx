@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import Ract, { useEffect, useState } from "react";
 import { CardInfMovie } from "../../../components/Cards/Cards";
 import "./../MovieInf/MovieInf.scss";
 import { Link, useParams } from "react-router-dom";
 import { fetchMoviesById } from "../../../services/dataService";
-
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import BookingModal from "../../Booking/BookingModal/BookingModal.jsx";
 import ScheduleModal from "../../Booking/BookingModal/ScheduleModal.jsx";
 import ConfirmationModal from "../../Booking/BookingModal/ConfirmationModal.jsx";
@@ -14,12 +15,16 @@ export const MovieInf = () => {
   const [currentModal, setCurrentModal] = useState(0); // Trạng thái Modal
   const [selectedCinema, setSelectedCinema] = useState(null);
   const [selectedSchedule, setSelectedSchedule] = useState(null);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); // Kiểm tra token
 
   // Hàm mở Modal khi click "Đặt vé"
   const handleBookTicket = (movie) => {
-    setMovie(movie); // Lưu thông tin phim
-    setCurrentModal(1); // Mở Modal 1
-    // console.log("Current Modal State:", currentModal);
+    if (!isLoggedIn) {
+      toast.warning("Bạn cần đăng nhập trước khi đặt vé!");
+    } else {
+      setMovie(movie); // Lưu thông tin phim
+      setCurrentModal(1); // Mở modal đầu tiên
+    }
   };
   // Hàm mở Modal tiếp theo
   const handleNextModal = (data) => {

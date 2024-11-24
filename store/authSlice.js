@@ -25,6 +25,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   // Hàm async để đăng nhập người dùng với email và mật khẩu
   async ({ email, password }, { rejectWithValue }) => {
+    console.log("email", email, "password", password);
     try {
       const response = await loginWithEmailAndPassword(email, password);
 

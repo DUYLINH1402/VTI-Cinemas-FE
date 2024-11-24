@@ -17,6 +17,7 @@ const ConfirmationModal = ({
         cinema: selectedCinema, // Thông tin rạp đã chọn
         date: selectedSchedule.date, // Ngày chiếu
         time: selectedSchedule.time, // Giờ chiếu
+        movie_id: movie_id, // ID của phim
       },
     });
   };

@@ -32,7 +32,7 @@ export const fetchAccountByEmailFromSQL = async (loginRequest) => {
 const loginWithSQL = async (email) => {
   try {
     // Gửi email đến backend để lấy thông tin user từ SQL
-    const response = await axios.post("/api/sql-login", { email });
+    const response = await axios.post("/login/", { email });
     return response.data; // Trả về dữ liệu người dùng từ SQL
   } catch (error) {
     throw new Error(`SQL Error: ${error.message}`);
@@ -58,11 +58,26 @@ export const fetchMoviesFromSQL = async () => {
 export const fetchMoviesByIdFromSQL = async (movie_id) => {
   try {
     // console.log("ID to fetch:", movie_id);
-    const response = await api.get(`movie/find/${movie_id}`); // endpoint của backend
+    const response = await api.get(`movie/findId/${movie_id}`); // endpoint của backend
     return response.data; // Trả về dữ liệu từ API
   } catch (error) {
     console.error("Error fetching movies from SQL:", error);
     throw error; // Throw lỗi để xử lý ở nơi gọi
+  }
+};
+export const fetchShowtimesFromSQL = async (data) => {
+  const movie_id = data.movie_id; // Lấy giá trị movie_id từ Object
+  console.log("movie_id in fetchShowtimesFromSQL", data);
+  console.log("Type of movie_id:", typeof data);
+  console.log("movie_id:", data);
+  try {
+    const response = await api.get(
+      `/showTime/findMovieAndShowDate/${movie_id}`
+    ); // endpoint của backend
+    return response.data; // Trả về danh sách suất chiếu
+  } catch (error) {
+    console.error("Error fetching showtimes from SQL:", error);
+    throw error;
   }
 };
 // API lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ CHẠY OK)
@@ -139,23 +154,12 @@ export const fetchMovieFormSql = async (cinema_id) => {
   }
 };
 // sau đó khi người dùng ấn vào phim cụ thể sẽ show ra lịch chiếu
-export const fetchShowTimesOnMovie = async (movie_id) => {
-  try {
-    const reponse = api.get(`/showtime/findByMovie/${movie_id}`);
-    return reponse.data; // => cái này sẽ trả về lịch chiếu phim trong ngày hôm đó không hiện những ngày khác
-  } catch (error) {
-    console.error("Error fetching showtime by movie", error);
-  }
-};
-// còn phương thức của anh thì gộp chung khá nhiều cũng khá rộng.
-//Em nghĩ cứ ghép lại từ cái api nhỏ thui ạ. function em đã tab thu gọn r _tzanlam
-// export const fetchShowtimesFromSQL = async () => {
+// export const fetchShowtimesFromSQL = async (movie_id) => {
 //   try {
-//     const response = await api.get(`/showtimes?cinemaId=${cinema_id}`); // endpoint của backend
-//     return response.data; // Trả về danh sách suất chiếu
+//     const reponse = api.get(`/showTime/findMovieAndShowDate/${movie_id}`);
+//     return reponse.data; // => cái này sẽ trả về lịch chiếu phim trong ngày hôm đó không hiện những ngày khác
 //   } catch (error) {
-//     console.error("Error fetching showtimes from SQL:", error);
-//     throw error;
+//     console.error("Error fetching showtime by movie", error);
 //   }
 // };
 

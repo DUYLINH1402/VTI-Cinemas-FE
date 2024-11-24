@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { fetchShowtimes } from "../../../services/dataService"; // Import hàm fetchShowtimes từ dataService
 
-const ScheduleModal = ({ onNext, onBack, onClose, selectedCinema }) => {
+const ScheduleModal = ({
+  onNext,
+  onBack,
+  onClose,
+  selectedCinema,
+  movie_id,
+}) => {
   const [showtimes, setShowtimes] = useState([]); // State lưu danh sách suất chiếu
   const [selectedDate, setSelectedDate] = useState(""); // State lưu ngày được chọn
   const [selectedTime, setSelectedTime] = useState(""); // State lưu suất chiếu được chọn
@@ -10,11 +16,13 @@ const ScheduleModal = ({ onNext, onBack, onClose, selectedCinema }) => {
 
   // Gọi API lấy danh sách suất chiếu khi Modal được mở
   useEffect(() => {
-    const fetchShowtimeData = async () => {
+    const fetchShowtimeData = async (movie_id) => {
       try {
         setLoading(true); // Bật trạng thái loading trước khi gọi API
-        const data = await fetchShowtimes(selectedCinema); // Gọi API với thông tin rạp đã chọn
+        const data = await fetchShowtimes(selectedCinema, movie_id); // Gọi API với thông tin rạp đã chọn
         setShowtimes(data); // Lưu dữ liệu suất chiếu vào state
+        console.log(selectedCinema);
+        console.log("Movie ID", movie_id);
       } catch (err) {
         setError(err.message || "Failed to load showtimes."); // Lưu lỗi nếu gọi API thất bại
       } finally {

@@ -84,6 +84,8 @@ const LoginModal = ({
       dispatch(loginUser({ email: emailOrPhone, password }))
         .unwrap()
         .then((response) => {
+          console.log("Email:", email);
+          console.log("Password:", password);
           const { accessToken, ...user } = response;
           localStorage.setItem("authToken", accessToken);
           localStorage.setItem("user", JSON.stringify(user));

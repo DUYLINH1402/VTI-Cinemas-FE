@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 export const Timeout = () => {
+  const DEFAULT_TIME = 600; // Thời gian mặc định: 600 giây
+
   const [count, setCount] = useState(() => {
     // Lấy thời gian từ localStorage hoặc mặc định là 600
     const savedCount = localStorage.getItem("timerCount");
-    return savedCount ? parseInt(savedCount, 10) : 600;
+    return savedCount ? parseInt(savedCount, 10) : DEFAULT_TIME;
   });
 
   useEffect(() => {
@@ -22,7 +24,8 @@ export const Timeout = () => {
   useEffect(() => {
     const handleBeforeUnload = () => {
       // Nếu rời khỏi trang, reset giá trị về 600
-      localStorage.setItem("timerCount", 600);
+      localStorage.setItem("timerCount", DEFAULT_TIME);
+      setCount(DEFAULT_TIME);
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);

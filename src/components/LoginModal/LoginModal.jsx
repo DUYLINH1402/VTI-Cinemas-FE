@@ -26,8 +26,13 @@ const LoginModal = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false); // Điều khiển hiển thị mật khẩu
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu email hoặc số điện thoại
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // State lưu mật khẩu
   const [errors, setErrors] = useState({ emailOrPhone: "", password: "" }); // State lưu các lỗi
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  const error = useSelector((state) => state.auth.error); // Lấy mã lỗi từ Redux store
 
   // Hàm toggle hiển thị mật khẩu
   const togglePasswordVisibility = () => {
@@ -83,7 +88,6 @@ const LoginModal = ({
           localStorage.setItem("authToken", accessToken);
           localStorage.setItem("user", JSON.stringify(user));
           toast.success("Đăng nhập thành công!");
-          console.log("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
         })
         .catch((error) => {
@@ -93,14 +97,9 @@ const LoginModal = ({
     }
   };
 
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.user);
-  const navigate = useNavigate();
-  const error = useSelector((state) => state.auth.error); // Lấy mã lỗi từ Redux store
-
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate("#!");
     }
   }, [user, navigate]);
 
@@ -114,7 +113,7 @@ const LoginModal = ({
         // Sau khi đăng nhập, đồng bộ dữ liệu người dùng
         saveUserToDatabase(user);
         closeModal();
-        navigate("/");
+        // navigate("/");
         toast.success("Đăng nhập Google thành công!");
       })
       .catch((error) => {
@@ -131,7 +130,7 @@ const LoginModal = ({
         localStorage.setItem("authToken", accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
-        navigate("/");
+        // navigate("/");
         toast.success("Đăng nhập Facebook thành công!");
       })
       .catch((error) => {

@@ -10,6 +10,7 @@ import {
   fetchShowtimesFromFirebase,
   updateAccountToFirebase,
   fetchMoviesByIdFromFirebase,
+  updatePasswordInFirebase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -21,11 +22,42 @@ import {
   fetchSeatsFromSQL,
   fetchCinemasFromSQL,
   fetchMoviesByIdFromSQL,
+  updatePasswordInSQL,
   // fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
+// Hàm đổi mật khẩu
+export const changePassword = async (email, oldPassword, newPassword) => {
+  if (useFirebase) {
+    // Sử dụng Firebase
+    return await updatePasswordInFirebase(email, oldPassword, newPassword);
+  } else {
+    // Sử dụng SQL
+    return await updatePasswordInSQL(email, oldPassword, newPassword);
+  }
+};
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
+// Hàm đăng nhập bằng Email/Pasword
+const loginWithEmailAndPassword = async (email, password) => {
+  try {
+    // 1. Xác thực với Firebase
+    const firebaseUser = await fireBaseService.loginWithFirebase(
+      email,
+      password
+    );
 
+    // 2. Lấy thông tin người dùng từ SQL dựa trên email của Firebase
+    const sqlUser = await sqlService.loginWithSQL(firebaseUser.email);
+
+    // 3. Kết hợp thông tin hoặc trả về dữ liệu từ SQL
+    return {
+      firebaseUser,
+      sqlUser,
+    };
+  } catch (error) {
+    throw new Error(`Login Error: ${error.message}`);
+  }
+};
 // API lấy dữ liệu Account
 export const fetchAccount = async (account_id) => {
   return useFirebase

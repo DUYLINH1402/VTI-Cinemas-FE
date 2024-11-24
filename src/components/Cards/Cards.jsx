@@ -50,7 +50,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
   return (
     <>
       <div className="card__inf">
-        <div className="image">
+        <div className="image ">
           <img src={movie.image} alt={movie.movie_name} />
           <div className="showtime">
             {/* Sử dụng callback để mở Modal */}

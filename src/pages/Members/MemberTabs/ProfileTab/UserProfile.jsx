@@ -6,6 +6,9 @@ import {
   updateAccount,
 } from "../../../../services/dataService"; // Import các hàm API
 import { toast } from "react-toastify"; // Thư viện thông báo (toast)
+import ChangePasswordModal from "../../../../components/ChangePasswordModal/ChangePassword";
+import { Link } from "react-router-dom";
+import { closeModal } from "../../../../utils/handleAction";
 // import { uploadImageToCloudinary } from "../../../../services/cloudinaryService"; // Hàm upload ảnh lên Cloudinary
 
 // Component UserProfile để hiển thị và cập nhật thông tin cá nhân
@@ -15,6 +18,7 @@ export const UserProfile = () => {
   const email = user?.email || ""; // Lấy email từ user hoặc trả về chuỗi rỗng nếu không có
   const [selectedImage, setSelectedImage] = useState(null); // Ảnh được chọn
   const [imageURL, setImageURL] = useState(""); // URL của ảnh sau khi upload
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // // Xử lý khi người dùng tải lên ảnh
   // const handleImageChange = (e) => {
@@ -273,7 +277,16 @@ export const UserProfile = () => {
 
             {/* Link đổi mật khẩu */}
             <div className="change-password">
-              <a href="#">Đổi mật khẩu?</a>
+              <Link href="!#" onClick={() => setIsModalOpen(true)}>
+                Đổi mật khẩu?
+              </Link>
+              <ChangePasswordModal
+                isOpen={isModalOpen}
+                onClose={() => {
+                  closeModal(); // Gọi hàm đóng từ handleAction
+                  setIsModalOpen(false); // Cập nhật trạng thái để tránh xung đột
+                }}
+              />
             </div>
 
             {/* Nút cập nhật */}

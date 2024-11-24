@@ -1,6 +1,7 @@
 import { logout } from "../../store/authSlice";
 import { toast } from "react-toastify";
 import { getDatabase, ref, set } from "firebase/database";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const handleLogout = (dispatch) => {
   // Xóa token khỏi LocalStorage
@@ -9,6 +10,7 @@ export const handleLogout = (dispatch) => {
   // Cập nhật Redux state
   dispatch(logout());
   toast.warning("Bạn đã đăng xuất tài khoản!");
+  Navigate("/");
 };
 
 export const saveUserToDatabase = (user) => {

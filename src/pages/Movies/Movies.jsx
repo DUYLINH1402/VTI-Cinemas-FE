@@ -3,6 +3,7 @@ import "./Movies.scss";
 import { CardMovie } from "../../components/Cards/Cards";
 import { fetchMoviesByTab } from "../../../src/services/dataService";
 import { Pagination } from "antd";
+import { useSelector } from "react-redux";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton"; // Import Skeleton để hiển thị khi tải dữ liệu
 
 export const Movies = () => {
@@ -10,8 +11,8 @@ export const Movies = () => {
   const [currentPage, setCurrentPage] = useState(1); // State lưu trang hiện tại
   const moviesPerPage = 10; // Số lượng phim hiển thị trên mỗi trang
   const [activeTab, setActiveTab] = useState("nowShowing"); // Tab hiện tại (default là "PHIM ĐANG CHIẾU")
-
   const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
+  const { searchResults, isSearching } = useSelector((state) => state.search);
 
   // Gọi API để lấy danh sách phim khi component được render
   useEffect(() => {
@@ -65,16 +66,23 @@ export const Movies = () => {
         </div>
 
         {/* Phần nội dung danh sách phim */}
-        <div className="movies__content">
-          {/* Hiển thị Skeleton nếu đang tải dữ liệu, hoặc danh sách phim nếu có */}
-          {loading ? (
-            <FullPageSkeleton /> // Hiển thị Skeleton khi dữ liệu đang được tải
+        <div className="home__movie movies__list">
+          {isSearching || (searchResults && searchResults.length > 0) ? (
+            searchResults && searchResults.length > 0 ? (
+              searchResults.map((item, index) => (
+                <CardMovie item={item} key={index}></CardMovie>
+              ))
+            ) : (
+              <p>Không có kết quả phù hợp.</p>
+            )
+          ) : loading ? (
+            <FullPageSkeleton />
           ) : currentMovies && currentMovies.length > 0 ? (
             currentMovies.map((item, index) => (
-              <CardMovie item={item} key={index}></CardMovie> // Hiển thị từng CardMovie cho mỗi phim
+              <CardMovie item={item} key={index}></CardMovie>
             ))
           ) : (
-            <p>Không có phim nào trong danh sách</p>
+            <p>Không có phim nào theo yêu cầu.</p>
           )}
         </div>
 
@@ -82,7 +90,7 @@ export const Movies = () => {
         <Pagination
           current={currentPage} // Trang hiện tại
           pageSize={moviesPerPage} // Số lượng phim trên mỗi trang
-          total={movies.length} // Tổng số phim
+          total={isSearching ? searchResults.length : movies.length} // Tổng số phim
           onChange={handlePageChange} // Hàm xử lý khi chuyển trang
           showSizeChanger={false} // Ẩn tùy chọn thay đổi kích thước trang
           style={{ marginTop: "20px", textAlign: "center" }} // Căn giữa và thêm khoảng cách phía trên

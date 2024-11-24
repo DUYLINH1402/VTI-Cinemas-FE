@@ -4,18 +4,23 @@ import { Link } from "react-router-dom";
 import { CardMovie } from "../../../components/Cards/Cards";
 import { fetchMoviesByTab } from "../../../services/dataService";
 import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton"; // Skeleton loader
+import { useSelector } from "react-redux";
 
-export const HomeContent = () => {
+export const HomeContent = ({}) => {
+  const { searchResults, isSearching, error } = useSelector(
+    (state) => state.search
+  );
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("nowShowing"); // Tab hiện tại (default là "PHIM ĐANG CHIẾU")
-
   // useEffect để gọi API khi tab thay đổi
   useEffect(() => {
+    if (isSearching) return; // Nếu đang tìm kiếm, không fetch tab data
+
     const fetchMoviesDataByTab = async () => {
       setLoading(true);
       try {
-        const data = await fetchMoviesByTab(activeTab); // Lấy dữ liệu theo tab
+        const data = await fetchMoviesByTab(activeTab); // Gọi API theo tab
         setMovies(data);
       } catch (error) {
         console.error("Error fetching movies:", error);
@@ -25,7 +30,10 @@ export const HomeContent = () => {
     };
 
     fetchMoviesDataByTab();
-  }, [activeTab]); // Chạy lại khi tab thay đổi
+  }, [activeTab, isSearching]); // Theo dõi cả activeTab và isSearching
+  // console.log("searchResults in HomeContent:", searchResults);
+  // console.log("isSearching in HomeContent:", isSearching);
+  // console.log("movies for activeTab:", movies);
   return (
     <>
       <div className="home__content">
@@ -60,14 +68,22 @@ export const HomeContent = () => {
 
         {/* Danh sách phim */}
         <div className="home__movie">
-          {loading ? (
-            <FullPageSkeleton /> // Hiển thị Skeleton khi đang tải
+          {isSearching || (searchResults && searchResults.length > 0) ? (
+            searchResults && searchResults.length > 0 ? (
+              searchResults.map((item, index) => (
+                <CardMovie item={item} key={index}></CardMovie>
+              ))
+            ) : (
+              <p>Không có kết quả phù hợp.</p>
+            )
+          ) : loading ? (
+            <FullPageSkeleton />
           ) : movies && movies.length > 0 ? (
             movies.map((item, index) => (
-              <CardMovie item={item} key={index}></CardMovie> // Hiển thị từng phim
+              <CardMovie item={item} key={index}></CardMovie>
             ))
           ) : (
-            <p>Không có phim nào theo yêu cầu</p> // Thông báo nếu không có dữ liệu
+            <p>Không có phim nào theo yêu cầu.</p>
           )}
         </div>
       </div>

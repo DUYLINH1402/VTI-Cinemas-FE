@@ -11,6 +11,7 @@ import {
   updateAccountToFirebase,
   fetchMoviesByIdFromFirebase,
   updatePasswordInFirebase,
+  searchFromFireBase,
 } from "./firebaseService";
 import {
   fetchMoviesFromSQL,
@@ -23,8 +24,30 @@ import {
   fetchCinemasFromSQL,
   fetchMoviesByIdFromSQL,
   updatePasswordInSQL,
+  searchFromSQL,
   // fetchShowtimesFromSQL,
 } from "./sql/sqlService";
+
+// Hàm Search
+export const searchDataService = {
+  getSearchSuggestions: async (query) => {
+    console.log("Query received in dataService:", query);
+    if (!query || typeof query !== "string") {
+      console.error("Invalid query passed to dataService:", query);
+      return [];
+    }
+    try {
+      if (useFirebase) {
+        return await searchFromFireBase.searchMovies(query);
+      } else {
+        return await searchFromSQL.searchMovies(query);
+      }
+    } catch (error) {
+      console.error("Error in dataService:", error);
+      return [];
+    }
+  },
+};
 
 // Hàm đổi mật khẩu
 export const changePassword = async (email, oldPassword, newPassword) => {

@@ -1,5 +1,5 @@
 @use "./../../assets/styles/cssBase.scss";
-.movies__content {
+.home__movie.movies__list {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(

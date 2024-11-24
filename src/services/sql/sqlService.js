@@ -1,6 +1,21 @@
 import axios from "axios";
 import api from "./api";
 
+// API Search
+export const searchFromSQL = {
+  searchMovies: async (query) => {
+    try {
+      // Gọi API từ backend SQL
+      const response = await axios.get("/api/movies/search", {
+        params: { keyword: query },
+      });
+      return response.data; // Trả về danh sách kết quả từ backend
+    } catch (error) {
+      console.error("Error in sqlService:", error);
+      return [];
+    }
+  },
+};
 // API lấy thông tin Account bằng ID
 export const fetchAccountFromSQL = async (account_id) => {
   const response = await api.get(`/api/account/findId/${account_id}`); // endpoint của backend

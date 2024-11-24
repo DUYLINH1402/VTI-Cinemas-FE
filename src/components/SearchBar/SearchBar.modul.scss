@@ -1,0 +1,45 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  min-width: 350px;
+  max-width: 600px;
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 8px 20px 8px 40px; /* Chừa khoảng trống cho icon */
+    font-size: 1.4rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f8f8f8;
+
+    &:focus {
+      border-color: #007bff; /* Màu xanh khi được focus */
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Hiệu ứng sáng */
+    }
+
+    &::placeholder {
+      color: #999;
+      font-size: 1.4rem;
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1.6rem;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #007bff; /* Đổi màu khi hover */
+    }
+  }
+}

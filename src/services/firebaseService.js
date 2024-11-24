@@ -9,6 +9,8 @@ import {
   query,
   orderByChild,
   update,
+  startAt,
+  endAt,
 } from "firebase/database";
 import {
   getAuth,
@@ -21,6 +23,68 @@ import bcrypt from "bcryptjs";
 import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
+// Chức năng Search
+export const searchFromFireBase = {
+  searchMovies: async (queryText) => {
+    // console.log("Querying Firebase with queryText:", queryText);
+    const db = getDatabase();
+    const movieRef = ref(db, "Movies");
+
+    // Kiểm tra nếu queryText không hợp lệ
+    if (!queryText || typeof queryText !== "string") {
+      // console.error("Invalid queryText:", queryText);
+      return []; // Trả về mảng rỗng nếu không có từ khóa
+    }
+
+    try {
+      // Tìm kiếm theo `movie_name`
+      const nameQuery = query(
+        movieRef,
+        orderByChild("movie_name"),
+        startAt(queryText),
+        endAt(queryText + "\uf8ff")
+      );
+
+      // Tìm kiếm theo `actor`
+      const actorQuery = query(
+        movieRef,
+        orderByChild("actor"),
+        startAt(queryText),
+        endAt(queryText + "\uf8ff")
+      );
+
+      // Tìm kiếm theo `genre`
+      const genreQuery = query(
+        movieRef,
+        orderByChild("genre"),
+        startAt(queryText),
+        endAt(queryText + "\uf8ff")
+      );
+      const snapshot = await get(movieRef); // Lấy toàn bộ dữ liệu từ Firebase
+      if (!snapshot.exists()) {
+        return []; // Nếu không có dữ liệu, trả về mảng rỗng
+      }
+
+      const normalizedQuery = queryText.toLowerCase(); // Chuyển từ khóa tìm kiếm về chữ thường
+
+      const allMovies = Object.values(snapshot.val()); // Chuyển dữ liệu từ Firebase thành mảng
+
+      // Lọc dữ liệu không phân biệt chữ hoa và chữ thường
+      const filteredMovies = allMovies.filter((movie) => {
+        return (
+          movie.movie_name?.toLowerCase().includes(normalizedQuery) ||
+          movie.actor?.toLowerCase().includes(normalizedQuery) ||
+          movie.genre?.toLowerCase().includes(normalizedQuery)
+        );
+      });
+      // console.log(filteredMovies);
+      return filteredMovies; // Trả về kết quả đã lọc
+    } catch (error) {
+      console.error("Error in fireBaseService:", error);
+      return [];
+    }
+  },
+};
 // Đổi mật khẩu trong Firebase dựa trên email
 export const updatePasswordInFirebase = async (
   email,

@@ -12,7 +12,7 @@ export const Footer = () => {
   return (
     <>
       <div className="footer">
-        <div class="footer__section footer__links">
+        <div className="footer__section footer__links">
           <Link to="/">
             <img src={logo} alt="Logo" className="footer__logo" />
           </Link>
@@ -37,7 +37,7 @@ export const Footer = () => {
             </li>
           </ul>
         </div>
-        <div class="footer__section footer__info">
+        <div className="footer__section footer__info">
           <h4>Hệ thống rạp</h4>
           <div className="footer__list__cinemas">
             <ul>
@@ -96,7 +96,7 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-        <div class="footer__section footer__social">
+        <div className="footer__section footer__social">
           <h4>Kết nối</h4>
           <ul>
             <li>
@@ -122,7 +122,7 @@ export const Footer = () => {
           </ul>
           <img src={logo_da_thong_bao_bct} alt="logo_da_thong_bao_bct" />
         </div>
-        <div class="footer__section footer__contact">
+        <div className="footer__section footer__contact">
           <h4>Liên hệ</h4>
           <ul>
             <li>CÔNG TY CỔ PHẦN VTI MEDIA</li>

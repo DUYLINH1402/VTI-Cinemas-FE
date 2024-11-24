@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import support from "./../../../src/assets/icon/support.jpg";
 import top_scroll from "./../../../src/assets/icon/top_scroll.png";
 import logo from "./../../../src/assets/image/logo.png";
@@ -12,6 +12,9 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 import { resetError } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../SearchBar/SearchBar";
+import { searchDataService } from "../../services/dataService";
+import { searchMovies } from "../../../store/searchSlice";
 
 export const Header = () => {
   const token = localStorage.getItem("authToken");
@@ -30,6 +33,28 @@ export const Header = () => {
     dispatch(resetError()); // Reset lỗi trong Redux
     setModalType(null);
   };
+
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false); // Quản lý trạng thái tìm kiếm
+
+  // Hàm xử lý tìm kiếm từ SearchBar
+  const handleSearch = async (query) => {
+    // Xử lý khi từ khóa rỗng
+    if (!query || query.trim() === "") {
+      dispatch(searchMovies([])); // Gửi từ khóa trống nếu không có nội dung
+      return;
+    }
+    dispatch(searchMovies(query.trim())); // Gửi từ khóa tìm kiếm
+
+    try {
+      const results = searchMovies(query.trim());
+      dispatch(setSearchResults(results)); // Cập nhật kết quả tìm kiếm
+    } catch (error) {
+      console.error("Error in handleSearch:", error);
+      dispatch(setSearchResults([])); // Reset kết quả nếu có lỗi
+    }
+  };
+
   useEffect(() => {
     window.onscroll = function () {
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
@@ -137,11 +162,7 @@ export const Header = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <input
-                    type="text"
-                    className="input-search"
-                    placeholder="Search"
-                  />
+                  <SearchBar onSearch={handleSearch} />
                 </li>
               </ul>
             </div>
@@ -152,7 +173,7 @@ export const Header = () => {
                 {isLoggedIn && user ? (
                   // Nếu người dùng đã đăng nhập, hiển thị avatar với Dropdown
                   <Dropdown
-                    overlay={userMenu}
+                    menu={userMenu}
                     trigger={["click"]}
                     placement="bottomRight"
                   >

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./card.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Seats } from "../../pages/Booking_Seat/Seats/Seats";
 import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../../pages/Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { Checkbox } from "antd";
+import { toast } from "react-toastify";
 
 export const CardCarousel = ({ item }) => {
   return (
@@ -97,9 +98,32 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
   );
 };
 
-export const CardSeats = () => {
+export const CardSeats = ({ cinema, date, time }) => {
   const [selectedSeatPrice, setSelectedSeatPrice] = useState(0);
   const [selectSeatName, setSelectSeatName] = useState([]);
+  const { movie_id } = useParams();
+  const navigate = useNavigate();
+  console.log(cinema, date, time);
+
+  const handlePayment = () => {
+    if (selectSeatName.length === 0) {
+      toast.warning("Vui lòng chọn ghế để tiếp tục");
+      return;
+    }
+    navigate(`/payment/${movie_id}`, {
+      state: {
+        selectSeatName: selectSeatName,
+        selectedSeatPrice: selectedSeatPrice,
+        cinema: cinema,
+        date: date,
+        time: time,
+      },
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem("timerCount", 600);
+  }, []);
 
   return (
     <>
@@ -142,9 +166,7 @@ export const CardSeats = () => {
             <h1>Thông tin vé</h1>
             <div className="detail_movie">
               <Ticket_Detail seat_name={selectSeatName} />
-              <Link to="/payment">
-                <button>Tiếp tục</button>
-              </Link>
+              <button onClick={handlePayment}>Tiếp tục</button>
             </div>
           </div>
         </div>
@@ -154,6 +176,10 @@ export const CardSeats = () => {
 };
 
 export const CardPayment = () => {
+  const { state } = useLocation();
+  const { selectSeatName, selectedSeatPrice, cinema, date, time } = state || {};
+  console.log(selectSeatName, selectedSeatPrice, cinema, date, time);
+
   return (
     <>
       <div className="card_payment">
@@ -236,6 +262,9 @@ export const CardPayment = () => {
             <div className="voucher">
               <h1>Giảm giá</h1>
               <span>VTI voucher (Nhấn vào đây để xem danh sách voucher)</span>
+              <div className="button">
+                <button>Đổi điểm</button>
+              </div>
               <div className="code_voucher">
                 <label htmlFor="">Mã voucher</label>
                 <select name="" id="">
@@ -254,16 +283,19 @@ export const CardPayment = () => {
                   <label htmlFor="">Nhập điểm</label>
                   <input type="text" />
                 </div>
-                <div>
-                  <label htmlFor="">Số tiền được giảm</label>
-                  <input type="text" />
-                </div>
               </div>
-              <div className="button">
-                <button>Đổi điểm</button>
-                <p>Tổng tiền: </p>
-                <p>Số tiền được giảm: </p>
-                <p>Số tiền cần thanh toán: </p>
+              {/*  */}
+              <div className="total_price">
+                <div>
+                  <p>Tổng tiền:</p>
+                  <Price price={selectedSeatPrice} />
+                </div>
+                <div>
+                  <p>Số tiền được giảm: </p>
+                </div>
+                <div>
+                  <p>Số tiền cần thanh toán: </p>
+                </div>
               </div>
             </div>
             {/*  */}
@@ -305,6 +337,7 @@ export const CardPayment = () => {
               </div>
 
               <div>
+                <h2>Thời gian còn lại: </h2>
                 <Timeout />
               </div>
             </div>
@@ -313,7 +346,7 @@ export const CardPayment = () => {
           <div className="col2">
             <h1>Thông tin vé</h1>
             <div className="detail_movie">
-              {/* <Ticket_Detail seat_name={selectSeatName} /> */}
+              <Ticket_Detail seat_name={selectSeatName} />
               <Link to="/payment">
                 <button>Tiếp tục</button>
               </Link>

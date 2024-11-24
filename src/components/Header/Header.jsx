@@ -77,7 +77,8 @@ export const Header = () => {
   }, []);
   const onLogout = () => {
     localStorage.removeItem("authToken");
-    handleLogout(dispatch); // Truyền dispatch vào handleLogout
+    handleLogout(dispatch);
+    navigate("/"); // Truyền dispatch vào handleLogout
   };
   const handleMemberClick = (token, setModalType) => {
     if (token) {

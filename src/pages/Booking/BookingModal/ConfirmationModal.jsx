@@ -10,6 +10,7 @@ const ConfirmationModal = ({
   const navigate = useNavigate(); // Hook của React Router để điều hướng
 
   const handleConfirm = () => {
+    localStorage.setItem("timerCount", 600);
     // Điều hướng đến trang chọn ghế và truyền dữ liệu đã chọn
     navigate(`/booking_seat/${movie_id}`, {
       state: {

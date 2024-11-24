@@ -6,6 +6,7 @@ import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../../pages/Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
+import { Checkbox } from "antd";
 
 export const CardCarousel = ({ item }) => {
   return (
@@ -141,7 +142,179 @@ export const CardSeats = () => {
             <h1>Thông tin vé</h1>
             <div className="detail_movie">
               <Ticket_Detail seat_name={selectSeatName} />
-              <Link to="#">
+              <Link to="/payment">
+                <button>Tiếp tục</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export const CardPayment = () => {
+  return (
+    <>
+      <div className="card_payment">
+        <div className="content_tab">
+          <div className="col1">
+            <h1>Thông tin thanh toán</h1>
+            {/*  */}
+            <div className="person_inf">
+              <div>
+                <label htmlFor="">Họ tên:</label>
+                <input type="text" />
+              </div>
+              <div>
+                <label htmlFor="">Số điện thoại:</label>
+                <input type="text" />
+              </div>
+              <div>
+                <label htmlFor="">Email:</label>
+                <input type="text" />
+              </div>
+            </div>
+            {/*  */}
+            <div className="service">
+              <h1>COMBO ƯU ĐÃI</h1>
+              <div className="lable_service">
+                <div>
+                  <label htmlFor="">Tên combo: </label>
+                </div>
+                <div>
+                  <label htmlFor="">Mô tả: </label>
+                </div>
+                <div>
+                  <label htmlFor="">Số lượng: </label>
+                </div>
+              </div>
+              <div className="service1">
+                <div>
+                  <h2>Family Combo 69oz</h2>
+                </div>
+                <div>
+                  <h3>
+                    Tiết kiệm 95K! Gồm 2 Bắp (69oz) + 4 Nước có gaz (22oz) + 2
+                    Snack Oishi (80g)
+                  </h3>
+                </div>
+                <div>
+                  <input type="number" />
+                </div>
+              </div>
+              <div className="service1">
+                <div>
+                  <h2>Beta Combo 69oz</h2>
+                </div>
+                <div>
+                  <h3>
+                    Tiết kiệm 28K! Gồm 1 Bắp (69oz) + 1 Nước có gaz (22oz) + 1
+                    Snack Oishi (80g)
+                  </h3>
+                </div>
+                <div>
+                  <input type="number" />
+                </div>
+              </div>
+              <div className="service1">
+                <div>
+                  <h2>Sweet Combo 69oz</h2>
+                </div>
+                <div>
+                  <h3>
+                    Tiết kiệm 46K! Gồm 2 Bắp (69oz) + 2 Nước có gaz (22oz) 1
+                    Snack Oishi (80g)
+                  </h3>
+                </div>
+                <div>
+                  <input type="number" />
+                </div>
+              </div>
+            </div>
+            {/*  */}
+            <div className="voucher">
+              <h1>Giảm giá</h1>
+              <span>VTI voucher (Nhấn vào đây để xem danh sách voucher)</span>
+              <div className="code_voucher">
+                <label htmlFor="">Mã voucher</label>
+                <select name="" id="">
+                  <option value="">---</option>
+                  <option value="">Mã giảm giá 1</option>
+                  <option value="">mã giảm giá 2</option>
+                  <option value="">Mã giảm giá 3</option>
+                </select>
+              </div>
+              <div className="point_voucher">
+                <div>
+                  <label htmlFor="">Điểm hiện có</label>
+                  <input type="text" />
+                </div>
+                <div>
+                  <label htmlFor="">Nhập điểm</label>
+                  <input type="text" />
+                </div>
+                <div>
+                  <label htmlFor="">Số tiền được giảm</label>
+                  <input type="text" />
+                </div>
+              </div>
+              <div className="button">
+                <button>Đổi điểm</button>
+                <p>Tổng tiền: </p>
+                <p>Số tiền được giảm: </p>
+                <p>Số tiền cần thanh toán: </p>
+              </div>
+            </div>
+            {/*  */}
+            <div className="payment_method">
+              <h1>Phương thức thanh toán</h1>
+              <div className="method">
+                <div>
+                  <img
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426727/ic-card-vn_mepuao.png"
+                    alt=""
+                  />
+                  <label htmlFor="">Thẻ nội địa: </label>
+                  <Checkbox />
+                </div>
+                <div>
+                  <img
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426727/ic-card-gb_o9xkk0.png"
+                    alt=""
+                  />
+                  <label htmlFor="">Thẻ Visa: </label>
+                  <Checkbox />
+                </div>
+                <div>
+                  <img
+                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426844/MoMo_Logo_gpdcf9.png"
+                    alt=""
+                  />
+                  <label htmlFor="">Ví MOMO</label>
+
+                  <Checkbox />
+                </div>
+              </div>
+            </div>
+            {/*  */}
+            <div className="time_out">
+              <div>
+                <span>Vui lòng kiểm tra lại thông tin</span> <br /> <br />
+                <span>* Vé mua rồi không trả lại được dưới mọi hình thức</span>
+              </div>
+
+              <div>
+                <Timeout />
+              </div>
+            </div>
+          </div>
+          {/*  */}
+          <div className="col2">
+            <h1>Thông tin vé</h1>
+            <div className="detail_movie">
+              {/* <Ticket_Detail seat_name={selectSeatName} /> */}
+              <Link to="/payment">
                 <button>Tiếp tục</button>
               </Link>
             </div>

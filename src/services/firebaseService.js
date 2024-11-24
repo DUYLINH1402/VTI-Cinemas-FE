@@ -8,13 +8,58 @@ import {
   push,
   query,
   orderByChild,
-  child,
+  update,
 } from "firebase/database";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import {
+  getAuth,
+  sendPasswordResetEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from "firebase/auth";
 import bcrypt from "bcryptjs";
 import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
-
 const auth = getAuth();
+
+// Đổi mật khẩu trong Firebase dựa trên email
+export const updatePasswordInFirebase = async (
+  email,
+  oldPassword,
+  newPassword
+) => {
+  const db = getDatabase();
+
+  // Tìm kiếm người dùng theo email
+  const userQuery = query(
+    ref(db, "Account"),
+    orderByChild("email"),
+    equalTo(email)
+  );
+  const userSnapshot = await get(userQuery);
+
+  if (!userSnapshot.exists()) {
+    throw new Error("Người dùng không tồn tại trong Firebase!");
+  }
+
+  // Lấy thông tin người dùng
+  const userId = Object.keys(userSnapshot.val())[0];
+  const userData = userSnapshot.val()[userId];
+
+  // Kiểm tra mật khẩu cũ
+  const isMatch = await bcrypt.compare(oldPassword, userData.password);
+  if (!isMatch) {
+    throw new Error("Mật khẩu cũ không chính xác!");
+  }
+
+  // Mã hóa mật khẩu mới
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  // Cập nhật mật khẩu
+  const userRef = ref(db, `Account/${userId}`);
+  await update(userRef, { password: hashedPassword });
+
+  return "Mật khẩu đã được thay đổi!";
+};
 // Lấy thông tin Account
 export const getAccountFromFirebase = async (account_id) => {
   const db = getDatabase();

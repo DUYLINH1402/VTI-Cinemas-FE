@@ -5,7 +5,6 @@ import {
   registerWithEmailAndPassword,
   loginWithFacebook,
 } from "../src/services/authService";
-
 // Async actions cho các chức năng đăng ký
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -13,7 +12,7 @@ export const registerUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await registerWithEmailAndPassword(email, password);
-      // console.log("registerUser Ok"); // Log khi đăng ký thành công
+
       return response.user; // Trả về thông tin người dùng khi thành công
     } catch (error) {
       return rejectWithValue(error.code); // Trả về mã lỗi nếu thất bại
@@ -28,6 +27,7 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const response = await loginWithEmailAndPassword(email, password);
+
       if (response.error) {
         return rejectWithValue(response.error); // Truyền lỗi vào Redux nếu có
       }

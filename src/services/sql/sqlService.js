@@ -1,18 +1,34 @@
 import axios from "axios";
 import api from "./api";
 
-// api phải là http://localhost:8081
 // API lấy thông tin Account bằng ID
 export const fetchAccountFromSQL = async (account_id) => {
   const response = await api.get(`/api/account/findId/${account_id}`); // endpoint của backend
   return response.data;
 };
+
 // API lấy thông tin Account bằng Email
 export const fetchAccountByEmailFromSQL = async (loginRequest) => {
   const response = await api.get(`/api/login/email`, loginRequest); // endpoint của backend
   return response.data;
 };
-// API lấy dữ liệu Movies từ SQL
+
+// API đăng nhập với Email/Password
+const loginWithSQL = async (email) => {
+  try {
+    // Gửi email đến backend để lấy thông tin user từ SQL
+    const response = await axios.post("/api/sql-login", { email });
+    return response.data; // Trả về dữ liệu người dùng từ SQL
+  } catch (error) {
+    throw new Error(`SQL Error: ${error.message}`);
+  }
+};
+
+export default {
+  loginWithSQL,
+};
+
+// API lấy dữ liệu Movies từ SQL (ĐÃ CHẠY OK)
 export const fetchMoviesFromSQL = async () => {
   try {
     const response = await api.get("/movie/find"); // endpoint của backend
@@ -23,7 +39,7 @@ export const fetchMoviesFromSQL = async () => {
   }
 };
 
-// API lấy dữ liệu MoviesById từ SQL
+// API lấy dữ liệu MoviesById từ SQL (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromSQL = async (movie_id) => {
   try {
     // console.log("ID to fetch:", movie_id);
@@ -34,7 +50,7 @@ export const fetchMoviesByIdFromSQL = async (movie_id) => {
     throw error; // Throw lỗi để xử lý ở nơi gọi
   }
 };
-// API lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ FIX OK)
+// API lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ CHẠY OK)
 export const fetchMoviesByTabFromSQL = async (tab) => {
   let endpoint = "/movie";
   switch (tab) {
@@ -60,7 +76,7 @@ export const fetchMoviesByTabFromSQL = async (tab) => {
   }
 };
 
-// API lấy dữ liệu Carousel từ SQL
+// API lấy dữ liệu Carousel từ SQL (ĐÃ CHẠY OK)
 export const fetchCarouselDataFromSQL = async () => {
   const response = await api.get("/banner/find"); // endpoint của backend
   return response.data;
@@ -86,7 +102,7 @@ export const createAccountToSQL = async (accountRequest) => {
     console.error("Lỗi khi lưu dữ liệu vào SQL:", error);
   }
 };
-// API lấy dữ liệu CINEMAS từ SQL
+// API lấy dữ liệu CINEMAS từ SQL (ĐÃ CHẠY OK)
 export const fetchCinemasFromSQL = async () => {
   try {
     const response = await api.get("/cinema/find"); // endpoint của backend
@@ -160,5 +176,39 @@ export const updateAccountToSQL = async (email, formData) => {
   } catch (error) {
     console.error("Lỗi khi cập nhật thông tin SQL:", error);
     throw error;
+  }
+};
+
+// API Update Password by Email
+export const updatePasswordInSQL = async (email, oldPassword, newPassword) => {
+  try {
+    // Lấy thông tin người dùng từ SQL dựa trên email
+    const [user] = await db.query("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
+
+    if (!user) {
+      throw new Error("Người dùng không tồn tại trong SQL!");
+    }
+
+    // Kiểm tra mật khẩu cũ
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      throw new Error("Mật khẩu cũ không chính xác!");
+    }
+
+    // Mã hóa mật khẩu mới
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Cập nhật mật khẩu
+    await db.query("UPDATE users SET password = ? WHERE email = ?", [
+      hashedPassword,
+      email,
+    ]);
+
+    return "Mật khẩu đã được thay đổi trong SQL!";
+  } catch (error) {
+    console.error("Lỗi khi đổi mật khẩu trong SQL:", error);
+    throw new Error("Lỗi khi đổi mật khẩu trong SQL!");
   }
 };

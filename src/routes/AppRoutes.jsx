@@ -41,7 +41,7 @@ const routerPage = createBrowserRouter([
         element: <FullPageSkeleton />,
       },
       {
-        path: "/payment",
+        path: "/payment/:movie_id",
         element: <Payment />,
       },
     ],

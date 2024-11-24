@@ -10,7 +10,6 @@ export const handleLogout = (dispatch) => {
   // Cập nhật Redux state
   dispatch(logout());
   toast.warning("Bạn đã đăng xuất tài khoản!");
-  Navigate("/");
 };
 
 export const saveUserToDatabase = (user) => {

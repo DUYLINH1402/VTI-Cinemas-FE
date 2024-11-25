@@ -100,10 +100,34 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
 };
 
 export const CardSeats = ({ cinema, date, time }) => {
-  const [selectedSeatPrice, setSelectedSeatPrice] = useState(0);
-  const [selectSeatName, setSelectSeatName] = useState([]);
+  const [selectedSeatPrice, setSelectedSeatPrice] = useState(() => {
+    return Number(localStorage.getItem("selectedSeatPrice")) || 0; // Lấy giá vé từ localStorage
+  });
+  const [selectSeatName, setSelectSeatName] = useState(() => {
+    return JSON.parse(localStorage.getItem("selectedSeatNames")) || []; // Lấy tên ghế từ localStorage
+  });
   const { movie_id } = useParams();
   const navigate = useNavigate();
+
+  // Tải trạng thái chỗ đã lưu trước đó từ localStorage (nếu tồn tại)
+  useEffect(() => {
+    const savedSeatNames =
+      JSON.parse(localStorage.getItem("selectedSeatNames")) || [];
+    const savedSeatPrice =
+      JSON.parse(localStorage.getItem("selectedSeatPrice")) || 0;
+
+    setSelectSeatName(savedSeatNames);
+    setSelectedSeatPrice(savedSeatPrice);
+  }, []);
+
+  // Lưu chỗ ngồi đã chọn và giá vào localStorage
+  useEffect(() => {
+    localStorage.setItem("selectedSeatNames", JSON.stringify(selectSeatName));
+    localStorage.setItem(
+      "selectedSeatPrice",
+      JSON.stringify(selectedSeatPrice)
+    );
+  }, [selectSeatName, selectedSeatPrice]);
 
   const handlePayment = () => {
     if (selectSeatName.length === 0) {
@@ -181,7 +205,6 @@ export const CardPayment = ({ userDetail }) => {
   const [comboPrice, setComboPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const totalPrice = selectedSeatPrice + comboPrice - discount;
-  console.log(totalPrice);
 
   return (
     <>
@@ -225,10 +248,10 @@ export const CardPayment = ({ userDetail }) => {
             {/*  */}
             <div className="voucher">
               <h1>Giảm giá</h1>
-              <span>VTI voucher (Nhấn vào đây để xem danh sách voucher)</span>
+              {/* <span>VTI voucher (Nhấn vào đây để xem danh sách voucher)</span>
               <div className="button">
                 <button>Đổi điểm</button>
-              </div>
+              </div> */}
               <div className="code_voucher">
                 <label htmlFor="">Mã voucher</label>
                 <select
@@ -237,10 +260,10 @@ export const CardPayment = ({ userDetail }) => {
                   <option value="0">---</option>
                   <option value="5000">Mã giảm giá 5000đ</option>
                   <option value="10000">Mã giảm giá 10.000đ</option>
-                  <option value="20000">Mã giảm giá 15.000đ</option>
+                  <option value="20000">Mã giảm giá 20.000đ</option>
                 </select>
               </div>
-              <div className="point_voucher">
+              {/* <div className="point_voucher">
                 <div>
                   <label htmlFor="">Điểm hiện có</label>
                   <input type="text" />
@@ -249,7 +272,7 @@ export const CardPayment = ({ userDetail }) => {
                   <label htmlFor="">Nhập điểm</label>
                   <input type="text" />
                 </div>
-              </div>
+              </div> */}
               {/*  */}
               <div className="total_price">
                 <div>
@@ -272,7 +295,7 @@ export const CardPayment = ({ userDetail }) => {
                     alt=""
                   />
                   <label htmlFor="">Thẻ nội địa: </label>
-                  <Checkbox />
+                  <input type="radio" name="method" />
                 </div>
                 <div>
                   <img
@@ -280,7 +303,7 @@ export const CardPayment = ({ userDetail }) => {
                     alt=""
                   />
                   <label htmlFor="">Thẻ Visa: </label>
-                  <Checkbox />
+                  <input type="radio" name="method" />
                 </div>
                 <div>
                   <img
@@ -289,7 +312,7 @@ export const CardPayment = ({ userDetail }) => {
                   />
                   <label htmlFor="">Ví MOMO</label>
 
-                  <Checkbox />
+                  <input type="radio" name="method" />
                 </div>
               </div>
             </div>

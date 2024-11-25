@@ -11,6 +11,10 @@ const ConfirmationModal = ({
 
   const handleConfirm = () => {
     localStorage.setItem("timerCount", 600);
+    localStorage.setItem("statusSeats", JSON.stringify({}));
+    localStorage.setItem("selectedSeatPrice", 0);
+    localStorage.setItem("selectedSeatNames", JSON.stringify([]));
+
     // Điều hướng đến trang chọn ghế và truyền dữ liệu đã chọn
     navigate(`/booking_seat/${movie_id}`, {
       state: {

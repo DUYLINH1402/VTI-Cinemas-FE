@@ -3,7 +3,35 @@ import { fetchSeats } from "../../../services/dataService";
 
 export const Seats = ({ setSelectedSeatPrice, setSelectSeatName }) => {
   const [seats, setSeats] = useState([]); // Dữ liệu ghế
-  const [statusSeats, setStatusSeats] = useState({}); // Trạng thái ghế
+  const [statusSeats, setStatusSeats] = useState(() => {
+    // Load trạng thái ghế từ localStorage
+    const savedStatus = localStorage.getItem("statusSeats");
+    return savedStatus ? JSON.parse(savedStatus) : {};
+  }); // Trạng thái ghế
+
+  // Cập nhật trạng thái ghế vào localStorage
+  useEffect(() => {
+    localStorage.setItem("statusSeats", JSON.stringify(statusSeats));
+  }, [statusSeats]);
+
+  // Reset ghế nếu rời khỏi trang chọn ghế
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Nếu rời khỏi trang, reset giá trị về {},0,[]
+      localStorage.setItem("statusSeats", JSON.stringify({}));
+      setStatusSeats({});
+      localStorage.setItem("selectedSeatPrice", 0);
+      setSelectedSeatPrice(0);
+      localStorage.setItem("selectedSeatNames", JSON.stringify([]));
+      setSelectSeatName([]);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   // Lấy dữ liệu ghế từ API
   useEffect(() => {
@@ -38,6 +66,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName }) => {
         } else {
           return prevName.filter((name) => name !== seat_name); // Xóa tên ghế khi bỏ chọn
         }
+        localStorage.setItem("selectedSeatNames", JSON.stringify(prevName)); // Lưu tên ghế vào localStorage
         return prevName;
       });
 
@@ -47,6 +76,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName }) => {
       }, 0);
 
       setSelectedSeatPrice(totalPrice); // Cập nhật tổng giá vé
+      localStorage.setItem("selectedSeatPrice", totalPrice); // Lưu giá vé vào localStorage
 
       return updatedStatus;
     });

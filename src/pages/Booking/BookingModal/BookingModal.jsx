@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchCinemas } from "../../../services/dataService"; // Import hàm fetchCinemas từ dataService
 import "./BookingModal.modul.scss";
 
-const BookingModal = ({ movieId, onNext, onClose }) => {
+const BookingModal = ({ movie_id, onNext, onClose }) => {
   const [cinema, setCinema] = useState(""); // State lưu rạp được chọn
   const [cinemaList, setCinemaList] = useState([]); // State lưu danh sách rạp
   const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
@@ -31,9 +31,10 @@ const BookingModal = ({ movieId, onNext, onClose }) => {
     if (cinema) {
       onNext({
         cinema: cinema, // Truyền thông tin rạp đã chọn
-        movieId: movieId, // Truyền ID phim đã chọn
+        movie_id: movie_id, // Truyền ID phim đã chọn
       });
       console.log("Cinema Selected:", cinema); // Log thông tin rạp đã chọn
+      console.log("Movie ID", movie_id);
     }
   };
 

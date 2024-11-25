@@ -72,6 +72,8 @@ export const getUserByEmail = async (email) => {
 };
 // Hàm đăng nhập bằng email và mật khẩu
 export const loginWithEmailAndPassword = async (email, password) => {
+  console.log("Email:", email);
+  console.log("Password:", password);
   try {
     // Lấy thông tin tài khoản từ Firebase
     const userData = await getAccountByEmailFromFirebase(email);
@@ -80,6 +82,8 @@ export const loginWithEmailAndPassword = async (email, password) => {
     const hashedPasswordFromDB = userData.password;
 
     // Kiểm tra mật khẩu
+    console.log("Password:", password);
+    console.log("Hashed Password From DB:", hashedPasswordFromDB);
     const isPasswordValid = bcrypt.compareSync(password, hashedPasswordFromDB);
     if (!isPasswordValid) {
       throw new Error("Mật khẩu không chính xác");

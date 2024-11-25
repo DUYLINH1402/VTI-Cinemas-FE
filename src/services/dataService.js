@@ -25,7 +25,7 @@ import {
   fetchMoviesByIdFromSQL,
   updatePasswordInSQL,
   searchFromSQL,
-  // fetchShowtimesFromSQL,
+  fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 
 // Hàm Search
@@ -150,8 +150,8 @@ export const fetchCinemas = async () => {
     : await fetchCinemasFromSQL();
 };
 // API lấy dữ liệu Showtimes
-export const fetchShowtimes = async () => {
+export const fetchShowtimes = async (movie_id) => {
   return useFirebase
-    ? await fetchShowtimesFromFirebase()
-    : await fetchShowtimesFromSQL();
+    ? await fetchShowtimesFromFirebase(movie_id)
+    : await fetchShowtimesFromSQL(movie_id);
 };

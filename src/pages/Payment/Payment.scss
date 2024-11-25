@@ -23,10 +23,12 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
+        font-size: 1.5rem;
 
         label {
-          font-size: 1.5rem;
+          text-decoration: underline;
           margin-right: 10px;
+          font-size: 1.8rem;
         }
         input {
           text-align: center;
@@ -38,6 +40,7 @@
 
           &:focus {
             outline: none;
+            cursor: not-allowed;
           }
         }
       }
@@ -49,7 +52,7 @@
           margin-bottom: 10px;
           display: flex;
           justify-content: space-around;
-          font-size: 1.5rem;
+          font-size: 2rem;
           text-decoration: underline;
         }
       }
@@ -59,7 +62,6 @@
       .service1 {
         border-top: 1px solid #ccc;
         margin: 20px 0px;
-        display: flex;
         font-size: 1.5rem;
 
         h2 {

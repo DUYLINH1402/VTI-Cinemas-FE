@@ -8,6 +8,7 @@ import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { Checkbox } from "antd";
 import { toast } from "react-toastify";
+import { Service } from "../../pages/Payment/Service_Cinema/Service";
 
 export const CardCarousel = ({ item }) => {
   return (
@@ -103,7 +104,6 @@ export const CardSeats = ({ cinema, date, time }) => {
   const [selectSeatName, setSelectSeatName] = useState([]);
   const { movie_id } = useParams();
   const navigate = useNavigate();
-  console.log(cinema, date, time);
 
   const handlePayment = () => {
     if (selectSeatName.length === 0) {
@@ -175,10 +175,13 @@ export const CardSeats = ({ cinema, date, time }) => {
   );
 };
 
-export const CardPayment = () => {
+export const CardPayment = ({ userDetail }) => {
   const { state } = useLocation();
-  const { selectSeatName, selectedSeatPrice, cinema, date, time } = state || {};
-  console.log(selectSeatName, selectedSeatPrice, cinema, date, time);
+  const { selectSeatName, selectedSeatPrice } = state || {};
+  const [comboPrice, setComboPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const totalPrice = selectedSeatPrice + comboPrice - discount;
+  console.log(totalPrice);
 
   return (
     <>
@@ -190,15 +193,15 @@ export const CardPayment = () => {
             <div className="person_inf">
               <div>
                 <label htmlFor="">Họ tên:</label>
-                <input type="text" />
+                <input type="text" value={userDetail.name} readOnly />
               </div>
               <div>
                 <label htmlFor="">Số điện thoại:</label>
-                <input type="text" />
+                <input type="text" value={userDetail.phone} readOnly />
               </div>
               <div>
                 <label htmlFor="">Email:</label>
-                <input type="text" />
+                <input type="email" value={userDetail.email} readOnly />
               </div>
             </div>
             {/*  */}
@@ -216,46 +219,7 @@ export const CardPayment = () => {
                 </div>
               </div>
               <div className="service1">
-                <div>
-                  <h2>Family Combo 69oz</h2>
-                </div>
-                <div>
-                  <h3>
-                    Tiết kiệm 95K! Gồm 2 Bắp (69oz) + 4 Nước có gaz (22oz) + 2
-                    Snack Oishi (80g)
-                  </h3>
-                </div>
-                <div>
-                  <input type="number" />
-                </div>
-              </div>
-              <div className="service1">
-                <div>
-                  <h2>Beta Combo 69oz</h2>
-                </div>
-                <div>
-                  <h3>
-                    Tiết kiệm 28K! Gồm 1 Bắp (69oz) + 1 Nước có gaz (22oz) + 1
-                    Snack Oishi (80g)
-                  </h3>
-                </div>
-                <div>
-                  <input type="number" />
-                </div>
-              </div>
-              <div className="service1">
-                <div>
-                  <h2>Sweet Combo 69oz</h2>
-                </div>
-                <div>
-                  <h3>
-                    Tiết kiệm 46K! Gồm 2 Bắp (69oz) + 2 Nước có gaz (22oz) 1
-                    Snack Oishi (80g)
-                  </h3>
-                </div>
-                <div>
-                  <input type="number" />
-                </div>
+                <Service setComboPrice={setComboPrice} />
               </div>
             </div>
             {/*  */}
@@ -267,11 +231,13 @@ export const CardPayment = () => {
               </div>
               <div className="code_voucher">
                 <label htmlFor="">Mã voucher</label>
-                <select name="" id="">
-                  <option value="">---</option>
-                  <option value="">Mã giảm giá 1</option>
-                  <option value="">mã giảm giá 2</option>
-                  <option value="">Mã giảm giá 3</option>
+                <select
+                  onChange={(e) => setDiscount(parseInt(e.target.value) || 0)}
+                >
+                  <option value="0">---</option>
+                  <option value="5000">Mã giảm giá 5000đ</option>
+                  <option value="10000">Mã giảm giá 10.000đ</option>
+                  <option value="20000">Mã giảm giá 15.000đ</option>
                 </select>
               </div>
               <div className="point_voucher">
@@ -287,14 +253,12 @@ export const CardPayment = () => {
               {/*  */}
               <div className="total_price">
                 <div>
-                  <p>Tổng tiền:</p>
-                  <Price price={selectedSeatPrice} />
-                </div>
-                <div>
                   <p>Số tiền được giảm: </p>
+                  <p>{discount} VNĐ</p>
                 </div>
                 <div>
                   <p>Số tiền cần thanh toán: </p>
+                  <Price price={totalPrice} />
                 </div>
               </div>
             </div>

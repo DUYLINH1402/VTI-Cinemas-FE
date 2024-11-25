@@ -253,10 +253,6 @@ export const CardPayment = ({ userDetail }) => {
               {/*  */}
               <div className="total_price">
                 <div>
-                  <p>Tổng tiền:</p>
-                  <Price price={totalPrice} />
-                </div>
-                <div>
                   <p>Số tiền được giảm: </p>
                   <p>{discount} VNĐ</p>
                 </div>

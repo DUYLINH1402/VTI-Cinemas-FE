@@ -174,7 +174,7 @@ export const Header = () => {
                 {isLoggedIn && user ? (
                   // Nếu người dùng đã đăng nhập, hiển thị avatar với Dropdown
                   <Dropdown
-                    menu={userMenu}
+                    overlay={userMenu}
                     trigger={["click"]}
                     placement="bottomRight"
                   >

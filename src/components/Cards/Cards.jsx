@@ -8,13 +8,8 @@ import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { toast } from "react-toastify";
 import { Service } from "../../pages/Payment/Service_Cinema/Service";
-<<<<<<< HEAD
 import axios from "axios";
-=======
-import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import fstar_solid from "../../assets/icon/star_solid.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
->>>>>>> 4733ebe96238807a6d0013bd7d353fbca6765548
+
 
 export const renderStars = (rating) => {
   if (!rating || typeof rating !== "number") {

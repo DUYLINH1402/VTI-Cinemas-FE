@@ -1,14 +1,14 @@
 🎥 VTI Cinemas - Hệ Thống Đặt Vé Xem Phim
 📖 Giới Thiệu
-VTI Cinemas là một hệ thống đặt vé xem phim trực tuyến, giúp người dùng dễ dàng tìm kiếm, đặt vé và quản lý lịch chiếu phim. Dự án hướng đến việc cung cấp trải nghiệm giải trí nhanh chóng, tiện lợi và trực quan cho người dùng.
+VTI Cinemas là một hệ thống đặt vé xem phim trực tuyến, giúp người dùng dễ dàng tìm kiếm, đặt vé. Dự án hướng đến việc cung cấp trải nghiệm giải trí nhanh chóng, tiện lợi và trực quan cho người dùng.
 
 🚀 Tính Năng Chính
 Tìm kiếm và đặt vé xem phim.
-Quản lý người dùng với các vai trò (Admin, Manager, User).
 Hiển thị danh sách phim đang chiếu, sắp chiếu và các suất chiếu đặc biệt.
 Hỗ trợ đánh giá phim với hệ thống đánh giá 5 sao và bình luận.
 Xác thực người dùng an toàn với đăng nhập bằng Google, Facebook và Email.
 Tích hợp phân quyền và bảo mật mạnh mẽ.
+Quản lý người dùng với các vai trò (Admin, Manager, User).
 
 🛠️ Công Nghệ Sử Dụng (Tech Stack)
 Frontend

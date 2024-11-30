@@ -9,7 +9,9 @@ import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { toast } from "react-toastify";
 import { Service } from "../../pages/Payment/Service_Cinema/Service";
 import axios from "axios";
-
+import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import fstar_solid from "../../assets/icon/star_solid.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const renderStars = (rating) => {
   if (!rating || typeof rating !== "number") {
@@ -233,22 +235,20 @@ export const CardPayment = ({ userDetail }) => {
   const [comboPrice, setComboPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const totalPrice = selectedSeatPrice + comboPrice - discount;
-  
-  
-  const handlePayment = async () => {
-      try {
-        // Gọi API server tạo đơn hàng ZaloPay
-        const response = await axios.post("http://localhost:8888/payment", {
-          amount: totalPrice,
-          description: "Thanh toán vé xem phim",
 
-        });
-        // Kiểm tra URL thanh toán từ server
-        if (response.data.order_url) {
-          window.location.href = response.data.order_url;
-        }
-      } catch (error) {
-        toast.error("Có lỗi xảy ra khi tạo giao dịch.");
+  const handlePayment = async () => {
+    try {
+      // Gọi API server tạo đơn hàng ZaloPay
+      const response = await axios.post("http://localhost:8888/payment", {
+        amount: totalPrice,
+        description: "Thanh toán vé xem phim",
+      });
+      // Kiểm tra URL thanh toán từ server
+      if (response.data.order_url) {
+        window.location.href = response.data.order_url;
+      }
+    } catch (error) {
+      toast.error("Có lỗi xảy ra khi tạo giao dịch.");
       // }
     }
   };

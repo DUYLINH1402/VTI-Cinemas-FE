@@ -5,6 +5,8 @@ import {
   registerWithEmailAndPassword,
   loginWithFacebook,
 } from "../src/services/authService";
+import { setAuthToken, removeAuthToken } from "../src/utils/authStorage";
+
 // Async actions cho các chức năng đăng ký
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -25,7 +27,6 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   // Hàm async để đăng nhập người dùng với email và mật khẩu
   async ({ email, password }, { rejectWithValue }) => {
-    console.log("email", email, "password", password);
     try {
       const response = await loginWithEmailAndPassword(email, password);
 
@@ -78,7 +79,7 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.isLoggedIn = false;
-      localStorage.removeItem("authToken"); // Xóa token khỏi local storage
+      removeAuthToken(); // Xóa token khỏi local storage
       localStorage.removeItem("user"); // Xóa thông tin user khỏi local storage
       state.error = null; // Reset lỗi
     },
@@ -107,7 +108,7 @@ const authSlice = createSlice({
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
+        setAuthToken(accessToken); // Lưu token vào local storage
       })
       // Khi đăng nhập bằng email/password thất bại
       .addCase(loginUser.rejected, (state, action) => {
@@ -128,7 +129,7 @@ const authSlice = createSlice({
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
+        setAuthToken(accessToken); // Lưu token vào local storage
       })
       // Khi đăng nhập bằng Google thất bại
       .addCase(googleLogin.rejected, (state, action) => {
@@ -149,7 +150,7 @@ const authSlice = createSlice({
         state.token = accessToken;
         state.isLoggedIn = true;
         state.error = null;
-        localStorage.setItem("authToken", accessToken); // Lưu token vào local storage
+        setAuthToken(accessToken); // Lưu token vào local storage
       })
       // Khi đăng nhập bằng Facebook thất bại
       .addCase(facebookLogin.rejected, (state, action) => {

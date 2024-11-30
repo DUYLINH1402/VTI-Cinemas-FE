@@ -18,7 +18,7 @@ import {
 } from "../../utils/validation";
 import { toast } from "react-toastify";
 import { saveUserToDatabase } from "../../utils/authActions.js";
-// Component LoginModal để xử lý đăng nhập người dùng
+import { setAuthToken } from "../../utils/authStorage.js";
 const LoginModal = ({
   closeModal,
   openRegisterModal,
@@ -84,17 +84,14 @@ const LoginModal = ({
       dispatch(loginUser({ email: emailOrPhone, password }))
         .unwrap()
         .then((response) => {
-          console.log("Email:", email);
-          console.log("Password:", password);
           const { accessToken, ...user } = response;
-          localStorage.setItem("authToken", accessToken);
+          setAuthToken(accessToken);
           localStorage.setItem("user", JSON.stringify(user));
           toast.success("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
         })
         .catch((error) => {
           toast.error("Đăng nhập thất bại!");
-          console.error("Đăng nhập thất bại:", error.message);
         });
     }
   };
@@ -110,7 +107,7 @@ const LoginModal = ({
       .unwrap()
       .then((response) => {
         const { accessToken, ...user } = response;
-        localStorage.setItem("authToken", accessToken);
+        setAuthToken(accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         // Sau khi đăng nhập, đồng bộ dữ liệu người dùng
         saveUserToDatabase(user);
@@ -120,7 +117,7 @@ const LoginModal = ({
       })
       .catch((error) => {
         toast.error("Đăng nhập Google thất bại!");
-        console.error("Đăng nhập Google thất bại:", error.message);
+        // console.error("Đăng nhập Google thất bại:", error.message);
       });
   };
 
@@ -129,7 +126,7 @@ const LoginModal = ({
       .unwrap()
       .then((response) => {
         const { accessToken, ...user } = response;
-        localStorage.setItem("authToken", accessToken);
+        setAuthToken(accessToken);
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
         // navigate("/");
@@ -137,7 +134,7 @@ const LoginModal = ({
       })
       .catch((error) => {
         toast.error("Đăng nhập Facebook thất bại!");
-        console.error("Đăng nhập Facebook thất bại:", error.message);
+        // console.error("Đăng nhập Facebook thất bại:", error.message);
       });
   };
 
@@ -150,6 +147,7 @@ const LoginModal = ({
           <div className="input-container">
             <label>Email hoặc số điện thoại</label>
             <input
+              id="email"
               type="text"
               placeholder="Nhập email hoặc số điện thoại"
               value={emailOrPhone}

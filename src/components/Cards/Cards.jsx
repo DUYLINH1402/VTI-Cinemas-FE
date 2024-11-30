@@ -8,8 +8,36 @@ import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { toast } from "react-toastify";
 import { Service } from "../../pages/Payment/Service_Cinema/Service";
+<<<<<<< HEAD
 import axios from "axios";
+=======
+import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import fstar_solid from "../../assets/icon/star_solid.svg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+>>>>>>> 4733ebe96238807a6d0013bd7d353fbca6765548
 
+export const renderStars = (rating) => {
+  if (!rating || typeof rating !== "number") {
+    return <p>Không có đánh giá</p>; // Hiển thị nếu không có rating
+  }
+
+  const stars = 5; // Tổng số sao
+  const fullStars = Math.floor((rating / 10) * stars); // Tính số sao đầy dựa trên thang 10
+  const halfStar = (rating / 10) * stars - fullStars >= 0.5; // Kiểm tra sao nửa
+  const emptyStars = stars - fullStars - (halfStar ? 1 : 0); // Sao rỗng
+
+  return (
+    <div className="star-rating">
+      {[...Array(fullStars)].map((_, index) => (
+        <FontAwesomeIcon key={`full-${index}`} icon={faStar} />
+      ))}
+      {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
+      {[...Array(emptyStars)].map((_, index) => (
+        <FontAwesomeIcon key={`empty-${index}`} icon={fstar_solid} />
+      ))}
+    </div>
+  );
+};
 export const CardCarousel = ({ item }) => {
   return (
     <div className="card-content" key={item.id}>
@@ -24,6 +52,7 @@ export const CardCarousel = ({ item }) => {
   );
 };
 export const CardMovie = ({ item }) => {
+  // console.log("Card Item:", item); // Kiểm tra dữ liệu được truyền vào
   return (
     <>
       <div className="card__movie">
@@ -35,8 +64,11 @@ export const CardMovie = ({ item }) => {
               alt={item.movie_name}
             />
             <h3 className="line-clamp title">{item.movie_name}</h3>
-            <p className="line-clamp">{item.description}</p>
-            <p>Rating: {item.rating}</p>
+            <p className="line-clamp"> Diễn viên: {item.actor}</p>
+            <div className="row_stars">
+              <p>Thời lượng: {item.duration} phút</p>
+              <div>{renderStars(item.rating || 0)}</div>
+            </div>
           </div>
         </Link>
         {/* Thêm nút Đặt vé */}

@@ -3,10 +3,8 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import bcrypt from "bcryptjs";
 import {
   getDatabase,
   ref,
@@ -15,8 +13,10 @@ import {
   orderByChild,
   equalTo,
 } from "firebase/database";
-import { getAccountByEmailFromFirebase } from "./firebaseService";
+import { loginWithEmailAndPasswordFromFirebase } from "./firebaseService";
+import { loginWithEmailAndPasswordFromSQL } from "./sql/sqlService";
 const auth = getAuth();
+const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG!
 
 // Hàm đăng nhập bằng Google
 export const loginWithGoogle = async () => {
@@ -50,7 +50,7 @@ export const loginWithFacebook = async () => {
   };
 };
 
-// Hàm lấy mật khẩu mã hoá từ Account trong Data
+// Hàm kiểm tra Email có tồn tại không
 export const getUserByEmail = async (email) => {
   const db = getDatabase();
   const userRef = ref(db, "users");
@@ -72,39 +72,21 @@ export const getUserByEmail = async (email) => {
 };
 // Hàm đăng nhập bằng email và mật khẩu
 export const loginWithEmailAndPassword = async (email, password) => {
-  console.log("Email:", email);
-  console.log("Password:", password);
   try {
-    // Lấy thông tin tài khoản từ Firebase
-    const userData = await getAccountByEmailFromFirebase(email);
-
-    // Lấy mật khẩu mã hóa từ Firebase
-    const hashedPasswordFromDB = userData.password;
-
-    // Kiểm tra mật khẩu
-    console.log("Password:", password);
-    console.log("Hashed Password From DB:", hashedPasswordFromDB);
-    const isPasswordValid = bcrypt.compareSync(password, hashedPasswordFromDB);
-    if (!isPasswordValid) {
-      throw new Error("Mật khẩu không chính xác");
+    if (useFirebase) {
+      return await loginWithEmailAndPasswordFromFirebase(email, password);
+    } else {
+      return await loginWithEmailAndPasswordFromSQL(email, password);
     }
-
-    // Trả về thông tin người dùng (nếu cần)
-    return userData;
   } catch (error) {
-    console.error("Lỗi đăng nhập:", error);
+    console.error("Lỗi đăng nhập:", error.response || error.message);
     return { error: error.message }; // Trả lỗi để Redux xử lý
   }
 };
 
 // Hàm đăng ký tài khoản
 export const registerWithEmailAndPassword = async (email, password) => {
-  const hashedPassword = bcrypt.hashSync(password, 10); // Mã hóa mật khẩu
-  const result = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    hashedPassword
-  );
+  const result = await createUserWithEmailAndPassword(auth, email, password);
   const user = result.user;
   const accessToken = await user.getIdToken(); // Lấy accessToken
 

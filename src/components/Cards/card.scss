@@ -40,6 +40,7 @@
 
   .line-clamp {
     font-size: 1.4rem;
+    padding: 2px;
     color: #555;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -76,4 +77,21 @@
   .book-ticket-button:hover {
     background-color: #e64a19;
   }
+  .row_stars {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+}
+.star-rating {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.star-rating .fas,
+.star-rating .far {
+  color: #ffc107; /* Màu vàng cho sao */
+  font-size: 16px; /* Kích thước */
 }

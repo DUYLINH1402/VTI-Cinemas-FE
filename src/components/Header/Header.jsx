@@ -15,9 +15,10 @@ import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 import { searchDataService } from "../../services/dataService";
 import { searchMovies } from "../../../store/searchSlice";
+import { getAuthToken, removeAuthToken } from "../../utils/authStorage";
 
 export const Header = () => {
-  const token = localStorage.getItem("authToken");
+  const token = getAuthToken();
   const navigate = useNavigate();
   const [modalType, setModalType] = useState(null);
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ export const Header = () => {
     }
   }, []);
   const onLogout = () => {
-    localStorage.removeItem("authToken");
+    removeAuthToken();
     handleLogout(dispatch);
     navigate("/"); // Truyền dispatch vào handleLogout
   };

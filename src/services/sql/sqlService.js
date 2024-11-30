@@ -1,7 +1,7 @@
 import axios from "axios";
 import api from "./api";
-
-// API Search
+import { setAuthToken, getAuthToken } from "../../utils/authStorage";
+const API_URL = import.meta.env.VITE_API_URL;
 export const searchFromSQL = {
   searchMovies: async (query) => {
     try {
@@ -23,24 +23,45 @@ export const fetchAccountFromSQL = async (account_id) => {
 };
 
 // API lấy thông tin Account bằng Email
-export const fetchAccountByEmailFromSQL = async (loginRequest) => {
-  const response = await api.get(`/api/login/email`, loginRequest); // endpoint của backend
+export const fetchAccountByEmailFromSQL = async (email) => {
+  const response = await api.get(`${API_URL}/findEmail/${email}`, email); // endpoint của backend
   return response.data;
 };
 
-// API đăng nhập với Email/Password
-const loginWithSQL = async (email) => {
+// API đăng nhập với Email/Password (ĐÃ CHẠY OK)
+export const loginWithEmailAndPasswordFromSQL = async (email, password) => {
+  // console.log("API URL đang sử dụng:", API_URL);
   try {
     // Gửi email đến backend để lấy thông tin user từ SQL
-    const response = await axios.post("/login/", { email });
-    return response.data; // Trả về dữ liệu người dùng từ SQL
+    const response = await axios.post(
+      `${API_URL}/login/email`,
+      {
+        email,
+        password,
+      }
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json", // Định dạng JSON
+      //   },
+      // }
+    );
+    const { token } = response.data;
+
+    // Lưu token riêng biệt
+    if (token) {
+      setAuthToken(token);
+    } else {
+      console.error("Token không tồn tại hoặc undefined!");
+    }
+
+    // Lưu toàn bộ thông tin user
+    localStorage.setItem("user", JSON.stringify(response.data));
+    // console.log("User đã được lưu vào LocalStorage:", getAuthToken("user"));
+
+    return response.data;
   } catch (error) {
     throw new Error(`SQL Error: ${error.message}`);
   }
-};
-
-export default {
-  loginWithSQL,
 };
 
 // API lấy dữ liệu Movies từ SQL (ĐÃ CHẠY OK)
@@ -57,7 +78,6 @@ export const fetchMoviesFromSQL = async () => {
 // API lấy dữ liệu MoviesById từ SQL (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromSQL = async (movie_id) => {
   try {
-    // console.log("ID to fetch:", movie_id);
     const response = await api.get(`movie/findId/${movie_id}`); // endpoint của backend
     return response.data; // Trả về dữ liệu từ API
   } catch (error) {

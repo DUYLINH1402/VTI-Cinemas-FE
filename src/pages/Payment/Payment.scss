@@ -159,29 +159,6 @@
           margin: 10px 0px;
         }
       }
-
-      .payment_method > h1 {
-        color: black;
-      }
-      .payment_method {
-        margin-top: 10px;
-        border-top: 1px solid #ccc;
-        .method {
-          display: flex;
-          justify-content: space-around;
-
-          img {
-            object-fit: contain;
-            width: 30px;
-            height: 30px;
-          }
-
-          label {
-            font-size: 1.5rem;
-            margin-left: 10px;
-          }
-        }
-      }
       .time_out {
         margin-top: 10px;
         border-top: 1px solid #ccc;
@@ -241,7 +218,7 @@
         }
       }
       button {
-        width: 30%;
+        width: 35%;
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 10px;

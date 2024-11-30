@@ -6,9 +6,9 @@ import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../../pages/Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Status_Seat } from "../../pages/Booking_Seat/Status_Seat/Status_Seat";
 import { Price } from "../../pages/Booking_Seat/Timeout/Price";
-import { Checkbox } from "antd";
 import { toast } from "react-toastify";
 import { Service } from "../../pages/Payment/Service_Cinema/Service";
+import axios from "axios";
 
 export const CardCarousel = ({ item }) => {
   return (
@@ -205,6 +205,25 @@ export const CardPayment = ({ userDetail }) => {
   const [comboPrice, setComboPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const totalPrice = selectedSeatPrice + comboPrice - discount;
+  
+  
+  const handlePayment = async () => {
+      try {
+        // Gọi API server tạo đơn hàng ZaloPay
+        const response = await axios.post("http://localhost:8888/payment", {
+          amount: totalPrice,
+          description: "Thanh toán vé xem phim",
+
+        });
+        // Kiểm tra URL thanh toán từ server
+        if (response.data.order_url) {
+          window.location.href = response.data.order_url;
+        }
+      } catch (error) {
+        toast.error("Có lỗi xảy ra khi tạo giao dịch.");
+      // }
+    }
+  };
 
   return (
     <>
@@ -277,7 +296,10 @@ export const CardPayment = ({ userDetail }) => {
               <div className="total_price">
                 <div>
                   <p>Số tiền được giảm: </p>
-                  <p>{discount} VNĐ</p>
+                  <p>
+                    {discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
+                    VNĐ
+                  </p>
                 </div>
                 <div>
                   <p>Số tiền cần thanh toán: </p>
@@ -285,38 +307,6 @@ export const CardPayment = ({ userDetail }) => {
                 </div>
               </div>
             </div>
-            {/*  */}
-            <div className="payment_method">
-              <h1>Phương thức thanh toán</h1>
-              <div className="method">
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426727/ic-card-vn_mepuao.png"
-                    alt=""
-                  />
-                  <label htmlFor="">Thẻ nội địa: </label>
-                  <input type="radio" name="method" />
-                </div>
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426727/ic-card-gb_o9xkk0.png"
-                    alt=""
-                  />
-                  <label htmlFor="">Thẻ Visa: </label>
-                  <input type="radio" name="method" />
-                </div>
-                <div>
-                  <img
-                    src="https://res.cloudinary.com/dcoviwlpx/image/upload/v1732426844/MoMo_Logo_gpdcf9.png"
-                    alt=""
-                  />
-                  <label htmlFor="">Ví MOMO</label>
-
-                  <input type="radio" name="method" />
-                </div>
-              </div>
-            </div>
-            {/*  */}
             <div className="time_out">
               <div>
                 <span>Vui lòng kiểm tra lại thông tin</span> <br /> <br />
@@ -334,9 +324,7 @@ export const CardPayment = ({ userDetail }) => {
             <h1>Thông tin vé</h1>
             <div className="detail_movie">
               <Ticket_Detail seat_name={selectSeatName} />
-              <Link to="/payment">
-                <button>Tiếp tục</button>
-              </Link>
+              <button onClick={handlePayment}>Thanh toán</button>
             </div>
           </div>
         </div>

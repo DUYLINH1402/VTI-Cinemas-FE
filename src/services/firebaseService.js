@@ -16,15 +16,12 @@ import {
   getAuth,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
-  updatePassword,
-  reauthenticateWithCredential,
-  EmailAuthProvider,
 } from "firebase/auth";
 import { setAuthToken } from "../utils/authStorage";
 import app from "../services/firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
-// Chức năng Search
+// Chức năng Search (ĐÃ CHẠY OK)
 export const searchFromFireBase = {
   searchMovies: async (queryText) => {
     // console.log("Querying Firebase with queryText:", queryText);
@@ -110,14 +107,9 @@ export const updatePasswordInFirebase = async (
   const userId = Object.keys(userSnapshot.val())[0];
   const userData = userSnapshot.val()[userId];
 
-  // Kiểm tra mật khẩu cũ
-  // const isMatch = await bcrypt.compare(oldPassword, userData.password);
   if (!(oldPassword === userData.password)) {
     throw new Error("Mật khẩu cũ không chính xác!");
   }
-
-  // Mã hóa mật khẩu mới
-  // const hashedPassword = await bcrypt.hash(newPassword, 10);
 
   // Cập nhật mật khẩu
   const userRef = ref(db, `Account/${userId}`);
@@ -136,7 +128,7 @@ export const getAccountFromFirebase = async (account_id) => {
     throw new Error("User data not found");
   }
 };
-// Hàm lấy dữ liệu cho Movies
+// Hàm lấy dữ liệu cho Movies (ĐÃ CHẠY OK)
 export const fetchMoviesFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -148,7 +140,7 @@ export const fetchMoviesFromFirebase = async () => {
     throw error; // Throw để các hàm gọi biết lỗi
   }
 };
-// Hàm lấy dữ liệu cho Movies By Id
+// Hàm lấy dữ liệu cho Movies By Id (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromFirebase = async (movie_id) => {
   try {
     const response = await axios.get(
@@ -169,7 +161,7 @@ export const fetchMoviesByIdFromFirebase = async (movie_id) => {
     throw error;
   }
 };
-// Hàm lấy dữ liệu cho Movies bằng 3 Nút lọc
+// Hàm lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ CHẠY OK)
 export const fetchMoviesByTabFromFirebase = async (tab) => {
   try {
     // Lấy toàn bộ dữ liệu từ Firebase
@@ -206,7 +198,7 @@ export const fetchMoviesByTabFromFirebase = async (tab) => {
   }
 };
 
-// Hàm lấy dữ liệu cho Carousel
+// Hàm lấy dữ liệu cho Carousel (ĐÃ CHẠY OK)
 export const fetchCarouselDataFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -232,13 +224,8 @@ export const createAccountToFirebase = async (formData) => {
   try {
     // Lấy snapshot của node "Account" để đếm số lượng tài khoản hiện có
     const snapshot = await get(accountRef);
-
     // Xác định account_id (tự tăng)
     const accountId = snapshot.exists() ? snapshot.size + 1 : 1;
-
-    // Mã hóa mật khẩu
-    // const hashedPassword = await bcrypt.hash(formData.password, 10); // 10 là số rounds mã hóa
-
     // Lưu dữ liệu vào Firebase với account_id là số
     const userRef = push(accountRef); // Tạo ref mới
     await set(userRef, {
@@ -264,7 +251,7 @@ export const createAccountToFirebase = async (formData) => {
     console.error("Lỗi khi lưu dữ liệu vào Firebase:", error);
   }
 };
-// Hàm lấy tài khoản dựa trên email
+// Hàm lấy tài khoản dựa trên email (ĐÃ CHẠY OK)
 export const getAccountByEmailFromFirebase = async (email) => {
   const db = getDatabase();
   const accountRef = ref(db, "Account");
@@ -302,7 +289,7 @@ export const fetchSeatsFromFirebase = async () => {
   }
 };
 
-// Hàm gọi API để lấy danh sách rạp
+// Hàm gọi API để lấy danh sách rạp (ĐÃ CHẠY OK)
 export const fetchCinemasFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -340,7 +327,7 @@ export const forgotPassword = {
   },
 };
 
-// API Update Account
+// API Update Account (ĐÃ CHẠY OK)
 export const updateAccountToFirebase = async (email, formData) => {
   const db = getDatabase();
   try {
@@ -367,7 +354,7 @@ export const updateAccountToFirebase = async (email, formData) => {
   }
 };
 
-// Hàm đăng nhập bằng email và mật khẩu
+// Hàm đăng nhập bằng email và mật khẩu (ĐÃ CHẠY OK)
 export const loginWithEmailAndPasswordFromFirebase = async (
   email,
   password

@@ -3,10 +3,8 @@ import {
   GoogleAuthProvider,
   FacebookAuthProvider,
   signInWithPopup,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import bcrypt from "bcryptjs";
 import {
   getDatabase,
   ref,
@@ -15,10 +13,7 @@ import {
   orderByChild,
   equalTo,
 } from "firebase/database";
-import {
-  getAccountByEmailFromFirebase,
-  loginWithEmailAndPasswordFromFirebase,
-} from "./firebaseService";
+import { loginWithEmailAndPasswordFromFirebase } from "./firebaseService";
 import { loginWithEmailAndPasswordFromSQL } from "./sql/sqlService";
 const auth = getAuth();
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG!
@@ -77,7 +72,6 @@ export const getUserByEmail = async (email) => {
 };
 // Hàm đăng nhập bằng email và mật khẩu
 export const loginWithEmailAndPassword = async (email, password) => {
-  // console.log("Email:", email);
   try {
     if (useFirebase) {
       return await loginWithEmailAndPasswordFromFirebase(email, password);
@@ -92,7 +86,6 @@ export const loginWithEmailAndPassword = async (email, password) => {
 
 // Hàm đăng ký tài khoản
 export const registerWithEmailAndPassword = async (email, password) => {
-  // const hashedPassword = bcrypt.hashSync(password, 10); // Mã hóa mật khẩu
   const result = await createUserWithEmailAndPassword(auth, email, password);
   const user = result.user;
   const accessToken = await user.getIdToken(); // Lấy accessToken

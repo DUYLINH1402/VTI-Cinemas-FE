@@ -1,8 +1,7 @@
 import axios from "axios";
 import api from "./api";
 import { setAuthToken, getAuthToken } from "../../utils/authStorage";
-const API_URL = import.meta.env.VITE_API_URL; // Chọn nguồn dữ liệu trong .env
-// API Search
+const API_URL = import.meta.env.VITE_API_URL;
 export const searchFromSQL = {
   searchMovies: async (query) => {
     try {

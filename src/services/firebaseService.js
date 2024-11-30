@@ -15,12 +15,13 @@ import {
 import {
   getAuth,
   sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   updatePassword,
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
-import bcrypt from "bcryptjs";
-import app from "./firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
+import { setAuthToken } from "../utils/authStorage";
+import app from "../services/firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
 // Chức năng Search
@@ -110,17 +111,17 @@ export const updatePasswordInFirebase = async (
   const userData = userSnapshot.val()[userId];
 
   // Kiểm tra mật khẩu cũ
-  const isMatch = await bcrypt.compare(oldPassword, userData.password);
-  if (!isMatch) {
+  // const isMatch = await bcrypt.compare(oldPassword, userData.password);
+  if (!(oldPassword === userData.password)) {
     throw new Error("Mật khẩu cũ không chính xác!");
   }
 
   // Mã hóa mật khẩu mới
-  const hashedPassword = await bcrypt.hash(newPassword, 10);
+  // const hashedPassword = await bcrypt.hash(newPassword, 10);
 
   // Cập nhật mật khẩu
   const userRef = ref(db, `Account/${userId}`);
-  await update(userRef, { password: hashedPassword });
+  await update(userRef, { password: newPassword });
 
   return "Mật khẩu đã được thay đổi!";
 };
@@ -236,7 +237,7 @@ export const createAccountToFirebase = async (formData) => {
     const accountId = snapshot.exists() ? snapshot.size + 1 : 1;
 
     // Mã hóa mật khẩu
-    const hashedPassword = await bcrypt.hash(formData.password, 10); // 10 là số rounds mã hóa
+    // const hashedPassword = await bcrypt.hash(formData.password, 10); // 10 là số rounds mã hóa
 
     // Lưu dữ liệu vào Firebase với account_id là số
     const userRef = push(accountRef); // Tạo ref mới
@@ -248,7 +249,7 @@ export const createAccountToFirebase = async (formData) => {
       passport: "",
       birth_date: formData.birthDate,
       gender: formData.gender,
-      password: hashedPassword,
+      password: formData.password,
       role: "user", // Role mặc định
       status: "active", // Trạng thái tài khoản
       city: "",
@@ -259,11 +260,6 @@ export const createAccountToFirebase = async (formData) => {
       created_date: new Date().toISOString().split("T")[0],
       updated_date: new Date().toISOString().split("T")[0],
     });
-
-    console.log(
-      "Lưu dữ liệu vào Firebase thành công với account_id:",
-      accountId
-    );
   } catch (error) {
     console.error("Lỗi khi lưu dữ liệu vào Firebase:", error);
   }
@@ -347,7 +343,6 @@ export const forgotPassword = {
 // API Update Account
 export const updateAccountToFirebase = async (email, formData) => {
   const db = getDatabase();
-  // console.log("Form data nhận được trong Firebase:", formData);
   try {
     // Lấy thông tin tài khoản dựa trên email
     const accountData = await getAccountByEmailFromFirebase(email);
@@ -359,18 +354,49 @@ export const updateAccountToFirebase = async (email, formData) => {
     }
 
     const userRef = ref(db, `Account/${accountKey}`);
-    // console.log("accountKey:", accountKey);
-    // console.log("formData:", formData);
+
     // Cập nhật thông tin tài khoản
     await set(userRef, {
       ...accountData, // Giữ dữ liệu cũ
       ...formData, // Ghi đè bằng dữ liệu mới
       updated_date: new Date().toISOString(),
     });
-
-    // console.log("Cập nhật thông tin thành công.");
   } catch (error) {
     console.error("Lỗi khi cập nhật thông tin Firebase:", error.message);
     throw error;
+  }
+};
+
+// Hàm đăng nhập bằng email và mật khẩu
+export const loginWithEmailAndPasswordFromFirebase = async (
+  email,
+  password
+) => {
+  const auth = getAuth();
+  try {
+    // Kiểm tra tài khoản trên Realtime Database
+    const userData = await getAccountByEmailFromFirebase(email);
+    if (!userData) {
+      throw new Error("Tài khoản không tồn tại trong hệ thống");
+    }
+
+    // Đăng nhập với Firebase Authentication để lấy token
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const token = await userCredential.user.getIdToken(); // Lấy token của user
+    setAuthToken(token);
+    // Thông tin người dùng với token
+    const result = {
+      ...userData, // Thông tin từ Realtime Database
+      token, // Token từ Firebase Authentication
+    };
+
+    return result;
+  } catch (error) {
+    console.error("Lỗi đăng nhập:", error.message);
+    return { error: "Thông tin đăng nhập không hợp lệ!" }; // Trả lỗi để Redux xử lý
   }
 };

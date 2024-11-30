@@ -27,6 +27,7 @@ import {
   searchFromSQL,
   fetchShowtimesFromSQL,
 } from "./sql/sqlService";
+const useFirebase = import.meta.env.VITE_USE_FIREBASE; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
 
 // Hàm Search
 export const searchDataService = {
@@ -59,28 +60,7 @@ export const changePassword = async (email, oldPassword, newPassword) => {
     return await updatePasswordInSQL(email, oldPassword, newPassword);
   }
 };
-const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
-// Hàm đăng nhập bằng Email/Pasword
-const loginWithEmailAndPassword = async (email, password) => {
-  try {
-    // 1. Xác thực với Firebase
-    const firebaseUser = await fireBaseService.loginWithFirebase(
-      email,
-      password
-    );
 
-    // 2. Lấy thông tin người dùng từ SQL dựa trên email của Firebase
-    const sqlUser = await sqlService.loginWithSQL(firebaseUser.email);
-
-    // 3. Kết hợp thông tin hoặc trả về dữ liệu từ SQL
-    return {
-      firebaseUser,
-      sqlUser,
-    };
-  } catch (error) {
-    throw new Error(`Login Error: ${error.message}`);
-  }
-};
 // API lấy dữ liệu Account
 export const fetchAccount = async (account_id) => {
   return useFirebase

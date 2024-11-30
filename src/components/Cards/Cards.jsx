@@ -91,6 +91,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         <div className="row">
           <div className="introduce">
             <h1 className="movie__title">{movie.movie_name}</h1>
+            <div className="render_stars">{renderStars(movie.rating || 0)}</div>
             <p>Ngày phát hành: {movie.release_date}</p>
             <p>Thời gian: {movie.duration} phút</p>
             <p>Thể loại: {movie.genre}</p>

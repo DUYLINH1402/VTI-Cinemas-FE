@@ -9,32 +9,38 @@ import { Price } from "../../pages/Booking_Seat/Timeout/Price";
 import { toast } from "react-toastify";
 import { Service } from "../../pages/Payment/Service_Cinema/Service";
 import axios from "axios";
-import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import fstar_solid from "../../assets/icon/star_solid.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
+import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 
 export const renderStars = (rating) => {
+  // Kiểm tra nếu không có rating hoặc rating không phải là số
   if (!rating || typeof rating !== "number") {
-    return <p>Không có đánh giá</p>; // Hiển thị nếu không có rating
+    return <p>Không có đánh giá</p>; // Hiển thị thông báo nếu không có đánh giá
   }
 
-  const stars = 5; // Tổng số sao
-  const fullStars = Math.floor((rating / 10) * stars); // Tính số sao đầy dựa trên thang 10
-  const halfStar = (rating / 10) * stars - fullStars >= 0.5; // Kiểm tra sao nửa
-  const emptyStars = stars - fullStars - (halfStar ? 1 : 0); // Sao rỗng
+  const stars = 5; // Tổng số sao (thường là 5 sao trong hệ thống đánh giá)
+  const fullStars = Math.floor((rating / 10) * stars); // Tính số sao đầy (rating được chia từ thang điểm 10 thành 5 sao)
+  const halfStar = (rating / 10) * stars - fullStars >= 0.5; // Kiểm tra xem có sao nửa không
+  const emptyStars = stars - fullStars - (halfStar ? 1 : 0); // Tính số sao rỗng còn lại
 
   return (
     <div className="star-rating">
+      {/* Hiển thị các sao đầy */}
       {[...Array(fullStars)].map((_, index) => (
-        <FontAwesomeIcon key={`full-${index}`} icon={faStar} />
+        <FontAwesomeIcon key={`full-${index}`} icon={solidStar} /> // Icon sao đầy
       ))}
+      {/* Hiển thị sao nửa nếu có */}
       {halfStar && <FontAwesomeIcon icon={faStarHalfStroke} />}
+      {/* Hiển thị các sao rỗng */}
       {[...Array(emptyStars)].map((_, index) => (
-        <FontAwesomeIcon key={`empty-${index}`} icon={fstar_solid} />
+        <FontAwesomeIcon key={`empty-${index}`} icon={regularStar} /> // Icon sao rỗng
       ))}
     </div>
   );
 };
+
 export const CardCarousel = ({ item }) => {
   return (
     <div className="card-content" key={item.id}>

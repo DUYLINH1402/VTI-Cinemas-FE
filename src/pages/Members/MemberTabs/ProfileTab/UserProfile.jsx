@@ -93,10 +93,9 @@ export const UserProfile = () => {
     city: user.city,
     district: user.district,
     address: user.address,
-    avatar_url:
-      user.avatar_url || user.photoURL || "https://via.placeholder.com/150", // URL ảnh mặc định nếu không có
+    avatar_url: user.avatar_url || user.photoURL, // URL ảnh mặc định nếu không có
   });
-
+  console.log(formData.avatar_url);
   // useEffect: Gọi API để lấy thông tin chi tiết người dùng khi component render
   useEffect(() => {
     const fetchDataAccountByEmail = async () => {
@@ -171,7 +170,7 @@ export const UserProfile = () => {
                 />
                 <button
                   type="button"
-                  className="save-btn"
+                  className="save-btn "
                   // onClick={handleUploadImage} // Thông báo tạm thời
                 >
                   Lưu ảnh

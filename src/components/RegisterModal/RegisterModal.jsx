@@ -195,7 +195,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
 
             <label>Số điện thoại</label>
             <input
-              type="text"
+              type="tel"
               name="phone"
               placeholder="090xxxxxxx"
               value={formData.phone}

@@ -56,8 +56,6 @@ export const loginWithEmailAndPasswordFromSQL = async (email, password) => {
 
     // Lưu toàn bộ thông tin user
     localStorage.setItem("user", JSON.stringify(response.data));
-    // console.log("User đã được lưu vào LocalStorage:", getAuthToken("user"));
-
     return response.data;
   } catch (error) {
     throw new Error(`SQL Error: ${error.message}`);

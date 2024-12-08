@@ -28,7 +28,7 @@ import {
   fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
-console.log("Value of VITE_USE_FIREBASE:", import.meta.env.VITE_USE_FIREBASE);
+// console.log("Value of VITE_USE_FIREBASE:", import.meta.env.VITE_USE_FIREBASE);
 // Hàm Search
 export const searchDataService = {
   getSearchSuggestions: async (query) => {

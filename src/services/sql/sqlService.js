@@ -30,23 +30,13 @@ export const fetchAccountByEmailFromSQL = async (email) => {
 
 // API đăng nhập với Email/Password (ĐÃ CHẠY OK)
 export const loginWithEmailAndPasswordFromSQL = async (email, password) => {
-  // console.log("API URL đang sử dụng:", API_URL);
   try {
     // Gửi email đến backend để lấy thông tin user từ SQL
-    const response = await axios.post(
-      `${API_URL}/login/email`,
-      {
-        email,
-        password,
-      }
-      // {
-      //   headers: {
-      //     "Content-Type": "application/json", // Định dạng JSON
-      //   },
-      // }
-    );
+    const response = await axios.post(`${API_URL}/login/email`, {
+      email,
+      password,
+    });
     const { token } = response.data;
-
     // Lưu token riêng biệt
     if (token) {
       setAuthToken(token);
@@ -58,7 +48,14 @@ export const loginWithEmailAndPasswordFromSQL = async (email, password) => {
     localStorage.setItem("user", JSON.stringify(response.data));
     return response.data;
   } catch (error) {
-    throw new Error(`SQL Error: ${error.message}`);
+    if (error.response) {
+      // Lấy thông báo lỗi từ server
+      const errorMessage = error.response.data?.message;
+      console.log(errorMessage); // Hiển thị thông báo lỗi chi tiết
+      return { error: errorMessage }; // Trả lỗi để Redux xử lý
+    } else {
+      alert("Không thể kết nối tới server. Kiểm tra kết nối mạng.");
+    }
   }
 };
 

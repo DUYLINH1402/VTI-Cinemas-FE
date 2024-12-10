@@ -366,7 +366,10 @@ export const loginWithEmailAndPasswordFromFirebase = async (
     if (!userData) {
       throw new Error("Tài khoản không tồn tại trong hệ thống");
     }
-
+    // Kiểm tra mật khẩu
+    if (!(password === userData.password)) {
+      throw new Error("Mật khẩu không chính xác!");
+    }
     // Đăng nhập với Firebase Authentication để lấy token
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -384,6 +387,6 @@ export const loginWithEmailAndPasswordFromFirebase = async (
     return result;
   } catch (error) {
     console.error("Lỗi đăng nhập:", error.message);
-    return { error: "Thông tin đăng nhập không hợp lệ!" }; // Trả lỗi để Redux xử lý
+    return { error: error.message || "Lỗi đăng nhập. Vui lòng thử lại!" }; // Trả lỗi để Redux xử lý
   }
 };

@@ -65,7 +65,6 @@ export const validateConfirmPassword = (password, confirmPassword) => {
 
 // Hàm để chuyển mã lỗi thành thông báo cụ thể
 export const renderErrorMessage = (error) => {
-  console.log("Giá trị của error:", error); // Kiểm tra giá trị của error từ Redux
   switch (error) {
     case "auth/user-not-found":
       return "Email không tồn tại.";
@@ -78,4 +77,15 @@ export const renderErrorMessage = (error) => {
     default:
       return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
   }
+};
+
+// CHUẨN HOÁ KÝ TỰ IN HOA CHỮ CÁI MỖI TỪ (DÙNG CHO TÊN ĐỊA DANH)
+export const normalizeString = (str) => {
+  if (!str) return ""; // Kiểm tra chuỗi null hoặc undefined
+  return str
+    .trim() // Loại bỏ khoảng trắng thừa
+    .toLowerCase() // Chuyển chuỗi về chữ thường
+    .split(" ") // Tách chuỗi thành mảng từ
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Viết in hoa chữ cái đầu mỗi từ
+    .join(" "); // Ghép lại thành chuỗi
 };

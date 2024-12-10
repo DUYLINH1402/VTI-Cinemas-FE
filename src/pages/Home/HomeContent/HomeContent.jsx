@@ -31,9 +31,7 @@ export const HomeContent = ({}) => {
 
     fetchMoviesDataByTab();
   }, [activeTab, isSearching]); // Theo dõi cả activeTab và isSearching
-  // console.log("searchResults in HomeContent:", searchResults);
-  // console.log("isSearching in HomeContent:", isSearching);
-  // console.log("movies for activeTab:", movies);
+
   return (
     <>
       <div className="home__content">

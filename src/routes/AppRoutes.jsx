@@ -9,6 +9,7 @@ import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
 import FullPageSkeleton from "../components/Skeleton/FullPageSkeleton";
 import { Payment } from "../pages/Payment/Payment";
 import ContactPage from "../pages/Contact/ContactPage";
+import { Events } from "../pages/Events/Events";
 
 // Create react router dom
 const routerPage = createBrowserRouter([
@@ -43,7 +44,7 @@ const routerPage = createBrowserRouter([
       },
       {
         path: "/events",
-        element: <FullPageSkeleton />,
+        element: <Events />,
       },
       {
         path: "/payment/:movie_id",

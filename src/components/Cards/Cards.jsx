@@ -366,3 +366,11 @@ export const CardPayment = ({ userDetail }) => {
     </>
   );
 };
+
+export const CardEvent = () => {
+  return (
+    <>
+      <div className="card_event">Event</div>
+    </>
+  );
+};

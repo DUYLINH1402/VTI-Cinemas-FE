@@ -95,7 +95,7 @@ export const UserProfile = () => {
     address: user.address,
     avatar_url: user.avatar_url || user.photoURL, // URL ảnh mặc định nếu không có
   });
-  console.log(formData.avatar_url);
+  // console.log(formData.avatar_url);
   // useEffect: Gọi API để lấy thông tin chi tiết người dùng khi component render
   useEffect(() => {
     const fetchDataAccountByEmail = async () => {

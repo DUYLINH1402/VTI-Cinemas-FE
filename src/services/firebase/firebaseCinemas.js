@@ -28,13 +28,24 @@ const auth = getAuth();
 // API LẤY DANH SÁCH CÁC RẠP PHIM
 export const fetchCinemasFromFirebase = async () => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Cinema.json"
-    );
-    return response.data; // Trả về dữ liệu danh sách rạp
+    const db = getDatabase(); // Kết nối tới database Firebase
+    const snapshot = await get(ref(db, "Cinema")); // Lấy dữ liệu từ path "Cinema"
+
+    if (snapshot.exists()) {
+      const data = snapshot.val(); // Dữ liệu thô từ Firebase (object)
+      // Chuyển đổi object thành mảng
+      const cinemas = Object.keys(data).map((key) => ({
+        id: key, // Key của mỗi rạp (ví dụ: cinema1, cinema10)
+        ...data[key], // Spread các trường dữ liệu bên trong từng rạp
+      }));
+      return cinemas; // Trả về mảng danh sách rạp
+    } else {
+      console.warn("Không tìm thấy dữ liệu Cinema");
+      return [];
+    }
   } catch (error) {
-    console.error("Error fetching cinemas:", error);
-    throw error;
+    console.error("Lỗi khi lấy danh sách rạp từ Firebase:", error);
+    return [];
   }
 };
 // API LẤY DANH SÁCH KHU VỰC CỦA TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG

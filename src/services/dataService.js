@@ -1,8 +1,8 @@
 import {
-  fetchMoviesFromFirebase,
+  // fetchMoviesFromFirebase,
   fetchCarouselDataFromFirebase,
   getAccountFromFirebase,
-  createAccountToFirebase,
+  registerAccountToFirebase,
   getAccountByEmailFromFirebase,
   fetchMoviesByTabFromFirebase,
   fetchSeatsFromFirebase,
@@ -14,10 +14,10 @@ import {
   searchFromFireBase,
 } from "./firebaseService";
 import {
-  fetchMoviesFromSQL,
+  // fetchMoviesFromSQL,
   fetchCarouselDataFromSQL,
   fetchAccountFromSQL,
-  createAccountToSQL,
+  registerAccountToSQL,
   fetchAccountByEmailFromSQL,
   fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
@@ -68,12 +68,7 @@ export const fetchAccount = async (account_id) => {
     ? await getAccountFromFirebase(account_id)
     : await fetchAccountFromSQL(account_id);
 };
-// API lấy dữ liệu cho Movies
-export const fetchMovies = async () => {
-  return useFirebase
-    ? await fetchMoviesFromFirebase()
-    : await fetchMoviesFromSQL();
-};
+
 // API lấy dữ liệu cho MoviesBYID
 export const fetchMoviesById = async (movie_id) => {
   return useFirebase
@@ -100,10 +95,10 @@ export const fetchCarouselData = async () => {
 };
 
 // API tạo Account mới
-export const createAccount = async (formData) => {
+export const registerAccount = async (formData) => {
   return useFirebase
-    ? await createAccountToFirebase(formData)
-    : await createAccountToSQL(formData);
+    ? await registerAccountToFirebase(formData)
+    : await registerAccountToSQL(formData);
 };
 // API lấy Account By email
 export const fetchAccountByEmail = async (email) => {

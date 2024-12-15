@@ -58,18 +58,6 @@ export const loginWithEmailAndPasswordFromSQL = async (email, password) => {
     }
   }
 };
-
-// API lấy dữ liệu Movies từ SQL (ĐÃ CHẠY OK)
-export const fetchMoviesFromSQL = async () => {
-  try {
-    const response = await api.get("/movie/find"); // endpoint của backend
-    return response.data; // Trả về dữ liệu từ API
-  } catch (error) {
-    console.error("Error fetching movies from SQL:", error);
-    throw error; // Throw lỗi để xử lý ở nơi gọi
-  }
-};
-
 // API lấy dữ liệu MoviesById từ SQL (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromSQL = async (movie_id) => {
   try {
@@ -128,20 +116,17 @@ export const fetchCarouselDataFromSQL = async () => {
 };
 
 // API Create Account
-export const createAccountToSQL = async (accountRequest) => {
+export const registerAccountToSQL = async (accountRequest) => {
   try {
-    // register chỉ cần username, email, password là đủ update sẽ cập nhật sau _tzanlam
     const response = await api.post("/register", {
-      //fullname: accountRequest.name,
+      fullname: accountRequest.name,
       email: accountRequest.email,
       username: accountRequest.username,
-      // phone_number: accountRequest.phone,
-      // birth_date: accountRequest.birthDate,
-      // gender: accountRequest.gender,
+      phone_number: accountRequest.phone,
+      birth_date: accountRequest.birthDate,
+      gender: accountRequest.gender,
       password: accountRequest.password, // Có thể mã hóa trước khi gửi
-      // => bên be đã mã hóa chỉ cần truyền dữ liệu String
     });
-
     console.log("Lưu dữ liệu vào SQL thành công:", response.data);
   } catch (error) {
     console.error("Lỗi khi lưu dữ liệu vào SQL:", error);

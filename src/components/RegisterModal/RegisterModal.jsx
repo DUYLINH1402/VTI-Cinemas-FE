@@ -17,7 +17,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/authSlice";
-import { createAccount } from "../../services/dataService";
+import { registerAccount } from "../../services/dataService";
 import { toast } from "react-toastify";
 
 const RegisterModal = ({ closeModal, openLoginModal }) => {
@@ -130,19 +130,18 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
       ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
 
       // Tạo tài khoản trên database (nếu cần)
-      await createAccount(formData);
+      await registerAccount(formData);
 
       toast.success("Đăng ký thành công!"); // Hiển thị thông báo thành công
       closeModal(); // Đóng modal
     } catch (error) {
       toast.error("Đăng ký thất bại!");
-      console.error("Đăng ký thất bại:", error);
 
       // Xử lý lỗi từ Firebase
       if (error && error === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "Email này đã được sử dụng. Vui lòng chọn email khác.",
+          email: "Email này đã được sử dụng. Vui lòng sử dụng email khác.",
         }));
       } else {
         setErrors((prevErrors) => ({

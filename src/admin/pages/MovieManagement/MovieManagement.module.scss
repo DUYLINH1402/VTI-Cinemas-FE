@@ -1,0 +1,41 @@
+.MuiTableRow-head {
+  background-color: aquamarine;
+}
+
+.tableRow {
+  cursor: pointer;
+}
+
+.tableRow:hover {
+  background-color: #f5f5f5;
+}
+
+.tableRowSelected {
+  background-color: #e3f2fd;
+}
+
+/* Hàng chi tiết - Hiệu ứng mở/đóng mượt */
+.detailContainer {
+  padding: 0 16px; /* Padding cho nội dung */
+  background-color: #f9f9f9;
+  overflow: hidden; /* Ẩn nội dung vượt quá */
+  max-height: 0; /* Chiều cao mặc định khi đóng */
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Hiệu ứng mượt */
+}
+
+.detailContainerOpen {
+  max-height: 500px; /* Chiều cao tối đa khi mở */
+  padding: 16px; /* Thêm padding khi mở */
+}
+
+/* Dãn cách giữa các dòng */
+.detailText {
+  line-height: 1.6; /* Dãn cách dòng */
+  white-space: pre-wrap; /* Hiển thị xuống dòng tự nhiên */
+  word-break: break-word; /* Ngắt từ dài */
+}
+
+.lableDetail {
+  font-weight: bold;
+  margin-right: 4px;
+}

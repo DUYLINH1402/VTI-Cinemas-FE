@@ -89,6 +89,14 @@ const LoginModal = ({
           localStorage.setItem("user", JSON.stringify(user));
           toast.success("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
+          console.log("Role: ", user.role);
+
+          // Điều hướng dựa trên vai trò
+          if (user.role === "admin" || user.role === "manager") {
+            navigate("/admin/dashboard");
+          } else {
+            navigate("/");
+          }
         })
         .catch((error) => {
           toast.error("Đăng nhập thất bại!");

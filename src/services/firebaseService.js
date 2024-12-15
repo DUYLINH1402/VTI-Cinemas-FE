@@ -217,7 +217,7 @@ export const fetchCarouselDataFromFirebase = async () => {
 };
 
 // Hàm lưu thông tin Account
-export const createAccountToFirebase = async (formData) => {
+export const registerAccountToFirebase = async (formData) => {
   const db = getDatabase();
   const accountRef = ref(db, "Account");
 

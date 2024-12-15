@@ -13,7 +13,7 @@ function App() {
     <Provider store={store}>
       <AppInitializer />
       <RouterPage />
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Provider>
   );
 }
@@ -30,7 +30,7 @@ function AppInitializer() {
       const user = JSON.parse(localStorage.getItem("user")) || null;
       dispatch(setAuth({ user, token })); // Gọi setAuth để cập nhật Redux state
     } else {
-      console.warn("Không tìm thấy token khi khởi động ứng dụng");
+      // console.warn("Không tìm thấy token khi khởi động ứng dụng");
     }
   }, [dispatch]);
 

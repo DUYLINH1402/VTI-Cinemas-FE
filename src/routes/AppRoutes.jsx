@@ -1,62 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "../pages/Home/Home";
-import { ErrorPage } from "../pages/Error/ErrorPage";
-import { Layout } from "./../components/Layout/Layout";
-import { Movies } from "../pages/Movies/Movies";
-import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
-import Members from "../pages/Members/Members";
-import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
-import FullPageSkeleton from "../components/Skeleton/FullPageSkeleton";
-import { Payment } from "../pages/Payment/Payment";
-import ContactPage from "../pages/Contact/ContactPage";
-import { Events } from "../pages/Events/Events";
+// `createBrowserRouter` dùng để tạo router với cấu hình route cụ thể.
+// `RouterProvider` cung cấp context cho ứng dụng để sử dụng routing.
 
-// Create react router dom
-const routerPage = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />, // Use Layout as the main element
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "/", // Home page
-        element: <Home />,
-      },
-      {
-        path: "/movies", // Movies page
-        element: <Movies />,
-      },
-      {
-        path: "/movieinf/:movie_id", // Trang thông tin phim
-        element: <MovieInf />,
-      },
-      {
-        path: "/Members", // Trang thông tin phim
-        element: <Members />,
-      },
-      {
-        path: "/contact",
-        element: <ContactPage />,
-      },
-      {
-        path: "/booking_seat/:movie_id",
-        element: <Booking_Seat />,
-      },
-      {
-        path: "/events",
-        element: <Events />,
-      },
-      {
-        path: "/payment/:movie_id",
-        element: <Payment />,
-      },
-    ],
-  },
-]);
+import { UserRoutes } from "./UserRoutes"; // Import các route dành cho người dùng (User)
+import { AdminRoutes } from "./AdminRoutes"; // Import các route dành cho quản trị viên (Admin)
 
+// Kết hợp tất cả các routes (UserRoutes và AdminRoutes) vào một router duy nhất
+const routerPage = createBrowserRouter([...UserRoutes, ...AdminRoutes]);
+
+// Component RouterPage
 export const RouterPage = () => {
   return (
     <>
+      {/* Bao bọc RouterProvider để cung cấp router cho toàn bộ ứng dụng */}
       <div>
         <RouterProvider router={routerPage} />
       </div>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { fetchMovies } from "../../../services/dataService";
+import { fetchMovies } from "../../../services/service/serviceMovie";
 import "./Ticket_Detail.modul.scss";
 
 export const Ticket_Detail = ({ seat_name }) => {

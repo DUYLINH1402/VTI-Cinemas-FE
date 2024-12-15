@@ -1,24 +1,41 @@
-// useRouteError Lấy ra thông báo lỗi của react router dom
-import errorPage from "./../../../src/assets/image/errorPage.svg";
+import React from "react";
+import ErrorPage from "./../../../src/assets/image/ErrorPage.gif";
+import { ErrorHandler } from "./ErrorHandler";
 import "./errorPage.scss";
-import { Header } from "../../components/Header/Header";
-import { Footer } from "../../components/Footer/Footer";
+import { Link } from "react-router-dom";
 
-export const ErrorPage = () => {
+// ErrorPage CHO USER
+export const UserErrorPage = () => {
   return (
     <>
-      <Header />
-      <div className="content">
-        <div id="error-page" className="error-page">
-          <div>
-            <h2 className="message">Không tìm thấy trang</h2>
-            <div className="notFoundImage">
-              <img id="notFound" src={errorPage} alt="Page Not Found" />
-            </div>
-          </div>
-        </div>
+      <div>
+        <ErrorHandler
+          title="404 - Không tìm thấy trang"
+          message="Trang bạn tìm kiếm không tồn tại."
+          image={ErrorPage}
+        />
+        <Link to={"/"} className="toHome-btn">
+          Quay lại trang chủ
+        </Link>
       </div>
-      <Footer />
+    </>
+  );
+};
+
+// ErrorPage CHO ADMIN
+export const AdminErrorPage = () => {
+  return (
+    <>
+      <div>
+        <ErrorHandler
+          title="404 - Đây là trang dành cho Admin"
+          message="Vui lòng kiểm tra lại đường truyền hoặc liên hệ quản trị viên."
+          image={ErrorPage}
+        />
+        <Link to={"/"} className="toHome-btn">
+          Quay lại trang chủ
+        </Link>
+      </div>
     </>
   );
 };

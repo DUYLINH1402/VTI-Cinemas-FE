@@ -1,21 +1,26 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// `createBrowserRouter` dùng để tạo router với cấu hình route cụ thể.
-// `RouterProvider` cung cấp context cho ứng dụng để sử dụng routing.
+import { UserRoutes } from "./UserRoutes";
+import { AdminRoutes } from "./AdminRoutes";
+import { AdminErrorPage, UserErrorPage } from "../pages/Error/ErrorPage";
 
-import { UserRoutes } from "./UserRoutes"; // Import các route dành cho người dùng (User)
-import { AdminRoutes } from "./AdminRoutes"; // Import các route dành cho quản trị viên (Admin)
+// Log để kiểm tra thứ tự và nội dung của các route trong AdminRoutes và UserRoutes
+console.log("Admin Routes:", AdminRoutes);
+console.log("User Routes:", UserRoutes);
 
-// Kết hợp tất cả các routes (UserRoutes và AdminRoutes) vào một router duy nhất
-const routerPage = createBrowserRouter([...UserRoutes, ...AdminRoutes]);
+// Tạo đối tượng router với danh sách các route
+const routerPage = createBrowserRouter([
+  ...AdminRoutes, // Đưa vào các route của admin
+  ...UserRoutes, // Đưa vào các route của người dùng
+  {
+    path: "/error-admin", // Đường dẫn đến trang lỗi dành cho admin
+    element: <AdminErrorPage />,
+  },
+  {
+    path: "/error-user", // Đường dẫn đến trang lỗi dành cho user
+    element: <UserErrorPage />,
+  },
+]);
 
-// Component RouterPage
 export const RouterPage = () => {
-  return (
-    <>
-      {/* Bao bọc RouterProvider để cung cấp router cho toàn bộ ứng dụng */}
-      <div>
-        <RouterProvider router={routerPage} />
-      </div>
-    </>
-  );
+  return <RouterProvider router={routerPage} />;
 };

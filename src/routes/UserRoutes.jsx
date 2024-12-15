@@ -1,6 +1,6 @@
 //ROUTES DÀNH CHO USER
 import { Home } from "../pages/Home/Home";
-import { ErrorPage } from "../pages/Error/ErrorPage";
+import { UserErrorPage } from "../pages/Error/ErrorPage";
 import { Layout } from "./../components/Layout/Layout";
 import { Movies } from "../pages/Movies/Movies";
 import { MovieInf } from "../pages/Movies/MovieInf/MovieInf";
@@ -14,7 +14,7 @@ export const UserRoutes = [
   {
     path: "/",
     element: <Layout />, // Use Layout as the main element
-    errorElement: <ErrorPage />,
+    errorElement: <UserErrorPage />,
     children: [
       {
         path: "/", // Home page

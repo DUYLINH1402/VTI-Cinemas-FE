@@ -6,22 +6,22 @@ import ProtectedRoute from "./ProtectedRoute"; // Component dùng để bảo v�
 import AdminApp from "../admin/AdminApp"; // Component layout chính cho phần admin
 import AdminDashboard from "../admin/pages/AdminDashboard"; // Trang tổng quan cho admin
 import TheaterManagement from "../admin/pages/CinemaManangenment/TheaterManagement"; // Trang quản lý rạp
-import { ErrorPage } from "../pages/Error/ErrorPage"; // Trang hiển thị khi gặp lỗi
+import { AdminErrorPage } from "../pages/Error/ErrorPage"; // Trang hiển thị khi gặp lỗi
 import MovieManagement from "../admin/pages/MovieManagement/MovieManagement";
 
 // Định nghĩa các route cho phần admin
 export const AdminRoutes = [
   {
-    path: "/admin", // Đường dẫn chính cho phần admin
+    path: "/admin",
     element: (
-      <ProtectedRoute allowedRoles={["admin", "manager"]}>
+      <ProtectedRoute
+        allowedRoles={["admin", "manager"]}
+        redirectPath="/error-admin" // Điều hướng đến trang lỗi admin
+      >
         <AdminApp />
       </ProtectedRoute>
     ),
-    // `ProtectedRoute` kiểm tra quyền truy cập của người dùng (chỉ cho phép admin và manager)
-    errorElement: <ErrorPage />, // Trang hiển thị khi xảy ra lỗi truy cập route
-
-    // Các route con (children) của `/admin`
+    errorElement: <AdminErrorPage />, // Trang lỗi dành riêng cho admin
     children: [
       {
         path: "dashboard", // Route cho trang Dashboard

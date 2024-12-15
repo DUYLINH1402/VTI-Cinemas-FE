@@ -147,7 +147,7 @@ const MovieManagement = () => {
       <TableContainer component={Paper}>
         <Table sx={{ tableLayout: "fixed", width: "100%" }}>
           <TableHead>
-            <TableRow>
+            <TableRow className={styles.tableRowColor}>
               <TableCell>
                 <strong className={styles.lableDetail}>Tên phim</strong>
               </TableCell>

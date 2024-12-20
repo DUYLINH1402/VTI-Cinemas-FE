@@ -165,7 +165,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
   return (
     <div className={`modal-overlay ${isClosing ? "fade-out" : ""}`}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Đăng Ký Tài Khoản</h2>
+        <h2 className="modal-title">Đăng Ký Tài Khoản</h2>
         <form noValidate>
           <div className="input-container">
             <label>Họ và tên</label>

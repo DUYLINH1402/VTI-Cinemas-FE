@@ -149,7 +149,7 @@ const LoginModal = ({
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Đăng nhập tài khoản</h2>
+        <h2 className="modal-title">Đăng nhập</h2>
         {/* Form đăng nhập với noValidate để tắt validate mặc định của trình duyệt */}
         <form onSubmit={handleSubmit} noValidate>
           <div className="input-container">

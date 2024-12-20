@@ -20,6 +20,7 @@ export const MovieInf = () => {
   // Hàm mở Modal khi click "Đặt vé"
   const handleBookTicket = (movie) => {
     if (!isLoggedIn) {
+      console.log("isLoggedIn: ", isLoggedIn);
       toast.warning("Bạn cần đăng nhập trước khi đặt vé!");
     } else {
       setMovie(movie); // Lưu thông tin phim

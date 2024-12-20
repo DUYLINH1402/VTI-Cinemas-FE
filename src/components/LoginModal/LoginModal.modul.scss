@@ -18,7 +18,7 @@
   position: relative;
   padding: 40px;
   background: white;
-  width: 400px;
+  width: 450px;
   max-width: 90%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scale(0.9);
@@ -56,8 +56,8 @@
     width: auto;
     background-color: transparent;
   }
-  h2 {
-    font-size: 2.2rem;
+  .modal-title {
+    font-size: 2rem;
     font-weight: 500;
     color: cssBase.$primary-color;
     text-align: center;

@@ -1,0 +1,48 @@
+.theater-input-container {
+  position: relative;
+  width: 100%;
+  min-width: 400px;
+  .error-container {
+    min-height: 30px;
+    .error-message {
+      position: absolute;
+      color: #d3302f;
+      font-size: 1.4rem;
+    }
+  }
+}
+.MuiDialogTitle-root {
+  font-size: 1.8rem !important;
+  font-weight: bold;
+}
+
+.MuiDialogContent-root {
+  padding: 15px 35px !important;
+  font-size: 1.4rem !important;
+}
+
+.MuiButton-root {
+  font-size: 1.4rem !important;
+  margin-bottom: 15px !important;
+}
+
+.MuiInputBase-input {
+  font-size: 1.4rem;
+}
+
+/* Font size của label trong input */
+.MuiInputLabel-root,
+.MuiOutlinedInput-root {
+  font-size: 1.4rem !important;
+}
+
+.MuiInputBase-input {
+  font-size: 1.4rem !important; /* Font size của input */
+}
+.MuiFormHelperText-root,
+.Mui-error,
+.MuiFormHelperText-contained {
+  font-size: 1.4rem !important;
+  margin: 0 !important;
+  padding: 5px0 !important;
+}

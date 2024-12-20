@@ -72,7 +72,7 @@ const ForgotPasswordModal = ({ closeModal }) => {
         className={`modal-content ${isClosing ? "scale-out" : ""}`}
         onClick={(e) => e.stopPropagation()} // Ngăn việc đóng modal khi click bên trong nội dung
       >
-        <h2>Quên mật khẩu</h2>
+        <h2 className="modal-title">Quên mật khẩu</h2>
         {/* Form quên mật khẩu */}
         <form onSubmit={handleSubmit} noValidate>
           <div className="input-container">

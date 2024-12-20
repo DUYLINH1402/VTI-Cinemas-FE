@@ -16,6 +16,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import { searchDataService } from "../../services/dataService";
 import { searchMovies } from "../../../store/searchSlice";
 import { getAuthToken, removeAuthToken } from "../../utils/authStorage";
+import GuideModal from "../GuideModal/GuideModal";
 
 export const Header = () => {
   const token = getAuthToken();
@@ -259,7 +260,7 @@ export const Header = () => {
       <div className="top__scroll">
         <img id="scrollToTopBtn" src={top_scroll} alt="Top Scroll" />
       </div>
-
+      <GuideModal />
       <div id="detail">
         <Outlet />
       </div>

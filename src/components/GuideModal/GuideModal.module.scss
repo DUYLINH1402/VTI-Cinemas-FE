@@ -34,13 +34,6 @@
   }
 }
 
-/* Tiêu đề Modal với căn chỉnh */
-.dialogTitle {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-}
-
 /* Nút đóng Modal */
 .closeButton {
   position: absolute !important;
@@ -60,4 +53,32 @@
   &:hover {
     cursor: pointer;
   }
+}
+/* Tiêu đề Modal với căn chỉnh */
+.guide__title {
+  text-align: center;
+  font-size: 2rem !important;
+  color: #a41012;
+}
+.guide_intro {
+  margin-bottom: 5px !important;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.guide_content {
+  position: relative !important;
+  margin-bottom: 15px !important;
+  line-height: 1.5;
+  color: #000;
+  .title_card {
+    font-style: italic;
+    // font-weight: 600;
+  }
+}
+.copyButton {
+  position: absolute !important;
+  padding: 0 !important;
+  font-size: 1.1rem !important;
+  margin: 0 0 5px 10px !important;
+  text-transform: none !important;
 }

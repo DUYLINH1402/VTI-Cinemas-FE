@@ -1,0 +1,70 @@
+// src/components/MoviesHeader.jsx
+import React, { useState, useEffect } from "react";
+import { Box, Button, Typography, TextField } from "@mui/material";
+import SearchBar from "../../../components/SearchBar/SearchBar";
+
+const MovieHeader = ({ onSearch, onSort }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortKey, setSortKey] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    onSearch(e.target.value);
+  };
+  const handleSortChange = (e) => {
+    const value = e.target.value || "id"; // Mặc định sắp xếp theo id
+    setSortKey(value);
+    onSort(value);
+  };
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 2,
+      }}
+    >
+      <Typography variant="h5">Danh sách Phim</Typography>
+      <TextField
+        select
+        label="Sắp xếp theo"
+        // value={sortCriterion}
+        onChange={(e) => onSort(e.target.value)}
+        SelectProps={{ native: true }}
+        variant="outlined"
+        size="small"
+        sx={{ width: "150px", marginLeft: "50px" }}
+        InputLabelProps={{
+          shrink: true, // Giữ label cố định phía trên
+        }}
+      >
+        <option value="id">Không</option>
+        <option value="movie_name">Tên phim</option>
+        <option value="actor">Diễn viên</option>
+        <option value="genre">Thể loại</option>
+        <option value="release_date">Ngày chiếu</option>
+        <option value="rating">Đánh giá</option>
+        <option value="duration">Thời lượng</option>
+      </TextField>
+      <SearchBar
+        onSearch={(query) => handleSearch(query)}
+        placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
+      />
+      <Button
+        sx={{
+          backgroundColor: "#1976d2",
+          ":hover": { backgroundColor: "#125a9c" },
+          fontSize: "1.4rem",
+        }}
+        variant="contained"
+        color="primary"
+        // onClick={handleOpen}
+      >
+        Thêm phim mới
+      </Button>
+    </Box>
+  );
+};
+
+export default MovieHeader;

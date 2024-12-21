@@ -24,7 +24,6 @@ const SearchBar = ({ onSearch, placeholder }) => {
       <input
         type="text"
         placeholder={placeholder || "Tìm kiếm..."} // Giá trị mặc định hoặc nhận từ props
-        // placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

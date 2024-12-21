@@ -41,6 +41,7 @@ const TheaterManagement = () => {
   const [searchQuery, setSearchQuery] = useState(""); // State lưu giá trị tìm kiếm
   // State quản lý Dialog và form input
   const [open, setOpen] = useState(false);
+  const [sortCriterion, setSortCriterion] = useState("name"); // Mặc định sắp xếp theo Tên rạp
   // State quản lý form và lỗi
   const [newCinema, setNewCinema] = useState({
     name: "",
@@ -56,14 +57,22 @@ const TheaterManagement = () => {
   // Gọi API để lấy danh sách rạp
   const loadCinemas = async (page = 1) => {
     try {
-      const cinemasData = await fetchCinemas(); // Lấy danh sách rạp từ API
+      const cinemasData = await fetchCinemas(); // Gọi API lấy danh sách rạp
 
-      // Lọc rạp theo từ khóa tìm kiếm
+      const sortMapping = {
+        name: "cinema_name", // Tên rạp
+        city: "city", // Khu vực
+        location: "location", // Địa chỉ
+      };
+
+      // Lọc theo từ khóa tìm kiếm
       const filteredCinemas = cinemasData
         .filter((cinema) => {
           const matchName =
-            cinema.name &&
-            cinema.name.toLowerCase().includes(searchQuery.toLowerCase());
+            cinema.cinema_name &&
+            cinema.cinema_name
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase());
           const matchCity =
             cinema.city &&
             cinema.city.toLowerCase().includes(searchQuery.toLowerCase());
@@ -73,29 +82,40 @@ const TheaterManagement = () => {
 
           return matchName || matchCity || matchLocation;
         })
-        .sort((a, b) => b.cinema_id - a.cinema_id); // Sắp xếp theo cinema_id giảm dần
+        .sort((a, b) => {
+          if (!sortCriterion) {
+            // Sắp xếp mặc định theo id giảm dần
+            return b.cinema_id - a.cinema_id;
+          }
 
-      const itemsPerPage = 7; // Số lượng rạp mỗi trang
+          // Lấy trường tương ứng từ sortMapping
+          const fieldA = a[sortMapping[sortCriterion]] || ""; // Giá trị mặc định nếu undefined
+          const fieldB = b[sortMapping[sortCriterion]] || ""; // Giá trị mặc định nếu undefined
+          return fieldA.localeCompare(fieldB); // Sắp xếp theo bảng chữ cái
+        });
+
+      // Cập nhật phân trang
+      const itemsPerPage = 7;
       const total = Math.ceil(filteredCinemas.length / itemsPerPage);
       setTotalPages(total);
 
-      // Chia trang
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
-      setCinemas(filteredCinemas.slice(startIndex, endIndex));
+      setCinemas(filteredCinemas.slice(startIndex, endIndex)); // Cập nhật danh sách
     } catch (error) {
       console.error("Lỗi khi tải danh sách rạp:", error);
       setCinemas([]); // Nếu lỗi, gán danh sách rạp là rỗng
     }
   };
+
   const handleSearch = (query) => {
     setSearchQuery(query); // Cập nhật từ khóa tìm kiếm
     setCurrentPage(1); // Luôn quay về trang đầu tiên khi tìm kiếm
   };
   useEffect(() => {
-    loadCinemas(currentPage); // Gọi lại loadCinemas khi searchQuery hoặc currentPage thay đổi
-  }, [currentPage, searchQuery]);
-  console.log(searchQuery);
+    loadCinemas(currentPage); // Gọi lại khi currentPage, searchQuery, hoặc sortCriterion thay đổi
+  }, [currentPage, searchQuery, sortCriterion]);
+
   // Xử lý mở/đóng Dialog
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -131,7 +151,7 @@ const TheaterManagement = () => {
         // Gọi API thêm rạp mới
         await addCinema(newCinemaData);
         console.log("Thêm rạp mới thành công:", newCinemaData);
-
+        toast.success("Thêm rạp mới thành công!");
         handleClose();
 
         // Chuyển về trang đầu và cập nhật danh sách
@@ -155,6 +175,24 @@ const TheaterManagement = () => {
         }}
       >
         <Typography variant="h5">Danh sách rạp</Typography>
+        <TextField
+          select
+          label="Sắp xếp theo"
+          value={sortCriterion}
+          onChange={(e) => setSortCriterion(e.target.value)}
+          SelectProps={{ native: true }}
+          variant="outlined"
+          size="small"
+          sx={{ width: "150px", marginLeft: "50px" }}
+          InputLabelProps={{
+            shrink: true, // Giữ label cố định phía trên
+          }}
+        >
+          <option value="">Không</option> {/* Giá trị mặc định */}
+          <option value="name">Tên rạp</option>
+          <option value="city">Khu vực</option>
+          <option value="location">Địa chỉ</option>
+        </TextField>
         <SearchBar
           onSearch={(query) => handleSearch(query)}
           placeholder="Tìm kiếm rạp, khu vực, địa chỉ..."
@@ -243,7 +281,13 @@ const TheaterManagement = () => {
         </Table>
       </TableContainer>
       {/* Phân trang */}
-      <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: 2,
+        }}
+      >
         <Pagination
           count={totalPages}
           page={currentPage}

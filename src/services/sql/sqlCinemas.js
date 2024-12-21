@@ -51,3 +51,15 @@ export const sendContactInfoToSQL = async () => {
     throw error; // Throw lỗi để xử lý ở nơi gọi
   }
 };
+
+// API THÊM RẠP MỚI
+export const addCinemaToSQL = async (cinema) => {
+  try {
+    const response = await axios.post("/api/cinemas", cinema); // Đường dẫn API SQL
+    console.log("Rạp mới đã thêm vào SQL:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Lỗi khi thêm rạp vào SQL:", error);
+    throw error;
+  }
+};

@@ -5,12 +5,14 @@ import {
   fetchCinemasFromFirebase,
   fetchCinemasByRegionFromFirebase,
   sendContactInfoToFirebase,
+  addCinemaToFirebase,
 } from "../firebase/firebaseCinemas.js";
 import {
   fetchRegionsOfCinemasFromSQL,
   fetchCinemasFromSQL,
   sendContactInfoToSQL,
   fetchCinemasByRegionFromSQL,
+  addCinemaToSQL,
 } from "../sql/sqlCinemas.js";
 
 // API LẤY DANH SÁCH TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG
@@ -37,4 +39,11 @@ export const saveContactInfoToData = async (formData) => {
   return useFirebase
     ? await sendContactInfoToFirebase(formData)
     : await sendContactInfoToSQL(formData);
+};
+
+//API THÊM RẠP MỚI
+export const addCinema = async (newCinema) => {
+  return useFirebase
+    ? await addCinemaToFirebase(newCinema)
+    : await addCinemaToSQL(newCinema);
 };

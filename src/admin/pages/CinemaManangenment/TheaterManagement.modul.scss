@@ -21,10 +21,10 @@
   font-size: 1.4rem !important;
 }
 
-// .MuiButton-root {
-//   font-size: 1.4rem !important;
-//   margin-bottom: 15px !important;
-// }
+.dialog-actions-btn {
+  font-size: 1.4rem !important;
+  text-transform: none;
+}
 
 .MuiInputBase-input {
   font-size: 1.4rem;
@@ -44,5 +44,5 @@
 .MuiFormHelperText-contained {
   font-size: 1.4rem !important;
   margin: 0 !important;
-  padding: 5px !important;
+  // padding: 5px !important;
 }

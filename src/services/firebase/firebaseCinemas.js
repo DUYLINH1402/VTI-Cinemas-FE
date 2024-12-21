@@ -25,7 +25,7 @@ import { normalizeString } from "../../utils/validation.js";
 import app from "../firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
-// API LẤY DANH SÁCH CÁC RẠP PHIM
+// API LẤY DANH SÁCH CÁC RẠP PHIM (ĐÃ CHẠY OK)
 export const fetchCinemasFromFirebase = async () => {
   try {
     const db = getDatabase(); // Kết nối tới database Firebase
@@ -48,7 +48,7 @@ export const fetchCinemasFromFirebase = async () => {
     return [];
   }
 };
-// API LẤY DANH SÁCH KHU VỰC CỦA TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG
+// API LẤY DANH SÁCH KHU VỰC CỦA TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG (ĐÃ CHẠY OK)
 export const fetchRegionsOfCinemasFromFirebase = async () => {
   try {
     const db = getDatabase();
@@ -70,7 +70,7 @@ export const fetchRegionsOfCinemasFromFirebase = async () => {
   }
 };
 
-// API LẤY DANH SÁCH RẠP PHIM THEO KHU VỰC
+// API LẤY DANH SÁCH RẠP PHIM THEO KHU VỰC (ĐÃ CHẠY OK)
 export const fetchCinemasByRegionFromFirebase = async (region) => {
   const normalizedRegion = normalizeString(region); // Chuẩn hóa region
   if (!region) {
@@ -101,7 +101,7 @@ export const fetchCinemasByRegionFromFirebase = async (region) => {
   }
 };
 
-// API GỬI THÔNG TIN LIÊN HỆ
+// API GỬI THÔNG TIN LIÊN HỆ (ĐÃ CHẠY OK)
 export const sendContactInfoToFirebase = async (data) => {
   try {
     const db = getDatabase(); // Lấy instance của Realtime Database
@@ -111,5 +111,47 @@ export const sendContactInfoToFirebase = async (data) => {
   } catch (error) {
     console.error("Lỗi khi lưu dữ liệu lên Realtime Database:", error);
     throw error; // Bắn lỗi để xử lý phía trên
+  }
+};
+
+// API THÊM RẠP MỚI (ĐÃ CHẠY OK)
+export const addCinemaToFirebase = async (newCinema) => {
+  try {
+    const db = getDatabase(); // Kết nối tới Firebase
+    const cinemaRef = ref(db, "Cinema"); // Đường dẫn tới nhánh Cinema
+
+    // Lấy danh sách hiện có để tính toán key mới
+    const snapshot = await get(cinemaRef);
+    let maxId = 0;
+
+    if (snapshot.exists()) {
+      const cinemas = snapshot.val();
+      // Tìm ID lớn nhất trong các key hiện tại
+      maxId = Math.max(
+        ...Object.keys(cinemas)
+          .filter((key) => key.startsWith("cinema")) // Lọc các key theo format cinemaX
+          .map((key) => parseInt(key.replace("cinema", ""), 10)),
+        0
+      );
+    }
+
+    // Tạo key mới dạng cinemaX
+    const newCinemaKey = `cinema${maxId + 1}`;
+    const newCinemaData = {
+      cinema_name: newCinema.name,
+      city: newCinema.city,
+      location: newCinema.location,
+      is_protected: newCinema.is_protected || false,
+      cinema_id: maxId + 1,
+    };
+
+    // Lưu dữ liệu vào Firebase với key mới
+    await set(ref(db, `Cinema/${newCinemaKey}`), newCinemaData);
+
+    console.log("Rạp mới đã thêm vào Firebase với key:", newCinemaKey);
+    return newCinemaKey;
+  } catch (error) {
+    console.error("Lỗi khi thêm rạp vào Firebase:", error);
+    throw error;
   }
 };

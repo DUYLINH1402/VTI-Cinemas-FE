@@ -192,7 +192,10 @@ export const Header = () => {
                   </NavLink>
                 </li>
                 <li className="nav-item">
-                  <SearchBar onSearch={handleSearch} />
+                  <SearchBar
+                    onSearch={handleSearch}
+                    placeholder="Tìm kiếm phim, thể loại, diễn viên... "
+                  />
                 </li>
               </ul>
             </div>

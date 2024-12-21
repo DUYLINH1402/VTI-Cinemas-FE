@@ -37,9 +37,17 @@
     color: #999;
     font-size: 1.6rem;
     transition: color 0.3s ease;
-
+  }
+  .clear-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1.6rem;
+    transition: color 0.3s ease;
     &:hover {
-      color: #007bff; /* Đổi màu khi hover */
+      cursor: pointer;
     }
   }
 }

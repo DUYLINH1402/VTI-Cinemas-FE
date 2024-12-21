@@ -20,9 +20,14 @@ import {
   Slide,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
-import { fetchCinemas } from "../../../services/service/serviceCinemas";
+import {
+  fetchCinemas,
+  addCinema,
+} from "../../../services/service/serviceCinemas";
 import { validateTheaterForm, isValidForm } from "../../utils/validation.js";
+import { toast } from "react-toastify";
 import "./TheaterManagement.modul.scss";
+import SearchBar from "../../../components/SearchBar/SearchBar.jsx";
 
 // Hiệu ứng chuyển động Slide
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -33,7 +38,7 @@ const TheaterManagement = () => {
   const [cinemas, setCinemas] = useState([]); // Lưu danh sách rạp
   const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
   const [totalPages, setTotalPages] = useState(1); // Tổng số trang
-
+  const [searchQuery, setSearchQuery] = useState(""); // State lưu giá trị tìm kiếm
   // State quản lý Dialog và form input
   const [open, setOpen] = useState(false);
   // State quản lý form và lỗi
@@ -41,6 +46,7 @@ const TheaterManagement = () => {
     name: "",
     city: "",
     location: "",
+    is_protected: false,
   });
   const [errors, setErrors] = useState({
     name: "",
@@ -48,27 +54,48 @@ const TheaterManagement = () => {
     location: "",
   });
   // Gọi API để lấy danh sách rạp
+  const loadCinemas = async (page = 1) => {
+    try {
+      const cinemasData = await fetchCinemas(); // Lấy danh sách rạp từ API
+
+      // Lọc rạp theo từ khóa tìm kiếm
+      const filteredCinemas = cinemasData
+        .filter((cinema) => {
+          const matchName =
+            cinema.name &&
+            cinema.name.toLowerCase().includes(searchQuery.toLowerCase());
+          const matchCity =
+            cinema.city &&
+            cinema.city.toLowerCase().includes(searchQuery.toLowerCase());
+          const matchLocation =
+            cinema.location &&
+            cinema.location.toLowerCase().includes(searchQuery.toLowerCase());
+
+          return matchName || matchCity || matchLocation;
+        })
+        .sort((a, b) => b.cinema_id - a.cinema_id); // Sắp xếp theo cinema_id giảm dần
+
+      const itemsPerPage = 7; // Số lượng rạp mỗi trang
+      const total = Math.ceil(filteredCinemas.length / itemsPerPage);
+      setTotalPages(total);
+
+      // Chia trang
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      setCinemas(filteredCinemas.slice(startIndex, endIndex));
+    } catch (error) {
+      console.error("Lỗi khi tải danh sách rạp:", error);
+      setCinemas([]); // Nếu lỗi, gán danh sách rạp là rỗng
+    }
+  };
+  const handleSearch = (query) => {
+    setSearchQuery(query); // Cập nhật từ khóa tìm kiếm
+    setCurrentPage(1); // Luôn quay về trang đầu tiên khi tìm kiếm
+  };
   useEffect(() => {
-    const getCinemas = async () => {
-      try {
-        const cinemasData = await fetchCinemas(); // Gọi API
-        const itemsPerPage = 7;
-        const total = Math.ceil(cinemasData.length / itemsPerPage); // Tổng số trang
-        setTotalPages(total);
-
-        // Lấy dữ liệu cho trang hiện tại
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        setCinemas(cinemasData.slice(startIndex, endIndex)); // Lọc dữ liệu
-      } catch (error) {
-        console.error("Lỗi khi lấy danh sách rạp:", error);
-        setCinemas([]); // Gán mảng rỗng nếu lỗi
-      }
-    };
-
-    getCinemas();
-  }, [currentPage]);
-
+    loadCinemas(currentPage); // Gọi lại loadCinemas khi searchQuery hoặc currentPage thay đổi
+  }, [currentPage, searchQuery]);
+  console.log(searchQuery);
   // Xử lý mở/đóng Dialog
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -89,20 +116,33 @@ const TheaterManagement = () => {
   };
   // Xử lý thêm rạp mới
   const handleAddCinema = async () => {
-    // Validate form trước khi gửi dữ liệu
     const validationErrors = validateTheaterForm(newCinema);
     setErrors(validationErrors);
+
     if (isValidForm(validationErrors)) {
       try {
-        await addCinema(newCinema); // Gọi API để thêm rạp mới
-        console.log("Thêm rạp mới:", newCinema);
+        const newCinemaData = {
+          name: newCinema.name || "Tên rạp chưa xác định",
+          city: newCinema.city || "Khu vực chưa xác định",
+          location: newCinema.location || "Địa chỉ chưa xác định",
+          is_protected: newCinema.is_protected || false, // Giá trị mặc định
+        };
+
+        // Gọi API thêm rạp mới
+        await addCinema(newCinemaData);
+        console.log("Thêm rạp mới thành công:", newCinemaData);
+
         handleClose();
-        loadCinemas(); // Tải lại danh sách rạp
+
+        // Chuyển về trang đầu và cập nhật danh sách
+        setCurrentPage(1);
+        loadCinemas(1, searchQuery); // Cập nhật danh sách theo giá trị tìm kiếm
       } catch (error) {
         console.error("Lỗi khi thêm rạp mới:", error);
       }
     }
   };
+
   return (
     <Box sx={{ padding: 2 }}>
       {/* Header bảng: Tiêu đề + Nút thêm mới */}
@@ -115,6 +155,10 @@ const TheaterManagement = () => {
         }}
       >
         <Typography variant="h5">Danh sách rạp</Typography>
+        <SearchBar
+          onSearch={(query) => handleSearch(query)}
+          placeholder="Tìm kiếm rạp, khu vực, địa chỉ..."
+        />
         <Button
           sx={{
             backgroundColor: "#1976d2",
@@ -159,50 +203,43 @@ const TheaterManagement = () => {
               </TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
-            {cinemas.map((cinema, index) => (
-              <TableRow
-                key={index}
-                sx={{
-                  backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff", // Màu xen kẽ
-                  "&:hover": { backgroundColor: "#f5f5f5" },
-                }}
-              >
-                <TableCell
-                  sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}
+          {cinemas.length > 0 ? (
+            <TableBody>
+              {cinemas.map((cinema, index) => (
+                <TableRow
+                  key={index}
+                  sx={{
+                    backgroundColor: index % 2 === 0 ? "#f2f2f2" : "#ffffff",
+                    "&:hover": { backgroundColor: "#f5f5f5" },
+                  }}
                 >
-                  {cinema.cinema_name}
-                </TableCell>
-                <TableCell
-                  sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}
-                >
-                  {cinema.city}
-                </TableCell>
-                <TableCell
-                  sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}
-                >
-                  {cinema.location}
-                </TableCell>
-                <TableCell
-                  sx={{ borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}
-                  align="center"
-                >
-                  <IconButton
-                    color="primary"
-                    onClick={() => console.log("Edit", cinema.id)}
-                  >
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => console.log("Delete", cinema.id)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                  <TableCell>{cinema.cinema_name}</TableCell>
+                  <TableCell>{cinema.city}</TableCell>
+                  <TableCell>{cinema.location}</TableCell>
+                  <TableCell align="center">
+                    <IconButton
+                      color="primary"
+                      onClick={() => console.log("Edit", cinema.id)}
+                    >
+                      <Edit />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => console.log("Delete", cinema.id)}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          ) : (
+            <Typography
+              sx={{ display: "block", textAlign: "center", padding: "7px" }}
+            >
+              Không tìm thấy rạp nào khớp với từ khóa: "{searchQuery}"
+            </Typography>
+          )}
         </Table>
       </TableContainer>
       {/* Phân trang */}
@@ -277,10 +314,19 @@ const TheaterManagement = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary">
+          <Button
+            onClick={handleClose}
+            color="secondary"
+            className="dialog-actions-btn"
+          >
             Hủy
           </Button>
-          <Button onClick={handleAddCinema} color="primary" variant="contained">
+          <Button
+            onClick={handleAddCinema}
+            color="primary"
+            variant="contained"
+            className="dialog-actions-btn"
+          >
             Thêm
           </Button>
         </DialogActions>

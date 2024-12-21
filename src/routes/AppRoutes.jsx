@@ -4,8 +4,8 @@ import { AdminRoutes } from "./AdminRoutes";
 import { AdminErrorPage, UserErrorPage } from "../pages/Error/ErrorPage";
 
 // Log để kiểm tra thứ tự và nội dung của các route trong AdminRoutes và UserRoutes
-console.log("Admin Routes:", AdminRoutes);
-console.log("User Routes:", UserRoutes);
+// console.log("Admin Routes:", AdminRoutes);
+// console.log("User Routes:", UserRoutes);
 
 // Tạo đối tượng router với danh sách các route
 const routerPage = createBrowserRouter([

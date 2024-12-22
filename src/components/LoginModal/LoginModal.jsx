@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./LoginModal.modul.scss";
 import { useDispatch, useSelector } from "react-redux";
+import { getDatabase, ref, get, set } from "firebase/database";
+import { v4 as uuidv4 } from "uuid";
 import {
   googleLogin,
   loginUser,
@@ -19,6 +21,7 @@ import {
 import { toast } from "react-toastify";
 import { saveUserToDatabase } from "../../utils/authActions.js";
 import { setAuthToken } from "../../utils/authStorage.js";
+
 const LoginModal = ({
   closeModal,
   openRegisterModal,
@@ -28,6 +31,7 @@ const LoginModal = ({
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu email hoặc số điện thoại
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // State lưu mật khẩu
+  const [rememberMe, setRememberMe] = useState(false); // Trạng thái nhớ mật khẩu
   const [errors, setErrors] = useState({ emailOrPhone: "", password: "" }); // State lưu các lỗi
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
@@ -84,19 +88,26 @@ const LoginModal = ({
       dispatch(loginUser({ email: emailOrPhone, password }))
         .unwrap()
         .then((response) => {
-          const { accessToken, ...user } = response;
-          setAuthToken(accessToken);
+          const { accessToken, password, ...user } = response;
+          setAuthToken(accessToken); // Lưu Token chính cho phiên làm việc
           localStorage.setItem("user", JSON.stringify(user));
+          if (rememberMe) {
+            // Tạo Remember Token và lưu vào Firebase
+            const db = getDatabase();
+            const rememberToken = uuidv4(); // Tạo Remember Token duy nhất
+            // const expirationTime = Date.now() + 30 * 24 * 60 * 60 * 1000; // Thời hạn 30 ngày
+            set(ref(db, `rememberTokens/${user.uid}`), {
+              rememberToken,
+              email: emailOrPhone,
+              password, // Không khuyến khích, nhưng có thể mã hóa mật khẩu nếu cần
+              // expirationTime, // Lưu thời gian hết hạn
+            });
+            // Lưu Remember Token vào localStorage
+            localStorage.setItem("rememberToken", rememberToken);
+          }
           toast.success("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
-          console.log("Role: ", user.role);
-
-          // Điều hướng dựa trên vai trò
-          if (user.role === "admin" || user.role === "manager") {
-            navigate("/admin/dashboard");
-          } else {
-            navigate("/");
-          }
+          navigate(user.role === "admin" ? "/admin/dashboard" : "/"); // Điều hướng dựa trên vai trò
         })
         .catch((error) => {
           toast.error("Đăng nhập thất bại!");
@@ -104,6 +115,37 @@ const LoginModal = ({
     }
   };
 
+  useEffect(() => {
+    const rememberToken = localStorage.getItem("rememberToken");
+
+    if (rememberToken) {
+      const db = getDatabase();
+
+      // Kiểm tra "Remember Token" trong Firebase
+      get(ref(db, `rememberTokens`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const tokens = snapshot.val();
+          const matchedToken = Object.values(tokens).find(
+            (token) => token.rememberToken === rememberToken
+          );
+
+          if (matchedToken) {
+            if (matchedToken) {
+              setEmailOrPhone(matchedToken.email); // Điền email vào input
+              setPassword(matchedToken.password); // Điền mật khẩu vào input
+            } else {
+              localStorage.removeItem("rememberToken"); // Xóa token hết hạn
+              toast.error(
+                "Thông tin đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
+              );
+            }
+          } else {
+            localStorage.removeItem("rememberToken"); // Xóa nếu không hợp lệ
+          }
+        }
+      });
+    }
+  }, []);
   useEffect(() => {
     if (user) {
       navigate("#!");
@@ -189,7 +231,12 @@ const LoginModal = ({
             )}
             {/* CheckBox Nhớ mật khẩu */}
             <div className="remember-me">
-              <input type="checkbox" id="rememberMe" />
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
               <label className="title" htmlFor="rememberMe">
                 Nhớ mật khẩu
               </label>

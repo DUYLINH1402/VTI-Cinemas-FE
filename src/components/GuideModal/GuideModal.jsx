@@ -175,8 +175,8 @@ const GuideModal = () => {
             <div
               className={classNames(styles.guide_content, styles.guide_intro)}
             >
-              4. Để vào được giao diện quản lý vui lòng liên hệ Team phát triển
-              để được cung cấp tài khoản Admin thông qua email:{" "}
+              4. Để trải nghiệm giao diện quản lý vui lòng liên hệ Team phát
+              triển để được cung cấp tài khoản Admin thông qua email:{" "}
               <Link to="mailto:mock2406@gmail.com">mock2406@gmail.com</Link>
             </div>
           </DialogContent>

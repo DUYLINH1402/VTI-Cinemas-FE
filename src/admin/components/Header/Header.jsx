@@ -52,7 +52,7 @@ const Header = ({ sidebarWidth = 240 }) => {
           </Button>
         </Toolbar>
         {/* Breadcrumbs - Hiển thị đường dẫn hiện tại */}
-        <Box sx={{ paddingX: 2, paddingY: 1, backgroundColor: "#f5f5f5" }}>
+        <Box sx={{ paddingX: 2, paddingY: 0.5, backgroundColor: "#f5f5f5" }}>
           {/* Truyền danh sách route con vào component Breadcrumbs */}
           <Breadcrumbs routes={AdminRoutes[0].children} />
         </Box>

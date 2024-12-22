@@ -2,15 +2,16 @@ import { logout } from "../../store/authSlice";
 import { toast } from "react-toastify";
 import { getDatabase, ref, set } from "firebase/database";
 import { removeAuthToken } from "../utils/authStorage";
-import { Navigate, useNavigate } from "react-router-dom";
 
 export const handleLogout = (dispatch) => {
-  // Xóa token khỏi LocalStorage
   removeAuthToken();
-
   // Cập nhật Redux state
   dispatch(logout());
-  toast.warning("Bạn đã đăng xuất tài khoản!");
+  toast.info("Bạn đã đăng xuất!");
+  const rememberMe = localStorage.getItem("rememberToken");
+  if (!rememberMe) {
+    localStorage.removeItem("rememberToken");
+  }
 };
 
 export const saveUserToDatabase = (user) => {
@@ -25,9 +26,9 @@ export const saveUserToDatabase = (user) => {
     lastLoginAt: new Date().toISOString(),
   })
     .then(() => {
-      // console.log("Dữ liệu người dùng đã được lưu thành công!");
+      console.log("Dữ liệu người dùng đã được lưu thành công!");
     })
     .catch((error) => {
-      // console.error("Lỗi khi lưu dữ liệu người dùng:", error);
+      console.error("Lỗi khi lưu dữ liệu người dùng:", error);
     });
 };

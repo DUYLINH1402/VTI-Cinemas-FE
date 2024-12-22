@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import LazyImage from "../ LazyImage";
 
 export const renderStars = (rating) => {
   // Kiểm tra nếu không có rating hoặc rating không phải là số
@@ -47,7 +48,12 @@ export const CardCarousel = ({ item }) => {
       <div className="card_carousel_img">
         <Link to="#!">
           <div>
-            <img src={item.image_url} alt="Image not found" />
+            <LazyImage
+              src={item.image_url}
+              alt="Image not found"
+              height="350px"
+              width="100%"
+            />
           </div>
         </Link>
       </div>
@@ -61,10 +67,12 @@ export const CardMovie = ({ item }) => {
       <div className="card__movie">
         <Link to={`/movieinf/${item.movie_id}`}>
           <div>
-            <img
+            <LazyImage
               className="card__movie__img"
               src={item.image}
               alt={item.movie_name}
+              height="320px"
+              width="100%"
             />
             <h3 className="line-clamp title">{item.movie_name}</h3>
             <p className="line-clamp"> Diễn viên: {item.actor}</p>
@@ -88,7 +96,12 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
     <>
       <div className="card__inf">
         <div className="image ">
-          <img src={movie.image} alt={movie.movie_name} />
+          <LazyImage
+            src={movie.image}
+            alt={movie.movie_name}
+            height="320px"
+            width="250px"
+          />
           <div className="showtime">
             {/* Sử dụng callback để mở Modal */}
             <button onClick={() => onBookTicket(movie)}>Đặt vé</button>

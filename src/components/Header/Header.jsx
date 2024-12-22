@@ -58,24 +58,36 @@ export const Header = () => {
   };
 
   useEffect(() => {
-    window.onscroll = function () {
+    // Hàm xử lý sự kiện cuộn
+    const handleScroll = () => {
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-      if (
-        document.body.scrollTop > 100 ||
-        document.documentElement.scrollTop > 100
-      ) {
-        scrollToTopBtn.style.display = "block";
-      } else {
-        scrollToTopBtn.style.display = "none";
+      if (scrollToTopBtn) {
+        if (
+          document.body.scrollTop > 150 ||
+          document.documentElement.scrollTop > 150
+        ) {
+          scrollToTopBtn.style.display = "block";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
       }
     };
 
+    // Thêm sự kiện cuộn vào window
+    window.addEventListener("scroll", handleScroll);
+
+    // Lấy nút và gắn sự kiện onclick
     const scrollToTopBtn = document.getElementById("scrollToTopBtn");
     if (scrollToTopBtn) {
-      scrollToTopBtn.onclick = function () {
+      scrollToTopBtn.onclick = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
       };
     }
+
+    // Cleanup sự kiện cuộn khi component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
   const onLogout = () => {
     removeAuthToken();

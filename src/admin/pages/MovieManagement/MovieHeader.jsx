@@ -5,17 +5,7 @@ import SearchBar from "../../../components/SearchBar/SearchBar";
 
 const MovieHeader = ({ onSearch, onSort }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortKey, setSortKey] = useState("");
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    onSearch(e.target.value);
-  };
-  const handleSortChange = (e) => {
-    const value = e.target.value || "id"; // Mặc định sắp xếp theo id
-    setSortKey(value);
-    onSort(value);
-  };
   return (
     <Box
       sx={{
@@ -48,7 +38,7 @@ const MovieHeader = ({ onSearch, onSort }) => {
         <option value="duration">Thời lượng</option>
       </TextField>
       <SearchBar
-        onSearch={(query) => handleSearch(query)}
+        onSearch={onSearch}
         placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
       />
       <Button

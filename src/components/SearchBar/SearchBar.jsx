@@ -17,7 +17,7 @@ const SearchBar = ({ onSearch, placeholder }) => {
   }, [searchTerm]);
   const handleClear = () => {
     setSearchTerm(""); // Đặt lại giá trị tìm kiếm
-    onSearch(""); // Gửi callback với giá trị rỗng
+    onSearch(""); // Đảm bảo gửi callback ngay lập tức khi xóa
   };
   return (
     <div className="search-bar">

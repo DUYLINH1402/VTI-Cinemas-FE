@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { CardPayment } from "../../components/Cards/Cards";
+// import { CardPayment } from "../../components/Cards/Cards";
 import "./Payment.scss";
 import { fetchAccountByEmail } from "../../services/dataService";
+import { CardPayment } from "./CardPayment";
 
 export const Payment = () => {
   const user = JSON.parse(localStorage.getItem("user"));

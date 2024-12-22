@@ -3,7 +3,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { fetchMovies } from "../../../services/service/serviceMovie";
 import "./Ticket_Detail.modul.scss";
 
-export const Ticket_Detail = ({ seat_name }) => {
+export const Ticket_Detail = ({ seat_name, showImage = true }) => {
   const [movie, setMovie] = useState(null);
   const { movie_id } = useParams();
 
@@ -34,6 +34,7 @@ export const Ticket_Detail = ({ seat_name }) => {
           date={date}
           time={time}
           seat_name={seat_name}
+          showImage={showImage} // Truyền prop vào Detail_Movie
         />
       ) : (
         "Loading..."
@@ -42,15 +43,24 @@ export const Ticket_Detail = ({ seat_name }) => {
   );
 };
 
-export const Detail_Movie = ({ movie, cinema, date, time, seat_name }) => {
+export const Detail_Movie = ({
+  movie,
+  cinema,
+  date,
+  time,
+  seat_name,
+  showImage,
+}) => {
   return (
     <>
       <div className="detail_movie_container">
-        <img
-          className="detail_movie_img"
-          src={movie.image}
-          alt={movie.movie_name}
-        />
+        {showImage && (
+          <img
+            className="detail_movie_img"
+            src={movie.image}
+            alt={movie.movie_name}
+          />
+        )}
         <h1 className="detail_movie_title">{movie.movie_name}</h1>
         <div className="detail_movie_info">
           <p>Hình thức: 2D</p>

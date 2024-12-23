@@ -1,5 +1,3 @@
-// src/reducers/userReducer.js
-
 // Trạng thái ban đầu của người dùng
 const initialState = {
   isLoggedIn: false,

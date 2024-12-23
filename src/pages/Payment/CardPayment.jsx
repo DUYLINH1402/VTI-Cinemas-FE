@@ -24,10 +24,13 @@ export const CardPayment = ({ userDetail }) => {
   const handlePayment = async () => {
     try {
       // Gọi API server tạo đơn hàng ZaloPay
-      const response = await axios.post("http://localhost:8888/payment", {
-        amount: totalPrice,
-        description: "Thanh toán vé xem phim",
-      });
+      const response = await axios.post(
+        "https://vticinema-zalopay-test.vercel.app/payment",
+        {
+          amount: totalPrice,
+          description: "Thanh toán vé xem phim",
+        }
+      );
       // Kiểm tra URL thanh toán từ server
       if (response.data.order_url) {
         window.location.href = response.data.order_url;

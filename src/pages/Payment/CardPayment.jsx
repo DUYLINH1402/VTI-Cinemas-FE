@@ -27,7 +27,7 @@ export const CardPayment = () => {
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
     try {
       // Gọi API server để tạo giao dịch
-      const response = await axios.post("http://localhost:8888/payment", {
+      const response = await axios.post("https://vticinema.web.app/payment", {
         amount: totalPrice,
         description,
         email,

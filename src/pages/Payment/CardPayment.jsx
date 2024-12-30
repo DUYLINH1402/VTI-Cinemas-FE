@@ -27,11 +27,14 @@ export const CardPayment = () => {
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
     try {
       // Gọi API server để tạo giao dịch
-      const response = await axios.post("https://vticinema.web.app/payment", {
-        amount: totalPrice,
-        description,
-        email,
-      });
+      const response = await axios.post(
+        "https://vticinema-zalopay-test.vercel.app/payment",
+        {
+          amount: totalPrice,
+          description,
+          email,
+        }
+      );
       if (response.data.order_url) {
         // Chuyển hướng người dùng đến URL thanh toán của ZaloPay
         window.location.href = response.data.order_url;

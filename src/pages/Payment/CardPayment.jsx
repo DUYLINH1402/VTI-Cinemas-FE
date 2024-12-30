@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ref, set, getDatabase } from "firebase/database";
 import { Service } from "./Service_Cinema/Service";
 import { Timeout } from "../Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../Booking_Seat/Ticket_Detail/Ticket_Detail";
@@ -6,38 +7,40 @@ import { Price } from "../Booking_Seat/Timeout/Price";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-// import ConfirmationModal from "./PaymentConfirmationModal";
 import { Modal, Box, Typography, Button } from "@mui/material";
-import { Margin } from "@mui/icons-material";
 
-export const CardPayment = ({ userDetail }) => {
+export const CardPayment = () => {
+  const userInfo = JSON.parse(localStorage.getItem("user"));
+
+  const db = getDatabase(); // Kết nối tới database Firebase
   const { state } = useLocation();
   const { selectSeatName, selectedSeatPrice } = state || {};
   const [comboPrice, setComboPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const totalPrice = selectedSeatPrice + comboPrice - discount;
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
   const handlePayment = async () => {
+    const description = "Thanh toán vé xem phim"; // Nội dung thanh toán
+    const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
     try {
-      // Gọi API server tạo đơn hàng ZaloPay
-      const response = await axios.post(
-        "https://vticinema-zalopay-test.vercel.app/payment",
-        {
-          amount: totalPrice,
-          description: "Thanh toán vé xem phim",
-        }
-      );
-      // Kiểm tra URL thanh toán từ server
+      // Gọi API server để tạo giao dịch
+      const response = await axios.post("http://localhost:8888/payment", {
+        amount: totalPrice,
+        description,
+        email,
+      });
       if (response.data.order_url) {
+        // Chuyển hướng người dùng đến URL thanh toán của ZaloPay
         window.location.href = response.data.order_url;
+      } else {
+        throw new Error("Không có URL thanh toán trong response.");
       }
     } catch (error) {
+      console.error("Có lỗi xảy ra khi tạo giao dịch:", error);
       toast.error("Có lỗi xảy ra khi tạo giao dịch.");
-      // }
     }
   };
 
@@ -51,15 +54,23 @@ export const CardPayment = ({ userDetail }) => {
             <div className="person_inf">
               <div>
                 <label htmlFor="">Họ tên:</label>
-                <input type="text" value={userDetail.name} readOnly />
+                <input
+                  type="text"
+                  value={userInfo?.fullname || userInfo?.displayName}
+                  readOnly
+                />
               </div>
               <div>
                 <label htmlFor="">Số điện thoại:</label>
-                <input type="text" value={userDetail.phone} readOnly />
+                <input
+                  type="text"
+                  value={userInfo?.phone || "Không có"}
+                  readOnly
+                />
               </div>
               <div>
                 <label htmlFor="">Email:</label>
-                <input type="email" value={userDetail.email} readOnly />
+                <input type="email" value={userInfo?.email} readOnly />
               </div>
             </div>
             {/*  */}

@@ -1,43 +1,79 @@
 {
   "Account": {
-    "-OBoBFPgOylKCCOMaMyx": {
-      "account_id": 7,
-      "birth_date": "2024-11-06",
-      "created_date": "2024-11-16",
-      "email": "duylinh@gmail.co",
-      "fullname": "DuyLinhGCT",
-      "gender": "Nam",
-      "password": "$2a$10$NrNPteVHYpn5M/AR/Lk6ouu/Sf8GCCVro77EEiITkhFB.I638hObW",
-      "phone_number": "0934304645",
-      "role": "user",
-      "status": "active",
-      "updated_date": "2024-11-16"
-    },
-    "-OBsysCcpD0lU-Z9N3zX": {
+    "-ODZrISImGSb959kcTKW": {
       "account_id": 2,
-      "birth_date": "2024-11-06",
-      "created_date": "2024-11-17",
-      "email": "duylinh2@gmail.com",
-      "fullname": "Nguyen Duy Linh",
-      "gender": "Nam",
-      "password": "$2a$10$KGz5WDdURtnEwfz3Zw9vPuMbzd8DIbPoswZpd3NypWYJJ4j2krV72",
+      "address": "",
+      "avatar_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+      "birth_date": "",
+      "city": "",
+      "created_date": "2024-12-08",
+      "district": "",
+      "email": "duylinh@gmail.com",
+      "fullname": "DuyLinhGCT",
+      "gender": "",
+      "passport": "",
+      "password": "111111",
       "phone_number": "0934304645",
-      "role": "user",
+      "role": "admin",
       "status": "active",
-      "updated_date": "2024-11-17"
+      "updated_date": "2024-12-08"
     },
-    "-OC41tArh0eFJYphvAWf": {
-      "account_id": 3,
-      "birth_date": "2024-11-04",
-      "created_date": "2024-11-19",
+    "-ODpdRwirwgCFvFs_8Ed": {
+      "account_id": 4,
+      "address": "",
+      "avatar_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+      "birth_date": "",
+      "city": "",
+      "created_date": "2024-12-11",
+      "district": "",
+      "email": "test@example.us",
+      "fullname": "DuyLinhGCT",
+      "gender": "",
+      "passport": "",
+      "password": "111111",
+      "phone_number": "0369992705",
+      "role": "user",
+      "status": "active",
+      "updated_date": "2024-12-11"
+    },
+    "-OE27L3_TLaPEhnbDVcr": {
+      "account_id": 6,
+      "address": "",
+      "avatar_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
+      "birth_date": "",
+      "city": "",
+      "created_date": "2024-12-14",
+      "district": "",
       "email": "vtiacademy.edu@gmail.com",
-      "fullname": "VTICinema",
-      "gender": "Nữ",
-      "password": "$2a$10$5Oe2S7qPg1Hi1316et4CO./iS2M5OevOCpDxGKQZTVy9R0KxAInHm",
+      "fullname": "DuyLinhGCT",
+      "gender": "",
+      "passport": "",
+      "password": "111111",
       "phone_number": "0934304645",
       "role": "user",
       "status": "active",
-      "updated_date": "2024-11-19"
+      "updated_date": "2024-12-14"
+    },
+    "0kbIFjoyDtaDCDTluTfRA1Hrof13": {
+      "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocJ_GC8Oy8OGHNz3dWmiUotqL94cmCleX9WQAKzddAdA4GFE2Bc=s96-c",
+      "email": "damphu207@gmail.com",
+      "fullname": "Đàm Phú",
+      "lastLoginAt": "2024-12-11T13:15:49.384Z",
+      "uid": "0kbIFjoyDtaDCDTluTfRA1Hrof13"
+    },
+    "qjNjdLOCgET6c4XUsiQAMS7jozY2": {
+      "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocKYHo7paZydUjli72srSil4sXtaHC_cTZd6DE72uMptT7vSOnxdPg=s96-c",
+      "email": "duylinh63b5@gmail.com",
+      "fullname": "Nguyen Duy Linh",
+      "lastLoginAt": "2024-12-21T03:50:49.994Z",
+      "uid": "qjNjdLOCgET6c4XUsiQAMS7jozY2"
+    },
+    "s71FTlZNfLRHHL0dLuIgyr9V7TA3": {
+      "avatar_url": "https://lh3.googleusercontent.com/a/ACg8ocK5YBf-68KiI02hqnesssqzZLiHiU7LyCsEvspQWQm3OLXzzA=s96-c",
+      "email": "mock2406@gmail.com",
+      "fullname": "3 Team",
+      "lastLoginAt": "2024-12-08T06:04:18.616Z",
+      "uid": "s71FTlZNfLRHHL0dLuIgyr9V7TA3"
     }
   },
   "Banners": {
@@ -90,11 +126,148 @@
       "description": "Prepare to be scared with our late-night horror screenings.",
       "event_id": 205,
       "id": 5,
-      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1731769729/47._Tha%CC%82%CC%80n_Du%CC%9Bo%CC%9B%CC%A3c_sb8qww.jpg",
+      "image_url": "https://res.cloudinary.com/ddia5yfia/image/upload/v1733630231/contact_4_nndaom.jpg",
       "is_active": false,
       "movie_id": 105,
       "title": "Horror Night",
       "updated_at": "2024-10-31T23:00:00Z"
+    }
+  },
+  "Cinema": {
+    "cinema1": {
+      "cinema_id": 1,
+      "cinema_name": "VTI Hà Nội Cinema",
+      "city": "Hà Nội",
+      "is_protected": true,
+      "location": "123 Đường ABC, Hà Nội"
+    },
+    "cinema10": {
+      "cinema_id": 10,
+      "cinema_name": "VTI Pleiku Movies",
+      "city": "Pleiku",
+      "is_protected": true,
+      "location": "102 Đường MNO, Pleiku"
+    },
+    "cinema11": {
+      "cinema_id": 11,
+      "cinema_name": "VTI Sài Gòn Film House",
+      "city": "Sài Gòn",
+      "is_protected": true,
+      "location": "123 Đường ABC, Sài Gòn"
+    },
+    "cinema12": {
+      "cinema_id": 12,
+      "cinema_name": "VTI Mekong Movie Center",
+      "city": "Mekong",
+      "is_protected": true,
+      "location": "456 Đường DEF, Mekong"
+    },
+    "cinema13": {
+      "cinema_id": 13,
+      "cinema_name": "VTI Vũng Tàu Ocean Cinema",
+      "city": "Vũng Tàu",
+      "is_protected": true,
+      "location": "789 Đường GHI, Vũng Tàu"
+    },
+    "cinema14": {
+      "cinema_id": 14,
+      "cinema_name": "VTI Cần Thơ Riverside Theater",
+      "city": "Cần Thơ",
+      "is_protected": true,
+      "location": "101 Đường JKL, Cần Thơ"
+    },
+    "cinema15": {
+      "cinema_id": 15,
+      "cinema_name": "VTI Biên Hòa Galaxy",
+      "city": "Biên Hòa",
+      "is_protected": true,
+      "location": "102 Đường MNO, Biên Hòa"
+    },
+    "cinema2": {
+      "cinema_id": 2,
+      "cinema_name": "VTI Thăng Long Movie",
+      "city": "Hà Nội",
+      "is_protected": true,
+      "location": "456 Đường DEF, Hà Nội"
+    },
+    "cinema3": {
+      "cinema_id": 3,
+      "cinema_name": "VTI Royal Hanoi Theater",
+      "city": "Hà Nội",
+      "is_protected": true,
+      "location": "789 Đường GHI, Hà Nội"
+    },
+    "cinema4": {
+      "cinema_id": 4,
+      "cinema_name": "VTI West Lake Cinema",
+      "city": "Hà Nội",
+      "is_protected": true,
+      "location": "101 Đường JKL, Hà Nội"
+    },
+    "cinema5": {
+      "cinema_id": 5,
+      "cinema_name": "VTI Red River Film House",
+      "city": "Hà Nội",
+      "is_protected": true,
+      "location": "102 Đường MNO, Hà Nội"
+    },
+    "cinema6": {
+      "cinema_id": 6,
+      "cinema_name": "VTI Đà Nẵng Star Cinema",
+      "city": "Đà Nẵng",
+      "is_protected": true,
+      "location": "123 Đường ABC, Đà Nẵng"
+    },
+    "cinema7": {
+      "cinema_id": 7,
+      "cinema_name": "VTI Huế Heritage Cinema",
+      "city": "Huế",
+      "is_protected": true,
+      "location": "456 Đường DEF, Huế"
+    },
+    "cinema8": {
+      "cinema_id": 8,
+      "cinema_name": "VTI Đồng Hới Film Center",
+      "city": "Đồng Hới",
+      "is_protected": true,
+      "location": "789 Đường GHI, Đồng Hới"
+    },
+    "cinema9": {
+      "cinema_id": 9,
+      "cinema_name": "VTI Nha Trang Sun Theater",
+      "city": "Nha Trang",
+      "is_protected": true,
+      "location": "101 Đường JKL, Nha Trang"
+    }
+  },
+  "Contacts": {
+    "-ODZHWivEp5QvZwGkkWO": {
+      "cinema": "VTI Mekong Movie Center",
+      "date": "08/12/2024",
+      "details": "Dữ liệu đã được lưu thành công vào Realtime Database!",
+      "email": "test@example.us",
+      "name": "MOCK 2406",
+      "phone": "0934304645",
+      "region": "Mekong",
+      "service": "THUÊ RẠP TỔ CHỨC SỰ KIỆN",
+      "status": "Chưa xử lý"
+    }
+  },
+  "MoreService": {
+    "Service1": {
+      "describe": "Gồm 2 Bắp + 4 Nước có gaz + 2 Snack Oishi (200.000VNĐ)",
+      "name_service": "Family Combo ",
+      "price": 200000
+    },
+    "Service2": {
+      "describe": "Gồm 1 Bắp  + 1 Nước có gaz + 1 Snack Oishi (80.000VNĐ)",
+      "name_service": "VTI Combo ",
+      "price": 80000
+    },
+    "Service3": {
+      "describe": "Gồm 2 Bắp  + 2 Nước có gaz + 1 Snack Oishi (160.000VNĐ)",
+      "name_service": "Sweet Combo",
+      "price": 160000
     }
   },
   "Movies": {
@@ -110,9 +283,10 @@
       "language": "Vietnamese",
       "movie_id": 1,
       "movie_name": "Mắt Biếc",
-      "rating": 8.2,
-      "release_date": "2024-12-01",
+      "rating": 9,
+      "release_date": "2025-12-01",
       "trailer": "https://www.youtube.com/embed/ITlQ0oU7tDA",
+      "is_protected": true,
       "viewing_age": 13
     },
     "movie10": {
@@ -130,6 +304,7 @@
       "rating": 8.3,
       "release_date": "2024-11-15",
       "trailer": "https://www.youtube.com/embed/wX8nGJFGwaU?si=qH9LtFCYhnAPYX-u",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie11": {
@@ -147,6 +322,7 @@
       "rating": 8,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/qjWoaNWZ2Xo?si=6cipAwwrEkUYusRM",
+      "is_protected": true,
       "viewing_age": 13
     },
     "movie12": {
@@ -164,6 +340,7 @@
       "rating": 7.3,
       "release_date": "2024-11-15",
       "trailer": "https://www.youtube.com/embed/6VEVPtFDN_U?si=FxhD4GkuIWm123oO",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie13": {
@@ -181,6 +358,7 @@
       "rating": 7.9,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/fldOtUA_1LA?si=WsmajbfAsfNkvHfd",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie14": {
@@ -198,6 +376,7 @@
       "rating": 8.1,
       "release_date": "2024-11-15",
       "trailer": "https://www.youtube.com/embed/kiTeyH3xASE?si=sTz-HLxS8o41mNSW",
+      "is_protected": true,
       "viewing_age": 14
     },
     "movie15": {
@@ -214,7 +393,8 @@
       "movie_name": "Tèo Em",
       "rating": 7.6,
       "release_date": "2024-12-01",
-      "trailer": "\"https://www.youtube.com/embed/oRvzM1eX5ow?si=TAo4ZZv3S7B1DBvV",
+      "trailer": "https://www.youtube.com/embed/oRvzM1eX5ow?si=OFxblBah64J4baFX",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie16": {
@@ -232,6 +412,7 @@
       "rating": 8.4,
       "release_date": "2024-11-15",
       "trailer": "https://www.youtube.com/embed/r-ZM97E869w?si=a-6e2vO6-Lg8nzue",
+      "is_protected": true,
       "viewing_age": 10
     },
     "movie17": {
@@ -249,6 +430,7 @@
       "rating": 7.4,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/sAibeuzwd_o?si=_LS5eWpB-YH13yjo",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie18": {
@@ -266,6 +448,7 @@
       "rating": 7.7,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/IxfeXhGAa9M?si=y-CSvYsyT4ahojXo",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie19": {
@@ -283,6 +466,7 @@
       "rating": 8.2,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/wmjiCP6R-7I?si=dGuCSIi8fXh8VTwC",
+      "is_protected": true,
       "viewing_age": 10
     },
     "movie2": {
@@ -300,6 +484,7 @@
       "rating": 7.6,
       "release_date": "2024-11-15",
       "trailer": "https://www.youtube.com/embed/_affkHceSj4?si=OHnEJ2FWUYFYF2ga",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie20": {
@@ -317,6 +502,7 @@
       "rating": 8,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/E6ee5bxR43s?si=d0LRq472IqFUEnW5",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie3": {
@@ -334,6 +520,7 @@
       "rating": 7.8,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/lhTtrS98uf4?si=9aS281SIURTGkrUo",
+      "is_protected": true,
       "viewing_age": 13
     },
     "movie4": {
@@ -349,8 +536,9 @@
       "movie_id": 4,
       "movie_name": "Bố Già",
       "rating": 8.5,
-      "release_date": "2024-11-15",
+      "release_date": "2025-11-15",
       "trailer": "https://www.youtube.com/embed/jluSu8Rw6YE?si=IwfRGz7omZEQOy6D\" title=\"YouTube video player",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie41": {
@@ -368,6 +556,7 @@
       "rating": 6.6,
       "release_date": "08-11-2024",
       "trailer": "https://www.youtube.com/embed/2T_mKyH17mY?si=OG9IjqMhyeO6q3Kb",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie42": {
@@ -385,6 +574,7 @@
       "rating": 7.1,
       "release_date": "28-10-2024",
       "trailer": "https://www.youtube.com/embed/qaeHlk0OXec?si=cgttoGbBzhdCFRce",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie43": {
@@ -402,6 +592,7 @@
       "rating": 8.8,
       "release_date": "25-10-2024",
       "trailer": "https://www.youtube.com/embed/id1rfr_KZWg?si=WQbA6V1NfcZ0wS_V",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie44": {
@@ -419,6 +610,7 @@
       "rating": 7.6,
       "release_date": "08-11-2024",
       "trailer": "https://www.youtube.com/embed/O_JcwpDergM?si=kzqSagad3rbRzbqE\" title=\"YouTube video player",
+      "is_protected": true,
       "viewing_age": 18
     },
     "movie45": {
@@ -436,6 +628,7 @@
       "rating": 6.5,
       "release_date": "08-11-2024",
       "trailer": "https://www.youtube.com/embed/EIARKqcXILM?si=x0jNaZMZTk0WpunE",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie46": {
@@ -453,6 +646,7 @@
       "rating": 6.9,
       "release_date": "18-10-2024",
       "trailer": "https://www.youtube.com/embed/ZIz8QQBYcx0?si=N0POmaH8erO5sMsH\" title=\"YouTube video playe",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie47": {
@@ -470,6 +664,7 @@
       "rating": 7.1,
       "release_date": "01-11-2024",
       "trailer": "https://www.youtube.com/embed/zBIDSp17AOo?si=Zg3WA1M0QNjzMlw1",
+      "is_protected": true,
       "viewing_age": 18
     },
     "movie48": {
@@ -487,6 +682,7 @@
       "rating": 6.2,
       "release_date": "18-10-2024",
       "trailer": "https://www.youtube.com/embed/xVVZvSybaEc?si=deagyiC4BMY6G861",
+      "is_protected": true,
       "viewing_age": 13
     },
     "movie49": {
@@ -504,6 +700,7 @@
       "rating": 6.2,
       "release_date": "01-11-2024",
       "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
+      "is_protected": true,
       "viewing_age": 18
     },
     "movie5": {
@@ -521,6 +718,7 @@
       "rating": 7.7,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/P9Zoy3gtGlg?si=YGIxu_JQB6wlfH0n",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie50": {
@@ -538,6 +736,7 @@
       "rating": 7.3,
       "release_date": "01-11-2024",
       "trailer": "https://www.youtube.com/embed/hIKXRfyZfEg?si=-tc5Gvq_mVNZ2ByE\"",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie51": {
@@ -553,8 +752,9 @@
       "movie_id": 51,
       "movie_name": "Vùng Đất Bị Nguyền Rủa",
       "rating": 8,
-      "release_date": "01-11-2024",
+      "release_date": "2025-11-20",
       "trailer": "https://www.youtube.com/embed/TTHThG-pj6s?si=RWyBWT_sXGJ6dAba",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie52": {
@@ -572,6 +772,7 @@
       "rating": 7,
       "release_date": "11-10-2024",
       "trailer": "https://www.youtube.com/embed/2l8_FNIBWLM?si=b3qhiVWsm1_y0sYp",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie53": {
@@ -589,6 +790,7 @@
       "rating": 8.7,
       "release_date": "01-11-2024",
       "trailer": "https://www.youtube.com/embed/new1kh3wnIA?si=kLXoF6-RsM-wlGTY\" title=\"YouTube video player",
+      "is_protected": true,
       "viewing_age": 15
     },
     "movie54": {
@@ -606,6 +808,7 @@
       "rating": 9,
       "release_date": "01-11-2024",
       "trailer": "https://www.youtube.com/embed/Z6362SLEHXA?si=yIvUkwA2ISncq89U",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie55": {
@@ -623,6 +826,7 @@
       "rating": 6.4,
       "release_date": "25-10-2024",
       "trailer": "https://www.youtube.com/embed/KvmVQpkv4Pw?si=VzDgqf1zIXoEljTk",
+      "is_protected": true,
       "viewing_age": 16
     },
     "movie56": {
@@ -640,6 +844,7 @@
       "rating": 7.7,
       "release_date": "18-10-2024",
       "trailer": "https://www.youtube.com/embed/IPhJ5T1cCHw?si=qNm1-rM3o0LL6NRN",
+      "is_protected": true,
       "viewing_age": 13
     },
     "movie6": {
@@ -655,8 +860,9 @@
       "movie_id": 6,
       "movie_name": "Hai Phượng",
       "rating": 8.1,
-      "release_date": "2024-11-15",
+      "release_date": "2025-11-15",
       "trailer": "https://www.youtube.com/embed/THXPCF6UHh8?si=0IvxmtcZFDpMt2bo",
+      "is_protected": true,
       "viewing_age": 18
     },
     "movie7": {
@@ -674,6 +880,7 @@
       "rating": 7,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/Ud-YVnRK_kY?si=jNZbxUNbWPzZjnBe",
+      "is_protected": true,
       "viewing_age": 10
     },
     "movie8": {
@@ -689,8 +896,9 @@
       "movie_id": 8,
       "movie_name": "Để Mai Tính",
       "rating": 7.8,
-      "release_date": "2024-11-15",
+      "release_date": "2025-11-15",
       "trailer": "https://www.youtube.com/embed/JQPzSUqEBVQ?si=wftf5S5mirr9zw7w",
+      "is_protected": true,
       "viewing_age": 12
     },
     "movie9": {
@@ -708,805 +916,707 @@
       "rating": 7.5,
       "release_date": "2024-12-01",
       "trailer": "https://www.youtube.com/embed/Ncwkodt5dA4?si=W5Bkc3fvri4TkPdU",
+      "is_protected": true,
       "viewing_age": 16
     }
   },
-    "Seats":
-  {
+  "Seats": {
     "A": {
       "A01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a1",
         "seat_name": "A1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a2",
         "seat_name": "A2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a3",
         "seat_name": "A3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a4",
         "seat_name": "A4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a5",
         "seat_name": "A5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a6",
         "seat_name": "A6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a7",
         "seat_name": "A7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a8",
         "seat_name": "A8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a9",
         "seat_name": "A9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "A10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "a10",
         "seat_name": "A10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "B": {
       "B01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b1",
         "seat_name": "B1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b2",
         "seat_name": "B2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b3",
         "seat_name": "B3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b4",
         "seat_name": "B4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b5",
         "seat_name": "B5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b6",
         "seat_name": "B6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b7",
         "seat_name": "B7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b8",
         "seat_name": "B8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b9",
         "seat_name": "B9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "B10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "b10",
         "seat_name": "B10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "C": {
       "C01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c1",
         "seat_name": "C1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c2",
         "seat_name": "C2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c3",
         "seat_name": "C3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c4",
         "seat_name": "C4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c5",
         "seat_name": "C5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c6",
         "seat_name": "C6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c7",
         "seat_name": "C7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c8",
         "seat_name": "C8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c9",
         "seat_name": "C9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "C10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "c10",
         "seat_name": "C10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "D": {
       "D01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d1",
         "seat_name": "D1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
-  
+        "status": false
       },
       "D02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d2",
         "seat_name": "D2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d3",
         "seat_name": "D3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d4",
         "seat_name": "D4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d5",
         "seat_name": "D5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d6",
         "seat_name": "D6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d7",
         "seat_name": "D7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d8",
         "seat_name": "D8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d9",
         "seat_name": "D9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "D10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "d10",
         "seat_name": "D10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "E": {
       "E01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e1",
         "seat_name": "E1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e2",
         "seat_name": "E2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e3",
         "seat_name": "E3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e4",
         "seat_name": "E4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e5",
         "seat_name": "E5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e6",
         "seat_name": "E6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e7",
         "seat_name": "E7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e8",
         "seat_name": "E8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e9",
         "seat_name": "E9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "E10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "e10",
         "seat_name": "E10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "F": {
       "F01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f1",
         "seat_name": "F1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f2",
         "seat_name": "F2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f3",
         "seat_name": "F3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f4",
         "seat_name": "F4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f5",
         "seat_name": "F5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f6",
         "seat_name": "F6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f7",
         "seat_name": "F7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f8",
         "seat_name": "F8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f9",
         "seat_name": "F9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "F10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "f10",
         "seat_name": "F10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "G": {
       "G01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g1",
         "seat_name": "G1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g2",
         "seat_name": "G2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g3",
         "seat_name": "G3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g4",
         "seat_name": "G4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g5",
         "seat_name": "G5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g6",
         "seat_name": "G6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g7",
         "seat_name": "G7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g8",
         "seat_name": "G8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g9",
         "seat_name": "G9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "G10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "g10",
         "seat_name": "G10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     },
-  
     "H": {
       "H01": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h1",
         "seat_name": "H1",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
-        
+        "status": false
       },
       "H02": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h2",
         "seat_name": "H2",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H03": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h3",
         "seat_name": "H3",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H04": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h4",
-        "seat_name": "HB4",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "seat_name": "H4",
+        "status": false
       },
       "H05": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h5",
         "seat_name": "H5",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H06": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h6",
         "seat_name": "H6",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H07": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h7",
         "seat_name": "H7",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H08": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h8",
         "seat_name": "H8",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H09": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h9",
         "seat_name": "H9",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       },
       "H10": {
         "imgURL": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809663/seat-unselect-normal_hygw6w.png",
-        "status": false,
+        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png",
         "price": 50000,
         "seat_id": "h10",
         "seat_name": "H10",
-        "imgURL_select": "https://res.cloudinary.com/dcoviwlpx/image/upload/v1731809662/seat-select-normal_nfev6o.png"
+        "status": false
       }
     }
   },
-    "a1": {
-      "status": true
-    },
-    "b1": {
-      "status": true
-    },
-    "db1": {
-      "status": true
-    },
-    "undefined": {
-      "status": true
-    },
-  
-  "Cinema": {
-  "cinema1": {
-    "cinema_id": 1,
-    "cinema_name": "VTI Hà Nội Cinema",
-    "city": "Hà Nội",
-    "location": "123 Đường ABC, Hà Nội"
-  },
-  "cinema2": {
-    "cinema_id": 2,
-    "cinema_name": "VTI Thăng Long Movie",
-    "city": "Hà Nội",
-    "location": "456 Đường DEF, Hà Nội"
-  },
-  "cinema3": {
-    "cinema_id": 3,
-    "cinema_name": "VTI Royal Hanoi Theater",
-    "city": "Hà Nội",
-    "location": "789 Đường GHI, Hà Nội"
-  },
-  "cinema4": {
-    "cinema_id": 4,
-    "cinema_name": "VTI West Lake Cinema",
-    "city": "Hà Nội",
-    "location": "101 Đường JKL, Hà Nội"
-  },
-  "cinema5": {
-    "cinema_id": 5,
-    "cinema_name": "VTI Red River Film House",
-    "city": "Hà Nội",
-    "location": "102 Đường MNO, Hà Nội"
-  },
-  "cinema6": {
-    "cinema_id": 6,
-    "cinema_name": "VTI Đà Nẵng Star Cinema",
-    "city": "Đà Nẵng",
-    "location": "123 Đường ABC, Đà Nẵng"
-  },
-  "cinema7": {
-    "cinema_id": 7,
-    "cinema_name": "VTI Huế Heritage Cinema",
-    "city": "Huế",
-    "location": "456 Đường DEF, Huế"
-  },
-  "cinema8": {
-    "cinema_id": 8,
-    "cinema_name": "VTI Đồng Hới Film Center",
-    "city": "Đồng Hới",
-    "location": "789 Đường GHI, Đồng Hới"
-  },
-  "cinema9": {
-    "cinema_id": 9,
-    "cinema_name": "VTI Nha Trang Sun Theater",
-    "city": "Nha Trang",
-    "location": "101 Đường JKL, Nha Trang"
-  },
-  "cinema10": {
-    "cinema_id": 10,
-    "cinema_name": "VTI Pleiku Movies",
-    "city": "Pleiku",
-    "location": "102 Đường MNO, Pleiku"
-  },
-  "cinema11": {
-    "cinema_id": 11,
-    "cinema_name": "VTI Sài Gòn Film House",
-    "city": "Sài Gòn",
-    "location": "123 Đường ABC, Sài Gòn"
-  },
-  "cinema12": {
-    "cinema_id": 12,
-    "cinema_name": "VTI Mekong Movie Center",
-    "city": "Mekong",
-    "location": "456 Đường DEF, Mekong"
-  },
-  "cinema13": {
-    "cinema_id": 13,
-    "cinema_name": "VTI Vũng Tàu Ocean Cinema",
-    "city": "Vũng Tàu",
-    "location": "789 Đường GHI, Vũng Tàu"
-  },
-  "cinema14": {
-    "cinema_id": 14,
-    "cinema_name": "VTI Cần Thơ Riverside Theater",
-    "city": "Cần Thơ",
-    "location": "101 Đường JKL, Cần Thơ"
-  },
-  "cinema15": {
-    "cinema_id": 15,
-    "cinema_name": "VTI Biên Hòa Galaxy",
-    "city": "Biên Hòa",
-    "location": "102 Đường MNO, Biên Hòa"
-  }
-},
   "Showtimes": [
     {
       "date": "2024-12-18",
       "sessions": [
-        { "time": "08:40", "seatsAvailable": 136 },
-        { "time": "12:30", "seatsAvailable": 120 }
+        {
+          "seatsAvailable": 136,
+          "time": "08:40"
+        },
+        {
+          "seatsAvailable": 120,
+          "time": "12:30"
+        }
       ]
     },
     {
       "date": "2024-12-19",
       "sessions": [
-        { "time": "10:00", "seatsAvailable": 140 },
-        { "time": "16:00", "seatsAvailable": 110 }
+        {
+          "seatsAvailable": 140,
+          "time": "10:00"
+        },
+        {
+          "seatsAvailable": 110,
+          "time": "16:00"
+        }
       ]
     },
     {
       "date": "2024-12-20",
       "sessions": [
-        { "time": "10:00", "seatsAvailable": 140 },
-        { "time": "16:00", "seatsAvailable": 100 }
+        {
+          "seatsAvailable": 140,
+          "time": "10:00"
+        },
+        {
+          "seatsAvailable": 100,
+          "time": "16:00"
+        }
       ]
     }
   ]
 }
-
-

@@ -9,6 +9,7 @@ import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
 import { Payment } from "../pages/Payment/Payment";
 import ContactPage from "../pages/Contact/ContactPage";
 import { Events } from "../pages/Events/Events";
+import PaymentResult from "../pages/Payment/PaymentResult";
 
 export const UserRoutes = [
   {
@@ -47,6 +48,10 @@ export const UserRoutes = [
       {
         path: "/payment/:movie_id",
         element: <Payment />,
+      },
+      {
+        path: "/payment-result",
+        element: <PaymentResult />,
       },
     ],
   },

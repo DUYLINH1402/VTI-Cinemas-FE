@@ -26,7 +26,7 @@ export const CardPayment = () => {
     const description = "Thanh toán vé xem phim"; // Nội dung thanh toán
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
     try {
-      // Gọi API server để tạo giao dịch
+      // Gọi API server để tạo giao dịch.
       const response = await axios.post(
         "https://vticinema-zalopay-test.vercel.app/payment",
         {

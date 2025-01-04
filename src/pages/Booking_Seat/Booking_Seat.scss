@@ -2,31 +2,28 @@
 
 .content {
   font-family: "Poppins", sans-serif;
-  margin-top: 20px;
-  width: 1500px;
+  // margin-top: 20px;
   .card_seat {
-    .status_seat {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .status_seat > img {
-      margin-left: 40px;
-      width: 40px;
-    }
-    .status_seat > p {
-      margin-left: 5px;
-      font-size: 1.2rem;
-    }
-
     .content_tab {
       margin: 20px;
       display: grid;
       grid-template-columns: 2fr 1fr;
-      height: 600px;
-      border: 1px solid #ccc;
       border-radius: 10px;
       div.col1 {
+        .status_seat {
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .status_seat > img {
+          margin: 0px 3px 10px 50px;
+          width: 40px;
+        }
+        .status_seat > p {
+          margin-left: 5px;
+          font-size: 1.4rem;
+        }
         img {
           margin-right: 20px;
           margin-top: 20px;
@@ -50,36 +47,26 @@
         div.detail_seat {
           display: grid;
           grid-template-columns: 2.5fr 0.5fr;
-          border-top: 1px solid #ccc;
+          // border-top: 1px solid #ccc;
           height: 87px;
-
-          .price {
-            h2 {
-              margin-top: 10px;
-              font-size: 2.5rem;
-            }
-            h3 {
-              margin-top: 10px;
-              font-size: 2rem;
-            }
+        }
+        .row_price {
+          display: flex;
+          justify-content: space-around;
+          padding: 10px;
+          font-size: 1.5rem;
+          font-weight: 600;
+          .timeout-wrapper-booking-seat {
+            display: block;
           }
-          .timeout {
-            border-left: 1px solid #ccc;
-            h2 {
-              margin-top: 10px;
-              font-size: 2.5rem;
-              color: red;
-            }
-            h3 {
-              margin-top: 10px;
-              font-size: 2rem;
-            }
+          .title_price {
+            width: 100%;
+            margin-bottom: 10px;
           }
         }
       }
 
       .col2 {
-        border-left: 1px solid #ccc;
         h1 {
           display: flex;
           justify-content: center;
@@ -87,33 +74,7 @@
           margin: 10px auto;
           color: red;
         }
-        .detail_movie {
-          height: auto;
-          width: 350px;
-          position: sticky;
-          top: 100px;
-          border: 1px solid #ccc;
-          margin: 0 auto;
-          border-radius: 10px;
-          img {
-            margin: 10px 0;
-            border-radius: 10px;
-            height: 150px;
-            object-fit: contain;
-          }
-          h1 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: rgb(255, 55, 0);
-            text-decoration: none;
-          }
-          p {
-            text-align: left;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            margin-left: 10px;
-          }
-        }
+
         button {
           width: 30%;
           padding: 10px;

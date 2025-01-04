@@ -123,9 +123,6 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
                   icon={showPassword.oldPassword ? faEyeSlash : faEye}
                 />
               </button>
-              {errors.oldPassword && (
-                <p className="error-message">{errors.oldPassword}</p>
-              )}
             </div>
             {errors.oldPassword && (
               <p className="error-message">{errors.oldPassword}</p>

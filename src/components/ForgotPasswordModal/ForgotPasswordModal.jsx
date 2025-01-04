@@ -69,7 +69,7 @@ const ForgotPasswordModal = ({ closeModal }) => {
       role="dialog"
     >
       <div
-        className={`modal-content ${isClosing ? "scale-out" : ""}`}
+        className={`modal-content-forgot ${isClosing ? "scale-out" : ""}`}
         onClick={(e) => e.stopPropagation()} // Ngăn việc đóng modal khi click bên trong nội dung
       >
         <h2 className="modal-title">Quên mật khẩu</h2>

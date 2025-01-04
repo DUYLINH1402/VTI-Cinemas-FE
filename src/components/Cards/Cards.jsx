@@ -200,10 +200,7 @@ export const CardSeats = ({ cinema, date, time }) => {
 
   return (
     <>
-      <div className="card_seat">
-        <div className="status_seat">
-          <Status_Seat />
-        </div>
+      <div className="card_seat ">
         <div className="content_tab">
           <div className="col1">
             <img
@@ -219,24 +216,28 @@ export const CardSeats = ({ cinema, date, time }) => {
                 />
               </div>
             </div>
-
-            <div className="detail_seat">
-              <div className="price">
-                <h3>Giá vé</h3>
-                <Price price={selectedSeatPrice} />
-              </div>
-
-              <div className="timeout">
-                <h3>Thời gian</h3>
-                <h2>
+            <div className="status_seat">
+              <Status_Seat />
+            </div>
+            <div className="row_price">
+              <div className="timeout-wrapper timeout-wrapper-booking-seat">
+                <p className="title_time_out">Thời gian đặt vé còn lại:</p>
+                <div className="time_out">
                   <Timeout />
-                </h2>
+                </div>
+              </div>
+              <div className="price">
+                <div className="title_price">
+                  <p>Giá vé</p>
+                  <div className="total_price">
+                    <Price price={selectedSeatPrice} />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="col2">
-            <h1>Thông tin vé</h1>
             <div className="detail_movie">
               <Ticket_Detail seat_name={selectSeatName} />
               <button onClick={handlePayment}>Tiếp tục</button>

@@ -3,10 +3,13 @@ import { useParams, useLocation } from "react-router-dom";
 import { fetchMovies } from "../../../services/service/serviceMovie";
 import "./Ticket_Detail.modul.scss";
 
-export const Ticket_Detail = ({ seat_name, showImage = true }) => {
+export const Ticket_Detail = ({
+  seat_name,
+  showImage = true,
+  onFetchMovieDetails,
+}) => {
   const [movie, setMovie] = useState(null);
   const { movie_id } = useParams();
-
   const { state } = useLocation(); // Lấy dữ liệu từ navigate state
   const { cinema, date, time } = state || {}; // Dữ liệu truyền từ ConfirmationModal
 
@@ -18,12 +21,26 @@ export const Ticket_Detail = ({ seat_name, showImage = true }) => {
           (movie) => movie.movie_id === parseInt(movie_id)
         );
         setMovie(findMovieById);
+        // Gửi thông tin phim lên CardPayment qua callback
+        if (findMovieById && onFetchMovieDetails) {
+          onFetchMovieDetails({
+            movieName: findMovieById.movie_name,
+            format: "2D", // Hình thức chiếu cố định
+            genre: findMovieById.genre,
+            duration: findMovieById.duration,
+            theater: cinema?.cinema || "Không xác định",
+            showDate: date || "Không xác định",
+            showTime: time || "Không xác định",
+            room: "P1",
+            seat: seat_name.join(", "),
+          });
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchMovieData();
-  }, [movie_id]);
+  }, [movie_id, cinema, date, time, seat_name, onFetchMovieDetails]);
 
   return (
     <>
@@ -61,16 +78,40 @@ export const Detail_Movie = ({
             alt={movie.movie_name}
           />
         )}
-        <h1 className="detail_movie_title">{movie.movie_name}</h1>
+        <p className="detail_movie_title">{movie.movie_name}</p>
         <div className="detail_movie_info">
-          <p>Hình thức: 2D</p>
-          <p>Thể loại: {movie.genre}</p>
-          <p>Thời lượng: {movie.duration} phút</p>
-          <p>Rạp chiếu: {cinema.cinema}</p>
-          <p>Ngày chiếu: {date}</p>
-          <p>Giờ chiếu: {time}</p>
-          <p>Phòng chiếu: P1</p>
-          <p>Ghế ngồi: {seat_name.join(", ")}</p>
+          <div className="row">
+            <p className="label">Hình thức:</p>
+            <p className="value">2D, Phụ đề Tiếng Việt</p>
+          </div>
+          <div className="row">
+            <p className="label">Thể loại:</p>
+            <p className="value">{movie.genre}</p>
+          </div>
+          <div className="row">
+            <p className="label">Thời lượng:</p>
+            <p className="value">{movie.duration} phút</p>
+          </div>
+          <div className="row">
+            <p className="label">Rạp chiếu:</p>
+            <p className="value">{cinema.cinema}</p>
+          </div>
+          <div className="row">
+            <p className="label">Ngày chiếu:</p>
+            <p className="value">{date}</p>
+          </div>
+          <div className="row">
+            <p className="label">Giờ chiếu:</p>
+            <p className="value">{time}</p>
+          </div>
+          <div className="row">
+            <p className="label">Phòng chiếu:</p>
+            <p className="value">P1</p>
+          </div>
+          <div className="row">
+            <p className="label">Ghế ngồi:</p>
+            <p className="value">{seat_name.join(", ")}</p>
+          </div>
         </div>
       </div>
     </>

@@ -1,9 +1,15 @@
+@use "./../../../assets/styles/cssBase.scss";
 .modal-booking-content {
   font-size: 1.4rem;
-  gap: 30px;
   min-width: 600px;
-  .movie_name {
+  border-radius: 10px;
+  .title-booking {
     font-size: 2rem;
+    color: cssBase.$primary-color;
+    margin-bottom: 10px;
+  }
+  .movie_name {
+    font-size: 1.8rem;
     color: rgb(255, 55, 0);
     margin-bottom: 10px;
   }
@@ -11,22 +17,31 @@
     min-width: 250px;
     min-height: 35px;
     text-align: center;
+    border-radius: 10px;
+    margin-right: 5px;
   }
   .button-chose {
     min-width: 120px;
     min-height: 35px;
     margin: 5px;
     border-radius: 5px;
+    border: 1px solid #333;
+
     &:hover {
       cursor: pointer;
-      background-color: rgb(123, 117, 117);
+      background-color: rgb(114, 71, 71);
     }
   }
   p {
     margin: 5px;
+    font-size: 1.4rem;
+    line-height: 1.5;
   }
   .success {
     background-color: lightblue;
+  }
+  .button-chose-date {
+    font-weight: 500;
   }
 }
 .button-action {
@@ -34,6 +49,7 @@
   min-height: 35px;
   margin: 5px;
   border-radius: 5px;
+  border: 1px solid #333;
   &:hover {
     cursor: pointer;
     opacity: 0.8;

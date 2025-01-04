@@ -44,7 +44,7 @@ a {
   width: 95%;
   /* Đảm bảo chiều cao tối thiểu là 100% viewport */
   min-height: 100vh;
-  padding-top: 85px;
+  padding-top: 75px;
   margin: 0 auto;
 }
 .btn {
@@ -57,6 +57,7 @@ a {
   font-size: 1.6rem;
   font-weight: 400;
   color: #fff;
+  border: none;
 }
 
 .btn:hover {

@@ -4,38 +4,63 @@ import { Service } from "./Service_Cinema/Service";
 import { Timeout } from "../Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Price } from "../Booking_Seat/Timeout/Price";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Modal, Box, Typography, Button } from "@mui/material";
-
+import { Modal, Box, Typography, Button, Grid } from "@mui/material";
+import combo from "../../assets/image/combo.webp";
+import module from "./CardPayment.module.scss";
+import ServiceOrders from "./Service_Cinema/ServiceOrders";
 export const CardPayment = () => {
   const userInfo = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
   const db = getDatabase(); // Kết nối tới database Firebase
   const { state } = useLocation();
   const { selectSeatName, selectedSeatPrice } = state || {};
   const [comboPrice, setComboPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const totalPrice = selectedSeatPrice + comboPrice - discount;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = () => setIsModalOpen(true);
+  const totalPrice = selectedSeatPrice + comboPrice - discount;
   const handleCloseModal = () => setIsModalOpen(false);
+  const [movieDetails, setMovieDetails] = useState(null); // Lưu thông tin phim
+  const [selectedService, setSelectedService] = useState([]); // Lưu dịch vụ được chọn
+  console.log("Selected Services in CardPayment:", selectedService);
+
+  // Dữ liệu dịch vụ đi kèm
+  const selectedServices = selectedService.map((service) => ({
+    name: service.name_service,
+    quantity: service.quantity,
+    price: service.price * service.quantity,
+  }));
+  console.log("Sending selected services to backend:", selectedServices);
 
   const handlePayment = async () => {
+    if (!movieDetails) {
+      toast.error("Không tìm thấy thông tin phim để thanh toán.");
+      return;
+    }
+    console.log("movieDetails:", movieDetails);
     const description = "Thanh toán vé xem phim"; // Nội dung thanh toán
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
+
     try {
       // Gọi API server để tạo giao dịch.
       const response = await axios.post(
         "https://vticinema-zalopay-test.vercel.app/payment",
+        // "https://7c3c-126-103-150-211.ngrok-free.app/payment",
         {
           amount: totalPrice,
           description,
           email,
+          services: selectedServices, // Thêm dịch vụ vào payload
+          movieDetails, // Gửi thông tin phim lên BE
         }
       );
       if (response.data.order_url) {
+        // Reset selected services và combo price
+        setSelectedService([]);
+        // setComboPrice(0);
         // Chuyển hướng người dùng đến URL thanh toán của ZaloPay
         window.location.href = response.data.order_url;
       } else {
@@ -52,51 +77,57 @@ export const CardPayment = () => {
       <div className="card_payment">
         <div className="content_tab">
           <div className="col1">
-            <h1>Thông tin thanh toán</h1>
             {/*  */}
-            <div className="person_inf">
-              <div>
-                <label htmlFor="">Họ tên:</label>
-                <input
-                  type="text"
-                  value={userInfo?.fullname || userInfo?.displayName}
-                  readOnly
-                />
-              </div>
-              <div>
-                <label htmlFor="">Số điện thoại:</label>
-                <input
-                  type="text"
-                  value={userInfo?.phone || "Không có"}
-                  readOnly
-                />
-              </div>
-              <div>
-                <label htmlFor="">Email:</label>
-                <input type="email" value={userInfo?.email} readOnly />
+            <div className="person_inf_wrapper">
+              <title>Thông tin thanh toán</title>
+              <div className="person_inf">
+                <div>
+                  <label htmlFor="">Họ tên</label>
+                  <input
+                    type="text"
+                    value={userInfo?.fullname || userInfo?.displayName}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Số điện thoại</label>
+                  <input
+                    type="text"
+                    value={userInfo?.phone || "Không có"}
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <label htmlFor="">Email</label>
+                  <input type="email" value={userInfo?.email} readOnly />
+                </div>
               </div>
             </div>
             {/*  */}
             <div className="service">
-              <h1>COMBO ƯU ĐÃI</h1>
+              <title>Dịch vụ kèm</title>
               <div className="lable_service">
                 <div>
-                  <label htmlFor="">Tên combo: </label>
+                  <label htmlFor="">Tên combo </label>
                 </div>
                 <div>
-                  <label htmlFor="">Mô tả: </label>
+                  <label htmlFor="">Mô tả </label>
                 </div>
                 <div>
-                  <label htmlFor="">Số lượng: </label>
+                  <label htmlFor="">Số lượng </label>
                 </div>
               </div>
-              <div className="service1">
-                <Service setComboPrice={setComboPrice} />
+              <div>
+                <img className="combo_img" src={combo} alt="Combo ưu đãi" />
+                <Service
+                  setComboPrice={setComboPrice}
+                  setSelectedService={setSelectedService}
+                />
               </div>
             </div>
             {/*  */}
             <div className="voucher">
-              <h1>Giảm giá</h1>
+              <title>Giảm giá</title>
               {/* <span>VTI voucher (Nhấn vào đây để xem danh sách voucher)</span>
               <div className="button">
                 <button>Đổi điểm</button>
@@ -123,38 +154,47 @@ export const CardPayment = () => {
                 </div>
               </div> */}
               {/*  */}
-              <div className="total_price">
-                <div>
+              <div className="price">
+                <div class="title_price">
                   <p>Số tiền được giảm: </p>
                   <p>
                     {discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
                     VNĐ
                   </p>
                 </div>
-                <div>
+                <div className="title_price">
                   <p>Số tiền cần thanh toán: </p>
-                  <Price price={totalPrice} />
+                  <div className="total_price">
+                    <Price price={totalPrice} />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="time_out">
+            <div className="timeout-wrapper">
               <div>
                 <span>Vui lòng kiểm tra lại thông tin</span> <br /> <br />
-                <span>* Vé mua rồi không trả lại được dưới mọi hình thức</span>
+                <span>* Vé mua rồi không được dưới mọi hình thức</span>
               </div>
 
               <div>
-                <h2>Thời gian còn lại: </h2>
-                <Timeout />
+                <p className="title_time_out">Thời gian đặt vé còn lại: </p>
+                <div className="time_out">
+                  <Timeout />
+                </div>
               </div>
             </div>
           </div>
           {/*  */}
           <div className="col2">
-            <h1>Thông tin vé</h1>
+            <title>Thông tin vé</title>
             <div className="detail_movie">
-              <Ticket_Detail seat_name={selectSeatName} />
-              <button onClick={handleOpenModal}>Xác nhận thanh toán</button>
+              <Ticket_Detail
+                seat_name={selectSeatName}
+                onFetchMovieDetails={setMovieDetails} // Lấy thông tin phim từ Ticket_Detail
+              />
+              <button onClick={handleOpenModal} disabled={!movieDetails}>
+                Thanh toán
+              </button>
             </div>
           </div>
         </div>
@@ -179,14 +219,46 @@ export const CardPayment = () => {
               Xác nhận thanh toán
             </Typography>
             <Box sx={{ fontSize: "1.4rem" }}>
-              <Ticket_Detail seat_name={selectSeatName} showImage={false} />
-              <div
-                style={{ lineHeight: 1.5, marginTop: "5px", fontWeight: "600" }}
-              >
-                Tổng thanh toán
-                <Price price={totalPrice} />
+              <div>
+                <Ticket_Detail seat_name={selectSeatName} showImage={false} />
+                {/* Dịch vụ */}
+                <div>
+                  <Grid item xs={4}>
+                    <Typography variant="body1" align="left">
+                      <strong className={module.service_order_label}>
+                        Dịch vụ kèm:
+                      </strong>
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Box sx={{ textAlign: "right", marginRight: "10px" }}>
+                      {/* Lấy danh sách dịch vụ đã Orders */}
+                      <div>
+                        <ServiceOrders
+                          services={selectedServices}
+                          className={module.service_order_value}
+                        />
+                      </div>
+                    </Box>
+                  </Grid>
+                </div>
               </div>
-              <Typography sx={{ fontSize: "1.2rem", color: "red" }}>
+
+              <div
+                style={{
+                  lineHeight: 1.5,
+                  marginTop: "5px",
+                  fontWeight: "600",
+                  textAlign: "right",
+                  padding: "20px",
+                }}
+              >
+                <div>
+                  <p>Tổng thanh toán</p>
+                  <Price price={totalPrice} />
+                </div>
+              </div>
+              <Typography sx={{ fontSize: "1.4rem", color: "red" }}>
                 (Khi bấm xác nhận bạn sẽ được chuyển đến trang thanh toán)
               </Typography>
               <Box

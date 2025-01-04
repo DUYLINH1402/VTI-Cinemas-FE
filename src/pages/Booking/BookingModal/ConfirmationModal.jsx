@@ -29,14 +29,14 @@ const ConfirmationModal = ({
   return (
     <div className="modal-overlay">
       <div className="modal-content modal-booking-content modal-confirmation">
-        <h2>Bạn đang đặt vé xem phim</h2>
+        <p className="title-booking">Bạn đang đặt vé xem phim</p>
         {/* Hiển thị tên phim */}
         <h3 className="movie_name">{movie_name}</h3>
 
         {/* Hiển thị thông tin rạp, ngày và giờ chiếu */}
-        <p>Rạp chiếu: {selectedCinema.cinema}</p>
-        <p>Ngày chiếu: {selectedSchedule.date}</p>
-        <p>Giờ chiếu: {selectedSchedule.time}</p>
+        <p>Rạp chiếu : {selectedCinema.cinema}</p>
+        <p>Ngày chiếu : {selectedSchedule.date}</p>
+        <p>Giờ chiếu : {selectedSchedule.time}</p>
 
         {/* Nút "Quay lại" để quay lại bước trước */}
         <button className="button-action success" onClick={onBack}>

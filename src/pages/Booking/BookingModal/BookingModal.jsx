@@ -41,7 +41,7 @@ const BookingModal = ({ movie_id, onNext, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content modal-booking-content modal-booking">
-        <h2>Chọn rạp chiếu</h2>
+        <p className="title-booking">Chọn rạp chiếu</p>
         {/* Hiển thị thông báo lỗi nếu có */}
         {error && <p className="error">{error}</p>}
 
@@ -51,7 +51,7 @@ const BookingModal = ({ movie_id, onNext, onClose }) => {
         ) : (
           <select onChange={(e) => setCinema(e.target.value)} value={cinema}>
             {/* Tùy chọn mặc định */}
-            <option value="">---Vị trí rạp---</option>
+            <option value="">--- Vị trí rạp ---</option>
             {/* Hiển thị danh sách các rạp */}
             {cinemaList.map((cinemaItem) => (
               <option key={cinemaItem.cinema_id} value={cinemaItem.cinema_name}>

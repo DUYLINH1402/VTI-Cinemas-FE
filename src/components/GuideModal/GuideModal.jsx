@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 
 const GuideModal = () => {
   // State quản lý trạng thái mở/đóng của Modal
-  const [open, setOpen] = useState(true); // Modal mở mặc định
+  const [open, setOpen] = useState(false); // Modal mở mặc định
   const [isClosing, setIsClosing] = useState(false); // Trạng thái thu nhỏ (animation khi đóng)
   const [isOpening, setIsOpening] = useState(false); // Trạng thái phóng to (animation khi mở lại)
 

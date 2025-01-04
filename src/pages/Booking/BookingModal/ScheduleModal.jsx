@@ -48,7 +48,7 @@ const ScheduleModal = ({
   return (
     <div className="modal-overlay">
       <div className="modal-content modal-booking-content modal-schedule">
-        <h2>Chọn suất chiếu</h2>
+        <p className="title-booking">Chọn suất chiếu</p>
         {/* Hiển thị lỗi nếu có */}
         {error && <p className="error">{error}</p>}
 
@@ -61,7 +61,7 @@ const ScheduleModal = ({
             <div className="showtime-date">
               {filteredShowtimes.map((showtime) => (
                 <button
-                  className="button-chose"
+                  className="button-chose button-chose-date"
                   key={showtime.date}
                   onClick={() => setSelectedDate(showtime.date)} // Cập nhật ngày được chọn
                   style={{

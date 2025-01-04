@@ -30,7 +30,7 @@ export const UserRoutes = [
         element: <MovieInf />,
       },
       {
-        path: "/Members", // Trang thông tin phim
+        path: "/members", // Trang thông tin phim
         element: <Members />,
       },
       {

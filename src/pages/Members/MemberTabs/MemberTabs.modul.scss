@@ -23,7 +23,6 @@
   font-weight: bold;
   color: #333;
   background-color: #f0f0f0; /* Màu xám nhạt */
-  border: 1px solid #ddd;
   border-bottom: none;
   border-radius: 8px 8px 0 0; /* Góc bo tròn */
   transition: all 0.3s;
@@ -40,8 +39,19 @@
 .ant-tabs-tab:hover {
   background-color: #e6e6e6; /* Màu xám nhạt hơn khi hover */
 }
+.ant-tabs-tab-btn {
+  padding: 5px 20px;
+  border-radius: 5px;
+}
 
 /* Ẩn thanh ink-bar mặc định */
 .ant-tabs-ink-bar {
+  display: none;
+}
+.ant-tabs-nav-wrap {
+  border: none;
+  outline: none;
+}
+.ant-tabs-nav::before {
   display: none;
 }

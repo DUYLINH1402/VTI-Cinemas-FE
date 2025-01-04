@@ -2,21 +2,14 @@
 .content {
   width: 100%;
   .card__inf {
+    position: relative;
     border-bottom: 1px solid #ddd;
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    .thumnail {
-      min-height: 320px;
-    }
-    .image > img {
-      margin-left: 100px;
-      margin-bottom: 10px;
-      grid-column: 1;
-      object-fit: cover;
-      width: 250px;
-      min-height: 250px;
-      border-radius: 10px;
+    .lazy-load-image-background.blur > img {
+      padding: 10px 0;
+      border-radius: 10px !important;
     }
     .showtime {
       button {
@@ -41,6 +34,8 @@
       }
     }
     .row {
+      z-index: 10;
+      color: #ddd;
       text-align: left;
       grid-column: 2;
       margin-left: -100px;
@@ -48,10 +43,9 @@
 
       .introduce {
         margin-bottom: 20px;
-        h1 {
-          color: #03599d;
-          font-size: 2.5rem;
-          margin-bottom: 10px;
+        .movie__title {
+          color: #b0d427;
+          font-size: 3rem;
         }
 
         p {
@@ -64,52 +58,171 @@
         }
         .render_stars {
           font-size: 1.7rem;
+          padding: 10px 0;
         }
       }
     }
   }
-
-  .trailer {
-    border-bottom: 1px solid #ddd;
+  .movie-page {
+    display: flex;
+    gap: 20px;
+    padding: 20px 60px;
     margin-top: 20px;
-    h2 {
-      font-size: 2.5rem;
-      color: #03599d;
-      margin-bottom: 10px;
-    }
-    iframe {
-      border: none;
-      outline: none;
-      border-radius: 10px;
-      margin: 20px;
-    }
-  }
 
-  .comment {
-    margin-top: 50px;
-    h2 {
+    .title {
       font-size: 2rem;
-      color: #03599d;
+      color: #0f1b4c;
       margin-bottom: 10px;
     }
-    textarea {
-      padding: 10px;
-      font-size: 1.6rem;
-      width: 60%;
-      height: 100px;
+    // LEFT SECTION
+    .left-section {
+      flex: 3;
+      .trailer {
+        iframe {
+          border: none;
+          outline: none;
+          border-radius: 10px;
+          margin: 20px;
+        }
+      }
+
+      .comment {
+        margin-top: 50px;
+        textarea {
+          padding: 10px;
+          font-size: 1.4rem;
+          width: 60%;
+          height: 100px;
+        }
+        .submit {
+          margin-top: 5px;
+          margin-left: 50%;
+          button {
+            padding: 10px;
+            border-radius: 8px;
+            min-width: 125px;
+            font-size: 1.6rem;
+            background-color: #e64a19;
+            color: rgb(249, 246, 246);
+            border: 1px solid#ff6347;
+            &:hover {
+              opacity: 0.8;
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
-    .submit {
-      margin-top: 5px;
-      margin-left: 50%;
-      button {
-        padding: 10px;
-        border-radius: 8px;
-        min-width: 125px;
-        font-size: 1.6rem;
+    // RIGHT SECTION
+    .right-section {
+      flex: 1;
+      .lazy-load-image-loaded > img {
+        border-radius: 10px;
+        transition: transform 0.5s ease;
         &:hover {
-          background-color: #e64a19;
-          color: rgb(249, 246, 246);
+          transform: scale(1.1);
+        }
+      }
+      .tab-buttons {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+        button {
+          border-radius: 5px;
+          padding: 10px 20px;
+          border: none;
           cursor: pointer;
+          background-color: #eceaea;
+        }
+        .active {
+          background-color: #ff6347;
+          color: white;
+        }
+      }
+      .now-showing {
+        font-size: 1.4rem;
+        .paragraph {
+          color: #0f1b4c;
+          margin-bottom: 10px;
+        }
+        ul {
+          list-style: none;
+          padding: 0;
+          font-size: 1.4rem;
+          li {
+            position: relative;
+            .age-rating {
+              position: absolute;
+              bottom: 10px; /* Đặt gần góc dưới của poster */
+              left: 95px; /* Đặt lệch trái */
+              background-color: orange; /* Màu nền */
+              color: white; /* Màu chữ */
+              padding: 2px 6px;
+              font-size: 12px;
+              font-weight: bold;
+              border-radius: 3px;
+            }
+
+            .age-rating.age-16,
+            .age-rating.age-18 {
+              background-color: #ff6347; /* Ví dụ: màu cam cho 16+ */
+            }
+
+            .age-rating.age-13 {
+              background-color: #ddbc3f; /* Ví dụ: màu vàng cho 13+ */
+            }
+
+            .age-rating.age-P {
+              background-color: green; /* Ví dụ: màu xanh lá cho phù hợp mọi lứa tuổi */
+            }
+
+            .age-rating.age-K {
+              background-color: blue; /* Ví dụ: màu xanh dương cho phim thiếu nhi */
+            }
+          }
+          .movie-item {
+            display: flex;
+            gap: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            .movie-thumbnail {
+              font-size: 1.4rem;
+              line-height: 1.5;
+
+              .movie-thumbnail__title {
+                display: flex;
+                font-size: 1.6rem;
+                font-weight: 500;
+                color: #0f1b4c;
+                margin: 0;
+                &:hover {
+                  color: #ff6347;
+                }
+              }
+              .movie-thumbnail__genre {
+                display: flex;
+                font-size: 1.4rem;
+                color: #737373;
+              }
+              .movie-thumbnail__rating {
+                font-size: 1.3rem;
+                color: #ff6347;
+              }
+            }
+          }
+        }
+        .show-more-button {
+          padding: 10px 20px;
+          margin-top: 10px;
+          border-radius: 5px;
+          border: none;
+          background-color: #ff6347;
+          color: white;
+          cursor: pointer;
+          &:hover {
+            background-color: #e64a19;
+          }
         }
       }
     }

@@ -1,5 +1,6 @@
 import Ract, { useEffect, useState } from "react";
-import { CardInfMovie } from "../../../components/Cards/Cards";
+// import { CardInfMovie } from "../../../components/Cards/Cards";
+import { CardInfMovie } from "./CardMovie.jsx";
 import "./../MovieInf/MovieInf.scss";
 import { Link, useParams } from "react-router-dom";
 import { fetchMoviesById } from "../../../services/dataService";
@@ -71,9 +72,11 @@ export const MovieInf = () => {
   return (
     <>
       <div className="content">
-        {movie && (
-          <CardInfMovie movie={movie} onBookTicket={handleBookTicket} />
-        )}
+        <div>
+          {movie && (
+            <CardInfMovie movie={movie} onBookTicket={handleBookTicket} />
+          )}
+        </div>
       </div>
 
       {/* Modal 1: Booking */}

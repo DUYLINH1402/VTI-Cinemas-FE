@@ -86,10 +86,11 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  color: #ff6347; /* orange */
 }
 
 .star-rating .fas,
 .star-rating .far {
-  color: #ffc107; /* Màu vàng cho sao */
+  color: #ff6347; /* Màu vàng cho sao */
   font-size: 16px; /* Kích thước */
 }

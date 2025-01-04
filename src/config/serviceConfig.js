@@ -1,5 +1,5 @@
-const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
+// const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true";
 
-export default useFirebase;
+// export default useFirebase;
 
-// File này không cần cũng được
+// // File này không cần cũng được

@@ -34,7 +34,7 @@ export const HomeContent = ({}) => {
 
   return (
     <>
-      <div className="home__content">
+      <div className="home__content ">
         {/* Nút chuyển tab */}
         <div className="movie-buttons">
           <button

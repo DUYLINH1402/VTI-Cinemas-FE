@@ -1,5 +1,4 @@
 import MemberTabs from "./MemberTabs/MemberTabs";
-import "./Members.modul.scss";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -15,7 +14,7 @@ const Members = () => {
     }
   }, [isLoggedIn]);
 
-  return <div className="content">{isLoggedIn ? <MemberTabs /> : null}</div>;
+  return <div className="content ">{isLoggedIn ? <MemberTabs /> : null}</div>;
 };
 
 export default Members;

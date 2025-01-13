@@ -31,10 +31,12 @@ export const PaymentNotification = ({ appTransId }) => {
     const unsubscribe = onValue(orderRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
+        console.log("Dữ liệu Firebase:", data); // In toàn bộ dữ liệu giao dịch
         setStatus(data.status); // Cập nhật trạng thái
         setPaymentData(data); // Lưu thông tin giao dịch
       } else {
         setStatus("not_found");
+        console.error("Không tìm thấy giao dịch:", appTransId);
       }
     });
 
@@ -63,7 +65,8 @@ export const PaymentNotification = ({ appTransId }) => {
         height="100vh"
       >
         <Typography variant="h6" color="error">
-          Không tìm thấy giao dịch!
+          Giao dịch thất bại!{" "}
+          {paymentData ? `Mã lỗi: ${paymentData.errorCode}` : ""}
         </Typography>
       </Box>
     );

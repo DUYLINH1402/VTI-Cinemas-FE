@@ -22,7 +22,6 @@ const ScheduleModal = ({
         const data = await fetchShowtimes(selectedCinema, movie_id); // Gọi API với thông tin rạp đã chọn
         setShowtimes(data); // Lưu dữ liệu suất chiếu vào state
         console.log(selectedCinema);
-        console.log("Movie ID", movie_id);
       } catch (err) {
         setError(err.message || "Failed to load showtimes."); // Lưu lỗi nếu gọi API thất bại
       } finally {

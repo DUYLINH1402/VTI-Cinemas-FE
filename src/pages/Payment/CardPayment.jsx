@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ref, set, getDatabase } from "firebase/database";
+import { getDatabase } from "firebase/database";
 import { Service } from "./Service_Cinema/Service";
 import { Timeout } from "../Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../Booking_Seat/Ticket_Detail/Ticket_Detail";
@@ -25,7 +25,6 @@ export const CardPayment = () => {
   const handleCloseModal = () => setIsModalOpen(false);
   const [movieDetails, setMovieDetails] = useState(null); // Lưu thông tin phim
   const [selectedService, setSelectedService] = useState([]); // Lưu dịch vụ được chọn
-  console.log("Selected Services in CardPayment:", selectedService);
 
   // Dữ liệu dịch vụ đi kèm
   const selectedServices = selectedService.map((service) => ({
@@ -33,14 +32,14 @@ export const CardPayment = () => {
     quantity: service.quantity,
     price: service.price * service.quantity,
   }));
-  console.log("Sending selected services to backend:", selectedServices);
+  // console.log("Sending selected services to backend:", selectedServices);
 
+  console.log("movieDetails in CardPayment:", movieDetails);
   const handlePayment = async () => {
     if (!movieDetails) {
       toast.error("Không tìm thấy thông tin phim để thanh toán.");
       return;
     }
-    console.log("movieDetails:", movieDetails);
     const description = "Thanh toán vé xem phim"; // Nội dung thanh toán
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
 
@@ -48,7 +47,7 @@ export const CardPayment = () => {
       // Gọi API server để tạo giao dịch.
       const response = await axios.post(
         "https://vticinema-zalopay-test.vercel.app/payment",
-        // "https://7c3c-126-103-150-211.ngrok-free.app/payment",
+        // "https://a83b-126-103-150-211.ngrok-free.app/payment",
         {
           amount: totalPrice,
           description,

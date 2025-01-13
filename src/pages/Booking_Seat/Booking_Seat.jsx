@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 export const Booking_Seat = () => {
   const { state } = useLocation();
-  const { cinema, date, time } = state || {};
+  const { cinema, date, time, movie_id } = state || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -13,7 +13,12 @@ export const Booking_Seat = () => {
   return (
     <>
       <div className="content">
-        <CardSeats cinema={cinema} date={date} time={time} />
+        <CardSeats
+          cinema={cinema}
+          date={date}
+          time={time}
+          movie_id={movie_id}
+        />
       </div>
     </>
   );

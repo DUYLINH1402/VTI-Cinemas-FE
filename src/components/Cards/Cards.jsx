@@ -13,6 +13,7 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import LazyImage from "../LazyImage";
 
+// HÀM HIỂN THỊ SAO
 export const renderStars = (rating) => {
   // Kiểm tra nếu không có rating hoặc rating không phải là số
   if (!rating || typeof rating !== "number") {

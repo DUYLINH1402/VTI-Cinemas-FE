@@ -24,6 +24,7 @@ export const Ticket_Detail = ({
         // Gửi thông tin phim lên CardPayment qua callback
         if (findMovieById && onFetchMovieDetails) {
           onFetchMovieDetails({
+            movie_id: findMovieById.movie_id,
             movieName: findMovieById.movie_name,
             format: "2D", // Hình thức chiếu cố định
             genre: findMovieById.genre,
@@ -41,11 +42,13 @@ export const Ticket_Detail = ({
     };
     fetchMovieData();
   }, [movie_id, cinema, date, time, seat_name, onFetchMovieDetails]);
+  // console.log("movie_id in Ticket_Detail:", movie_id);
 
   return (
     <>
       {movie ? (
         <Detail_Movie
+          movie_id={movie_id}
           movie={movie}
           cinema={cinema}
           date={date}

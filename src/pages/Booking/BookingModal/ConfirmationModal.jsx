@@ -14,7 +14,7 @@ const ConfirmationModal = ({
     localStorage.setItem("statusSeats", JSON.stringify({}));
     localStorage.setItem("selectedSeatPrice", 0);
     localStorage.setItem("selectedSeatNames", JSON.stringify([]));
-
+    console.log("movie_id in ConfirmationModal: ", movie_id);
     // Điều hướng đến trang chọn ghế và truyền dữ liệu đã chọn
     navigate(`/booking_seat/${movie_id}`, {
       state: {

@@ -34,7 +34,6 @@ const BookingModal = ({ movie_id, onNext, onClose }) => {
         movie_id: movie_id, // Truyền ID phim đã chọn
       });
       console.log("Cinema Selected:", cinema); // Log thông tin rạp đã chọn
-      console.log("Movie ID", movie_id);
     }
   };
 

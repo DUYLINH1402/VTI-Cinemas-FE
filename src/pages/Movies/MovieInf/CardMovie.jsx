@@ -4,6 +4,8 @@ import { renderStars } from "../../../components/Cards/Cards";
 import notification_bg from "../../../assets/image/notification_bg.jpg";
 import { fetchMoviesByTab } from "../../../services/dataService";
 import { useNavigate } from "react-router-dom";
+import Comments from "./Comments";
+import LoadingScreen from "../../../components/Loading/LoadingScreen";
 
 export const CardInfMovie = ({ movie, onBookTicket }) => {
   const [movies, setMovies] = useState([]);
@@ -77,7 +79,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         {/* Left Section */}
         <div className="left-section">
           <div className="trailer">
-            <p className="title">Trailer</p>
+            {/* <p className="title">Trailer</p> */}
             <iframe
               width="600"
               height="300"
@@ -89,12 +91,9 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
               allowFullScreen
             ></iframe>
           </div>
-          <div className=" comment">
-            <p className="title">Bình luận từ người xem</p>
-            <textarea placeholder="Gửi bình luận ở đây"></textarea>
-            <div className="submit">
-              <button className="button">Gửi</button>
-            </div>
+          <div>
+            {/* Bình luận */}
+            <Comments movieId={movie.movie_id} movieName={movie.movie_name} />
           </div>
         </div>
         {/* Right Section */}
@@ -116,7 +115,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
 
           <div className="now-showing">
             {loading ? (
-              <p className="paragraph">Đang tải...</p>
+              <LoadingScreen message="Đang tải danh sách phim..." size={60} />
             ) : moviesToShow.length > 0 ? (
               <>
                 <ul className="movie-list">

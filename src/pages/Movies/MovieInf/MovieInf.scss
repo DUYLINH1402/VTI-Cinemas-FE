@@ -66,13 +66,14 @@
   .movie-page {
     display: flex;
     gap: 20px;
-    padding: 20px 60px;
+    padding: 20px 120px;
     margin-top: 20px;
 
     .title {
+      text-align: left;
       font-size: 2rem;
       color: #0f1b4c;
-      margin-bottom: 10px;
+      margin: 10px 0;
     }
     // LEFT SECTION
     .left-section {
@@ -142,10 +143,7 @@
       }
       .now-showing {
         font-size: 1.4rem;
-        .paragraph {
-          color: #0f1b4c;
-          margin-bottom: 10px;
-        }
+
         ul {
           list-style: none;
           padding: 0;
@@ -226,5 +224,260 @@
         }
       }
     }
+  }
+}
+//  COMMENT COMPONENT
+.comments-section {
+  width: 90%;
+  padding: 0 20px;
+  margin-top: 20px;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  .info {
+    color: #cc0000;
+  }
+  .paragraph {
+    display: block;
+    color: #0f1b4c;
+    margin: 10px;
+  }
+  .comment-length {
+    display: flex;
+    justify-content: end;
+    color: gray;
+    margin-bottom: 5px;
+  }
+  textarea {
+    height: 60px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .comment-actions {
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #ccc;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 phần cho textarea, 1 phần cho upload và gửi */
+    gap: 20px;
+    align-items: center;
+
+    .image-upload-section {
+      .custom-upload-btn {
+        margin: 10px;
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+    .image-preview img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 4px;
+    }
+    .remove-image-btn {
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-image-btn:hover {
+      background-color: #cc0000;
+    }
+
+    button.send-comment-btn {
+      width: 100%;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #0f1b4c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+  }
+  .movie-rating {
+    display: flex;
+    padding: 10px;
+    .star {
+      margin-right: 10px;
+      font-size: 3rem;
+      color: #ff6347;
+      transition: transform 0.2s ease, color 0.2s ease; /* Hiệu ứng mượt khi hover hoặc chọn */
+    }
+    .core {
+      font-size: 3rem;
+      margin-top: 10px;
+      color: gray;
+    }
+  }
+  .comment-item {
+    margin: 0 auto;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0px;
+    text-align: left; /* Đảm bảo nội dung trong comment-item căn trái */
+    .comment-header {
+      display: flex;
+      align-items: flex-start;
+      font-size: 1.4rem;
+
+      .user-avatar {
+        border-radius: 50%;
+      }
+      .user-info {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-left: 10px;
+        .username {
+          display: inline-block;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .timestamp {
+          padding: 10px;
+          font-size: 12px;
+          color: gray;
+        }
+      }
+    }
+    .user-rating {
+      font-size: 1.4rem;
+      color: #ff6347;
+      margin-bottom: 5px;
+    }
+    .content-comment {
+      margin: 10px 0;
+      display: flex;
+    }
+
+    .comment-image {
+      max-width: 300px;
+      max-height: 200px;
+      margin: 10px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
+
+    .tags {
+      margin-top: 10px;
+      display: flex;
+
+      .tag {
+        background-color: #eef8ff;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin-right: 5px;
+        color: gray;
+        border: 1px solid #ccc;
+      }
+    }
+
+    .actions {
+      margin-left: 20px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+      margin-top: 10px;
+      font-size: 14px;
+      color: gray;
+      gap: 50px;
+      .comment-count {
+        &:hover {
+          color: #0f1b4c;
+        }
+      }
+      .actions_icon {
+        margin-right: 3px;
+        transform: translateY(2px);
+      }
+      span {
+        cursor: pointer;
+      }
+    }
+  }
+}
+// SELECTOR COMPONENT
+.tag-selector {
+  margin-top: 10px;
+
+  .tag-title {
+    margin-bottom: 10px;
+    color: gray;
+  }
+
+  .tags-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .tag-button {
+    color: #0f1b4c;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    &:hover {
+      background-color: #eef8ff;
+    }
+    &.selected {
+      background-color: #eef8ff;
+      color: gray;
+    }
+  }
+}
+// RATING COMPONENT
+.rating-section {
+  // display: flex;
+  text-align: center;
+  margin: 10px auto;
+
+  .rating-stars {
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  .star {
+    padding: 3px;
+    font-size: 3rem;
+    color: #ddd; /* Sao rỗng */
+    transition: color 0.2s ease;
+  }
+  .rating-star:hover {
+    color: #ff6347;
+  }
+  .star.filled {
+    color: #ff6347; /* Sao đầy */
+  }
+  .star:hover {
+    transform: scale(1.2); /* Tăng kích thước khi hover */
+  }
+  .rating-star.selected {
+    color: #ff6347;
+    font-weight: bold;
+  }
+  .rating-stars.disabled {
+    opacity: 0.5; /* Làm mờ toàn bộ khi disabled */
+    pointer-events: none; /* Vô hiệu hóa tương tác */
   }
 }

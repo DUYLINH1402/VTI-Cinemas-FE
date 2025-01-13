@@ -76,9 +76,7 @@ export const validateField = (field, value) => {
       } else if (value.length < 10) {
         error = "Thông tin chi tiết phải có ít nhất 10 ký tự.";
       }
-      // else if (value.length > 300) {
-      //   error = "Thông tin chi tiết không được vượt quá 300 ký tự.";
-      // }
+
       break;
     default:
       break;

@@ -2,7 +2,7 @@ import Ract, { useEffect, useState } from "react";
 // import { CardInfMovie } from "../../../components/Cards/Cards";
 import { CardInfMovie } from "./CardMovie.jsx";
 import "./../MovieInf/MovieInf.scss";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchMoviesById } from "../../../services/dataService";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";

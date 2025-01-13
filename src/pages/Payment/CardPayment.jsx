@@ -4,16 +4,19 @@ import { Service } from "./Service_Cinema/Service";
 import { Timeout } from "../Booking_Seat/Timeout/Timeout";
 import { Ticket_Detail } from "../Booking_Seat/Ticket_Detail/Ticket_Detail";
 import { Price } from "../Booking_Seat/Timeout/Price";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Modal, Box, Typography, Button, Grid } from "@mui/material";
 import combo from "../../assets/image/combo.webp";
 import module from "./CardPayment.module.scss";
 import ServiceOrders from "./Service_Cinema/ServiceOrders";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import LoadingIcon from "../../components/LoadingIcon";
+
 export const CardPayment = () => {
   const userInfo = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
   const db = getDatabase(); // Kết nối tới database Firebase
   const { state } = useLocation();
   const { selectSeatName, selectedSeatPrice } = state || {};
@@ -25,6 +28,7 @@ export const CardPayment = () => {
   const handleCloseModal = () => setIsModalOpen(false);
   const [movieDetails, setMovieDetails] = useState(null); // Lưu thông tin phim
   const [selectedService, setSelectedService] = useState([]); // Lưu dịch vụ được chọn
+  const [isLoading, setIsLoading] = useState(false);
 
   // Dữ liệu dịch vụ đi kèm
   const selectedServices = selectedService.map((service) => ({
@@ -40,9 +44,9 @@ export const CardPayment = () => {
       toast.error("Không tìm thấy thông tin phim để thanh toán.");
       return;
     }
+    setIsLoading(true); // Bắt đầu hiển thị spinner
     const description = "Thanh toán vé xem phim"; // Nội dung thanh toán
     const email = userInfo?.email; // Lấy email truyền xuống BE để làm app_user
-
     try {
       // Gọi API server để tạo giao dịch.
       const response = await axios.post(
@@ -57,9 +61,8 @@ export const CardPayment = () => {
         }
       );
       if (response.data.order_url) {
-        // Reset selected services và combo price
         setSelectedService([]);
-        // setComboPrice(0);
+        setIsLoading(false); // Dừng spinner trước khi chuyển trang
         // Chuyển hướng người dùng đến URL thanh toán của ZaloPay
         window.location.href = response.data.order_url;
       } else {
@@ -68,6 +71,7 @@ export const CardPayment = () => {
     } catch (error) {
       console.error("Có lỗi xảy ra khi tạo giao dịch:", error);
       toast.error("Có lỗi xảy ra khi tạo giao dịch.");
+      setIsLoading(false); // Dừng spinner khi gặp lỗi
     }
   };
 
@@ -278,8 +282,13 @@ export const CardPayment = () => {
                   onClick={handlePayment}
                   color="primary"
                   sx={{ fontSize: "1.2rem" }}
+                  disabled={isLoading} // Vô hiệu hóa nút khi đang gửi
                 >
-                  Xác nhận
+                  {isLoading ? (
+                    <LoadingIcon size="20px" color="red" />
+                  ) : (
+                    "Xác nhận"
+                  )}
                 </Button>
               </Box>
             </Box>

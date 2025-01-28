@@ -278,17 +278,14 @@ export const CardPayment = () => {
                 >
                   Hủy
                 </Button>
+
                 <Button
                   onClick={handlePayment}
                   color="primary"
                   sx={{ fontSize: "1.2rem" }}
                   disabled={isLoading} // Vô hiệu hóa nút khi đang gửi
                 >
-                  {isLoading ? (
-                    <LoadingIcon size="20px" color="red" />
-                  ) : (
-                    "Xác nhận"
-                  )}
+                  {isLoading ? <LoadingIcon /> : "Xác nhận"}
                 </Button>
               </Box>
             </Box>

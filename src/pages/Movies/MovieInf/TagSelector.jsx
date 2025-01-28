@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 
 const TagSelector = ({ onSelectTags, selectedTags }) => {
   const availableTags = [
-    "Tuyệt vời",
+    "Tuyệt vời!",
     "Hài lòng",
-    "Giải trí",
     "Cảm động",
     "Đáng xem",
     "Hài hước",
     "Siêu phẩm",
+    "Tạm được!",
   ];
 
   const [internalTags, setInternalTags] = useState(selectedTags || []);

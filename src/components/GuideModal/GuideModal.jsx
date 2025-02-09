@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -15,12 +15,19 @@ import styles from "./GuideModal.module.scss";
 import classNames from "classnames";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-
-const GuideModal = () => {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+const GuideModal = ({ autoOpen = false }) => {
   // State quản lý trạng thái mở/đóng của Modal
-  const [open, setOpen] = useState(false); // Modal mở mặc định
   const [isClosing, setIsClosing] = useState(false); // Trạng thái thu nhỏ (animation khi đóng)
   const [isOpening, setIsOpening] = useState(false); // Trạng thái phóng to (animation khi mở lại)
+  const [open, setOpen] = useState(autoOpen);
+
+  useEffect(() => {
+    if (autoOpen) {
+      setOpen(true);
+    }
+  }, [autoOpen]);
 
   // Hàm xử lý đóng Modal
   const handleClose = () => {
@@ -92,6 +99,7 @@ const GuideModal = () => {
                 Tải App tại đây (bản thử nghiệm)
               </a>
             </div>
+            <FontAwesomeIcon icon={faCheck} className={styles.check_icon} />
             <div className={styles.guide_content}>
               <p className={styles.guide_intro}>
                 2. Thanh toán bằng thẻ Visa, Master, JCB
@@ -109,14 +117,24 @@ const GuideModal = () => {
                 </Button>
                 <br />
                 <strong className={styles.title_card}>Tên :</strong> NGUYEN VAN
-                A <br />
+                A
+                <Button
+                  size="small"
+                  startIcon={<ContentCopyIcon />}
+                  className={styles.copyButton}
+                  onClick={() => handleCopy("NGUYEN VAN A")}
+                >
+                  Copy
+                </Button>
+                <br />
                 <strong className={styles.title_card}>
                   Ngày hết hạn :
                 </strong>{" "}
-                01/25 <br />
+                01/26 <br />
                 <strong className={styles.title_card}>Mã CVV :</strong> 123
               </p>
             </div>
+
             <div className={styles.guide_content}>
               <p className={styles.guide_intro}>
                 3. Thanh toán bằng thẻ ATM (Test với Bank SBI)
@@ -166,7 +184,7 @@ const GuideModal = () => {
                   size="small"
                   startIcon={<ContentCopyIcon />}
                   className={styles.copyButton}
-                  onClick={() => handleCopy("9704540000000047	")}
+                  onClick={() => handleCopy("9704540000000047")}
                 >
                   Copy
                 </Button>

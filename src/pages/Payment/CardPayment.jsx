@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { getDatabase } from "firebase/database";
 import { Service } from "./Service_Cinema/Service";
 import { Timeout } from "../Booking_Seat/Timeout/Timeout";
@@ -11,9 +11,8 @@ import { Modal, Box, Typography, Button, Grid } from "@mui/material";
 import combo from "../../assets/image/combo.webp";
 import module from "./CardPayment.module.scss";
 import ServiceOrders from "./Service_Cinema/ServiceOrders";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import LoadingIcon from "../../components/LoadingIcon";
+import GuideModal from "../../components/GuideModal/GuideModal";
 
 export const CardPayment = () => {
   const userInfo = JSON.parse(localStorage.getItem("user"));
@@ -29,6 +28,11 @@ export const CardPayment = () => {
   const [movieDetails, setMovieDetails] = useState(null); // Lưu thông tin phim
   const [selectedService, setSelectedService] = useState([]); // Lưu dịch vụ được chọn
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showGuide, setShowGuide] = useState(false); // State để hiển thị GuideModal
+  useEffect(() => {
+    setShowGuide(true); // Mở modal ngay khi vào CardPayment
+  }, []);
 
   // Dữ liệu dịch vụ đi kèm
   const selectedServices = selectedService.map((service) => ({
@@ -292,6 +296,8 @@ export const CardPayment = () => {
           </Box>
         </Modal>
       </div>
+      {/* Hiển thị GuideModal */}
+      {showGuide && <GuideModal autoOpen={true} />}
     </>
   );
 };

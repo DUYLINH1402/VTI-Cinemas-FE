@@ -6,28 +6,40 @@ import {
   orderByChild,
   equalTo,
   onValue,
-  push,
-  set,
   get,
-  update,
 } from "firebase/database";
 import comment_icon from "../../../assets/icon/comment_icon.svg";
-import like_icon from "../../../assets/icon/like_icon.svg";
-import edit_icon from "../../../assets/icon/edit_icon.svg";
+import liked_icon from "../../../assets/icon/liked_icon.svg";
+import unlike_icon from "../../../assets/icon/unlike_icon.svg";
 import TagSelector from "./TagSelector";
 import useAutosizeTextarea from "../../../utils/utilsFunction";
-import { toast } from "react-toastify";
-import { uploadImageComments } from "../../../services/service/serviceUploadImage.js";
 import LazyImage from "../../../components/LazyImage.jsx";
 import RenderRatingStars from "./RatingStars.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar as solidStar, faX } from "@fortawesome/free-solid-svg-icons";
+import { Menu, MenuItem, IconButton } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert"; // Icon 3 chấm
+import EditIcon from "@mui/icons-material/Edit"; // Icon sửa
+import DeleteIcon from "@mui/icons-material/Delete"; // Icon xóa
 import { fetchMoviesByIdFromFirebase } from "../../../services/firebase/firebaseMovie.js";
 import { LoadingScreen } from "../../../components/Loading/LoadingScreen.jsx";
 import LoadingIcon from "../../../components/LoadingIcon.jsx";
 import { CSSTransition } from "react-transition-group";
-import { handleAddSubcomment, handleUpdateComment } from "./CommentHandle.js";
+import { DeleteConfirmModal } from "./DeleteConfirmModal.jsx";
+import {
+  handleAddSubcomment,
+  handleUpdateSubComment,
+  handleLikeComment,
+  handleDeleteSubcomment,
+  handleDeleteComment,
+  handleAddComment,
+  handleEditComment,
+} from "./CommentHandle.js";
+
 const Comments = ({ movieId }) => {
+  const [isEditingComment, setIsEditingComment] = useState(false);
+  const [isEditingSubComment, setIsEditingSubComment] = useState(false);
+
   const [isLoadingComments, setIsLoadingComments] = useState(true);
   const [isLoading, setIsLoading] = useState(false); // Trạng thái hệ thống đang xử lý
   const [hasRated, setHasRated] = useState(false); // Trạng thái đã gửi đánh giá
@@ -41,28 +53,58 @@ const Comments = ({ movieId }) => {
   const textareaRef = useRef(null);
   const actionsRef = useRef(null); // Tham chiếu đến phần mở rộng
   const containerRef = useRef(null); // Tham chiếu đến toàn bộ "cục" này
+
+  // Trạng thái chỉnh sửa Comment
+  const [editingCommentId, setEditingCommentId] = useState(null); // ID comment đang chỉnh sửa
+  const [editCommentContent, setEditCommentContent] = useState(""); // Nội dung chỉnh sửa
+  const [editCommentImage, setEditCommentImage] = useState(null); // Ảnh chỉnh sửa
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event, commentId) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedCommentId(commentId);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  // Trạng thái chỉnh sửa SubComment
   const [visibleSubcomments, setVisibleSubcomments] = useState({}); // Trạng thái lưu subcomments của từng comment
   const subcommentsRefs = useRef({}); // Sử dụng đối tượng ref thay vì một ref chung
   const [editingSubcommentId, setEditingSubcommentId] = useState({
     commentId: null,
     subcommentId: null,
   });
+  const [subAnchorEl, setSubAnchorEl] = useState(null); // Quản lý menu 3 chấm cho subcomment
+  const [selectedSubcomment, setSelectedSubcomment] = useState({
+    commentId: null,
+    subcommentId: null,
+  });
+
+  const handleSubMenuOpen = (event, commentId, subcommentId) => {
+    setSubAnchorEl(event.currentTarget);
+    setSelectedSubcomment({ commentId, subcommentId });
+  };
+
+  const handleSubMenuClose = () => {
+    setSubAnchorEl(null);
+    setSelectedSubcomment({ commentId: null, subcommentId: null });
+  };
+
   // Chỉ lưu ID subcomment đang chỉnh sửa
   const [editText, setEditText] = useState(""); // Lưu nội dung chỉnh sửa
-
   const toggleSubcomments = (commentId) => {
-    // console.log("Trạng thái trước:", visibleSubcomments[commentId]);
     setVisibleSubcomments((prev) => ({
       ...prev,
       [commentId]: !prev[commentId], // Đảo ngược trạng thái
     }));
-    // console.log("Trạng thái sau:", !visibleSubcomments[commentId]);
   };
   const [newSubcomment, setNewSubcomment] = useState("");
   // Xử lý khi click vào textarea
   const handleTextareaClick = () => {
     setIsExpanded(true); // Hiện các phần mở rộng khi click vào textarea
   };
+
   // Xử lý khi click bên ngoài để đóng
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -88,8 +130,17 @@ const Comments = ({ movieId }) => {
   }, []);
 
   // Sử dụng hook để tự động thay đổi chiều cao textarea từ utilsFunction
-  useAutosizeTextarea(textareaRef, newComment);
+  const editCommentTextareaRef = useRef(null); // Ref cho chỉnh sửa Comment
+  const editSubcommentTextareaRef = useRef(null); // Ref cho chỉnh sửa Subcomment
 
+  useAutosizeTextarea(editCommentTextareaRef, editCommentContent);
+  useAutosizeTextarea(editSubcommentTextareaRef, editText);
+
+  const editTextareaRef = useRef(null);
+  const newSubcommentareaRef = useRef(null);
+  useAutosizeTextarea(textareaRef, newComment);
+  useAutosizeTextarea(editTextareaRef, editText);
+  useAutosizeTextarea(newSubcommentareaRef, newSubcomment);
   // Định dạng ngày tháng
   const formatDate = (timestamp) => {
     const date = new Date(timestamp); // Chuyển timestamp thành đối tượng Date
@@ -101,21 +152,53 @@ const Comments = ({ movieId }) => {
     return `${day}/${month}/${year}  ${hours}:${minutes}`;
   };
 
+  // XOÁ SUBCOMMENT
+  // Trạng thái hiển thị Modal xác nhận xoá dùng chung Comment and SubComment
+  const [deleteType, setDeleteType] = useState(""); // "comment" hoặc "subcomment"
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedCommentId, setSelectedCommentId] = useState(null);
+  const [selectedSubcommentId, setSelectedSubcommentId] = useState(null);
+  const showDeleteModal = (commentId, subcommentId = null) => {
+    setSelectedCommentId(commentId);
+    setSelectedSubcommentId(subcommentId);
+    setDeleteType(subcommentId ? "subcomment" : "comment");
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!selectedCommentId) {
+      console.error("LỖI: `selectedCommentId` bị null trước khi xóa!");
+      return;
+    }
+    if (deleteType === "comment") {
+      handleDeleteComment(selectedCommentId, movieId);
+    } else if (deleteType === "subcomment") {
+      handleDeleteSubcomment(selectedCommentId, selectedSubcommentId);
+    }
+    setIsDeleteModalOpen(false);
+  };
+
   // LƯU ẢNH VÀO CLOUDINARY
   const [image, setImage] = useState(null); // Lưu trữ file ảnh Comment
   const [previewImage, setPreviewImage] = useState(null); // Lưu URL tạm thời để hiển thị ảnh
-  const handleImageChange = (e) => {
+  // Hiển thị Review khi Chọn và sửa ảnh
+  const handleEditImageChange = (e) => {
     const file = e.target.files[0];
-    console.log("File được chọn:", file); // Log để kiểm tra file
     if (file) {
-      setImage(file); // Lưu file ảnh vào state
-      setPreviewImage(URL.createObjectURL(file)); // Tạo URL tạm thời để hiển thị
+      const previewURL = URL.createObjectURL(file); // Tạo URL xem trước ảnh
+      setEditCommentImage(file); // Lưu file ảnh vào state
+      setPreviewImage(previewURL); // Cập nhật ảnh hiển thị
+      setImage(file); // Set ảnh trước để khi bấm gửi sẽ được lưu vào Firebase
+      console.log("Ảnh mới được chọn:", file);
+      console.log("URL xem trước:", previewURL);
     }
   };
+
   // Hàm xử lý khi người dùng xóa ảnh
   const handleRemoveImage = () => {
     setImage(null); // Xóa file ảnh khỏi state
     setPreviewImage(null); // Xóa URL xem trước
+    setEditCommentImage(null); // Xóa ảnh trước khỏi state
   };
   // Reset các state liên quan đến bình luận khi movieId hoặc movieName thay đổi
   useEffect(() => {
@@ -127,7 +210,7 @@ const Comments = ({ movieId }) => {
     setHasRated(false); // Reset trạng thái đã đánh giá
   }, [movieId]);
 
-  // Kiểm tra đã bình luận hay chưa
+  // KIỂM TRA XEM NGƯỜI DÙNG ĐÃ BÌNH LUẬN HAY CHƯA
   useEffect(() => {
     const checkHasRated = async () => {
       if (!userInfo?.email || !movieId) return;
@@ -163,7 +246,7 @@ const Comments = ({ movieId }) => {
     checkHasRated();
   }, [userInfo, movieId]);
 
-  // Kiểm tra quyền bình luận
+  // KIỂM TRA QUYỀN BÌNH LUẬN (ĐÃ MUA VÉ HAY CHƯA)
   useEffect(() => {
     const db = getDatabase();
     const ordersRef = ref(db, "Orders");
@@ -197,7 +280,7 @@ const Comments = ({ movieId }) => {
     return () => unsubscribe();
   }, [userInfo, movieId]);
 
-  // Lấy dữ liệu phim từ database
+  // LẤY DỮ LIỆU PHIM BẰNG MOVIEID
   const [movieData, setMovieData] = useState(null);
   const [isLoadingMovie, setIsLoadingMovie] = useState(true);
   useEffect(() => {
@@ -221,14 +304,13 @@ const Comments = ({ movieId }) => {
     fetchMovie();
   }, [movieId]);
 
-  // Lấy danh sách bình luận
+  // LẤY DANH SÁCH BÌNH LUẬN CỦA BỘ PHIM HIỆN TẠI
   useEffect(() => {
     setIsLoadingComments(true); // Bật trạng thái loading trước khi bắt đầu
     if (!movieId) {
       setIsLoadingComments(false); // Tắt trạng thái nếu không có movieId
       return;
     }
-
     const db = getDatabase();
     const commentsRef = ref(db, "Comments");
     const commentsQuery = query(
@@ -236,7 +318,6 @@ const Comments = ({ movieId }) => {
       orderByChild("movieId"),
       equalTo(String(movieId)) // Đảm bảo movieId là chuỗi
     );
-
     const unsubscribe = onValue(
       commentsQuery,
       (snapshot) => {
@@ -261,115 +342,10 @@ const Comments = ({ movieId }) => {
         setIsLoadingComments(false); // Tắt trạng thái loading khi xảy ra lỗi
       }
     );
-
     return () => unsubscribe(); // Hủy lắng nghe khi component unmount
   }, [movieId]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // Thêm bình luận mới
-  const handleAddComment = async () => {
-    if (rating === 0) {
-      toast.warning("Vui lòng chọn số sao đánh giá!");
-      return;
-    }
-    if (!newComment.trim()) {
-      toast.warning("Vui lòng nhập nội dung bình luận!");
-      return;
-    }
-    if (newComment.length < minCharacters) {
-      toast.warning(`Bình luận phải có ít nhất ${minCharacters} ký tự!`);
-      return;
-    }
-    if (selectedTags.length === 0) {
-      toast.warning("Vui lòng chọn cảm xúc của bạn!");
-      return;
-    }
-    // setIsLoading(true); // Bật trạng thái loading
-    setIsSubmitting(true); // Bật trạng thái loading
-    let imageUrl = null;
-    if (image) {
-      try {
-        // Gọi hàm uploadImageComments
-        imageUrl = await uploadImageComments(image);
-        console.log("URL ảnh đã tải lên:", imageUrl);
-      } catch (error) {
-        console.error("Lỗi khi tải ảnh:", error);
-        toast.warning("Không thể tải ảnh lên. Vui lòng thử lại!");
-        return;
-      }
-    }
-    // Tạo tham chiếu đến bảng Comments
-    const db = getDatabase();
-    const commentsRef = ref(db, "Comments");
-    const commentsQuery = query(
-      commentsRef,
-      orderByChild("email_movieId"),
-      equalTo(`${userInfo?.email}_${movieId}`)
-    );
-
-    setIsLoading(true); // Bật trạng thái loading
-    const formattedDate = formatDate(Date.now());
-
-    // Dữ liệu cần lưu
-    const commentData = {
-      email: userInfo?.email, // Lưu email thay vì userId
-      email_movieId: `${userInfo?.email}_${movieId}`, // Khóa duy nhất kết hợp email và movieId
-      purchased: canComment, // Lưu trạng thái đã mua vé
-      username: userInfo?.fullname || userInfo?.displayName,
-      avatar: userInfo?.avatar || userInfo?.photoURL,
-      content: newComment,
-      tags: selectedTags, // Danh sách thẻ cảm xúc
-      image: imageUrl || null, // Lưu URL ảnh nếu có
-      timestamp: Date.now(), // Lưu timestamp dạng số
-      movieId: String(movieId),
-      likes: 0, // Mặc định 0 lượt thích
-      commentsCount: 0, // Mặc định 0 bình luận phản hồi
-      rating: rating * 2, // Lưu điểm đánh giá
-    };
-    // console.log("Bình luận gửi đi:", commentData);
-    try {
-      // Kiểm tra nếu đã có bình luận cho phim này
-      const snapshot = await get(commentsQuery);
-      if (snapshot.exists()) {
-        // toast.warning("Bạn đã gửi đánh giá cho phim này!");
-        setHasRated(true);
-        return;
-      }
-      const newCommentRef = push(commentsRef);
-      await set(newCommentRef, commentData);
-
-      // Cập nhật tổng điểm và số lượt đánh giá cho phim
-      const movie = await fetchMoviesByIdFromFirebase(movieId);
-
-      if (movie) {
-        const totalRatings = (movie.totalRatings || 0) + commentData.rating;
-        const totalReviews = (movie.totalReviews || 0) + 1;
-        const averageRating = parseFloat(
-          (totalRatings / totalReviews).toFixed(1)
-        );
-
-        const movieRef = ref(db, `Movies/movie${movieId}`);
-        await update(movieRef, {
-          totalRatings,
-          totalReviews,
-          rating: averageRating, // Cập nhật điểm trung bình
-        });
-      }
-      // Reset các state sau khi gửi bình luận
-      setHasRated(true); // Đánh dấu trạng thái đã gửi đánh giá
-      setNewComment("");
-      setRating(0); // Reset điểm đánh giá
-      setSelectedTags([]);
-      setImage(null);
-      setPreviewImage(null);
-      toast.success("Bình luận thành công!");
-    } catch (error) {
-      console.error("Lỗi khi thêm bình luận:", error);
-      toast.error("Không thể gửi bình luận. Vui lòng thử lại!");
-    } finally {
-      setIsSubmitting(false); // Tắt trạng thái loading
-    }
-  };
   const maxCharacters = 300; // Giới hạn số ký tự
   const minCharacters = 10; // Giới hạn ký tự tối thiểu
   return (
@@ -423,7 +399,7 @@ const Comments = ({ movieId }) => {
                       id="file-upload"
                       type="file"
                       accept="image/*"
-                      onChange={handleImageChange}
+                      onChange={handleEditImageChange}
                       style={{ display: "none" }}
                     />
                     {previewImage && (
@@ -433,27 +409,47 @@ const Comments = ({ movieId }) => {
                           className="remove-image-btn"
                           onClick={handleRemoveImage}
                         >
-                          Xóa ảnh
+                          <FontAwesomeIcon icon={faX} />
                         </button>
                       </div>
                     )}
                   </div>
-                  <TagSelector
-                    onSelectTags={(tags) => setSelectedTags(tags)}
-                    selectedTags={selectedTags}
-                  />
-                  {/* Nút gửi bình luận */}
-                  <button
-                    className="send-comment-btn"
-                    onClick={handleAddComment}
-                    disabled={isLoading || hasRated || !canComment}
-                  >
-                    {isSubmitting ? (
-                      <LoadingIcon size="2rem" color="white" />
-                    ) : (
-                      "Gửi"
-                    )}
-                  </button>
+                  <div>
+                    <TagSelector
+                      onSelectTags={(tags) => setSelectedTags(tags)}
+                      selectedTags={selectedTags}
+                    />
+                    {/* Nút gửi bình luận */}
+                    <button
+                      className="send-comment-btn"
+                      onClick={() => {
+                        if (newComment.length >= minCharacters && canComment) {
+                          setIsSubmitting(true);
+                          handleAddComment({
+                            movieId,
+                            userInfo,
+                            newComment,
+                            rating,
+                            selectedTags,
+                            image,
+                            setNewComment,
+                            setRating,
+                            setSelectedTags,
+                            setImage,
+                            setPreviewImage,
+                            setIsSubmitting, // Truyền vào đúng state này
+                          });
+                        }
+                      }}
+                      disabled={isSubmitting || hasRated || !canComment}
+                    >
+                      {isSubmitting ? (
+                        <LoadingIcon size="1.2rem" color="white" />
+                      ) : (
+                        "Gửi"
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             </CSSTransition>
@@ -481,43 +477,175 @@ const Comments = ({ movieId }) => {
           ) : (
             comments.map((comment) => (
               <div key={comment.id} className="comment-item">
-                <div className="comment-header">
-                  <LazyImage
-                    src={comment.avatar}
-                    alt={comment.username}
-                    width="40px"
-                    height="40px"
-                    className="user-avatar"
-                  />
-                  <div className="user-info">
-                    <p className="username">{comment.username}</p>
-                    <p className="timestamp">{formatDate(comment.timestamp)}</p>
+                <div className="comment-header-wrapper">
+                  <div className="comment-header">
+                    <LazyImage
+                      src={comment.avatar}
+                      alt={comment.username}
+                      width="40px"
+                      height="40px"
+                      className="user-avatar"
+                    />
+                    <div className="user-info">
+                      <p className="username">{comment.username}</p>
+                      <p className="timestamp">
+                        {formatDate(comment.timestamp)}
+                      </p>
+                    </div>
+                    {comment.purchased && (
+                      <span className="verified-badge">Đã xem phim</span>
+                    )}
                   </div>
-                  {comment.purchased && (
-                    <span className="verified-badge">Đã xem phim</span>
+                  {userInfo?.email === comment.email && (
+                    <div>
+                      {/* Nút mở menu */}
+                      <IconButton
+                        onClick={(event) => handleMenuOpen(event, comment.id)}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+
+                      {/* Dropdown Menu */}
+                      <Menu
+                        anchorEl={anchorEl}
+                        open={
+                          Boolean(anchorEl) && selectedCommentId === comment.id
+                        }
+                        onClose={handleMenuClose}
+                        className="comment-dropdown"
+                      >
+                        {/* SỬA COMMENT */}
+                        <MenuItem
+                          onClick={() => {
+                            setEditingCommentId(comment.id);
+                            setEditCommentContent(comment.content);
+                            setEditCommentImage(comment.image);
+                            handleMenuClose();
+                          }}
+                          className="comment-dropdown-item edit"
+                        >
+                          <EditIcon className="menu-icon edit-icon" />
+                          Sửa
+                        </MenuItem>
+
+                        {/* XOÁ COMMENT */}
+                        <MenuItem
+                          onClick={() => {
+                            showDeleteModal(comment.id); // Chỉ truyền `comment.id`, không cần `subcommentId`
+                            handleMenuClose();
+                          }}
+                          className="comment-dropdown-item delete"
+                        >
+                          <DeleteIcon className="menu-icon delete-icon" />
+                          Xóa
+                        </MenuItem>
+                      </Menu>
+                    </div>
                   )}
                 </div>
+
                 <p className="user-rating">
                   <FontAwesomeIcon icon={solidStar} /> {comment.rating || 0}/10
                 </p>
-                <p className="content-comment">{comment.content}</p>
-                <div className="tags">
-                  {comment.tags.map((tag, index) => (
-                    <span key={index} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {comment.image && (
-                  <LazyImage
-                    src={comment.image}
-                    alt="Ảnh bình luận"
-                    className="comment-image"
-                  />
+
+                {/* Nếu comment đang được chỉnh sửa, chỉ hiển thị form chỉnh sửa */}
+                {editingCommentId === comment.id ? (
+                  <div className="edit-comment-wrapper">
+                    <div className="edit-actions">
+                      <textarea
+                        ref={editCommentTextareaRef} // Ref cho textarea Comment
+                        className="edit-comment-textarea"
+                        value={editCommentContent}
+                        onChange={(e) => setEditCommentContent(e.target.value)}
+                        style={{ overflow: "hidden", resize: "none" }}
+                      />
+                      {/* Nút Lưu và Hủy */}
+                      <div className="btn-actions-wrapper">
+                        <button
+                          className="btn-actions btn-accept"
+                          onClick={async () => {
+                            setIsEditingComment(true);
+                            await handleEditComment(
+                              editingCommentId,
+                              editCommentContent,
+                              editCommentImage, // Ảnh mới từ state
+                              editCommentImage === null, // Nếu ảnh null thì removeImage = true
+                              setIsEditingComment, // Truyền state riêng cho chỉnh sửa comment
+                              setComments
+                            );
+                            setEditingCommentId(null);
+                          }}
+                        >
+                          {isEditingComment ? (
+                            <LoadingIcon size="1.2rem" color="white" />
+                          ) : (
+                            "Lưu"
+                          )}
+                        </button>
+
+                        <button
+                          className="btn-actions btn-cancel"
+                          onClick={() => {
+                            setEditingCommentId(null);
+                          }}
+                        >
+                          Hủy
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Hiển thị ảnh nếu có */}
+                    {(previewImage || editCommentImage) && (
+                      <div className="image-preview">
+                        <LazyImage
+                          src={previewImage || editCommentImage}
+                          alt="Preview"
+                          className="comment-image"
+                        />
+                        <button
+                          className="remove-image-btn"
+                          onClick={() => handleRemoveImage(null)}
+                        >
+                          <FontAwesomeIcon icon={faX} />
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Chọn ảnh mới */}
+                    <div className="image-upload-section">
+                      <label htmlFor="file-upload" className="edit-upload-btn">
+                        Chọn ảnh
+                      </label>
+                      <input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleEditImageChange}
+                        style={{ display: "none" }}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  // Nếu không trong trạng thái chỉnh sửa, hiển thị nội dung bình luận
+                  <div className="image-preview">
+                    <p className="content-comment">{comment.content}</p>
+                    {comment.image && (
+                      <LazyImage
+                        src={comment.image}
+                        alt="Ảnh bình luận"
+                        className="comment-image"
+                      />
+                    )}
+                  </div>
                 )}
+
                 <div className="actions">
                   <span className="comment-count">
-                    <img src={comment_icon} alt="" className="actions_icon" />
+                    <img
+                      src={comment_icon}
+                      alt=""
+                      className="actions_icon comment-icon"
+                    />
                     {/* Nút ẩn/hiện bình luận */}
                     <span
                       onClick={() => toggleSubcomments(comment.id)}
@@ -528,9 +656,28 @@ const Comments = ({ movieId }) => {
                         : `${comment.commentsCount} Bình luận`}
                     </span>
                   </span>
-                  <span>
-                    <img src={like_icon} alt="" className="actions_icon" />{" "}
-                    {comment.likes} Thích
+
+                  <span
+                    className={`like-button ${
+                      comment.likedUsers?.includes(userInfo?.email)
+                        ? "liked"
+                        : ""
+                    } ${!userInfo ? "disabled" : ""}`}
+                    onClick={() => handleLikeComment(comment.id)}
+                    style={{
+                      cursor: userInfo ? "pointer" : "not-allowed",
+                    }}
+                  >
+                    <img
+                      src={
+                        comment.likedUsers?.includes(userInfo?.email)
+                          ? liked_icon
+                          : unlike_icon
+                      }
+                      alt="Like icon"
+                      // className="actions_icon"
+                    />
+                    {comment.likes} like
                   </span>
                 </div>
                 <CSSTransition
@@ -583,19 +730,26 @@ const Comments = ({ movieId }) => {
                                 subcommentId ? (
                                 <div className="edit-subComment-wrapper">
                                   <textarea
+                                    ref={editSubcommentTextareaRef} // Ref cho textarea Subcomment
                                     className="edit-subComment"
                                     value={editText}
                                     onChange={(e) =>
                                       setEditText(e.target.value)
                                     }
+                                    style={{
+                                      overflow: "hidden",
+                                      resize: "none",
+                                    }}
                                   />
                                   <button
                                     className="btn-actions btn-accept"
                                     onClick={() => {
-                                      handleUpdateComment(
+                                      setIsEditingSubComment(true);
+                                      handleUpdateSubComment(
                                         comment.id,
                                         subcommentId,
-                                        editText
+                                        editText,
+                                        setIsEditingSubComment // Truyền state riêng cho chỉnh sửa subcomment
                                       );
                                       setEditingSubcommentId({
                                         commentId: null,
@@ -604,10 +758,17 @@ const Comments = ({ movieId }) => {
                                       setEditText(""); // Xóa nội dung chỉnh sửa
                                     }}
                                   >
-                                    Lưu
+                                    {isEditingComment ? (
+                                      <LoadingIcon
+                                        size="1.5rem"
+                                        color="white"
+                                      />
+                                    ) : (
+                                      "Lưu"
+                                    )}
                                   </button>
                                   <button
-                                    className="btn-actions btn-cancle"
+                                    className="btn-actions btn-cancel"
                                     onClick={() => {
                                       setEditingSubcommentId({
                                         commentId: null,
@@ -621,41 +782,89 @@ const Comments = ({ movieId }) => {
                                 </div>
                               ) : (
                                 userInfo?.email === sub.email && (
-                                  <button
-                                    onClick={() => {
-                                      setEditingSubcommentId({
-                                        commentId: comment.id,
-                                        subcommentId: subcommentId,
-                                      }); // Chỉ chỉnh sửa subcomment này
-                                      setEditText(sub.subcontent); // Lấy nội dung cũ để sửa
-                                    }}
-                                    className="btn-actions btn-edit"
-                                  >
-                                    <LazyImage
-                                      src={edit_icon}
-                                      alt="Edit Comment"
-                                      width="18px"
-                                      height="18px"
-                                      className="edit-icon"
-                                    />
-                                  </button>
+                                  <div className="subcomment-actions">
+                                    {/* Nút mở menu 3 chấm */}
+                                    <IconButton
+                                      onClick={(event) =>
+                                        handleSubMenuOpen(
+                                          event,
+                                          comment.id,
+                                          subcommentId
+                                        )
+                                      }
+                                    >
+                                      <MoreVertIcon />
+                                    </IconButton>
+
+                                    {/* Dropdown Menu */}
+                                    <Menu
+                                      anchorEl={subAnchorEl}
+                                      open={
+                                        Boolean(subAnchorEl) &&
+                                        selectedSubcomment.commentId ===
+                                          comment.id &&
+                                        selectedSubcomment.subcommentId ===
+                                          subcommentId
+                                      }
+                                      onClose={handleSubMenuClose}
+                                      className="subcomment-dropdown"
+                                    >
+                                      {/* Sửa Subcomment */}
+                                      <MenuItem
+                                        onClick={() => {
+                                          setEditingSubcommentId({
+                                            commentId: comment.id,
+                                            subcommentId: subcommentId,
+                                          });
+                                          setEditText(sub.subcontent);
+                                          handleSubMenuClose();
+                                        }}
+                                        className="subcomment-dropdown-item edit"
+                                      >
+                                        <EditIcon className="menu-icon edit-icon" />
+                                        Sửa
+                                      </MenuItem>
+
+                                      {/* Xóa Subcomment */}
+                                      <MenuItem
+                                        onClick={() => {
+                                          console.log(
+                                            "Nhấn nút xóa - CommentID:",
+                                            comment.id,
+                                            "SubcommentID:",
+                                            subcommentId
+                                          );
+                                          showDeleteModal(
+                                            comment.id,
+                                            subcommentId
+                                          ); // Truyền cả `comment.id` và `subcommentId`
+                                          handleSubMenuClose();
+                                        }}
+                                        className="subcomment-dropdown-item delete"
+                                      >
+                                        <DeleteIcon className="menu-icon delete-icon" />
+                                        Xóa
+                                      </MenuItem>
+                                    </Menu>
+                                  </div>
                                 )
                               )}
                             </div>
                           )
                         )}
+
                       {/* Input để thêm subcomment */}
-                      <div className="subComment-input">
-                        <input
+                      <div className="subComment-wrapper">
+                        <textarea
+                          className="subComment-input"
                           type="text"
+                          ref={newSubcommentareaRef}
                           value={newSubcomment}
                           onChange={(e) => setNewSubcomment(e.target.value)}
                           placeholder="Phản hồi..."
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              handleAddSubcomment(comment.id, newSubcomment);
-                              setNewSubcomment(""); // Reset input
-                            }
+                          style={{
+                            overflow: "hidden",
+                            resize: "none",
                           }}
                         />
                         <button
@@ -675,6 +884,15 @@ const Comments = ({ movieId }) => {
             ))
           )}
         </div>
+        {/* MODAL XÁC NHẬN XOÁ COMMENT VÀ SUBCOMMENT */}
+        {isDeleteModalOpen && (
+          <DeleteConfirmModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={handleConfirmDelete} // Đảm bảo được truyền vào đúng cách
+            deleteType={deleteType}
+          />
+        )}
       </div>
     </div>
   );

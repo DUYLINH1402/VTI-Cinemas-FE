@@ -10,6 +10,9 @@ import { Payment } from "../pages/Payment/Payment";
 import ContactPage from "../pages/Contact/ContactPage";
 import { Events } from "../pages/Events/Events";
 import PaymentResult from "../pages/Payment/PaymentResult";
+import Promotions from "../pages/Promotions/Promotions";
+import PromotionDetail from "../pages/Promotions/PromotionDetail";
+import PromotionsLayout from "../pages/Promotions/PromotionsLayout";
 
 export const UserRoutes = [
   {
@@ -42,9 +45,20 @@ export const UserRoutes = [
         element: <Booking_Seat />,
       },
       {
-        path: "/events",
-        element: <Events />,
+        path: "/promotions",
+        element: <PromotionsLayout />, // Đặt layout chứa cả danh sách sự kiện và chi tiết sự kiện
+        children: [
+          {
+            path: "", // Mặc định hiển thị danh sách sự kiện
+            element: <Promotions />,
+          },
+          {
+            path: ":slug", // Khi vào một sự kiện cụ thể
+            element: <PromotionDetail />,
+          },
+        ],
       },
+
       {
         path: "/payment/:movie_id",
         element: <Payment />,

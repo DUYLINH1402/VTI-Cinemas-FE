@@ -25,6 +25,7 @@
     "classnames": "^2.5.1",
     "cloudinary": "^2.5.1",
     "firebase": "^11.0.1",
+    "marked": "^15.0.7",
     "ra-data-simple-rest": "^5.4.2",
     "ra-ui-materialui": "^5.4.2",
     "react": "^18.3.1",

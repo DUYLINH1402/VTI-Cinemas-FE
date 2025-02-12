@@ -5,18 +5,12 @@ import notification_bg from "../../../assets/image/notification_bg.jpg";
 import { fetchMoviesByTab } from "../../../services/dataService";
 import { useNavigate } from "react-router-dom";
 import Comments from "./Comments";
-import LoadingScreen from "../../../components/Loading/LoadingScreen";
+import MovieList from "../../../components/MovieList/MovieList";
 
 export const CardInfMovie = ({ movie, onBookTicket }) => {
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("nowShowing");
   const [showMore, setShowMore] = useState(false); // Trạng thái để hiển thị thêm phim
-  const navigate = useNavigate();
-
-  // Giới hạn số lượng phim hiển thị
-  const moviesToShow = showMore ? movies : movies.slice(0, 7);
-  // Fetch movies based on activeTab
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
@@ -31,11 +25,6 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
     };
     fetchMovies();
   }, [activeTab]);
-
-  const handleMovieClick = (movieId) => {
-    navigate(`/movieinf/${movieId}`); // Điều hướng đến trang chi tiết phim
-  };
-
   return (
     <>
       <div
@@ -96,74 +85,8 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
             <Comments movieId={movie.movie_id} movieName={movie.movie_name} />
           </div>
         </div>
-        {/* Right Section */}
-        <div className="right-section">
-          <div className="tab-buttons">
-            <button
-              className={activeTab === "nowShowing" ? "active" : ""}
-              onClick={() => setActiveTab("nowShowing")}
-            >
-              Phim đang chiếu
-            </button>
-            <button
-              className={activeTab === "upcoming" ? "active" : ""}
-              onClick={() => setActiveTab("upcoming")}
-            >
-              Phim sắp chiếu
-            </button>
-          </div>
-
-          <div className="now-showing">
-            {loading ? (
-              <LoadingScreen message="Đang tải danh sách phim..." size={60} />
-            ) : moviesToShow.length > 0 ? (
-              <>
-                <ul className="movie-list">
-                  {moviesToShow.map((movie, index) => (
-                    <li
-                      key={index}
-                      className="movie-item"
-                      onClick={() => handleMovieClick(movie.movie_id)} // Gọi hàm khi click
-                      style={{ cursor: "pointer" }}
-                    >
-                      <LazyImage
-                        src={movie.image}
-                        alt={movie.movie_name}
-                        height="90px"
-                        width="64px"
-                      />
-                      {/* Hiển thị tuổi xem phim */}
-                      {movie.viewing_age && (
-                        <span className={`age-rating age-${movie.viewing_age}`}>
-                          {movie.viewing_age}+
-                        </span>
-                      )}
-                      <div className="movie-thumbnail">
-                        <p className="movie-thumbnail__title">
-                          {movie.movie_name}
-                        </p>
-                        <p className="movie-thumbnail__genre">{movie.genre}</p>
-                        <p className="movie-thumbnail__rating">
-                          {renderStars(movie.rating)}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                {movies.length > 7 && (
-                  <button
-                    className="show-more-button"
-                    onClick={() => setShowMore(!showMore)}
-                  >
-                    {showMore ? "Ẩn bớt" : "Xem thêm"}
-                  </button>
-                )}
-              </>
-            ) : (
-              <p>Không có phim nào.</p>
-            )}
-          </div>
-        </div>
+        {/* Right Section: Dùng MovieList */}
+        <MovieList initialTab="nowShowing" />
       </div>
     </>
   );

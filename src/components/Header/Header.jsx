@@ -177,10 +177,10 @@ export const Header = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink
-                    to="/events"
+                    to="/promotions"
                     className={({ isActive }) => (isActive ? "active" : "")}
                   >
-                    Tin tức và sự kiện
+                    Tin tức
                   </NavLink>
                 </li>
                 <li className="nav-item">

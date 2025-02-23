@@ -15,6 +15,7 @@ import {
 import {
   getAuth,
   sendPasswordResetEmail,
+  updatePassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { setAuthToken } from "../utils/authStorage";
@@ -62,11 +63,8 @@ export const searchFromFireBase = {
       if (!snapshot.exists()) {
         return []; // Nếu không có dữ liệu, trả về mảng rỗng
       }
-
       const normalizedQuery = queryText.toLowerCase(); // Chuyển từ khóa tìm kiếm về chữ thường
-
       const allMovies = Object.values(snapshot.val()); // Chuyển dữ liệu từ Firebase thành mảng
-
       // Lọc dữ liệu không phân biệt chữ hoa và chữ thường
       const filteredMovies = allMovies.filter((movie) => {
         return (
@@ -83,40 +81,52 @@ export const searchFromFireBase = {
     }
   },
 };
-// Đổi mật khẩu trong Firebase dựa trên email
+
+// Đổi mật khẩu trong Firebase Authentication
 export const updatePasswordInFirebase = async (
   email,
   oldPassword,
   newPassword
 ) => {
-  const db = getDatabase();
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  // Tìm kiếm người dùng theo email
-  const userQuery = query(
-    ref(db, "Account"),
-    orderByChild("email"),
-    equalTo(email)
-  );
-  const userSnapshot = await get(userQuery);
-
-  if (!userSnapshot.exists()) {
-    throw new Error("Người dùng không tồn tại trong Firebase!");
+  if (!user) {
+    throw new Error("Bạn cần đăng nhập để đổi mật khẩu.");
   }
 
-  // Lấy thông tin người dùng
-  const userId = Object.keys(userSnapshot.val())[0];
-  const userData = userSnapshot.val()[userId];
+  try {
+    // Xác thực lại người dùng bằng mật khẩu cũ
+    await signInWithEmailAndPassword(auth, email, oldPassword);
 
-  if (!(oldPassword === userData.password)) {
-    throw new Error("Mật khẩu cũ không chính xác!");
+    // Cập nhật mật khẩu mới
+    await updatePassword(user, newPassword);
+    return "Thay đổi mật khẩu thành công!";
+  } catch (error) {
+    let errorMessage = error.message;
+    switch (error.code) {
+      case `auth/invalid-credential`:
+        errorMessage = "Mật khẩu cũ không chính xác.";
+        break;
+      case `auth/wrong-password`:
+        errorMessage = "Mật khẩu cũ không chính xác.";
+        break;
+      case `auth/weak-password`:
+        errorMessage = "Mật khẩu mới quá yếu.";
+        break;
+      case `auth/too-many-requests`:
+        errorMessage =
+          "Bạn nhập sai mật khẩu quá nhiều lần. Vui lòng thử lại sau.";
+        break;
+      case `auth/requires-recent-login`:
+        errorMessage = "Vui lòng đăng nhập lại trước khi đổi mật khẩu.";
+        break;
+    }
+    console.log("Lỗi khi đổi mật khẩu: ", errorMessage);
+    throw new Error(errorMessage);
   }
-
-  // Cập nhật mật khẩu
-  const userRef = ref(db, `Account/${userId}`);
-  await update(userRef, { password: newPassword });
-
-  return "Mật khẩu đã được thay đổi!";
 };
+
 // Lấy thông tin Account
 export const getAccountFromFirebase = async (account_id) => {
   const db = getDatabase();
@@ -128,7 +138,8 @@ export const getAccountFromFirebase = async (account_id) => {
     throw new Error("User data not found");
   }
 };
-// Hàm lấy dữ liệu cho Movies (ĐÃ CHẠY OK)
+
+// HÀM LẤY DỮ LIỆU CHO MOVIES (ĐÃ CHẠY OK)
 export const fetchMoviesFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -230,15 +241,12 @@ export const registerAccountToFirebase = async (formData) => {
     const userRef = push(accountRef); // Tạo ref mới
     await set(userRef, {
       account_id: accountId, // Sử dụng account_id là số
-      fullname: formData.name,
+      displayName: formData.name,
       email: formData.email,
       phone_number: formData.phone,
       passport: "",
-      birth_date: formData.birthDate,
-      gender: formData.gender,
-      password: formData.password,
       role: "user", // Role mặc định
-      status: "active", // Trạng thái tài khoản
+      status: "pending", // "pending" vì chưa xác nhận email
       city: "",
       district: "",
       address: "",
@@ -315,19 +323,22 @@ export const fetchShowtimesFromFirebase = async (cinema_id) => {
   }
 };
 
-// RESET Password
+// API RESET PASSWORD (ĐÃ CHẠY OK)
 export const forgotPassword = {
   resetPassword: async (email) => {
     try {
       await sendPasswordResetEmail(auth, email);
+      return "Email đặt lại mật khẩu đã được gửi. Vui lòng kiểm tra hộp thư!";
     } catch (error) {
-      console.error("Error resetting password:", error);
-      throw error;
+      console.error("Lỗi reset mật khẩu:", error);
+      throw new Error(
+        "Không thể gửi email đặt lại mật khẩu. Vui lòng thử lại."
+      );
     }
   },
 };
 
-// API Update Account (ĐÃ CHẠY OK)
+// API UPDATE ACCOUNT (ĐÃ CHẠY OK)
 export const updateAccountToFirebase = async (email, formData) => {
   const db = getDatabase();
   try {
@@ -351,42 +362,5 @@ export const updateAccountToFirebase = async (email, formData) => {
   } catch (error) {
     console.error("Lỗi khi cập nhật thông tin Firebase:", error.message);
     throw error;
-  }
-};
-
-// Hàm đăng nhập bằng email và mật khẩu (ĐÃ CHẠY OK)
-export const loginWithEmailAndPasswordFromFirebase = async (
-  email,
-  password
-) => {
-  const auth = getAuth();
-  try {
-    // Kiểm tra tài khoản trên Realtime Database
-    const userData = await getAccountByEmailFromFirebase(email);
-    if (!userData) {
-      throw new Error("Tài khoản không tồn tại trong hệ thống");
-    }
-    // Kiểm tra mật khẩu
-    if (!(password === userData.password)) {
-      throw new Error("Mật khẩu không chính xác!");
-    }
-    // Đăng nhập với Firebase Authentication để lấy token
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    const token = await userCredential.user.getIdToken(); // Lấy token của user
-    setAuthToken(token);
-    // Thông tin người dùng với token
-    const result = {
-      ...userData, // Thông tin từ Realtime Database
-      token, // Token từ Firebase Authentication
-    };
-
-    return result;
-  } catch (error) {
-    console.error("Lỗi đăng nhập:", error.message);
-    return { error: error.message || "Lỗi đăng nhập. Vui lòng thử lại!" }; // Trả lỗi để Redux xử lý
   }
 };

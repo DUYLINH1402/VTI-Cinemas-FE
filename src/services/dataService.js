@@ -94,7 +94,7 @@ export const fetchCarouselData = async () => {
     : await fetchCarouselDataFromSQL();
 };
 
-// API tạo Account mới
+// API LƯU THÔNG TIN BỔ SUNG VÀO REALTIME DATABASE (KHÔNG LƯU MẬT KHẨU)
 export const registerAccount = async (formData) => {
   return useFirebase
     ? await registerAccountToFirebase(formData)

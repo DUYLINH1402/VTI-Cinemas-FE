@@ -35,7 +35,7 @@ export const loginUser = createAsyncThunk(
       }
       return response; // Trả về thông tin đăng nhập khi thành công
     } catch (error) {
-      return rejectWithValue(error.code || error.message); // Trả về mã lỗi nếu thất bại
+      return rejectWithValue(error.message || error.code); // Trả về mã lỗi nếu thất bại
     }
   }
 );

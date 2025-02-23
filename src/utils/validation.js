@@ -1,5 +1,3 @@
-// src/utils/validation.js
-
 // Kiểm tra email hoặc số điện thoại
 export const validateEmailOrPhone = (value) => {
   if (!value) return "Vui lòng nhập email hoặc số điện thoại";

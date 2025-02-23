@@ -6,6 +6,7 @@ import {
   faEye,
   faEyeSlash,
   faSpinner,
+  faBackward,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   validateEmail,
@@ -33,8 +34,6 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
     name: "",
     email: "",
     phone: "",
-    birthDate: "",
-    gender: "",
     password: "",
     confirmPassword: "",
     acceptTerms: false, // Trạng thái checkbox chấp nhận điều khoản
@@ -129,11 +128,12 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
         })
       ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
 
-      // Tạo tài khoản trên database (nếu cần)
+      // Lưu thông tin bổ sung vào Realtime Database (KHÔNG LƯU MẬT KHẨU)
       await registerAccount(formData);
-
-      toast.success("Đăng ký thành công!"); // Hiển thị thông báo thành công
-      closeModal(); // Đóng modal
+      toast.success(
+        "Đăng ký thành công! Vui lòng kiểm tra email của bạn để xác nhận tài khoản."
+      );
+      closeModal();
     } catch (error) {
       toast.error("Đăng ký thất bại!");
 
@@ -164,144 +164,133 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
 
   return (
     <div className={`modal-overlay ${isClosing ? "fade-out" : ""}`}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content modal-register-content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button className="back-login-button" onClick={openLoginModal}>
+          <FontAwesomeIcon icon={faBackward} />
+        </button>
         <h2 className="modal-title">Đăng Ký Tài Khoản</h2>
         <form noValidate>
           <div className="input-container">
-            <label>Họ và tên</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Họ và tên"
-              value={formData.name}
-              onChange={handleChange}
-              onBlur={() => handleBlur("name")}
-              className={errors.name ? "input-error" : ""}
-            />
-            {errors.name && <p className="error-message">{errors.name}</p>}
+            {/* NAME */}
+            <div className="input-error-wrapper">
+              <label>Họ và tên</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Nguyễn Văn A"
+                value={formData.name}
+                onChange={handleChange}
+                onBlur={() => handleBlur("name")}
+                className={errors.name ? "input-error" : ""}
+              />
+              {errors.name && <p className="error-message">{errors.name}</p>}
+            </div>
 
-            <label>Email</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="abc@gmail.com"
-              value={formData.email}
-              onChange={handleChange}
-              onBlur={() => handleBlur("email")}
-              className={errors.email ? "input-error" : ""}
-            />
-            {errors.email && <p className="error-message">{errors.email}</p>}
+            {/* EMAIL  */}
+            <div className="input-error-wrapper">
+              <label>Email</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="abc@gmail.com"
+                value={formData.email}
+                onChange={handleChange}
+                onBlur={() => handleBlur("email")}
+                className={errors.email ? "input-error" : ""}
+              />
+              {errors.email && <p className="error-message">{errors.email}</p>}
+            </div>
 
-            <label>Số điện thoại</label>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="090xxxxxxx"
-              value={formData.phone}
-              onChange={handleChange}
-              onBlur={() => handleBlur("phone")}
-              className={errors.phone ? "input-error" : ""}
-            />
-            {errors.phone && <p className="error-message">{errors.phone}</p>}
+            {/* TEL  */}
+            <div className="input-error-wrapper">
+              <label>Số điện thoại</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="090xxxxxxx"
+                value={formData.phone}
+                onChange={handleChange}
+                onBlur={() => handleBlur("phone")}
+                className={errors.phone ? "input-error" : ""}
+              />
+              {errors.phone && <p className="error-message">{errors.phone}</p>}
+            </div>
 
-            <label>Ngày sinh</label>
-            <input
-              type="text"
-              name="birthDate"
-              placeholder="YYYY/MM/DD"
-              onFocus={(e) => (e.target.type = "date")}
-              onBlur={(e) => (e.target.type = "text")}
-              value={formData.birthDate}
-              onChange={handleChange}
-              min="1900-01-01"
-              max="2024-12-31"
-            />
+            {/* PASSWORD  */}
+            <div className="input-error-wrapper">
+              <label>Mật khẩu</label>
+              <div className="password-field">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Mật khẩu"
+                  value={formData.password}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur("password")}
+                  className={errors.password ? "input-error" : ""}
+                />
+                <button
+                  type="button"
+                  className="show-password"
+                  onClick={togglePasswordVisibility}
+                >
+                  <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                </button>
+              </div>
+              {errors.password && (
+                <p className="error-message">{errors.password}</p>
+              )}
+            </div>
 
-            <div className="checkbox-group">
-              <label>Giới tính</label>
+            {/* CONFIRM PASSWORD  */}
+            <div className="input-error-wrapper">
+              <label>Nhập lại mật khẩu</label>
+              <div className="password-field">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Nhập lại mật khẩu"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={() => handleBlur("confirmPassword")}
+                  className={errors.confirmPassword ? "input-error" : ""}
+                />
+                <button
+                  type="button"
+                  className="show-password"
+                  onClick={toggleConfirmPasswordVisibility}
+                >
+                  <FontAwesomeIcon
+                    icon={showConfirmPassword ? faEyeSlash : faEye}
+                  />
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="error-message">{errors.confirmPassword}</p>
+              )}
+            </div>
+
+            {/* ACCEPT TERMS */}
+            <div className="input-error-wrapper">
               <label>
                 <input
-                  type="radio"
-                  name="gender"
-                  value="Nam"
-                  checked={formData.gender === "Nam"}
+                  type="checkbox"
+                  name="acceptTerms"
+                  checked={formData.acceptTerms}
                   onChange={handleChange}
                 />
-                Nam
+                Đồng ý với Điều khoản dịch vụ
               </label>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="Nữ"
-                  checked={formData.gender === "Nữ"}
-                  onChange={handleChange}
-                />
-                Nữ
-              </label>
+              {errors.acceptTerms && (
+                <p className="error-message">{errors.acceptTerms}</p>
+              )}
+              {errors.global && (
+                <p className="error-message">{errors.global}</p>
+              )}
             </div>
-
-            <label>Mật khẩu</label>
-            <div className="password-field">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Mật khẩu"
-                value={formData.password}
-                onChange={handleChange}
-                onBlur={() => handleBlur("password")}
-                className={errors.password ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={togglePasswordVisibility}
-              >
-                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-              </button>
-            </div>
-            {errors.password && (
-              <p className="error-message">{errors.password}</p>
-            )}
-
-            <label>Nhập lại mật khẩu</label>
-            <div className="password-field">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Nhập lại mật khẩu"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                onBlur={() => handleBlur("confirmPassword")}
-                className={errors.confirmPassword ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={toggleConfirmPasswordVisibility}
-              >
-                <FontAwesomeIcon
-                  icon={showConfirmPassword ? faEyeSlash : faEye}
-                />
-              </button>
-            </div>
-            {errors.confirmPassword && (
-              <p className="error-message">{errors.confirmPassword}</p>
-            )}
-
-            <label>
-              <input
-                type="checkbox"
-                name="acceptTerms"
-                checked={formData.acceptTerms}
-                onChange={handleChange}
-              />
-              Đồng ý với Điều khoản dịch vụ
-            </label>
-            {errors.acceptTerms && (
-              <p className="error-message">{errors.acceptTerms}</p>
-            )}
-            {errors.global && <p className="error-message">{errors.global}</p>}
 
             <button
               type="button"

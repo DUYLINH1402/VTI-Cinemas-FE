@@ -21,18 +21,21 @@ import {
 import { toast } from "react-toastify";
 import { saveUserToDatabase } from "../../utils/authActions.js";
 import { setAuthToken } from "../../utils/authStorage.js";
+import { resendVerificationEmail } from "../../services/authService.js";
+import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal.jsx";
+import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 
-const LoginModal = ({
-  closeModal,
-  openRegisterModal,
-  openForgotPasswordModal,
-}) => {
+const LoginModal = ({ closeModal }) => {
+  // state quản lý đóng mở Modal
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false); // Điều khiển hiển thị mật khẩu
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu email hoặc số điện thoại
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); // State lưu mật khẩu
   const [rememberMe, setRememberMe] = useState(false); // Trạng thái nhớ mật khẩu
   const [errors, setErrors] = useState({ emailOrPhone: "", password: "" }); // State lưu các lỗi
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -78,6 +81,7 @@ const LoginModal = ({
   // Hàm xử lý khi submit form đăng nhập
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErrors({ emailOrPhone: "", password: "" }); // Reset lỗi trước khi submit
 
     // Validate form
     const validationErrors = validateLoginForm({ emailOrPhone, password });
@@ -91,26 +95,36 @@ const LoginModal = ({
           const { accessToken, password, ...user } = response;
           setAuthToken(accessToken); // Lưu Token chính cho phiên làm việc
           localStorage.setItem("user", JSON.stringify(user));
+
           if (rememberMe) {
-            // Tạo Remember Token và lưu vào Firebase
             const db = getDatabase();
             const rememberToken = uuidv4(); // Tạo Remember Token duy nhất
-            // const expirationTime = Date.now() + 30 * 24 * 60 * 60 * 1000; // Thời hạn 30 ngày
             set(ref(db, `rememberTokens/${user.uid}`), {
               rememberToken,
               email: emailOrPhone,
-              password, // Không khuyến khích, nhưng có thể mã hóa mật khẩu nếu cần
-              // expirationTime, // Lưu thời gian hết hạn
             });
-            // Lưu Remember Token vào localStorage
             localStorage.setItem("rememberToken", rememberToken);
           }
+
           toast.success("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
-          navigate(user.role === "admin" ? "/admin/dashboard" : "/"); // Điều hướng dựa trên vai trò
+          navigate(user.role === "admin" ? "/admin/dashboard" : "/");
         })
         .catch((error) => {
-          toast.error("Đăng nhập thất bại!");
+          console.error("Lỗi đăng nhập:", error);
+          // Kiểm tra nếu `error.message` tồn tại trước khi gọi `.includes()`
+          const errorMessage =
+            error?.message || "Đăng nhập thất bại. Vui lòng thử lại!";
+          // Cập nhật Redux store với lỗi
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            emailOrPhone: errorMessage.includes("Tài khoản không tồn tại")
+              ? error.message
+              : "",
+            password: errorMessage.includes("Mật khẩu không đúng")
+              ? error.message
+              : "",
+          }));
         });
     }
   };
@@ -188,116 +202,172 @@ const LoginModal = ({
       });
   };
 
-  return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2 className="modal-title">Đăng nhập</h2>
-        {/* Form đăng nhập với noValidate để tắt validate mặc định của trình duyệt */}
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="input-container">
-            <label>Email hoặc số điện thoại</label>
-            <input
-              id="email"
-              type="text"
-              placeholder="Nhập email hoặc số điện thoại"
-              value={emailOrPhone}
-              onChange={(e) => setEmailOrPhone(e.target.value)}
-              onBlur={handleEmailOrPhoneBlur} // Kiểm tra khi người dùng rời khỏi trường
-              className={errors.emailOrPhone ? "input-error" : ""}
-            />
-            {errors.emailOrPhone && (
-              <p className="error-message">{errors.emailOrPhone}</p> // Hiển thị lỗi nếu có
-            )}
-            <label>Mật khẩu</label>
-            <div className="password-field">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Nhập mật khẩu"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={handlePasswordBlur} // Kiểm tra khi người dùng rời khỏi trường
-                className={errors.password ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={togglePasswordVisibility} // Toggle hiển thị mật khẩu
-              >
-                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-              </button>
-            </div>
-            {errors.password && (
-              <p className="error-message">{errors.password}</p> // Hiển thị lỗi nếu có
-            )}
-            {/* CheckBox Nhớ mật khẩu */}
-            <div className="remember-me">
-              <input
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />
-              <label className="title" htmlFor="rememberMe">
-                Nhớ mật khẩu
-              </label>
-            </div>
-            {/* Hiển thị lỗi đăng nhập nếu có */}
-            {error && <p className="error-message">{error}</p>}
-            {/* Nút đăng nhập */}
+  // HÀM XỬ LÝ GỬI LẠI EMAIL XÁC NHẬN
+  const handleResendVerification = async () => {
+    try {
+      const response = await resendVerificationEmail(emailOrPhone, password);
+      toast.success(response);
+      closeModal();
+    } catch (err) {
+      toast.error(err.message || "Gửi lại email xác nhận thất bại.");
+    }
+  };
+  // Mở ForgotPasswordModal
+  const openForgotPasswordModal = () => {
+    setIsForgotPasswordOpen(true);
+    setIsRegisterOpen(false); // Đảm bảo modal Đăng ký đóng
+  };
 
-            <button
-              type="submit"
-              className="submit-button"
-              // onClick={handleEmailPasswordLogin}
+  // Mở RegisterModal
+  const openRegisterModal = () => {
+    setIsRegisterOpen(true);
+    setIsForgotPasswordOpen(false); // Đảm bảo modal Quên mật khẩu đóng
+  };
+
+  // Mở lại LoginModal từ bất kỳ modal nào
+  const openLoginModal = () => {
+    setIsForgotPasswordOpen(false);
+    setIsRegisterOpen(false);
+  };
+  return (
+    <>
+      {isForgotPasswordOpen ? (
+        <ForgotPasswordModal
+          closeModal={openLoginModal}
+          openLoginModal={openLoginModal}
+        />
+      ) : isRegisterOpen ? (
+        <RegisterModal
+          closeModal={openLoginModal}
+          openLoginModal={openLoginModal}
+        />
+      ) : (
+        <div className="modal-overlay" onClick={handleOverlayClick}>
+          <div
+            className="modal-content modal-login-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="modal-title">Đăng nhập</h2>
+            {/* Form đăng nhập với noValidate để tắt validate mặc định của trình duyệt */}
+            <form onSubmit={handleSubmit} noValidate>
+              <div className="input-container">
+                <div className="input-error-wrapper">
+                  <label>Email hoặc số điện thoại</label>
+                  <input
+                    id="email"
+                    type="text"
+                    placeholder="Nhập email hoặc số điện thoại"
+                    value={emailOrPhone}
+                    onChange={(e) => setEmailOrPhone(e.target.value)}
+                    onBlur={handleEmailOrPhoneBlur} // Kiểm tra khi người dùng rời khỏi trường
+                    className={errors.emailOrPhone ? "input-error" : ""}
+                  />
+                  {errors.emailOrPhone && (
+                    <p className="error-message">{errors.emailOrPhone}</p> // Hiển thị lỗi nếu có
+                  )}
+                </div>
+                <div className="input-error-wrapper">
+                  <label className="label-register-modal">Mật khẩu</label>
+                  <div className="password-field">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Nhập mật khẩu"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onBlur={handlePasswordBlur} // Kiểm tra khi người dùng rời khỏi trường
+                      className={errors.password ? "input-error" : ""}
+                    />
+                    <button
+                      type="button"
+                      className="show-password"
+                      onClick={togglePasswordVisibility} // Toggle hiển thị mật khẩu
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faEyeSlash : faEye}
+                      />
+                    </button>
+                  </div>
+                  {errors.password && (
+                    <p className="error-message">{errors.password}</p> // Hiển thị lỗi nếu có
+                  )}
+                </div>
+                {/* CheckBox Nhớ mật khẩu */}
+                <div className="remember-me">
+                  <input
+                    type="checkbox"
+                    id="rememberMe"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                  />
+                  <label className="title" htmlFor="rememberMe">
+                    Nhớ mật khẩu
+                  </label>
+                </div>
+                <div className="error-message-wrapper">
+                  {/* Hiển thị lỗi đăng nhập nếu có */}
+                  {error && (
+                    <p className="error-message error-message-all">{error}</p>
+                  )}
+                  {/* Nếu lỗi do email chưa được xác nhận, hiển thị nút gửi lại email xác nhận */}
+                  {error && error.includes("chưa được xác nhận") && (
+                    <div className="resend-verification">
+                      <button type="button" onClick={handleResendVerification}>
+                        Gửi lại Email
+                      </button>
+                    </div>
+                  )}
+                </div>
+                {/* Nút đăng nhập */}
+                <button
+                  type="submit"
+                  className="submit-button submit-login-button"
+                >
+                  Đăng nhập
+                </button>
+              </div>
+            </form>
+            <div className="social-login">
+              <p>Hoặc đăng nhập bằng</p>
+              <div className="social-icons">
+                <a
+                  href="#"
+                  className="social-button google"
+                  onClick={handleGoogleLogin}
+                >
+                  <img src={google} alt="Google" />
+                </a>
+                <a
+                  href="#"
+                  className="social-button facebook"
+                  onClick={handleFacebookLogin}
+                >
+                  <img src={facebook} alt="Facebook" />
+                </a>
+              </div>
+            </div>
+            {/* Link mở modal quên mật khẩu */}
+            <a
+              href="#"
+              className="forgot-password"
+              onClick={openForgotPasswordModal}
             >
-              Đăng nhập
+              Quên mật khẩu?
+            </a>
+            {/* Link mở modal đăng ký */}
+            <p className="register-text">
+              Bạn chưa có tài khoản?{" "}
+              <span className="register-link" onClick={openRegisterModal}>
+                Đăng ký
+              </span>
+            </p>
+            {/* Nút đóng modal */}
+            <button onClick={handleOverlayClick} className="close-button">
+              <FontAwesomeIcon icon={faXmark} />
             </button>
           </div>
-        </form>
-        <div className="social-login">
-          <p>Hoặc đăng nhập bằng</p>
-          <div className="social-icons">
-            <a
-              href="#"
-              className="social-button google"
-              onClick={handleGoogleLogin}
-            >
-              <img src={google} alt="Google" />
-            </a>
-
-            <a
-              href="#"
-              className="social-button facebook"
-              onClick={handleFacebookLogin}
-            >
-              <img src={facebook} alt="Facebook" />
-            </a>
-          </div>
         </div>
-
-        {/* Link mở modal quên mật khẩu */}
-        <a
-          href="#"
-          className="forgot-password"
-          onClick={openForgotPasswordModal}
-        >
-          Quên mật khẩu?
-        </a>
-
-        {/* Link mở modal đăng ký */}
-        <p className="register-text">
-          Bạn chưa có tài khoản?{" "}
-          <span className="register-link" onClick={openRegisterModal}>
-            Đăng ký
-          </span>
-        </p>
-
-        {/* Nút đóng modal */}
-        <button onClick={handleOverlayClick} className="close-button">
-          <FontAwesomeIcon icon={faXmark} />
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

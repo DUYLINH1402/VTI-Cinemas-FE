@@ -13,6 +13,7 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validation"; // Các hàm validate custom
+import "./ChangePassword.scss";
 
 const ChangePasswordModal = ({ isOpen, onClose }) => {
   // State quản lý dữ liệu form
@@ -76,7 +77,6 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
   // Xử lý khi người dùng submit form đổi mật khẩu
   const handlePasswordChange = async () => {
     if (!validateForm()) return; // Nếu form không hợp lệ thì dừng
-
     setIsSubmitting(true); // Bật trạng thái loading
     try {
       const message = await changePassword(
@@ -88,6 +88,16 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
       onClose(); // Đóng modal
     } catch (error) {
       toast.error(error.message); // Hiển thị thông báo lỗi
+      // Cập nhật lỗi vào state để hiển thị dưới input
+      setErrors({
+        oldPassword: error.message.includes("Mật khẩu cũ không chính xác")
+          ? error.message
+          : "",
+        newPassword: error.message.includes("Mật khẩu mới quá yếu")
+          ? error.message
+          : "",
+        confirmPassword: "",
+      });
     } finally {
       setIsSubmitting(false); // Tắt trạng thái loading
     }
@@ -98,93 +108,105 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Đổi Mật Khẩu</h2>
+      <div
+        className="modal-content modal-content-changePassword"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="title-modal-changePassword">Đổi Mật Khẩu</h2>
         <form>
           <div className="input-container">
             {/* Input mật khẩu cũ */}
-            <label>Mật khẩu cũ</label>
-            <div className="password-field">
-              <input
-                type={showPassword.oldPassword ? "text" : "password"} // Hiển thị hoặc ẩn mật khẩu
-                name="oldPassword"
-                placeholder="Nhập mật khẩu cũ"
-                value={formData.oldPassword}
-                onChange={handleChange}
-                onBlur={() => validateField("oldPassword")}
-                className={errors.oldPassword ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={() => togglePasswordVisibility("oldPassword")}
-              >
-                <FontAwesomeIcon
-                  icon={showPassword.oldPassword ? faEyeSlash : faEye}
+            <div className="input-error-wrapper">
+              <label>Mật khẩu cũ</label>
+              <div className="password-field">
+                <input
+                  type={showPassword.oldPassword ? "text" : "password"} // Hiển thị hoặc ẩn mật khẩu
+                  name="oldPassword"
+                  placeholder="Nhập mật khẩu cũ"
+                  value={formData.oldPassword}
+                  onChange={handleChange}
+                  onBlur={() => validateField("oldPassword")}
+                  className={errors.oldPassword ? "input-error" : ""}
                 />
-              </button>
+                <button
+                  type="button"
+                  className="show-password"
+                  onClick={() => togglePasswordVisibility("oldPassword")}
+                >
+                  <FontAwesomeIcon
+                    icon={showPassword.oldPassword ? faEyeSlash : faEye}
+                  />
+                </button>
+              </div>
+              {errors.oldPassword && (
+                <p className="error-message">{errors.oldPassword}</p>
+              )}
             </div>
-            {errors.oldPassword && (
-              <p className="error-message">{errors.oldPassword}</p>
-            )}
 
             {/* Input mật khẩu mới */}
-            <label>Mật khẩu mới</label>
-            <div className="password-field">
-              <input
-                type={showPassword.newPassword ? "text" : "password"}
-                name="newPassword"
-                placeholder="Nhập mật khẩu mới"
-                value={formData.newPassword}
-                onChange={handleChange}
-                onBlur={() => validateField("newPassword")}
-                className={errors.newPassword ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={() => togglePasswordVisibility("newPassword")}
-              >
-                <FontAwesomeIcon
-                  icon={showPassword.newPassword ? faEyeSlash : faEye}
+            <div className="input-error-wrapper">
+              <label>Mật khẩu mới</label>
+              <div className="password-field">
+                <input
+                  type={showPassword.newPassword ? "text" : "password"}
+                  name="newPassword"
+                  placeholder="Nhập mật khẩu mới"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  onBlur={() => validateField("newPassword")}
+                  className={errors.newPassword ? "input-error" : ""}
                 />
-              </button>
+                <button
+                  type="button"
+                  className="show-password"
+                  onClick={() => togglePasswordVisibility("newPassword")}
+                >
+                  <FontAwesomeIcon
+                    icon={showPassword.newPassword ? faEyeSlash : faEye}
+                  />
+                </button>
+              </div>
+              {errors.newPassword && (
+                <p className="error-message">{errors.newPassword}</p>
+              )}
             </div>
-            {errors.newPassword && (
-              <p className="error-message">{errors.newPassword}</p>
-            )}
 
             {/* Input xác nhận mật khẩu mới */}
-            <label>Xác nhận mật khẩu mới</label>
-            <div className="password-field">
-              <input
-                type={showPassword.confirmPassword ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Xác nhận mật khẩu mới"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                onBlur={() => validateField("confirmPassword")}
-                className={errors.confirmPassword ? "input-error" : ""}
-              />
-              <button
-                type="button"
-                className="show-password"
-                onClick={() => togglePasswordVisibility("confirmPassword")}
-              >
-                <FontAwesomeIcon
-                  icon={showPassword.confirmPassword ? faEyeSlash : faEye}
+            <div className="input-error-wrapper">
+              <label>Xác nhận mật khẩu mới</label>
+              <div className="password-field">
+                <input
+                  type={showPassword.confirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Xác nhận mật khẩu mới"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  onBlur={() => validateField("confirmPassword")}
+                  className={errors.confirmPassword ? "input-error" : ""}
                 />
-              </button>
+                <button
+                  type="button"
+                  className="show-password"
+                  onClick={() => togglePasswordVisibility("confirmPassword")}
+                >
+                  <FontAwesomeIcon
+                    icon={showPassword.confirmPassword ? faEyeSlash : faEye}
+                  />
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <p className="error-message">{errors.confirmPassword}</p>
+              )}
+              {errors.confirmPassword && (
+                <p className="error-message">{errors.confirmPassword}</p>
+              )}
             </div>
-            {errors.confirmPassword && (
-              <p className="error-message">{errors.confirmPassword}</p>
-            )}
           </div>
 
           {/* Nút đổi mật khẩu */}
           <button
             type="button"
-            className="submit-button"
+            className="submit-button submit-changePassword-button"
             disabled={isSubmitting} // Vô hiệu hóa khi đang submit
             onClick={handlePasswordChange}
           >

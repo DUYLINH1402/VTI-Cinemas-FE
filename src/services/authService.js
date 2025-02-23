@@ -4,6 +4,9 @@ import {
   FacebookAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import {
   getDatabase,
@@ -13,12 +16,11 @@ import {
   orderByChild,
   equalTo,
 } from "firebase/database";
-import { loginWithEmailAndPasswordFromFirebase } from "./firebaseService";
-import { loginWithEmailAndPasswordFromSQL } from "./sql/sqlService";
+import { getAccountByEmailFromFirebase } from "./firebaseService";
 const auth = getAuth();
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG!
 
-// Hàm đăng nhập bằng Google
+// HÀM ĐĂNG NHẬP BẰNG GOOGLE
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
@@ -34,7 +36,7 @@ export const loginWithGoogle = async () => {
   };
 };
 
-// Hàm đăng nhập bằng Facebook
+// HÀM ĐĂNG NHẬP BẰNG FACEBOOK
 export const loginWithFacebook = async () => {
   const provider = new FacebookAuthProvider();
   const result = await signInWithPopup(auth, provider);
@@ -50,7 +52,7 @@ export const loginWithFacebook = async () => {
   };
 };
 
-// Hàm kiểm tra Email có tồn tại không
+// HÀM KIỂM TRA EMAIL CÓ TỒN TẠI KHÔNG
 export const getUserByEmail = async (email) => {
   const db = getDatabase();
   const userRef = ref(db, "users");
@@ -60,36 +62,63 @@ export const getUserByEmail = async (email) => {
   if (!snapshot.exists()) {
     throw new Error("Người dùng không tồn tại!");
   }
-
   const userData = snapshot.val();
   // Nếu có nhiều kết quả, chọn kết quả đầu tiên
   const userValues = Object.values(userData);
   if (!userValues.length) {
     throw new Error("Dữ liệu không hợp lệ");
   }
-
   return userValues[0]; // Trả về người dùng đầu tiên
 };
-// Hàm đăng nhập bằng email và mật khẩu
+
+// HÀM ĐĂNG NHẬP BẰNG EMAIL VÀ MẬT KHẨU
 export const loginWithEmailAndPassword = async (email, password) => {
   try {
-    if (useFirebase) {
-      return await loginWithEmailAndPasswordFromFirebase(email, password);
-    } else {
-      return await loginWithEmailAndPasswordFromSQL(email, password);
+    const checkUser = await getAccountByEmailFromFirebase(email);
+    if (!checkUser) {
+      throw new Error("Người dùng không tồn tại!");
     }
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    const user = result.user;
+
+    if (!user.emailVerified) {
+      throw new Error(
+        `Email của bạn chưa được xác nhận. Vui lòng kiểm tra email.`
+      );
+    }
+    return user;
   } catch (error) {
-    console.error("Lỗi đăng nhập:", error.response || error.message);
-    return { error: error.message }; // Trả lỗi để Redux xử lý
+    switch (error.code) {
+      case `auth/invalid-credential`:
+        error.message = "Mật khẩu không đúng.";
+        break;
+      case `auth/invalid-email`:
+        error.message = "Tài khoản không tồn tại.";
+        break;
+      case `auth/user-not-found`:
+        error.message = "Tài khoản không tồn tại.";
+        break;
+      case `auth/wrong-password`:
+        error.message = "Mật khẩu không đúng.";
+        break;
+      case `auth/user-disabled`:
+        error.message = "Tài khoản của bạn đã bị vô hiệu hóa.";
+        break;
+      case `auth/too-many-requests`:
+        error.message = "Bạn đã nhập sai quá nhiều lần, vui lòng thử lại sau.";
+        break;
+    }
+    console.error("Lỗi đăng nhập:", error.code || error.message);
+    throw new Error(error.message || "Lỗi đăng nhập");
   }
 };
-
-// Hàm đăng ký tài khoản
+// HÀM ĐĂNG KÝ TÀI KHOẢN
 export const registerWithEmailAndPassword = async (email, password) => {
   const result = await createUserWithEmailAndPassword(auth, email, password);
   const user = result.user;
-  const accessToken = await user.getIdToken(); // Lấy accessToken
-
+  // Gửi email xác nhận
+  await sendEmailVerification(user);
+  const accessToken = await user.getIdToken(); // Lấy accessToken sau khi gửi email xác nhận
   return {
     uid: user.uid,
     email: user.email,
@@ -101,4 +130,28 @@ export const registerWithEmailAndPassword = async (email, password) => {
 // Hàm lắng nghe trạng thái đăng nhập
 export const onAuthStateChanged = (callback) => {
   return auth.onAuthStateChanged(callback);
+};
+
+// HÀM GỬI LẠI EMAIL XÁC NHẬN KHI NGƯỜI DÙNG ĐĂNG NHẬP VỚI EMAIL CHƯA XÁC NHẬN
+export const resendVerificationEmail = async (email, password) => {
+  const auth = getAuth();
+  try {
+    // Đăng nhập để lấy đối tượng user
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    if (userCredential.user.emailVerified) {
+      throw new Error("Email đã được xác nhận, không cần gửi lại.");
+    }
+    // Gửi lại email xác nhận
+    await sendEmailVerification(userCredential.user);
+    // Sau khi gửi, sign out để không cho đăng nhập trước khi xác nhận
+    await signOut(auth);
+    return "Email xác nhận đã được gửi lại. Vui lòng kiểm tra email của bạn.";
+  } catch (error) {
+    console.error("Error in resendVerificationEmail:", error.message);
+    throw error;
+  }
 };

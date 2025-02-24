@@ -1,5 +1,5 @@
 import React from "react";
-import "./PrivacyPolicy.scss"; // Đổi tên SCSS chung
+import "./PolicyStyles.scss"; // Đổi tên SCSS chung
 
 const PrivacyPolicy = () => {
   return (

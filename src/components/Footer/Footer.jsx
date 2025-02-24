@@ -20,12 +20,11 @@ export const Footer = () => {
             <li>
               <Link to="#">Giới thiệu</Link>
             </li>
-            <li>
-              <Link to="#">Tuyển dụng</Link>
-            </li>
+
             <li>
               <Link to="#">FAQ</Link>
             </li>
+
             <li>
               <Link
                 to="/terms-of-use"
@@ -45,7 +44,22 @@ export const Footer = () => {
               </Link>
             </li>
             <li>
-              <Link to="#">Hướng dẫn đặt vé online</Link>
+              <Link
+                to="/delete-user-data"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Yêu cầu riêng về tài khoản
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="booking-guide"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Hướng dẫn đặt vé online
+              </Link>
             </li>
           </ul>
         </div>

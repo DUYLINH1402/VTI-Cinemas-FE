@@ -8,13 +8,14 @@ import Members from "../pages/Members/Members";
 import { Booking_Seat } from "../pages/Booking_Seat/Booking_Seat";
 import { Payment } from "../pages/Payment/Payment";
 import ContactPage from "../pages/Contact/ContactPage";
-import { Events } from "../pages/Events/Events";
 import PaymentResult from "../pages/Payment/PaymentResult";
 import Promotions from "../pages/Promotions/Promotions";
 import PromotionDetail from "../pages/Promotions/PromotionDetail";
 import PromotionsLayout from "../pages/Promotions/PromotionsLayout";
-import PrivacyPolicy from "../components/PrivacyPolicy/PrivacyPolicy";
-import TermsOfService from "../components/TermsOfService/TermsOfService";
+import PrivacyPolicy from "../components/Policy/PrivacyPolicy";
+import TermsOfService from "../components/Policy/TermsOfService";
+import DeleteUserData from "../components/Policy/DeleteUserData";
+import BookingGuide from "../components/Policy/BookingGuide";
 
 export const UserRoutes = [
   {
@@ -76,6 +77,14 @@ export const UserRoutes = [
       {
         path: "/terms-of-use",
         element: <TermsOfService />,
+      },
+      {
+        path: "/delete-user-data",
+        element: <DeleteUserData />,
+      },
+      {
+        path: "/booking-guide",
+        element: <BookingGuide />,
       },
     ],
   },

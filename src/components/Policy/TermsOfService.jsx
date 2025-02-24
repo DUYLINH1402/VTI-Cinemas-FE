@@ -1,4 +1,5 @@
 import React from "react";
+import "./PolicyStyles.scss";
 
 const TermsOfService = () => {
   return (

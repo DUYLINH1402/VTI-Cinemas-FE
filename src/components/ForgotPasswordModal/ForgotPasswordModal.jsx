@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import "./ForgotPasswordModal.modul.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { validateEmailOrPhone } from "../../utils/validation";
 import { forgotPassword } from "../../services/firebaseService";
 import { toast } from "react-toastify"; // Toast thông báo thay cho Alert
-import { Link } from "react-router-dom";
 import { fetchAccountByEmail } from "../../services/dataService";
+import LoadingIcon from "../LoadingIcon";
+import { Link } from "react-router-dom";
 
 // Component ForgotPasswordModal để xử lý yêu cầu quên mật khẩu
 const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu trữ thông tin email hoặc số điện thoại
   const [errors, setErrors] = useState({ emailOrPhone: "" }); // State lưu trữ lỗi của input
-  const [message, setMessage] = useState("");
-  // State để quản lý hiệu ứng đóng modal
+  const [isLoading, setIsLoading] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
   // Xác thực khi người dùng rời khỏi trường nhập
@@ -28,6 +28,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
     const emailOrPhoneError = validateEmailOrPhone(emailOrPhone);
 
     if (!emailOrPhoneError) {
+      setIsLoading(true);
       try {
         // Kiểm tra xem email có tồn tại không
         const account = await fetchAccountByEmail(emailOrPhone);
@@ -48,8 +49,11 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
         // Hiển thị thông báo lỗi cụ thể từ API
         const errorMessage = error.message || "Không thể kiểm tra email.";
         setErrors({ emailOrPhone: errorMessage });
+      } finally {
+        setIsLoading(false);
       }
     } else {
+      setIsLoading(false); // Reset trạng thái loading khi người dùng không nhập email
       setErrors({ emailOrPhone: emailOrPhoneError });
     }
   };
@@ -65,10 +69,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
   return (
     <div
       className={`modal-overlay ${isClosing ? "fade-out" : ""}`}
-      onClick={(e) => {
-        // Đóng modal khi người dùng click bên ngoài nội dung modal
-        if (e.target.className.includes("modal-overlay")) closeWithAnimation();
-      }}
+      onClick={(e) => {}}
       aria-modal="true"
       role="dialog"
     >
@@ -79,7 +80,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
         onClick={(e) => e.stopPropagation()} // Ngăn việc đóng modal khi click bên trong nội dung
       >
         <button className="back-login-button" onClick={openLoginModal}>
-          <FontAwesomeIcon icon={faBackward} />
+          <FontAwesomeIcon icon={faChevronLeft} /> Quay lại
         </button>
         <h2 className="modal-title">Quên mật khẩu</h2>
         {/* Form quên mật khẩu */}
@@ -103,17 +104,16 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
               )}
             </div>
           </div>
-          <button type="submit" className="submit-button">
-            Gửi yêu cầu
+          <button type="submit" className="submit-button" disabled={isLoading}>
+            {isLoading ? <LoadingIcon size={10} /> : "Gửi yêu cầu"}
           </button>
           <p className="helper-text">
             Hãy kiểm tra email của bạn để thay đổi mật khẩu mới <br />
             <span className="small-text">(Lưu ý: kiểm tra thêm mục spam)</span>
           </p>
-
-          <button className="link-button">
+          <Link className="link-button" to="mailto:vticinema@gmail.com">
             Liên hệ nếu không nhận được email
-          </button>
+          </Link>
         </form>
         {/* Nút đóng modal */}
         <button

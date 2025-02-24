@@ -11,7 +11,6 @@ const LazyImage = ({ src, alt, height, width, className }) => {
       height={height}
       width={width}
       offset={100} // Load trước khi ảnh xuất hiện trong viewport
-      once // Load một lần
       effect="blur" // Hiệu ứng mờ khi tải
       className={className} // Áp dụng className truyền vào
     />

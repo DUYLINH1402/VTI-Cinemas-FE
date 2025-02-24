@@ -57,25 +57,24 @@ export const validateConfirmPassword = (password, confirmPassword) => {
 
   // So sánh "Nhập lại mật khẩu" với "Mật khẩu"
   if (confirmPassword !== password) return "Mật khẩu không khớp";
-
   return "";
 };
 
 // Hàm để chuyển mã lỗi thành thông báo cụ thể
-export const renderErrorMessage = (error) => {
-  switch (error) {
-    case "auth/user-not-found":
-      return "Email không tồn tại.";
-    case "auth/wrong-password":
-      return "Mật khẩu không chính xác.";
-    case "auth/invalid-email":
-      return "Email không đúng định dạng.";
-    case "auth/too-many-requests":
-      return "Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.";
-    default:
-      return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
-  }
-};
+// export const renderErrorMessage = (error) => {
+//   switch (error) {
+//     case "auth/user-not-found":
+//       return "Email không tồn tại.";
+//     case "auth/wrong-password":
+//       return "Mật khẩu không chính xác.";
+//     case "auth/invalid-email":
+//       return "Email không đúng định dạng.";
+//     case "auth/too-many-requests":
+//       return "Bạn đã thử đăng nhập quá nhiều lần. Vui lòng thử lại sau.";
+//     default:
+//       return "Đăng nhập thất bại. Vui lòng kiểm tra lại.";
+//   }
+// };
 
 // CHUẨN HOÁ KÝ TỰ IN HOA CHỮ CÁI MỖI TỪ (DÙNG CHO TÊN ĐỊA DANH)
 export const normalizeString = (str) => {

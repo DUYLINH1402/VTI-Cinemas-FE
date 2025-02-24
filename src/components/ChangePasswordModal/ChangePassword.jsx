@@ -107,7 +107,7 @@ const ChangePasswordModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
+    <div className="modal-overlay">
       <div
         className="modal-content modal-content-changePassword"
         onClick={(e) => e.stopPropagation()}

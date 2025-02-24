@@ -2,7 +2,6 @@ import {
   // fetchMoviesFromFirebase,
   fetchCarouselDataFromFirebase,
   getAccountFromFirebase,
-  registerAccountToFirebase,
   getAccountByEmailFromFirebase,
   fetchMoviesByTabFromFirebase,
   fetchSeatsFromFirebase,
@@ -17,7 +16,6 @@ import {
   // fetchMoviesFromSQL,
   fetchCarouselDataFromSQL,
   fetchAccountFromSQL,
-  registerAccountToSQL,
   fetchAccountByEmailFromSQL,
   fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
@@ -94,12 +92,6 @@ export const fetchCarouselData = async () => {
     : await fetchCarouselDataFromSQL();
 };
 
-// API LƯU THÔNG TIN BỔ SUNG VÀO REALTIME DATABASE (KHÔNG LƯU MẬT KHẨU)
-export const registerAccount = async (formData) => {
-  return useFirebase
-    ? await registerAccountToFirebase(formData)
-    : await registerAccountToSQL(formData);
-};
 // API lấy Account By email
 export const fetchAccountByEmail = async (email) => {
   return useFirebase

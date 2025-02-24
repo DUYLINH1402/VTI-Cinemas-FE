@@ -102,10 +102,9 @@ const PromotionDetail = () => {
             Ngày đăng tin: {promotion.startDate}
           </div>
           {/* Hiển thị nội dung HTML từ Firebase */}
-          <div
-            className="promotion-content"
-            dangerouslySetInnerHTML={{ __html: promotion.content }}
-          />
+          <div className="promotion-content">
+            <div dangerouslySetInnerHTML={{ __html: promotion.content }} />
+          </div>
         </div>
       </div>
       <div className="related-promotions">

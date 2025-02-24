@@ -6,17 +6,17 @@ import "./header.scss";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { handleLogout } from "../../utils/authActions";
-import { Dropdown, Menu, Avatar } from "antd";
+import { Dropdown, Avatar } from "antd";
 import LoginModal from "./../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
-import { resetError } from "../../../store/authSlice";
+import { resetError, setAuth } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
-import { searchDataService } from "../../services/dataService";
 import { searchMovies } from "../../../store/searchSlice";
 import { getAuthToken, removeAuthToken } from "../../utils/authStorage";
 import GuideModal from "../GuideModal/GuideModal";
+import { getAuth } from "firebase/auth";
 
 export const Header = () => {
   const token = getAuthToken();
@@ -30,6 +30,8 @@ export const Header = () => {
   const openRegisterModal = () => setModalType("register");
   const openForgotPasswordModal = () => setModalType("forgotPassword");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const [loading, setLoading] = useState(false);
+
   const closeModal = () => {
     setError(""); // Reset lỗi
     dispatch(resetError()); // Reset lỗi trong Redux
@@ -56,6 +58,43 @@ export const Header = () => {
       dispatch(setSearchResults([])); // Reset kết quả nếu có lỗi
     }
   };
+
+  // useEffect để cập nhật thông tin người dùng mỗi khi đăng nhập/đăng xuất
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (isLoggedIn) {
+        setLoading(true);
+        try {
+          const authInstance = getAuth();
+          await authInstance.currentUser?.reload(); // Cập nhật dữ liệu mới nhất từ Firebase
+          const updatedUser = authInstance.currentUser;
+          // Kiểm tra nếu updatedUser là null thì không làm gì cả
+          if (!updatedUser) {
+            console.warn("User is null after reload, retrying in 2 seconds...");
+            setTimeout(fetchUserData, 2000); // Thử lại sau 2 giây
+            return;
+          }
+          // Dispatch cập nhật Redux store với dữ liệu mới
+          dispatch(
+            setAuth({
+              user: {
+                uid: updatedUser.uid,
+                email: updatedUser.email || "", // Tránh lỗi khi email bị undefined
+                displayName: updatedUser.displayName || "Người dùng",
+                photoURL: updatedUser.photoURL || "",
+              },
+              token: await updatedUser.getIdToken(),
+            })
+          );
+        } catch (error) {
+          console.error("Lỗi khi cập nhật thông tin user:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchUserData();
+  }, [isLoggedIn, dispatch]); // Chạy lại mỗi khi trạng thái đăng nhập thay đổi
 
   useEffect(() => {
     // Hàm xử lý sự kiện cuộn
@@ -103,19 +142,20 @@ export const Header = () => {
       openLoginModal();
     }
   };
-  const userMenu = (
-    <Menu>
-      <Menu.Item key="profile">
-        <Link to="/members">Trang cá nhân</Link>
-      </Menu.Item>
-      <Menu.Item key="settings">
-        <Link to="/settings">Cài đặt</Link>
-      </Menu.Item>
-      <Menu.Item key="logout" onClick={onLogout}>
-        Đăng xuất
-      </Menu.Item>
-    </Menu>
-  );
+  const userMenuItems = [
+    {
+      key: "profile",
+      label: <Link to="/members">Trang cá nhân</Link>,
+    },
+    {
+      key: "settings",
+      label: <Link to="/settings">Cài đặt</Link>,
+    },
+    {
+      key: "logout",
+      label: <span onClick={onLogout}>Đăng xuất</span>,
+    },
+  ];
 
   return (
     <>
@@ -124,9 +164,9 @@ export const Header = () => {
           {/* Phần logo ở góc trái của header */}
           <div className="header navbar-brand" id="header">
             {/* Nút toggle menu cho mobile */}
-            <div class="bd-navbar-toggle">
+            <div className="bd-navbar-toggle">
               <button
-                class="navbar-toggler p-2"
+                className="navbar-toggler p-2"
                 type="button"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#bdSidebar"
@@ -137,17 +177,17 @@ export const Header = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
-                  class="bi"
+                  className="bi"
                   fill="currentColor"
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
                   ></path>
                 </svg>
 
-                <span class="d-none fs-6 pe-1">Browse</span>
+                <span className="d-none fs-6 pe-1">Browse</span>
               </button>
             </div>
             <div className="header-left">
@@ -218,7 +258,7 @@ export const Header = () => {
                 {isLoggedIn && user ? (
                   // Nếu người dùng đã đăng nhập, hiển thị avatar với Dropdown
                   <Dropdown
-                    overlay={userMenu}
+                    menu={{ items: userMenuItems }}
                     trigger={["click"]}
                     placement="bottomRight"
                   >

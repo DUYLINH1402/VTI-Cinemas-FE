@@ -13,6 +13,8 @@ import PaymentResult from "../pages/Payment/PaymentResult";
 import Promotions from "../pages/Promotions/Promotions";
 import PromotionDetail from "../pages/Promotions/PromotionDetail";
 import PromotionsLayout from "../pages/Promotions/PromotionsLayout";
+import PrivacyPolicy from "../components/PrivacyPolicy/PrivacyPolicy";
+import TermsOfService from "../components/TermsOfService/TermsOfService";
 
 export const UserRoutes = [
   {
@@ -66,6 +68,14 @@ export const UserRoutes = [
       {
         path: "/payment-result",
         element: <PaymentResult />,
+      },
+      {
+        path: "/privacy-policy",
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: "/terms-of-use",
+        element: <TermsOfService />,
       },
     ],
   },

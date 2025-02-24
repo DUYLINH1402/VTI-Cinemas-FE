@@ -22,5 +22,22 @@ const routerPage = createBrowserRouter([
 ]);
 
 export const RouterPage = () => {
-  return <RouterProvider router={routerPage} />;
+  return (
+    <RouterProvider
+      router={routerPage}
+      // React Router v6 đang thông báo về những thay đổi sắp tới trong v7.
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+        v7_fetcherPersist: true,
+        v7_normalizeFormMethod: true,
+        v7_partialHydration: true,
+        v7_skipActionErrorRevalidation: true,
+        v7_fetcherPersist: true,
+        v7_normalizeFormMethod: true,
+        v7_partialHydration: true,
+        v7_skipActionErrorRevalidation: true,
+      }}
+    />
+  );
 };

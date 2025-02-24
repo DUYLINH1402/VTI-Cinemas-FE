@@ -24,12 +24,14 @@ import { setAuthToken } from "../../utils/authStorage.js";
 import { resendVerificationEmail } from "../../services/authService.js";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
+import LoadingIcon from "../LoadingIcon.jsx";
 
 const LoginModal = ({ closeModal }) => {
   // state quản lý đóng mở Modal
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false); // Trạng thái Loading
   const [showPassword, setShowPassword] = useState(false); // Điều khiển hiển thị mật khẩu
   const [emailOrPhone, setEmailOrPhone] = useState(""); // State lưu email hoặc số điện thoại
   const [password, setPassword] = useState(""); // State lưu mật khẩu
@@ -82,11 +84,10 @@ const LoginModal = ({ closeModal }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({ emailOrPhone: "", password: "" }); // Reset lỗi trước khi submit
-
+    setIsLoading(true);
     // Validate form
     const validationErrors = validateLoginForm({ emailOrPhone, password });
     setErrors(validationErrors);
-
     const hasErrors = Object.values(validationErrors).some((error) => error);
     if (!hasErrors) {
       dispatch(loginUser({ email: emailOrPhone, password }))
@@ -95,7 +96,6 @@ const LoginModal = ({ closeModal }) => {
           const { accessToken, password, ...user } = response;
           setAuthToken(accessToken); // Lưu Token chính cho phiên làm việc
           localStorage.setItem("user", JSON.stringify(user));
-
           if (rememberMe) {
             const db = getDatabase();
             const rememberToken = uuidv4(); // Tạo Remember Token duy nhất
@@ -105,7 +105,6 @@ const LoginModal = ({ closeModal }) => {
             });
             localStorage.setItem("rememberToken", rememberToken);
           }
-
           toast.success("Đăng nhập thành công!");
           closeModal(); // Đóng modal nếu đăng nhập thành công
           navigate(user.role === "admin" ? "/admin/dashboard" : "/");
@@ -115,6 +114,7 @@ const LoginModal = ({ closeModal }) => {
           // Kiểm tra nếu `error.message` tồn tại trước khi gọi `.includes()`
           const errorMessage =
             error?.message || "Đăng nhập thất bại. Vui lòng thử lại!";
+          setIsLoading(false);
           // Cập nhật Redux store với lỗi
           setErrors((prevErrors) => ({
             ...prevErrors,
@@ -125,7 +125,12 @@ const LoginModal = ({ closeModal }) => {
               ? error.message
               : "",
           }));
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
+    } else {
+      setIsLoading(false);
     }
   };
 
@@ -242,7 +247,7 @@ const LoginModal = ({ closeModal }) => {
           openLoginModal={openLoginModal}
         />
       ) : (
-        <div className="modal-overlay" onClick={handleOverlayClick}>
+        <div className="modal-overlay">
           <div
             className="modal-content modal-login-content"
             onClick={(e) => e.stopPropagation()}
@@ -321,8 +326,9 @@ const LoginModal = ({ closeModal }) => {
                 <button
                   type="submit"
                   className="submit-button submit-login-button"
+                  disabled={isLoading}
                 >
-                  Đăng nhập
+                  {isLoading ? <LoadingIcon size={10} /> : "Đăng nhập"}
                 </button>
               </div>
             </form>

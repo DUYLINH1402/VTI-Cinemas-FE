@@ -5,10 +5,8 @@ import {
   get,
   equalTo,
   set,
-  push,
   query,
   orderByChild,
-  update,
   startAt,
   endAt,
 } from "firebase/database";
@@ -22,19 +20,15 @@ import { setAuthToken } from "../utils/authStorage";
 import app from "../services/firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
-// Chức năng Search (ĐÃ CHẠY OK)
+// CHỨC NĂNG SEARCH (ĐÃ CHẠY OK)
 export const searchFromFireBase = {
   searchMovies: async (queryText) => {
-    // console.log("Querying Firebase with queryText:", queryText);
     const db = getDatabase();
     const movieRef = ref(db, "Movies");
-
     // Kiểm tra nếu queryText không hợp lệ
     if (!queryText || typeof queryText !== "string") {
-      // console.error("Invalid queryText:", queryText);
       return []; // Trả về mảng rỗng nếu không có từ khóa
     }
-
     try {
       // Tìm kiếm theo `movie_name`
       const nameQuery = query(
@@ -73,7 +67,6 @@ export const searchFromFireBase = {
           movie.genre?.toLowerCase().includes(normalizedQuery)
         );
       });
-      // console.log(filteredMovies);
       return filteredMovies; // Trả về kết quả đã lọc
     } catch (error) {
       console.error("Error in fireBaseService:", error);
@@ -82,7 +75,7 @@ export const searchFromFireBase = {
   },
 };
 
-// Đổi mật khẩu trong Firebase Authentication
+// API ĐỔI MẬT KHẨU TRONG FIREBASE AUTHENTICATION (ĐÃ CHẠY OK)
 export const updatePasswordInFirebase = async (
   email,
   oldPassword,
@@ -90,15 +83,12 @@ export const updatePasswordInFirebase = async (
 ) => {
   const auth = getAuth();
   const user = auth.currentUser;
-
   if (!user) {
     throw new Error("Bạn cần đăng nhập để đổi mật khẩu.");
   }
-
   try {
     // Xác thực lại người dùng bằng mật khẩu cũ
     await signInWithEmailAndPassword(auth, email, oldPassword);
-
     // Cập nhật mật khẩu mới
     await updatePassword(user, newPassword);
     return "Thay đổi mật khẩu thành công!";
@@ -127,7 +117,7 @@ export const updatePasswordInFirebase = async (
   }
 };
 
-// Lấy thông tin Account
+// LẤY THÔNG TIN ACCOUNT
 export const getAccountFromFirebase = async (account_id) => {
   const db = getDatabase();
   const userRef = ref(db, `Account/${account_id}`);
@@ -151,7 +141,8 @@ export const fetchMoviesFromFirebase = async () => {
     throw error; // Throw để các hàm gọi biết lỗi
   }
 };
-// Hàm lấy dữ liệu cho Movies By Id (ĐÃ CHẠY OK)
+
+// HÀM LẤY DỮ LIỆU CHO MOVIES BY ID (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromFirebase = async (movie_id) => {
   try {
     const response = await axios.get(
@@ -172,7 +163,8 @@ export const fetchMoviesByIdFromFirebase = async (movie_id) => {
     throw error;
   }
 };
-// Hàm lấy dữ liệu cho Movies bằng 3 Nút lọc (ĐÃ CHẠY OK)
+
+// HÀM LẤY DỮ LIỆU CHO MOVIES BẰNG 3 NÚT LỌC (ĐÃ CHẠY OK)
 export const fetchMoviesByTabFromFirebase = async (tab) => {
   try {
     // Lấy toàn bộ dữ liệu từ Firebase
@@ -209,7 +201,7 @@ export const fetchMoviesByTabFromFirebase = async (tab) => {
   }
 };
 
-// Hàm lấy dữ liệu cho Carousel (ĐÃ CHẠY OK)
+// HÀM LẤY DỮ LIỆU CHO CAROUSEL (ĐÃ CHẠY OK)
 export const fetchCarouselDataFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -227,39 +219,7 @@ export const fetchCarouselDataFromFirebase = async () => {
   }
 };
 
-// Hàm lưu thông tin Account
-export const registerAccountToFirebase = async (formData) => {
-  const db = getDatabase();
-  const accountRef = ref(db, "Account");
-
-  try {
-    // Lấy snapshot của node "Account" để đếm số lượng tài khoản hiện có
-    const snapshot = await get(accountRef);
-    // Xác định account_id (tự tăng)
-    const accountId = snapshot.exists() ? snapshot.size + 1 : 1;
-    // Lưu dữ liệu vào Firebase với account_id là số
-    const userRef = push(accountRef); // Tạo ref mới
-    await set(userRef, {
-      account_id: accountId, // Sử dụng account_id là số
-      displayName: formData.name,
-      email: formData.email,
-      phone_number: formData.phone,
-      passport: "",
-      role: "user", // Role mặc định
-      status: "pending", // "pending" vì chưa xác nhận email
-      city: "",
-      district: "",
-      address: "",
-      avatar_url:
-        "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg",
-      created_date: new Date().toISOString().split("T")[0],
-      updated_date: new Date().toISOString().split("T")[0],
-    });
-  } catch (error) {
-    console.error("Lỗi khi lưu dữ liệu vào Firebase:", error);
-  }
-};
-// Hàm lấy tài khoản dựa trên email (ĐÃ CHẠY OK)
+// HÀM LẤY TÀI KHOẢN DỰA TRÊN EMAIL (ĐÃ CHẠY OK)
 export const getAccountByEmailFromFirebase = async (email) => {
   const db = getDatabase();
   const accountRef = ref(db, "Account");
@@ -270,22 +230,20 @@ export const getAccountByEmailFromFirebase = async (email) => {
     if (!snapshot.exists()) {
       throw new Error("Tài khoản không tồn tại trong hệ thống.");
     }
-
     // Kiểm tra xem có key hợp lệ hay không
-    const accountKey = Object.keys(snapshot.val())[0]; // Lấy key đầu tiên
-    if (!accountKey) {
-      throw new Error("Không thể xác định accountKey.");
+    const uid = Object.keys(snapshot.val())[0]; // Lấy key đầu tiên
+    if (!uid) {
+      throw new Error("Không thể xác định uid.");
     }
-
-    const accountData = snapshot.val()[accountKey];
-    return { ...accountData, accountKey }; // Trả về cả dữ liệu và key
+    const accountData = snapshot.val()[uid];
+    return { ...accountData, uid }; // Trả về cả dữ liệu và key
   } catch (error) {
     console.error("Lỗi khi lấy tài khoản từ Firebase:", error.message);
     throw error;
   }
 };
 
-// Hàm lưu thông tin Seats
+// HÀM LƯU THÔNG TIN SEATS (ĐÃ CHẠY OK)
 export const fetchSeatsFromFirebase = async () => {
   try {
     const reponse = await axios.get(
@@ -297,7 +255,7 @@ export const fetchSeatsFromFirebase = async () => {
   }
 };
 
-// Hàm gọi API để lấy danh sách rạp (ĐÃ CHẠY OK)
+// HÀM GỌI API ĐỂ LẤY DANH SÁCH RẠP (ĐÃ CHẠY OK)
 export const fetchCinemasFromFirebase = async () => {
   try {
     const response = await axios.get(
@@ -310,7 +268,7 @@ export const fetchCinemasFromFirebase = async () => {
   }
 };
 
-// API Lấy danh sách suất chiếu từ Firebase
+// API LẤY DANH SÁCH SUẤT CHIẾU TỪ FIREBASE (ĐÃ CHẠY OK)
 export const fetchShowtimesFromFirebase = async (cinema_id) => {
   try {
     const response = await axios.get(
@@ -344,15 +302,12 @@ export const updateAccountToFirebase = async (email, formData) => {
   try {
     // Lấy thông tin tài khoản dựa trên email
     const accountData = await getAccountByEmailFromFirebase(email);
-
-    // Kiểm tra accountKey
-    const accountKey = accountData.accountKey;
-    if (!accountKey) {
-      throw new Error("Không thể xác định accountKey để cập nhật.");
+    // Kiểm tra uid
+    const uid = accountData.uid;
+    if (!uid) {
+      throw new Error("Không thể xác định uid để cập nhật.");
     }
-
-    const userRef = ref(db, `Account/${accountKey}`);
-
+    const userRef = ref(db, `Account/${uid}`);
     // Cập nhật thông tin tài khoản
     await set(userRef, {
       ...accountData, // Giữ dữ liệu cũ

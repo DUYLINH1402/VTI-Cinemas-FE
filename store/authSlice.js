@@ -11,9 +11,13 @@ import { setAuthToken, removeAuthToken } from "../src/utils/authStorage";
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   // Hàm async để đăng ký người dùng với email và mật khẩu
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password, formData }, { rejectWithValue }) => {
     try {
-      const response = await registerWithEmailAndPassword(email, password);
+      const response = await registerWithEmailAndPassword(
+        email,
+        password,
+        formData
+      );
 
       return response.user; // Trả về thông tin người dùng khi thành công
     } catch (error) {
@@ -103,7 +107,7 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
@@ -124,7 +128,7 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
@@ -145,7 +149,7 @@ const authSlice = createSlice({
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1731338363/avata-null_s9l4wy.jpg", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;

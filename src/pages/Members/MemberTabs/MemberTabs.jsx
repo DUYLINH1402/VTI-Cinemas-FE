@@ -22,6 +22,33 @@ const MemberTabs = () => {
     navigate(`/members?tab=${key}`); // Điều hướng tới URL với tab mới
   };
 
+  const tabItems = [
+    {
+      key: "user-profile",
+      label: "Trang cá nhân",
+      children: <UserProfile />,
+    },
+    {
+      key: "membership-card",
+      label: "Thẻ thành viên",
+      children: <MembershipCard />,
+    },
+    {
+      key: "booking-history",
+      label: "Lịch sử đặt vé",
+      children: <BookingHistory />,
+    },
+    {
+      key: "vouchers",
+      label: "Voucher",
+      children: <div>Voucher nội dung</div>,
+    },
+    {
+      key: "vti-points",
+      label: "Điểm VTI",
+      children: <div>Điểm VTI nội dung</div>,
+    },
+  ];
   return (
     <div>
       <Tabs
@@ -29,23 +56,8 @@ const MemberTabs = () => {
         onChange={handleTabChange}
         className="custom-tabs"
         centered
-      >
-        <TabPane tab="Trang cá nhân" key="user-profile">
-          <UserProfile />
-        </TabPane>
-        <TabPane tab="Thẻ thành viên" key="membership-card">
-          <MembershipCard />
-        </TabPane>
-        <TabPane tab="Lịch sử đặt vé" key="booking-history">
-          <BookingHistory />
-        </TabPane>
-        <TabPane tab="Voucher" key="vouchers">
-          <div>Voucher nội dung</div>
-        </TabPane>
-        <TabPane tab="Điểm VTI" key="vti-points">
-          <div>Điểm VTI nội dung</div>
-        </TabPane>
-      </Tabs>
+        items={tabItems}
+      />
     </div>
   );
 };

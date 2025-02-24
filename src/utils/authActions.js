@@ -1,13 +1,12 @@
 import { logout } from "../../store/authSlice";
 import { toast } from "react-toastify";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, update } from "firebase/database";
 import { removeAuthToken } from "../utils/authStorage";
 
 export const handleLogout = (dispatch) => {
   removeAuthToken();
   // Cập nhật Redux state
   dispatch(logout());
-  toast.info("Bạn đã đăng xuất!");
   const rememberMe = localStorage.getItem("rememberToken");
   if (!rememberMe) {
     localStorage.removeItem("rememberToken");
@@ -18,10 +17,8 @@ export const saveUserToDatabase = (user) => {
   const db = getDatabase();
   const userRef = ref(db, `Account/${user.uid}`);
 
-  set(userRef, {
-    uid: user.uid,
-    email: user.email,
-    fullname: user.displayName,
+  update(userRef, {
+    displayName: user.displayName,
     avatar_url: user.photoURL,
     lastLoginAt: new Date().toISOString(),
   })

@@ -7,12 +7,16 @@ import {
   sendEmailVerification,
   signOut,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import {
   getDatabase,
   ref,
   get,
+  push,
+  set,
   query,
+  update,
   orderByChild,
   equalTo,
 } from "firebase/database";
@@ -26,7 +30,6 @@ export const loginWithGoogle = async () => {
   const result = await signInWithPopup(auth, provider);
   const user = result.user;
   const accessToken = await user.getIdToken(); // Lấy accessToken
-
   return {
     uid: user.uid,
     email: user.email,
@@ -86,6 +89,16 @@ export const loginWithEmailAndPassword = async (email, password) => {
         `Email của bạn chưa được xác nhận. Vui lòng kiểm tra email.`
       );
     }
+
+    // Cập nhật trạng thái trong Firebase Database nếu email đã xác thực
+    const db = getDatabase();
+    const userRef = ref(db, `Account/${user.uid}`);
+
+    await update(userRef, {
+      status: "active",
+    });
+
+    console.log("Cập nhật trạng thái thành công!");
     return user;
   } catch (error) {
     switch (error.code) {
@@ -113,12 +126,47 @@ export const loginWithEmailAndPassword = async (email, password) => {
   }
 };
 // HÀM ĐĂNG KÝ TÀI KHOẢN
-export const registerWithEmailAndPassword = async (email, password) => {
+export const registerWithEmailAndPassword = async (
+  email,
+  password,
+  formData
+) => {
+  const db = getDatabase();
   const result = await createUserWithEmailAndPassword(auth, email, password);
   const user = result.user;
+  // Cập nhật displayName vào Firebase Auth ngay sau khi tạo tài khoản
+  await updateProfile(user, {
+    displayName: formData.name,
+    photoURL:
+      "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png",
+  });
+
+  // LƯU THÊM DỮ LIỆU VÀO REALTIME DATABASE
+  try {
+    const userRef = ref(db, `Account/${user.uid}`);
+    await set(userRef, {
+      uid: user.uid,
+      displayName: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      passport: "",
+      role: "user", // Role mặc định
+      status: "pending", // "pending" vì chưa xác nhận email
+      city: "",
+      district: "",
+      address: "",
+      avatar_url:
+        "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png",
+      created_date: new Date().toISOString().split("T")[0],
+      updated_date: new Date().toISOString().split("T")[0],
+    });
+  } catch (error) {
+    console.error("Lỗi khi lưu dữ liệu vào Firebase:", error);
+  }
   // Gửi email xác nhận
   await sendEmailVerification(user);
   const accessToken = await user.getIdToken(); // Lấy accessToken sau khi gửi email xác nhận
+  console.log("Đăng ký thành công!");
   return {
     uid: user.uid,
     email: user.email,

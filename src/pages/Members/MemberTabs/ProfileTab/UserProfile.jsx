@@ -9,6 +9,7 @@ import { toast } from "react-toastify"; // Thư viện thông báo (toast)
 import ChangePasswordModal from "../../../../components/ChangePasswordModal/ChangePassword";
 import { Link } from "react-router-dom";
 import { closeModal } from "../../../../utils/handleAction";
+import LoadingIcon from "../../../../components/LoadingIcon";
 // import { uploadImageToCloudinary } from "../../../../services/cloudinaryService"; // Hàm upload ảnh lên Cloudinary
 
 // Component UserProfile để hiển thị và cập nhật thông tin cá nhân
@@ -19,6 +20,7 @@ export const UserProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null); // Ảnh được chọn
   const [imageURL, setImageURL] = useState(""); // URL của ảnh sau khi upload
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // // Xử lý khi người dùng tải lên ảnh
   // const handleImageChange = (e) => {
@@ -86,7 +88,7 @@ export const UserProfile = () => {
   const [formData, setFormData] = useState({
     name: user.fullname || user.displayName,
     email: user.email,
-    phone: user.phone_number,
+    phone: user.phone,
     passport: user.passport,
     birthDate: user.birth_date,
     gender: user.gender,
@@ -121,31 +123,32 @@ export const UserProfile = () => {
 
   // Xử lý khi người dùng nhấn nút "Cập nhật"
   const handleSubmit = async () => {
-    // Loại bỏ các giá trị null/undefined trước khi gửi dữ liệu
-    const sanitizedFormData = Object.fromEntries(
-      Object.entries(formData).filter(
-        ([_, value]) => value !== undefined && value !== null
-      )
-    );
-
-    // Kiểm tra dữ liệu formData
-    if (!formData || Object.keys(formData).length === 0) {
-      throw new Error("formData không hợp lệ hoặc không được truyền đúng."); // Báo lỗi nếu dữ liệu không hợp lệ
-    }
-
+    setIsLoading(true);
     try {
+      // Loại bỏ các giá trị null/undefined trước khi gửi dữ liệu
+      const sanitizedFormData = Object.fromEntries(
+        Object.entries(formData).filter(
+          ([_, value]) => value !== undefined && value !== null
+        )
+      );
+      // Kiểm tra dữ liệu formData
+      if (!formData || Object.keys(formData).length === 0) {
+        throw new Error("formData không hợp lệ hoặc không được truyền đúng."); // Báo lỗi nếu dữ liệu không hợp lệ
+      }
       // Gọi API để cập nhật thông tin
       await updateAccount(sanitizedFormData);
       toast.success("Cập nhật thông tin thành công!"); // Hiển thị thông báo thành công
     } catch (error) {
       console.error("Lỗi khi cập nhật thông tin:", error.message);
       toast.error(`Cập nhật thất bại: ${error.message}`); // Hiển thị thông báo lỗi
+    } finally {
+      setIsLoading(false); // 🔥 Ẩn loading sau khi hoàn tất
     }
   };
 
   return (
     <>
-      <div>
+      <div className="profile-info-wrap">
         <div className="profile-info ">
           <h2 className="title">Thông tin cá nhân</h2>
           <form>
@@ -289,8 +292,13 @@ export const UserProfile = () => {
             </div>
 
             {/* Nút cập nhật */}
-            <button onClick={handleSubmit} type="button" className="update-btn">
-              Cập nhật
+            <button
+              onClick={handleSubmit}
+              type="button"
+              className="update-btn"
+              disabled={isLoading}
+            >
+              {isLoading ? <LoadingIcon size={10} /> : "Cập nhật"}
             </button>
           </form>
         </div>

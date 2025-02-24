@@ -6,7 +6,7 @@ import {
   faEye,
   faEyeSlash,
   faSpinner,
-  faBackward,
+  faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   validateEmail,
@@ -18,7 +18,6 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../../store/authSlice";
-import { registerAccount } from "../../services/dataService";
 import { toast } from "react-toastify";
 
 const RegisterModal = ({ closeModal, openLoginModal }) => {
@@ -121,15 +120,13 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
         registerUser({
           fullname: formData.name,
           email: formData.email,
-          phone_number: formData.phone,
+          phone: formData.phone,
           birth_date: formData.birthDate,
           gender: formData.gender,
           password: formData.password,
+          formData,
         })
       ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
-
-      // Lưu thông tin bổ sung vào Realtime Database (KHÔNG LƯU MẬT KHẨU)
-      await registerAccount(formData);
       toast.success(
         "Đăng ký thành công! Vui lòng kiểm tra email của bạn để xác nhận tài khoản."
       );
@@ -169,7 +166,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <button className="back-login-button" onClick={openLoginModal}>
-          <FontAwesomeIcon icon={faBackward} />
+          <FontAwesomeIcon icon={faChevronLeft} /> Quay lại
         </button>
         <h2 className="modal-title">Đăng Ký Tài Khoản</h2>
         <form noValidate>

@@ -146,7 +146,7 @@ export const registerWithEmailAndPassword = async (
     const userRef = ref(db, `Account/${user.uid}`);
     await set(userRef, {
       uid: user.uid,
-      displayName: formData.name,
+      fullname: formData.name,
       email: formData.email,
       phone: formData.phone,
       passport: "",
@@ -170,7 +170,7 @@ export const registerWithEmailAndPassword = async (
   return {
     uid: user.uid,
     email: user.email,
-    displayName: user.displayName,
+    fullname: user.displayName,
     accessToken,
   };
 };

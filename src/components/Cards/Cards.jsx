@@ -73,7 +73,7 @@ export const CardMovie = ({ item }) => {
               height="320px"
               width="100%"
             />
-            <h3 className="line-clamp title">{item.movie_name}</h3>
+            <h3 className="line-clamp title-movie">{item.movie_name}</h3>
             <p className="line-clamp"> Diễn viên: {item.actor}</p>
             <div className="row_stars">
               <p>Thời lượng: {item.duration} phút</p>

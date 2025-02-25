@@ -86,7 +86,7 @@ export const UserProfile = () => {
   // };
   // State chứa dữ liệu form để hiển thị và chỉnh sửa
   const [formData, setFormData] = useState({
-    name: user.fullname || user.displayName,
+    fullname: user.fullname || user.displayName,
     email: user.email,
     phone: user.phone,
     passport: user.passport,
@@ -188,8 +188,8 @@ export const UserProfile = () => {
                 <input
                   className="input-modal"
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="fullname"
+                  value={formData.fullname}
                   onChange={handleInputChange}
                 />
               </div>

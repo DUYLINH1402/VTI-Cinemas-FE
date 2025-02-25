@@ -25,6 +25,7 @@ import { resendVerificationEmail } from "../../services/authService.js";
 import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoadingIcon from "../LoadingIcon.jsx";
+import { fetchAccountByEmail } from "../../services/dataService.js";
 
 const LoginModal = ({ closeModal }) => {
   // state quản lý đóng mở Modal
@@ -92,10 +93,17 @@ const LoginModal = ({ closeModal }) => {
     if (!hasErrors) {
       dispatch(loginUser({ email: emailOrPhone, password }))
         .unwrap()
-        .then((response) => {
+        .then(async (response) => {
           const { accessToken, password, ...user } = response;
           setAuthToken(accessToken); // Lưu Token chính cho phiên làm việc
-          localStorage.setItem("user", JSON.stringify(user));
+          try {
+            // Lấy thông tin tài khoản chứa Role để hệ thống kiểm tra
+            const userData = await fetchAccountByEmail(emailOrPhone);
+            user.role = userData.role || "user";
+            localStorage.setItem("user", JSON.stringify(user));
+          } catch (error) {
+            console.error("Lỗi lấy thông tin người dùng:", error);
+          }
           if (rememberMe) {
             const db = getDatabase();
             const rememberToken = uuidv4(); // Tạo Remember Token duy nhất
@@ -106,6 +114,7 @@ const LoginModal = ({ closeModal }) => {
             localStorage.setItem("rememberToken", rememberToken);
           }
           toast.success("Đăng nhập thành công!");
+          console.log("User: ", user);
           closeModal(); // Đóng modal nếu đăng nhập thành công
           navigate(user.role === "admin" ? "/admin/dashboard" : "/");
         })
@@ -181,11 +190,10 @@ const LoginModal = ({ closeModal }) => {
         // Sau khi đăng nhập, đồng bộ dữ liệu người dùng
         saveUserToDatabase(user);
         closeModal();
-        // navigate("/");
-        toast.success("Đăng nhập Google thành công!");
+        toast.success("Đăng nhập thành công!");
       })
       .catch((error) => {
-        toast.error("Đăng nhập Google thất bại!");
+        toast.error("Đăng nhập thất bại!");
         // console.error("Đăng nhập Google thất bại:", error.message);
       });
   };
@@ -199,10 +207,10 @@ const LoginModal = ({ closeModal }) => {
         localStorage.setItem("user", JSON.stringify(user));
         closeModal();
         // navigate("/");
-        toast.success("Đăng nhập Facebook thành công!");
+        toast.success("Đăng nhập thành công!");
       })
       .catch((error) => {
-        toast.error("Đăng nhập Facebook thất bại!");
+        toast.error("Đăng nhập thất bại!");
         // console.error("Đăng nhập Facebook thất bại:", error.message);
       });
   };

@@ -55,7 +55,7 @@ export const CardPayment = () => {
       // Gọi API server để tạo giao dịch.
       const response = await axios.post(
         "https://vticinema-zalopay-test.vercel.app/payment",
-        // "https://a83b-126-103-150-211.ngrok-free.app/payment",
+        // "https://eb1d-2402-800-6392-bd66-60cf-f1f5-e31f-8bef.ngrok-free.app/payment",
         {
           amount: totalPrice,
           description,
@@ -180,7 +180,7 @@ export const CardPayment = () => {
             <div className="timeout-wrapper">
               <div>
                 <span>Vui lòng kiểm tra lại thông tin</span> <br /> <br />
-                <span>* Vé mua rồi không được dưới mọi hình thức</span>
+                <span>* Vé mua rồi không hoàn trả lại dưới mọi hình thức</span>
               </div>
 
               <div>

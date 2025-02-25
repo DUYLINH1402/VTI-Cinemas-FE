@@ -127,15 +127,17 @@ export const Footer = () => {
           <ul>
             <li>
               <FacebookFilled />
-              <Link to="#">
-                {" "}
+              <Link
+                to="https://www.facebook.com/DuyLinhJP/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <span>Facebook</span>
               </Link>
             </li>
             <li>
               <InstagramFilled />
               <Link to="#">
-                {" "}
                 <span>Instagram</span>
               </Link>
             </li>
@@ -165,9 +167,8 @@ export const Footer = () => {
       </div>
       <div className="copyright">
         <p>
-          {" "}
           <CopyrightOutlined />
-          Copyright 2024
+          Copyright 2024 - 2025
         </p>
       </div>
     </>

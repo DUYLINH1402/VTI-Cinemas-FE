@@ -1,0 +1,64 @@
+.search-admin-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  width: auto;
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .search-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 11px;
+    border-radius: 50%;
+    transition: transform 0.5s ease-in-out, border 0.5s ease-in-out;
+    z-index: 2;
+  }
+
+  .search-input {
+    width: 0;
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    padding: 10px 10px 10px 45px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: width 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  }
+
+  .clear-icon {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &.expanded {
+    // .search-wrapper {
+    //   transform: translateX(-330px);
+    //   background: white;
+    // }
+    .search-input {
+      width: 330px;
+      opacity: 1;
+    }
+
+    .search-icon {
+      transform: translateX(-290px); // Kéo kính lúp sang trái
+      border: transparent;
+    }
+  }
+}

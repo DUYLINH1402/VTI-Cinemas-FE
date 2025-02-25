@@ -80,13 +80,16 @@
         }
       }
       .header-center {
+        position: relative;
         flex: 5;
         width: 100%;
         .header__nav {
           display: flex;
           white-space: nowrap; /* Ngăn các mục xuống dòng */
           justify-content: center;
+          margin-left: 90px;
           align-items: center;
+          max-width: fit-content;
           li {
             a {
               padding: 15px;

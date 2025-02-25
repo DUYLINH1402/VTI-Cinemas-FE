@@ -1,53 +1,113 @@
-.search-bar {
+.search-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 1rem auto;
-  min-width: 350px;
-  max-width: 600px;
+  justify-content: flex-end;
   position: relative;
-
-  input {
-    width: 100%;
-    padding: 8px 20px 8px 40px; /* Chừa khoảng trống cho icon */
-    font-size: 1.4rem;
-    border: 2px solid #ddd;
-    border-radius: 25px;
-    outline: none;
-    transition: all 0.3s ease;
-    background-color: #f8f8f8;
-
-    &:focus {
-      border-color: #007bff; /* Màu xanh khi được focus */
-      background-color: #fff;
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Hiệu ứng sáng */
-    }
-
-    &::placeholder {
-      color: #999;
-      font-size: 1.4rem;
-    }
+  width: auto;
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
   }
 
   .search-icon {
+    cursor: pointer;
     position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 1.6rem;
-    transition: color 0.3s ease;
+    right: 0;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    background: white;
+    padding: 11px;
+    border-radius: 50%;
+    transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
+    z-index: 2;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
+
+  .search-input {
+    width: 0;
+    position: absolute;
+    right: 0;
+    opacity: 0;
+    padding: 10px 10px 10px 45px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
   .clear-icon {
     position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-    font-size: 1.6rem;
-    transition: color 0.3s ease;
-    &:hover {
-      cursor: pointer;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  &.expanded {
+    .search-input {
+      width: 330px;
+      opacity: 1;
     }
+
+    .search-icon {
+      transform: translateX(-290px); // Kéo kính lúp sang trái
+      border: transparent;
+    }
+  }
+}
+.search-dropdown-wrapper {
+  .search-dropdown {
+    position: absolute;
+    top: 65px;
+    right: 180px;
+    width: 380px;
+    background: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-height: 500px;
+    overflow-y: auto;
+    z-index: 10;
+
+    .search-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background: #f5f5f5;
+      }
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+
+      h4 {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      p {
+        font-size: 12px;
+        color: gray;
+      }
+    }
+  }
+  .no-results {
+    color: gray;
+    font-size: 14px;
+    padding: 15px 0;
+    min-height: 100px;
   }
 }

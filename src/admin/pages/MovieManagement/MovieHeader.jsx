@@ -1,7 +1,7 @@
 // src/components/MoviesHeader.jsx
 import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
-import SearchBar from "../../../components/SearchBar/SearchBar";
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 const MovieHeader = ({ onSearch, onSort }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,10 +37,12 @@ const MovieHeader = ({ onSearch, onSort }) => {
         <option value="rating">Đánh giá</option>
         <option value="duration">Thời lượng</option>
       </TextField>
-      <SearchBar
-        onSearch={onSearch}
-        placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
-      />
+      <div className="search-admin">
+        <SearchBar
+          onSearch={onSearch}
+          placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
+        />
+      </div>
       <Button
         sx={{
           backgroundColor: "#1976d2",

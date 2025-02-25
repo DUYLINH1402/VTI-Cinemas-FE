@@ -1,12 +1,12 @@
 import "./FullPageSkeleton.modul.scss";
 import React from "react";
 import { Skeleton, Layout, Row, Col } from "antd";
-
+import "./FullPageSkeleton.modul.scss";
 const { Header, Content, Footer } = Layout; // Giải cấu trúc các phần của Layout từ Ant Design
 
 const FullPageSkeleton = () => {
   return (
-    <div className="content">
+    <div className="skeleton-container">
       {/* Layout tổng thể bao phủ toàn bộ trang */}
       <Layout style={{ minHeight: "100vh" }}>
         {" "}

@@ -66,26 +66,17 @@ export const Movies = () => {
         </div>
 
         {/* Phần nội dung danh sách phim */}
-        <div className="home__movie movies__list">
-          {isSearching || (searchResults && searchResults.length > 0) ? (
-            searchResults && searchResults.length > 0 ? (
-              searchResults.map((item, index) => (
-                <CardMovie item={item} key={index}></CardMovie>
-              ))
+        {loading ? (
+          <FullPageSkeleton />
+        ) : (
+          <div className="home__movie movies__list">
+            {movies.length > 0 ? (
+              movies.map((item, index) => <CardMovie item={item} key={index} />)
             ) : (
-              <p>Không có kết quả phù hợp.</p>
-            )
-          ) : loading ? (
-            <FullPageSkeleton />
-          ) : currentMovies && currentMovies.length > 0 ? (
-            currentMovies.map((item, index) => (
-              <CardMovie item={item} key={index}></CardMovie>
-            ))
-          ) : (
-            <p>Không có phim nào theo yêu cầu.</p>
-          )}
-        </div>
-
+              <p>Không có phim nào theo yêu cầu.</p>
+            )}
+          </div>
+        )}
         {/* Phân trang */}
         <Pagination
           current={currentPage} // Trang hiện tại

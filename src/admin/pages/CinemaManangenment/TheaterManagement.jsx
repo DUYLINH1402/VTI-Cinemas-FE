@@ -27,7 +27,7 @@ import {
 import { validateTheaterForm, isValidForm } from "../../utils/validation.js";
 import { toast } from "react-toastify";
 import "./TheaterManagement.modul.scss";
-import SearchBar from "../../../components/SearchBar/SearchBar.jsx";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 // Hiệu ứng chuyển động Slide
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -193,10 +193,12 @@ const TheaterManagement = () => {
           <option value="city">Khu vực</option>
           <option value="location">Địa chỉ</option>
         </TextField>
-        <SearchBar
-          onSearch={(query) => handleSearch(query)}
-          placeholder="Tìm kiếm rạp, khu vực, địa chỉ..."
-        />
+        <div className="search-admin">
+          <SearchBar
+            onSearch={(query) => handleSearch(query)}
+            placeholder="Tìm kiếm rạp, khu vực, địa chỉ..."
+          />
+        </div>
         <Button
           sx={{
             backgroundColor: "#1976d2",

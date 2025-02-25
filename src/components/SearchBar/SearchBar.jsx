@@ -1,40 +1,119 @@
 import "./SearchBar.modul.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { searchDataService } from "../../services/dataService";
+import FullPageSkeleton from "../Skeleton/FullPageSkeleton";
 
 const SearchBar = ({ onSearch, placeholder }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]); // Lưu kết quả tìm kiếm
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const inputRef = useRef(null); // State để Con trỏ tự focus vào ô input
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Xử lý debounce
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      //   console.log("Search term:", searchTerm);
-      onSearch(searchTerm); // Gửi kết quả tìm kiếm về parent
-    }, 400);
+  useEffect(
+    () => {
+      if (searchTerm.trim() !== "") {
+        setIsDropdownVisible(true);
+        setIsLoading(true); // Bắt đầu loading khi nhập
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
-  const handleClear = () => {
-    setSearchTerm(""); // Đặt lại giá trị tìm kiếm
-    onSearch(""); // Đảm bảo gửi callback ngay lập tức khi xóa
+        const delayDebounceFn = setTimeout(async () => {
+          try {
+            // Gọi API tìm kiếm từ `dataService.js`
+            const results = await searchDataService.getSearchSuggestions(
+              searchTerm
+            );
+            setSearchResults(results); // Lưu kết quả vào state
+          } catch (error) {
+            console.error("Lỗi khi tìm kiếm:", error);
+            setSearchResults([]);
+          } finally {
+            setIsLoading(false); // Dừng loading khi có kết quả
+          }
+        }, 400);
+
+        return () => clearTimeout(delayDebounceFn);
+      } else {
+        setSearchResults([]);
+        setIsDropdownVisible(false);
+        setIsLoading(false);
+      }
+    },
+    [searchTerm],
+    [onSearch]
+  );
+
+  const handleClearAndClose = () => {
+    setSearchTerm(""); // Xóa nội dung ô tìm kiếm
+    setSearchResults([]); // Xóa kết quả tìm kiếm
+    setIsDropdownVisible(false); // Ẩn dropdown
+    setIsExpanded(false); // Đóng thanh tìm kiếm
+    setIsLoading(false);
+  };
+
+  const toggleSearch = () => {
+    setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      setSearchTerm("");
+      setSearchResults([]);
+      setIsDropdownVisible(false);
+      setIsLoading(false);
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
   };
   return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder={placeholder || "Tìm kiếm..."} // Giá trị mặc định hoặc nhận từ props
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      {searchTerm && (
-        <FontAwesomeIcon
-          className="clear-icon"
-          icon={faTimes}
-          onClick={handleClear}
-        />
-      )}
-      <FontAwesomeIcon className="search-icon" icon={faSearch} />
+    <div>
+      <div className={`search-container ${isExpanded ? "expanded" : ""}`}>
+        <div className="search-wrapper">
+          <FontAwesomeIcon
+            className="search-icon"
+            icon={faSearch}
+            onClick={toggleSearch}
+          />
+          <input
+            ref={inputRef} // Gắn ref vào input để con trỏ tự focus
+            type="text"
+            className="search-input"
+            placeholder={placeholder || "Tìm kiếm..."}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onFocus={() => setIsDropdownVisible(searchTerm.length > 0)}
+          />
+          {isExpanded && (
+            <FontAwesomeIcon
+              className="clear-icon"
+              icon={faTimes}
+              onClick={handleClearAndClose}
+            />
+          )}
+        </div>
+      </div>
+      <div className="search-dropdown-wrapper">
+        {isDropdownVisible && (
+          <div className="search-dropdown">
+            {isLoading ? ( // Hiển thị loading khi đang tìm kiếm
+              <FullPageSkeleton message="Đang tìm kiếm..." />
+            ) : searchResults.length > 0 ? (
+              searchResults.map((result, index) => (
+                <div key={index} className="search-item">
+                  <img
+                    src={result.image || "/default-movie.jpg"}
+                    alt={result.movie_name}
+                  />
+                  <div>
+                    <h4>{result.movie_name}</h4>
+                    <p>{result.genre}</p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="no-results">Không có kết quả phù hợp</p> //  Hiển thị khi không có kết quả
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

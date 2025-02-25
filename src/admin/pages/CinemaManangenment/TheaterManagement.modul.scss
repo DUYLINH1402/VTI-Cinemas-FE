@@ -46,3 +46,11 @@
   margin: 0 !important;
   // padding: 5px !important;
 }
+.MuiBox-root {
+  position: relative;
+  .search-admin {
+    position: absolute;
+    top: 0;
+    right: 160px;
+  }
+}

@@ -243,15 +243,14 @@ export const Header = () => {
                     Liên hệ
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <SearchBar
-                    onSearch={handleSearch}
-                    placeholder="Tìm kiếm phim, thể loại, diễn viên... "
-                  />
-                </li>
               </ul>
             </div>
-
+            <div className="nav-item search-wrapper">
+              <SearchBar
+                onSearch={handleSearch}
+                placeholder="Tìm kiếm phim, thể loại, diễn viên... "
+              />
+            </div>
             {/* Phần login hoặc thông tin người dùng ở góc phải */}
             <div className="header-right">
               <div className="login-actions">

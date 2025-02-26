@@ -1,5 +1,10 @@
+@use "../../assets//styles/mixins.scss" as *;
+
 .carousel_img {
   min-height: 350px;
+  @include respond-to(xs) {
+    display: none;
+  }
   .ant-carousel {
     .slick-slide img {
       display: block;

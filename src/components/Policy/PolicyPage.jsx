@@ -1,7 +1,7 @@
 import React from "react";
-import "./PolicyStyles.scss"; // Đổi tên SCSS chung
+import "./PolicyPage.scss"; // Đổi tên SCSS chung
 
-const PrivacyPolicy = () => {
+const PolicyPage = () => {
   return (
     <div className="content">
       <div className="policy-container">
@@ -122,4 +122,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default PolicyPage;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./PolicyStyles.scss"; // Dùng chung SCSS với các chính sách khác
+import "./PolicyPage.scss"; // Dùng chung SCSS với các chính sách khác
 
 const BookingGuide = () => {
   return (

@@ -18,13 +18,11 @@ export const Footer = () => {
           </Link>
           <ul>
             <li>
-              <Link to="#">Giới thiệu</Link>
-            </li>
-
-            <li>
               <Link to="#">FAQ</Link>
             </li>
-
+            <li>
+              <Link to="#">Giới thiệu</Link>
+            </li>
             <li>
               <Link
                 to="/terms-of-use"
@@ -64,7 +62,7 @@ export const Footer = () => {
           </ul>
         </div>
         <div className="footer__section footer__info">
-          <h4>Hệ thống rạp</h4>
+          <h4 className="footer-title">Hệ thống rạp</h4>
           <div className="footer__list__cinemas">
             <ul>
               <p className="title__location">Miền Bắc</p>
@@ -123,7 +121,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="footer__section footer__social">
-          <h4>Kết nối</h4>
+          <h4 className="footer-title">Kết nối</h4>
           <ul>
             <li>
               <FacebookFilled />
@@ -151,7 +149,7 @@ export const Footer = () => {
           <img src={logo_da_thong_bao_bct} alt="logo_da_thong_bao_bct" />
         </div>
         <div className="footer__section footer__contact">
-          <h4>Liên hệ</h4>
+          <h4 className="footer-title">Liên hệ</h4>
           <ul>
             <li>CÔNG TY CỔ PHẦN VTI MEDIA</li>
             <li>LIÊN HỆ HỢP TÁC</li>

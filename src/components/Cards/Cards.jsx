@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./card.scss";
+import "./CardReponsive.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Seats } from "../../pages/Booking_Seat/Seats/Seats";
 import { Timeout } from "../../pages/Booking_Seat/Timeout/Timeout";

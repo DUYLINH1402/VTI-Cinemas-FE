@@ -1,4 +1,6 @@
 @use "./../../../src/assets/styles/cssBase.scss";
+@use "../../assets/styles/mixins.scss" as *;
+
 .card-content {
   .card_carousel_img {
     a {
@@ -93,4 +95,26 @@
 .star-rating .far {
   color: #ff6347; /* Màu vàng cho sao */
   font-size: 16px; /* Kích thước */
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .card__movie {
+    display: flex;
+    max-width: 190px;
+    padding: 10px;
+    justify-content: center;
+    max-height: 430px;
+    .lazy-load-image-loaded {
+      height: 260px !important;
+    }
+    .row_stars {
+      justify-content: space-between;
+      flex-direction: column;
+    }
+  }
+  .card__movie__img {
+    object-fit: cover;
+    height: 260px;
+  }
 }

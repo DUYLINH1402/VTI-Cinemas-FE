@@ -1,52 +1,15 @@
 @use "./../../assets/styles/cssBase.scss";
 @use "../../assets//styles/mixins.scss" as *;
 
-// Responsive cho Tablet
-@include respond-to(sm) {
-  .header-left {
-    img {
-      width: 5%; // Thu nhỏ logo trên mobile
-    }
-  }
-  .header-center {
-    // display: none;
-    flex-direction: column;
-    .header__nav {
-      flex-direction: column;
-      li {
-        a {
-          font-size: small;
-          margin: 5px 0;
-        }
-      }
-    }
-  }
-}
-
-// Responsive cho Mobile
-@include respond-to(xs) {
-  .header-left {
-    // display: none;
-    width: 50px; // Thu nhỏ logo trên mobile
-  }
-  .header-center {
-    display: none; // Ẩn menu khi chưa mở toggler
-  }
-
-  .header-right {
-    justify-content: center;
-    .btn-primary {
-      margin-right: auto;
-      font-size: 1.2rem;
-    }
-  }
-}
 .navbar-toggler {
   display: none; // Ẩn mặc định
-
   @include respond-to(xs) {
     display: block; // Chỉ hiển thị trên mobile
-    margin-right: 20px;
+    padding: 5px;
+    margin-right: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
   }
 }
 .navbar {
@@ -68,6 +31,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px;
+      min-height: 48px;
 
       .header-left {
         align-items: center;
@@ -187,4 +151,25 @@
 .ant-dropdown {
   position: fixed; // Đảm bảo không bị ảnh hưởng bởi scroll
   z-index: 1050;
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .header {
+    position: relative;
+    .search-wrapper {
+      position: absolute;
+      top: 15px;
+      right: 5px;
+    }
+    .header-left {
+      display: none;
+    }
+    .header-center {
+      display: none; // Ẩn menu khi chưa mở toggler
+    }
+    .header-right {
+      display: none;
+    }
+  }
 }

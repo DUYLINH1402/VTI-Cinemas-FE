@@ -17,6 +17,7 @@ import { searchMovies } from "../../../store/searchSlice";
 import { getAuthToken, removeAuthToken } from "../../utils/authStorage";
 import GuideModal from "../GuideModal/GuideModal";
 import { getAuth } from "firebase/auth";
+import MobileSidebar from "./MobileSidebar";
 
 export const Header = () => {
   const token = getAuthToken();
@@ -32,6 +33,13 @@ export const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [loading, setLoading] = useState(false);
 
+  // STATE HIỂN THỊ TOGGLER CHO MOBILE
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
   const closeModal = () => {
     setError(""); // Reset lỗi
     dispatch(resetError()); // Reset lỗi trong Redux
@@ -39,7 +47,6 @@ export const Header = () => {
   };
 
   const [searchResults, setSearchResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false); // Quản lý trạng thái tìm kiếm
 
   // Hàm xử lý tìm kiếm từ SearchBar
   const handleSearch = async (query) => {
@@ -159,35 +166,14 @@ export const Header = () => {
 
   return (
     <>
-      <div className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="nav-content container-fluid">
+      <div className="navbar ">
+        <div className="nav-content">
           {/* Phần logo ở góc trái của header */}
-          <div className="header navbar-brand" id="header">
-            {/* Nút toggle menu cho mobile */}
-            <div className="bd-navbar-toggle">
-              <button
-                className="navbar-toggler p-2"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#bdSidebar"
-                aria-controls="bdSidebar"
-                aria-label="Toggle docs navigation"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  className="bi"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                  ></path>
-                </svg>
-
-                <span className="d-none fs-6 pe-1">Browse</span>
+          <div className="header " id="header">
+            {/* Nút toggler menu cho mobile */}
+            <div>
+              <button className="navbar-toggler">
+                <MobileSidebar />
               </button>
             </div>
             <div className="header-left">
@@ -197,50 +183,68 @@ export const Header = () => {
             </div>
 
             {/* Navigation trung tâm */}
-            <div className="header-center collapse navbar-collapse">
+            <div
+              className="header-center collapse navbar-collapse"
+              id="navbarNav"
+            >
               <ul className="header__nav navbar-nav mx-auto">
                 <li className="nav-item">
                   <NavLink
                     to="/"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "active" : "nav-link"
+                    }
+                    onClick={closeMenu}
                   >
-                    Trang chủ
+                    TRANG CHỦ
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/movies"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "active" : "nav-link"
+                    }
+                    onClick={closeMenu}
                   >
-                    Phim
+                    PHIM
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/promotions"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "active" : "nav-link"
+                    }
+                    onClick={closeMenu}
                   >
-                    Tin tức
+                    TIN TỨC
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/members"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "active" : "nav-link"
+                    }
                     onClick={(e) => {
                       e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
                       handleMemberClick(token, setModalType);
+                      closeMenu();
                     }}
                   >
-                    Thành viên
+                    THÀNH VIÊN
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/contact"
-                    className={({ isActive }) => (isActive ? "active" : "")}
+                    className={({ isActive }) =>
+                      isActive ? "active" : "nav-link"
+                    }
+                    onClick={closeMenu}
                   >
-                    Liên hệ
+                    LIÊN HỆ
                   </NavLink>
                 </li>
               </ul>

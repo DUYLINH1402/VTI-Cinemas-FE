@@ -1,4 +1,5 @@
 @use "./assets/styles/global.scss";
+@use "../src/assets//styles//mixins.scss" as *;
 
 :root {
   font-family: "Poppins", sans-serif;
@@ -47,6 +48,9 @@ a {
   min-height: 100vh;
   padding-top: 85px;
   margin: 0 auto;
+  // @include respond-to(xs) {
+  //   width: 100vw;
+  // }
 }
 .btn {
   display: inline-block;

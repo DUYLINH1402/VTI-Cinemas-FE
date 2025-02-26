@@ -1,4 +1,6 @@
 @use "./../../assets/styles/cssBase.scss";
+@use "./../../assets//styles//mixins.scss" as *;
+
 .home__movie.movies__list {
   display: grid;
   gap: 20px;
@@ -9,4 +11,20 @@
   grid-auto-rows: auto;
   padding: 20px;
   justify-items: center; // Căn giữa các thẻ phim
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .content {
+    .home__movie {
+      display: grid;
+      gap: 20px 5px;
+      grid-template-columns: repeat(2, minmax(193px, 1fr));
+      grid-auto-rows: auto;
+      padding: 10px;
+      justify-items: center;
+      overflow: hidden;
+      max-height: 100%;
+    }
+  }
 }

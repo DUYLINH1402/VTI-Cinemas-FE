@@ -12,10 +12,10 @@ import PaymentResult from "../pages/Payment/PaymentResult";
 import Promotions from "../pages/Promotions/Promotions";
 import PromotionDetail from "../pages/Promotions/PromotionDetail";
 import PromotionsLayout from "../pages/Promotions/PromotionsLayout";
-import PrivacyPolicy from "../components/Policy/PrivacyPolicy";
 import TermsOfService from "../components/Policy/TermsOfService";
 import DeleteUserData from "../components/Policy/DeleteUserData";
 import BookingGuide from "../components/Policy/BookingGuide";
+import PolicyPage from "../components/Policy/PolicyPage";
 
 export const UserRoutes = [
   {
@@ -72,7 +72,7 @@ export const UserRoutes = [
       },
       {
         path: "/privacy-policy",
-        element: <PrivacyPolicy />,
+        element: <PolicyPage />,
       },
       {
         path: "/terms-of-use",

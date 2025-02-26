@@ -1,4 +1,5 @@
 @use "./../../../assets/styles/cssBase.scss";
+@use "./../../../assets/styles/mixins.scss" as *;
 
 .content {
   font-family: "Poppins", sans-serif;
@@ -63,5 +64,39 @@
     /* Giới hạn chiều cao hiển thị cho 2 hàng */
     max-height: 1035px;
     overflow: hidden;
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .content {
+    padding-top: 55px;
+    .movie-buttons {
+      display: flex;
+      font-size: 1.4rem;
+      margin-top: 10px;
+      align-items: center;
+      justify-content: space-around;
+      gap: 5px;
+      button {
+        min-width: 125px;
+        padding: 10px 5px;
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+    }
+    .view-more-button {
+      display: none;
+    }
+    .home__movie {
+      display: grid;
+      gap: 20px 5px;
+      grid-template-columns: repeat(2, minmax(193px, 1fr));
+      grid-auto-rows: auto;
+      padding: 10px;
+      justify-items: center;
+      overflow: hidden;
+      max-height: 1805px;
+    }
   }
 }

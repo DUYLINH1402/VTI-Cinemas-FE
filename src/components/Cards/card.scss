@@ -106,7 +106,7 @@
     justify-content: center;
     max-height: 430px;
     .lazy-load-image-loaded {
-      height: 260px !important;
+      height: 230px !important;
     }
     .row_stars {
       justify-content: space-between;
@@ -114,7 +114,17 @@
     }
   }
   .card__movie__img {
-    object-fit: cover;
-    height: 260px;
+    width: 165px;
+    height: 245px;
+  }
+}
+
+@include respond-to(xxs) {
+  .card__movie {
+    max-width: 165px;
+  }
+  .card__movie__img {
+    width: 145px;
+    height: 220px;
   }
 }

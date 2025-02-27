@@ -1,3 +1,5 @@
+@use "../../assets/styles/mixins.scss" as *;
+
 .search-container {
   display: flex;
   align-items: center;
@@ -14,7 +16,7 @@
     cursor: pointer;
     position: absolute;
     right: 0;
-    font-size: 14px;
+    font-size: 1.4rem;
     border: 1px solid #ccc;
     background: white;
     padding: 11px;
@@ -77,6 +79,7 @@
     .search-item {
       display: flex;
       align-items: center;
+      text-align: left;
       padding: 10px;
       border-bottom: 1px solid #eee;
       cursor: pointer;
@@ -87,8 +90,9 @@
       }
 
       img {
+        object-fit: cover;
         width: 40px;
-        height: 40px;
+        min-height: 53px;
         border-radius: 5px;
         margin-right: 10px;
       }
@@ -99,8 +103,12 @@
       }
 
       p {
+        margin-top: 5px;
         font-size: 12px;
         color: gray;
+      }
+      .render_stars {
+        font-size: 1rem;
       }
     }
   }
@@ -109,5 +117,29 @@
     font-size: 14px;
     padding: 15px 0;
     min-height: 100px;
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .search-dropdown-wrapper {
+    .search-dropdown {
+      top: 40px;
+      right: 2px;
+      width: 330px;
+      max-height: 430px;
+    }
+  }
+}
+@include respond-to(xxs) {
+  .search-container {
+    scale: 0.85;
+  }
+  .search-dropdown-wrapper {
+    .search-dropdown {
+      top: 35px;
+      right: 2px;
+      width: 287px;
+    }
   }
 }

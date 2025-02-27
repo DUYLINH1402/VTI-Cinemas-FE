@@ -1,8 +1,8 @@
 .sidebar-header {
   position: fixed;
   top: 0;
-  left: -285px; // Ẩn sidebar ban đầu
-  width: 285px;
+  left: -255px; // Ẩn sidebar ban đầu
+  width: 255px;
   height: 100%;
   overflow-y: scroll;
   background: #fff;
@@ -28,7 +28,7 @@
 
   .sidebar-item {
     width: 100%;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     text-align: left;
     padding: 12px;
     border-bottom: 1px solid #ddd;
@@ -41,7 +41,7 @@
   a {
     text-decoration: none;
     color: #333;
-    font-size: 18px;
+    font-size: 1.6rem;
     display: block;
     width: 100%;
   }
@@ -52,7 +52,7 @@
     left: 0;
     background: none;
     border: none;
-    font-size: 24px;
+    font-size: 1.6rem;
     cursor: pointer;
     z-index: 100; // Đảm bảo menu button luôn hiển thị
   }
@@ -134,7 +134,7 @@
     flex-direction: column;
     text-align: left;
     background-color: #fff;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     padding: 10px;
     border-top: 1px solid #ddd;
     .footer__logo {
@@ -146,9 +146,9 @@
     .footer__contact,
     .footer__social {
       padding-left: 10px;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       li {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         padding: 5px;
       }
       .footer-title {

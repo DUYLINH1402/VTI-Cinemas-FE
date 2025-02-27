@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { searchDataService } from "../../services/dataService";
 import FullPageSkeleton from "../Skeleton/FullPageSkeleton";
+import { renderStars } from "../Cards/Cards";
 
 const SearchBar = ({ onSearch, placeholder }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -104,7 +105,10 @@ const SearchBar = ({ onSearch, placeholder }) => {
                   />
                   <div>
                     <h4>{result.movie_name}</h4>
-                    <p>{result.genre}</p>
+                    <p>Diễn viên: {result.actor}</p>
+                    <div className="render_stars">
+                      {renderStars(result.rating)}
+                    </div>
                   </div>
                 </div>
               ))

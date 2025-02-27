@@ -1,4 +1,6 @@
 @use "./../../../assets/styles/cssBase.scss";
+@use "../../../assets//styles/mixins.scss" as *;
+
 .content {
   width: 100%;
   .card__inf {

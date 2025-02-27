@@ -54,12 +54,12 @@ const MobileSidebar = () => {
           <ul className="header__nav navbar-nav mx-auto">
             <li className="sidebar-item">
               <NavLink to="/" onClick={() => handleNavigation("/")}>
-                Trang chủ
+                TRANG CHỦ
               </NavLink>
             </li>
             <li className="sidebar-item">
               <NavLink to="/movies" onClick={() => handleNavigation("/movies")}>
-                Phim
+                PHIM
               </NavLink>
             </li>
             <li className="sidebar-item">
@@ -67,7 +67,7 @@ const MobileSidebar = () => {
                 to="/promotions"
                 onClick={() => handleNavigation("/promotions")}
               >
-                Tin tức
+                TIN TỨC
               </NavLink>
             </li>
             <li className="sidebar-item">
@@ -75,7 +75,7 @@ const MobileSidebar = () => {
                 to="/members"
                 onClick={() => handleNavigation("/members")}
               >
-                Thành viên
+                THÀNH VIÊN
               </NavLink>
             </li>
             <li className="sidebar-item">
@@ -83,7 +83,7 @@ const MobileSidebar = () => {
                 to="/contact"
                 onClick={() => handleNavigation("/contact")}
               >
-                Liên hệ
+                LIÊN HỆ
               </NavLink>
             </li>
           </ul>

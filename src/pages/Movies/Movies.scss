@@ -15,53 +15,16 @@
 
 // REPONSIVE
 @include respond-to(xs) {
-  .content {
-    text-align: center;
-    padding-top: 60px;
-    font-size: 1rem;
-    .card__inf {
-      display: flex;
-      flex-direction: column; // Chuyển thành cột để tránh bị giới hạn
-      width: 100vw; // Đảm bảo full width màn hình
-      max-width: 100%; // Tránh overflow
-      .image {
-        img {
-          max-width: 140px;
-          width: 100%;
-          height: auto;
-          max-height: 400px;
-          object-fit: cover;
-        }
-      }
-      .row {
-        margin: 0;
-        .introduce {
-          .movie__title {
-            font-size: 1.5rem;
-          }
-          p {
-          }
-        }
-      }
-    }
-
-    .movie-page {
-      padding: 5px;
-      display: block;
-      flex-direction: column;
-      .left-section {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        .trailer iframe {
-          max-width: 100vw;
-        }
-        .comment-wrapper {
-          max-width: 320px;
-        }
-      }
-    }
+  .home__movie.movies__list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(
+      2,
+      minmax(175px, 1fr)
+    ); // Thiết lập số cột tự động
+    grid-auto-rows: auto;
+    padding: 20px;
+    justify-items: center; // Căn giữa các thẻ phim
+    max-height: 100%;
   }
-}
-@include respond-to(xxs) {
 }

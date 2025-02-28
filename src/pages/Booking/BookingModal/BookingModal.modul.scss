@@ -1,8 +1,12 @@
 @use "./../../../assets/styles/cssBase.scss";
+@use "../../../assets//styles/mixins.scss" as *;
+@use "../../../assets//styles/variables.scss" as *;
+
 .modal-booking-content {
   font-size: 1.4rem;
   min-width: 600px;
   border-radius: 10px;
+
   .title-booking {
     font-size: 2rem;
     color: cssBase.$primary-color;
@@ -53,5 +57,40 @@
   &:hover {
     cursor: pointer;
     opacity: 0.8;
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .modal-booking-content {
+    font-size: $mobase-font-size-xl;
+    min-width: 300px;
+    .title-booking {
+      font-size: $mobase-font-size-2xl;
+    }
+    select {
+      min-width: 210px;
+      margin: 0;
+    }
+    .showtime-date {
+      min-width: 100px;
+    }
+    .showtime-time,
+    .showtime-date {
+      .button-chose {
+        font-size: $mobase-font-size-lg;
+        min-width: 60px;
+        min-height: 30px;
+        margin: 3px;
+      }
+    }
+    .showtime-time {
+      padding: 5px 0;
+      margin: 5px 0;
+      border-bottom: 1px solid #ccc;
+    }
+    .movie_name {
+      font-size: $mobase-font-size-3xl;
+    }
   }
 }

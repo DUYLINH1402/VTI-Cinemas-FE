@@ -74,7 +74,7 @@ const ScheduleModal = ({
             </div>
 
             {/* Hiển thị danh sách giờ chiếu theo ngày đã chọn */}
-            <div>
+            <div className="showtime-time">
               {showtimes
                 .find((showtime) => showtime.date === selectedDate) // Tìm ngày đã chọn
                 ?.sessions.map((session) => (
@@ -87,7 +87,7 @@ const ScheduleModal = ({
                         selectedTime === session.time ? "lightblue" : "white", // Đổi màu khi giờ chiếu được chọn
                     }}
                   >
-                    {session.time} ({session.seatsAvailable} ghế trống)
+                    {session.time}
                   </button>
                 ))}
             </div>
@@ -95,7 +95,7 @@ const ScheduleModal = ({
         )}
 
         {/* Nút "Quay lại" */}
-        <button className="button-action success" onClick={onBack}>
+        <button className="button-action" onClick={onBack}>
           Quay lại
         </button>
 

@@ -5,6 +5,7 @@ import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { searchDataService } from "../../services/dataService";
 import FullPageSkeleton from "../Skeleton/FullPageSkeleton";
 import { renderStars } from "../Cards/Cards";
+import { Link, NavLink } from "react-router-dom";
 
 const SearchBar = ({ onSearch, placeholder }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -66,6 +67,9 @@ const SearchBar = ({ onSearch, placeholder }) => {
   };
   return (
     <div>
+      {isExpanded && (
+        <div className="search-overlay" onClick={handleClearAndClose}></div>
+      )}
       <div className={`search-container ${isExpanded ? "expanded" : ""}`}>
         <div className="search-wrapper">
           <FontAwesomeIcon
@@ -98,19 +102,24 @@ const SearchBar = ({ onSearch, placeholder }) => {
               <FullPageSkeleton message="Đang tìm kiếm..." />
             ) : searchResults.length > 0 ? (
               searchResults.map((result, index) => (
-                <div key={index} className="search-item">
-                  <img
-                    src={result.image || "/default-movie.jpg"}
-                    alt={result.movie_name}
-                  />
-                  <div>
-                    <h4>{result.movie_name}</h4>
-                    <p>Diễn viên: {result.actor}</p>
-                    <div className="render_stars">
-                      {renderStars(result.rating)}
+                <Link
+                  to={`/movieinf/${result.movie_id}`}
+                  onClick={handleClearAndClose}
+                >
+                  <div key={index} className="search-item">
+                    <img
+                      src={result.image || "/default-movie.jpg"}
+                      alt={result.movie_name}
+                    />
+                    <div>
+                      <h4>{result.movie_name}</h4>
+                      <p>Diễn viên: {result.actor}</p>
+                      <div className="render_stars">
+                        {renderStars(result.rating)}
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             ) : (
               <p className="no-results">Không có kết quả phù hợp</p> //  Hiển thị khi không có kết quả

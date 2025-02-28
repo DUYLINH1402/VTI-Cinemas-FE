@@ -71,7 +71,9 @@ export const Movies = () => {
         ) : (
           <div className="home__movie movies__list">
             {movies.length > 0 ? (
-              movies.map((item, index) => <CardMovie item={item} key={index} />)
+              currentMovies.map((item, index) => (
+                <CardMovie item={item} key={index} />
+              ))
             ) : (
               <p>Không có phim nào theo yêu cầu.</p>
             )}

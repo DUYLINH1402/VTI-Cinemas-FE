@@ -1,3 +1,6 @@
+@use "./../../assets//styles/mixins.scss" as *;
+@use "./../../assets//styles/variables.scss" as *;
+
 .movies {
   .tab-buttons {
     display: flex;
@@ -50,7 +53,7 @@
             font-weight: 500;
             color: #0f1b4c;
             margin: 0;
-
+            text-align: left;
             &:hover {
               color: #ff6347;
             }
@@ -114,6 +117,16 @@
       &:hover {
         background-color: #e64a19;
       }
+    }
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .movies {
+    padding: 20px;
+    .tab-buttons {
+      padding: 10px;
     }
   }
 }

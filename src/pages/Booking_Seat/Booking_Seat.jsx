@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { CardSeats } from "../../components/Cards/Cards";
+// import { CardSeats } from "../../components/Cards/Cards";
 import "./Booking_Seat.scss";
 import { useLocation } from "react-router-dom";
+import { CardSeats } from "./CardSeats";
 
 export const Booking_Seat = () => {
   const { state } = useLocation();

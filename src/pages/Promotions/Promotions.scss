@@ -1,3 +1,6 @@
+@use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
+
 .content {
   .container {
     // Bố cục danh sách khuyến mãi
@@ -88,6 +91,26 @@
 
         &:hover {
           background: #e64a19;
+        }
+      }
+    }
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .content {
+    .promotions-layout {
+      .left-section {
+        .container {
+          padding: 10px;
+          .events {
+            .event-grid {
+              display: flex;
+              flex-direction: column; // Chuyển layout về dạng cột
+              gap: 15px;
+            }
+          }
         }
       }
     }

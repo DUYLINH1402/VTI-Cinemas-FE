@@ -1,29 +1,43 @@
 @use "./../../assets/styles/cssBase.scss";
+@use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
 
 .content {
   font-family: "Poppins", sans-serif;
-  // margin-top: 20px;
   .card_seat {
     .content_tab {
       margin: 20px;
       display: grid;
       grid-template-columns: 2fr 1fr;
       border-radius: 10px;
-      div.col1 {
+      .col1 {
         .status_seat {
+          margin: 0 auto;
+          width: 500px;
           padding: 10px;
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: space-evenly;
+          .status-seat__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+
+            p.status-seat__lable {
+              margin-top: 10px;
+            }
+          }
+          img {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+          }
         }
-        .status_seat > img {
-          margin: 0px 3px 10px 50px;
-          width: 40px;
-        }
-        .status_seat > p {
-          margin-left: 5px;
-          font-size: 1.4rem;
-        }
+
         img {
           margin-right: 20px;
           margin-top: 20px;
@@ -86,6 +100,92 @@
           &:hover {
             cursor: pointer;
             opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .content {
+    .card_seat {
+      .content_tab {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px 0 0 0;
+        div.col1 {
+          width: 100vw;
+          img {
+            width: 90vw;
+            margin: 5px auto;
+          }
+          div.row_seat {
+            margin: 0;
+            height: 285px;
+            .seat-row {
+              display: flex;
+              flex-wrap: nowrap;
+              justify-content: center;
+              .seat img {
+                width: 25px; /* Kích thước nhỏ hơn cho mobile */
+                height: 25px;
+                margin: 5px;
+              }
+            }
+          }
+          .status_seat {
+            width: 270px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 0;
+            margin-bottom: 5px;
+            .status-seat__item {
+              margin: 5px;
+              img {
+                width: 25px;
+                height: 25px;
+              }
+              .status-seat__lable {
+                font-size: $mobase-font-size-1xl;
+                margin-top: 0;
+              }
+            }
+          }
+          .row_price {
+            margin: 0 auto;
+            width: 350px;
+            height: 100px;
+            padding: 0;
+            font-size: $mobase-font-size-lg;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            .timeout-wrapper {
+              .title_time_out {
+                font-size: $mobase-font-size-1xl;
+              }
+            }
+            .price {
+              .title_price {
+                font-size: $mobase-font-size-1xl;
+              }
+            }
+          }
+        }
+        div.col2 {
+          .detail_movie {
+            .detail_movie_container {
+              .detail_movie_img {
+                width: 150px;
+              }
+              .detail_movie_info {
+                font-size: $mobase-font-size-1xl;
+              }
+            }
           }
         }
       }

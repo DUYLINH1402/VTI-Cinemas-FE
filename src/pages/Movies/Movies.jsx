@@ -20,7 +20,11 @@ export const Movies = () => {
       setLoading(true);
       try {
         const data = await fetchMoviesByTab(activeTab); // Lấy dữ liệu theo tab
-        setMovies(data);
+        // Sắp xếp phim theo release_date giảm dần (mới nhất lên trên)
+        const sortedMovies = data.sort(
+          (a, b) => new Date(b.release_date) - new Date(a.release_date)
+        );
+        setMovies(sortedMovies);
       } catch (error) {
         console.error("Error fetching movies:", error);
       } finally {

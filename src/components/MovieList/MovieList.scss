@@ -4,6 +4,7 @@
 .movies {
   .tab-buttons {
     display: flex;
+    justify-content: center;
     gap: 15px;
     margin-bottom: 10px;
     font-size: 1.4rem;
@@ -39,6 +40,7 @@
         }
       }
       .movie-item {
+        min-height: min-content;
         display: flex;
         gap: 20px;
         padding: 10px;
@@ -62,6 +64,8 @@
             display: flex;
             font-size: 1.4rem;
             color: #737373;
+            justify-content: left;
+            text-align: left;
           }
           .movie-thumbnail__rating {
             font-size: 1.3rem;
@@ -78,14 +82,14 @@
         position: relative;
         .age-rating {
           position: absolute;
-          bottom: 10px; /* Đặt gần góc dưới của poster */
-          left: 95px; /* Đặt lệch trái */
+          left: 42px;
           background-color: orange; /* Màu nền */
           color: white; /* Màu chữ */
           padding: 2px 6px;
           font-size: 12px;
           font-weight: bold;
           border-radius: 3px;
+          min-width: 32px;
         }
 
         .age-rating.age-16,
@@ -126,7 +130,10 @@
   .movies {
     padding: 20px;
     .tab-buttons {
-      padding: 10px;
+      button {
+        padding: 10px 5px;
+        width: 140px;
+      }
     }
   }
 }

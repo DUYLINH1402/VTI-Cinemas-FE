@@ -13,6 +13,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
   const [activeTab, setActiveTab] = useState("nowShowing");
   const [showMore, setShowMore] = useState(false); // Trạng thái để hiển thị thêm phim
   const [loading, setLoading] = useState(false);
+  const [showMoreDes, setShowMoreDes] = useState(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -79,7 +80,19 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
               <p>Diễn viên : {movie.actor}</p>
               <p>Ngôn ngữ : {movie.language}</p>
               <p className="description-lable">Nội dung</p>
-              <p className="description"> {movie.description}</p>
+              <p className="description">
+                {showMoreDes
+                  ? movie.description
+                  : `${movie.description.substring(0, 200)}...`}
+                <span>
+                  <button
+                    onClick={() => setShowMoreDes(!showMoreDes)}
+                    className="read-more-description-button"
+                  >
+                    {showMoreDes ? "Ẩn bớt" : "Xem thêm"}
+                  </button>
+                </span>
+              </p>
             </div>
           </div>
         </div>

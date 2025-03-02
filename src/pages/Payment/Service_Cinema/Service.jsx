@@ -77,7 +77,7 @@ export const Detai_Service = ({
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 2fr 1fr",
-            alignItems: "baseline",
+            alignItems: "center",
           }}
         >
           <div>
@@ -120,22 +120,6 @@ export const Detai_Service = ({
               +
             </button>
           </div>
-
-          {/* <div>
-            <input
-              class="quantity-input"
-              type="number"
-              min={0}
-              value={quantities[key] || 0}
-              onChange={(e) =>
-                handleQuantityChange(
-                  key,
-                  service.price,
-                  parseInt(e.target.value) || 0
-                )
-              }
-            />
-          </div> */}
         </div>
       ))}
     </>

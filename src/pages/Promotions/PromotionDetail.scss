@@ -1,3 +1,6 @@
+@use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
+
 .promotion-wrapper {
   margin: auto;
   padding: 10px;
@@ -246,5 +249,21 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .content {
+    margin-top: 10px;
+    .promotion-wrapper {
+      .promotion-detail {
+        .promotion-content {
+          img {
+            max-width: 300px;
+          }
+        }
+      }
+    }
   }
 }

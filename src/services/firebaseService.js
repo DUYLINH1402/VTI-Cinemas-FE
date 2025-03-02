@@ -175,19 +175,36 @@ export const fetchMoviesByTabFromFirebase = async (tab) => {
     const movies = response.data ? Object.values(response.data) : [];
     const currentDate = new Date(); // Ngày hiện tại để so sánh
 
+    // Chuyển đổi ngày phát hành về dạng chuẩn YYYY-MM-DD
+    const parseDate = (dateString) => {
+      if (!dateString) return null;
+
+      const parts = dateString.split("-");
+      if (parts.length === 3) {
+        if (parts[0].length === 4) {
+          // Định dạng YYYY-MM-DD (đúng chuẩn)
+          return new Date(dateString);
+        } else {
+          // Định dạng DD-MM-YYYY -> Chuyển thành YYYY-MM-DD
+          return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+        }
+      }
+      return null;
+    };
+
     // Lọc dữ liệu dựa trên tab
     let filteredMovies = [];
     if (tab === "upcoming") {
       // Phim sắp chiếu: release_date > currentDate
       filteredMovies = movies.filter((movie) => {
-        const releaseDate = new Date(movie.release_date);
-        return releaseDate > currentDate;
+        const releaseDate = parseDate(movie.release_date);
+        return releaseDate && releaseDate > currentDate;
       });
     } else if (tab === "nowShowing") {
       // Phim đang chiếu: release_date <= currentDate
       filteredMovies = movies.filter((movie) => {
-        const releaseDate = new Date(movie.release_date);
-        return releaseDate <= currentDate;
+        const releaseDate = parseDate(movie.release_date);
+        return releaseDate && releaseDate <= currentDate;
       });
     } else if (tab === "specialShows") {
       // Suất chiếu đặc biệt: is_special_show === true

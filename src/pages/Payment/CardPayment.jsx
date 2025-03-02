@@ -88,7 +88,7 @@ export const CardPayment = () => {
             <div className="person_inf_wrapper">
               <title>Thông tin thanh toán</title>
               <div className="person_inf">
-                <div>
+                <div className="row_info">
                   <label htmlFor="">Họ tên</label>
                   <input
                     type="text"
@@ -96,15 +96,15 @@ export const CardPayment = () => {
                     readOnly
                   />
                 </div>
-                <div>
-                  <label htmlFor="">Số điện thoại</label>
+                <div className="row_info">
+                  <label htmlFor="">Điện thoại</label>
                   <input
                     type="text"
                     value={userInfo?.phone || "Không có"}
                     readOnly
                   />
                 </div>
-                <div>
+                <div className="row_info">
                   <label htmlFor="">Email</label>
                   <input type="email" value={userInfo?.email} readOnly />
                 </div>
@@ -124,7 +124,7 @@ export const CardPayment = () => {
                   <label htmlFor="">Số lượng </label>
                 </div>
               </div>
-              <div>
+              <div className="service_data">
                 <img className="combo_img" src={combo} alt="Combo ưu đãi" />
                 <Service
                   setComboPrice={setComboPrice}
@@ -205,96 +205,100 @@ export const CardPayment = () => {
             </div>
           </div>
         </div>
-        <Modal open={isModalOpen} onClose={handleCloseModal}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: 500,
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 24,
-              p: 4,
-            }}
-          >
-            <Typography
-              variant="h6"
-              sx={{ fontSize: "2rem", color: "#e74c3c", marginBottom: "10px" }}
+        <div className="modal-confirm-booking">
+          <Modal open={isModalOpen} onClose={handleCloseModal}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 500,
+                bgcolor: "background.paper",
+                borderRadius: 2,
+                boxShadow: 24,
+                p: 4,
+              }}
             >
-              Xác nhận thanh toán
-            </Typography>
-            <Box sx={{ fontSize: "1.4rem" }}>
-              <div>
-                <Ticket_Detail seat_name={selectSeatName} showImage={false} />
-                {/* Dịch vụ */}
-                <div>
-                  <Grid item xs={4}>
-                    <Typography variant="body1" align="left">
-                      <strong className={module.service_order_label}>
-                        Dịch vụ kèm:
-                      </strong>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <Box sx={{ textAlign: "right", marginRight: "10px" }}>
-                      {/* Lấy danh sách dịch vụ đã Orders */}
-                      <div>
-                        <ServiceOrders
-                          services={selectedServices}
-                          className={module.service_order_value}
-                        />
-                      </div>
-                    </Box>
-                  </Grid>
-                </div>
-              </div>
-
-              <div
-                style={{
-                  lineHeight: 1.5,
-                  marginTop: "5px",
-                  fontWeight: "600",
-                  textAlign: "right",
-                  padding: "20px",
-                }}
-              >
-                <div>
-                  <p>Tổng thanh toán</p>
-                  <Price price={totalPrice} />
-                </div>
-              </div>
-              <Typography sx={{ fontSize: "1.4rem", color: "red" }}>
-                (Khi bấm xác nhận bạn sẽ được chuyển đến trang thanh toán)
-              </Typography>
-              <Box
+              <Typography
+                variant="h6"
                 sx={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginTop: "10px",
+                  fontSize: "2rem",
+                  color: "#e74c3c",
+                  marginBottom: "10px",
                 }}
               >
-                <Button
-                  onClick={handleCloseModal}
-                  sx={{ fontSize: "1.2rem" }}
-                  color="secondary"
+                Xác nhận thanh toán
+              </Typography>
+              <Box sx={{ fontSize: "1.4rem" }}>
+                <div>
+                  <Ticket_Detail seat_name={selectSeatName} showImage={false} />
+                  {/* Dịch vụ */}
+                  <div>
+                    <Grid item xs={4}>
+                      <Typography variant="body1" align="left">
+                        <strong className={module.service_order_label}>
+                          Dịch vụ kèm:
+                        </strong>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <Box sx={{ textAlign: "right", marginRight: "10px" }}>
+                        {/* Lấy danh sách dịch vụ đã Orders */}
+                        <div>
+                          <ServiceOrders
+                            services={selectedServices}
+                            className={module.service_order_value}
+                          />
+                        </div>
+                      </Box>
+                    </Grid>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    lineHeight: 1.5,
+                    marginTop: "5px",
+                    fontWeight: "600",
+                    textAlign: "right",
+                    padding: "20px",
+                  }}
                 >
-                  Hủy
-                </Button>
-
-                <Button
-                  onClick={handlePayment}
-                  color="primary"
-                  sx={{ fontSize: "1.2rem" }}
-                  disabled={isLoading} // Vô hiệu hóa nút khi đang gửi
+                  <div>
+                    <p>Tổng thanh toán</p>
+                    <Price price={totalPrice} />
+                  </div>
+                </div>
+                <Typography sx={{ fontSize: "1.4rem", color: "red" }}>
+                  (Khi bấm xác nhận bạn sẽ được chuyển đến trang thanh toán)
+                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "end",
+                    marginTop: "10px",
+                  }}
                 >
-                  {isLoading ? <LoadingIcon /> : "Xác nhận"}
-                </Button>
+                  <Button
+                    onClick={handleCloseModal}
+                    sx={{ fontSize: "1.2rem" }}
+                    color="secondary"
+                  >
+                    Hủy
+                  </Button>
+                  <Button
+                    onClick={handlePayment}
+                    color="primary"
+                    sx={{ fontSize: "1.2rem" }}
+                    disabled={isLoading} // Vô hiệu hóa nút khi đang gửi
+                  >
+                    {isLoading ? <LoadingIcon /> : "Xác nhận"}
+                  </Button>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Modal>
+          </Modal>
+        </div>
       </div>
       {/* Hiển thị GuideModal */}
       {showGuide && <GuideModal autoOpen={true} />}

@@ -76,7 +76,7 @@ const MovieList = ({ initialTab = "nowShowing" }) => {
                       </span>
                     )}
                     <div className="movie-thumbnail">
-                      <p className="movie-thumbnail__title">
+                      <p className="movie-thumbnail__title ">
                         {movie.movie_name}
                       </p>
                       <p className="movie-thumbnail__genre">{movie.genre}</p>

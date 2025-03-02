@@ -10,7 +10,9 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     .lazy-load-image-background.blur > img {
+      margin-top: 10px;
       border-radius: 10px;
+      border: 1px solid white;
     }
     .showtime {
       button {
@@ -63,7 +65,25 @@
         }
         .description-lable {
           font-size: $mobase-font-size-3xl;
-          color: $green-color;
+          color: yellow;
+        }
+        .description {
+          position: relative;
+          .read-more-description-button {
+            background-color: transparent;
+            border: none;
+            color: yellow;
+            font-size: $mobase-font-size-2xl;
+
+            cursor: pointer;
+            right: 0;
+            bottom: -5px;
+            background: transparent;
+            padding: 0 5px;
+            @include respond-to(xs) {
+              font-size: $mobase-font-size-1xl;
+            }
+          }
         }
       }
     }

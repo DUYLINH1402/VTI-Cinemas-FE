@@ -63,10 +63,10 @@
 // REPONSIVE
 @include respond-to(xs) {
   .modal-booking-content {
-    font-size: $mobase-font-size-xl;
+    font-size: $mobase-font-size-2xl;
     min-width: 300px;
     .title-booking {
-      font-size: $mobase-font-size-2xl;
+      font-size: $mobase-font-size-3xl;
     }
     select {
       min-width: 210px;
@@ -78,7 +78,7 @@
     .showtime-time,
     .showtime-date {
       .button-chose {
-        font-size: $mobase-font-size-lg;
+        font-size: $mobase-font-size-1xl;
         min-width: 60px;
         min-height: 30px;
         margin: 3px;

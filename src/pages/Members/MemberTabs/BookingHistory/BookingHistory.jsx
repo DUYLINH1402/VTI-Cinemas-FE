@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import { fetchBookingHistory } from "../../../../services/service/serviceBooking";
 import BookingDetailsModal from "./BookingDetailsModal";
+import "./BookingHistory.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
@@ -27,6 +30,7 @@ const BookingHistory = () => {
       title: "Rạp",
       dataIndex: ["movieDetails", "theater"],
       key: "theater",
+      responsive: ["md", "lg", "xl"], // Ẩn trên màn hình nhỏ (xs, sm)
     },
     {
       title: "Tổng tiền",
@@ -34,6 +38,7 @@ const BookingHistory = () => {
       key: "amount",
       render: (amount) =>
         `${new Intl.NumberFormat("vi-VN").format(amount)} VND`,
+      responsive: ["md", "lg", "xl"], // Ẩn trên màn hình nhỏ (xs, sm)
     },
     {
       title: "Trạng thái",
@@ -46,7 +51,11 @@ const BookingHistory = () => {
             fontWeight: "bold",
           }}
         >
-          {status === "success" ? "Thành công" : "Chưa thanh toán"}
+          {status === "success" ? (
+            <FontAwesomeIcon icon={faCheck} />
+          ) : (
+            <FontAwesomeIcon icon={faXmark} />
+          )}
         </span>
       ),
     },
@@ -55,7 +64,7 @@ const BookingHistory = () => {
       key: "actions",
       render: (_, record) => (
         <Button type="link" onClick={() => showModal(record)}>
-          Xem chi tiết
+          Xem
         </Button>
       ),
     },
@@ -78,12 +87,16 @@ const BookingHistory = () => {
 
   return (
     <>
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        bordered
-        pagination={{ pageSize: 5 }}
-      />
+      <div className="booking-history-wrapper">
+        <Table
+          className="booking-history-table"
+          columns={columns}
+          dataSource={dataSource}
+          bordered
+          pagination={{ pageSize: 10 }}
+          scroll={{ x: "max-content" }} // Cho phép cuộn ngang trên mobile
+        />
+      </div>
       <BookingDetailsModal
         isVisible={isModalVisible}
         handleCancel={handleCloseModal}

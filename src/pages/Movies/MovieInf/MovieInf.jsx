@@ -67,8 +67,6 @@ export const MovieInf = () => {
     window.scrollTo(0, 0);
   }, [movie_id]);
 
-  // console.log("Current Modal State:", currentModal);
-
   return (
     <>
       <div className="content">

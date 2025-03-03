@@ -1,4 +1,7 @@
 @use "../../assets/styles/cssBase.scss";
+@use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
+
 /* --- Variables for Colors --- */
 $dot-colors: (
   bg-1: #d82b2b,
@@ -78,7 +81,7 @@ $dot-colors: (
         margin-bottom: 40px;
         width: 312px;
         flex-shrink: 0;
-        margin-right: 36px;
+        // margin-right: 36px;
         background: url(../../assets/image/line.svg) 100% 0 no-repeat;
 
         h2 {
@@ -89,8 +92,8 @@ $dot-colors: (
 
         .services-list {
           position: relative;
-          display: flex;
-          justify-content: space-between;
+          // display: flex;
+          // justify-content: space-between;
           align-items: center;
           .service-item {
             cursor: pointer;
@@ -339,6 +342,92 @@ $dot-colors: (
       margin: 0 auto;
       margin: 30px;
       width: 70%;
+    }
+  }
+}
+
+// REPONSIVE
+@include respond-to(xs) {
+  .contact-page {
+    .sidebar-banner {
+      display: none;
+    }
+    .intro-section {
+      flex-direction: column;
+      .left-banner {
+        width: 100%;
+        margin-top: 20px;
+        img {
+          width: 300px;
+          margin: 0 auto;
+        }
+      }
+      .intro-text {
+        text-align: justify;
+        width: 100%;
+        font-size: $mobase-font-size-1xl;
+        .title {
+          font-size: $mobase-font-size-4xl;
+        }
+      }
+    }
+    .my-cinema {
+      .title {
+        font-size: $mobase-font-size-4xl;
+      }
+      .my-services {
+        .services-section {
+          display: none;
+        }
+
+        .contact-form-section {
+          .service-0 .service-info-title {
+            color: #d82b2b;
+          } /* Màu đỏ */
+          .service-1 .service-info-title {
+            color: #9fb545;
+          } /* Màu xanh lá */
+          .service-2 .service-info-title {
+            color: #f09473;
+          } /* Màu cam */
+          .service-3 .service-info-title {
+            color: #d8652b;
+          } /* Màu xanh dương */
+          .service-info {
+            width: 90vw;
+            margin: 0 auto;
+            height: 230px;
+            .service-info-title {
+              max-width: fit-content;
+              padding: 0;
+              margin-bottom: 20px;
+              font-size: $mobase-font-size-3xl;
+            }
+            .service-info-details {
+              width: 350px;
+              max-height: 150px;
+            }
+          }
+          .sub-title {
+            display: none;
+          }
+          .contact-form {
+            width: 90vw;
+            margin: 0 auto;
+            font-size: $mobase-font-size-xl;
+            .form-rows {
+              margin-bottom: 20px;
+              display: flex;
+              flex-direction: column;
+              .form-group {
+                .error-message {
+                  bottom: -16px;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -228,7 +228,7 @@ export const CardPayment = () => {
                   marginBottom: "10px",
                 }}
               >
-                Xác nhận thanh toán
+                Xác nhận thông tin
               </Typography>
               <Box sx={{ fontSize: "1.4rem" }}>
                 <div>
@@ -270,7 +270,7 @@ export const CardPayment = () => {
                   </div>
                 </div>
                 <Typography sx={{ fontSize: "1.4rem", color: "red" }}>
-                  (Khi bấm xác nhận bạn sẽ được chuyển đến trang thanh toán)
+                  (Khi bấm xác nhận sẽ chuyển đến trang thanh toán)
                 </Typography>
                 <Box
                   sx={{

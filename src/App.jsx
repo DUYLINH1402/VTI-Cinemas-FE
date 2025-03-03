@@ -13,7 +13,18 @@ function App() {
     <Provider store={store}>
       <AppInitializer />
       <RouterPage />
-      <ToastContainer />
+      <ToastContainer
+        position="top-center" // Vị trí hiển thị (có thể đổi thành 'bottom-right', 'top-center', ...)
+        autoClose={3000} // Thời gian tự động đóng (3 giây)
+        hideProgressBar={false} // Hiển thị/thêm thanh progress
+        newestOnTop={true} // Toast mới nhất sẽ hiển thị trên cùng
+        closeOnClick // Cho phép đóng khi click vào
+        rtl={false} // Không bật chế độ RTL (hữu ích khi dùng tiếng Ả Rập)
+        pauseOnFocusLoss // Tạm dừng khi mất focus
+        draggable // Có thể kéo thả
+        pauseOnHover // Tạm dừng khi hover
+        theme="colored" // Chế độ giao diện ('light', 'dark', 'colored')
+      />
     </Provider>
   );
 }

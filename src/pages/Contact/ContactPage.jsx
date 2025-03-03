@@ -137,10 +137,6 @@ const ContactPage = () => {
             src="https://res.cloudinary.com/ddia5yfia/image/upload/v1733544889/contact_1_z9gr0y.jpg"
             alt="Banner quảng cáo"
           />
-          {/* <img
-            src="https://res.cloudinary.com/ddia5yfia/image/upload/v1733633928/contact_5_otvgni.png"
-            alt="Banner quảng cáo"
-          /> */}
           <img
             src="https://res.cloudinary.com/ddia5yfia/image/upload/v1733544889/contact_2_chb5fd.jpg"
             alt="Banner quảng cáo"

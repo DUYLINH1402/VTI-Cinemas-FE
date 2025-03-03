@@ -1,5 +1,7 @@
-// Common
+@use "../../../assets/styles/mixins.scss" as *;
+@use "../../../assets/styles/variables.scss" as *;
 
+// Common
 .title {
   color: #9d3b0f;
   font-size: 2rem;
@@ -54,4 +56,19 @@
 }
 .ant-tabs-nav::before {
   display: none;
+}
+
+// RESPONSIVE
+@include respond-to(xs) {
+  .ant-tabs-nav-wrap {
+    margin-top: 20px;
+    .ant-tabs-nav-list {
+      div.ant-tabs-tab {
+        font-size: $mobase-font-size-xl;
+        max-width: 105px;
+        padding: 5px !important;
+        justify-content: center;
+      }
+    }
+  }
 }

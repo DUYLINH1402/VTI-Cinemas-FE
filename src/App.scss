@@ -18,21 +18,23 @@ a {
 }
 /* Chỉnh cỡ chữ của toast */
 .Toastify__toast {
-  font-size: 1.4rem; /* Cỡ chữ chung */
+  @include respond-to(xs) {
+    margin: 10px auto;
+    width: 90vw;
+    border-radius: 10px !important;
+  }
+  font-size: 1.6rem; /* Cỡ chữ chung */
 }
-
 .Toastify__toast--success {
   font-size: 1.4rem; /* Cỡ chữ riêng cho toast success */
   color: #28a745;
 }
-
 .Toastify__toast--error {
   font-size: 1.4rem; /* Cỡ chữ riêng cho toast error */
 }
 .Toastify__toast--info {
   background-color: #007bff;
 }
-
 .Toastify__toast--warning {
   background-color: #ffc107;
   color: #ffc107;
@@ -48,9 +50,6 @@ a {
   min-height: 100vh;
   padding-top: 85px;
   margin: 0 auto;
-  // @include respond-to(xs) {
-  //   width: 100vw;
-  // }
 }
 .btn {
   display: inline-block;

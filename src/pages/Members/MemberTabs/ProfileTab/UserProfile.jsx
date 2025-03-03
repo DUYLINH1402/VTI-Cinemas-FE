@@ -1,6 +1,5 @@
 import "./UserProfile.modul.scss";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import {
   fetchAccountByEmail,
   updateAccount,
@@ -17,73 +16,9 @@ export const UserProfile = () => {
   // Lấy thông tin user từ localStorage và parse thành object
   const user = JSON.parse(localStorage.getItem("user"));
   const email = user?.email || ""; // Lấy email từ user hoặc trả về chuỗi rỗng nếu không có
-  const [selectedImage, setSelectedImage] = useState(null); // Ảnh được chọn
-  const [imageURL, setImageURL] = useState(""); // URL của ảnh sau khi upload
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // // Xử lý khi người dùng tải lên ảnh
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     setSelectedImage(file); // Lưu ảnh vào state
-  //     const previewURL = URL.createObjectURL(file); // Tạo URL preview
-  //     setImageURL(previewURL); // Hiển thị preview
-  //   }
-  // };
-
-  // // Xử lý khi người dùng Submit Update ảnh
-  // const handleUploadImage = async () => {
-  //   if (!selectedImage) {
-  //     alert("Vui lòng chọn ảnh trước khi upload!");
-  //     return;
-  //   }
-
-  //   try {
-  //     const downloadURL = await uploadImageToCloudinary(selectedImage); // Gọi hàm upload
-  //     setImageURL(downloadURL); // Cập nhật URL sau khi upload
-  //     alert("Upload ảnh thành công!");
-  //   } catch (error) {
-  //     console.error("Lỗi khi upload ảnh:", error.message);
-  //     alert("Upload ảnh thất bại!");
-  //   }
-  // };
-
-  // const uploadImageToCloudinary = async (file) => {
-  //   const formData = new FormData();
-  //   formData.append("file", file); // Thêm file ảnh vào formData
-  //   formData.append("upload_preset", "VTICinemas_avatar"); // Thay bằng tên preset bạn đã tạo
-  //   formData.append("folder", "avatarUser"); // (Tùy chọn) Thêm folder để quản lý
-
-  //   const response = await fetch(
-  //     `https://api.cloudinary.com/v1_1/ddia5yfia/image/upload`, // Thay <your-cloud-name> bằng Cloud name
-  //     {
-  //       method: "POST",
-  //       body: formData,
-  //     }
-  //   );
-
-  //   if (!response.ok) {
-  //     throw new Error("Upload ảnh thất bại");
-  //   }
-
-  //   const data = await response.json();
-  //   return data.secure_url; // URL ảnh sau khi upload thành công
-  // };
-
-  // const handleSaveImageURL = async () => {
-  //   try {
-  //     const updatedFormData = {
-  //       ...formData,
-  //       avatar_url: imageURL, // Thêm URL ảnh vào formData
-  //     };
-  //     await updateAccount(updatedFormData); // Gọi API cập nhật tài khoản
-  //     alert("Cập nhật ảnh thành công!");
-  //   } catch (error) {
-  //     console.error("Lỗi khi cập nhật ảnh:", error.message);
-  //     alert("Cập nhật ảnh thất bại!");
-  //   }
-  // };
   // State chứa dữ liệu form để hiển thị và chỉnh sửa
   const [formData, setFormData] = useState({
     fullname: user.fullname || user.displayName,
@@ -97,8 +32,7 @@ export const UserProfile = () => {
     address: user.address,
     avatar_url: user.avatar_url || user.photoURL, // URL ảnh mặc định nếu không có
   });
-  // console.log(formData.avatar_url);
-  // useEffect: Gọi API để lấy thông tin chi tiết người dùng khi component render
+
   useEffect(() => {
     const fetchDataAccountByEmail = async () => {
       try {
@@ -227,7 +161,7 @@ export const UserProfile = () => {
               <div>
                 <label>Ngày sinh</label>
                 <input
-                  className="input-modal"
+                  className="input-modal selecte-birth-date"
                   type="date"
                   name="birthDate"
                   value={formData.birthDate}

@@ -298,7 +298,9 @@
         }
       }
       .content-comment {
-        margin: 10px 0;
+        text-align: justify;
+        padding: 5px 20px;
+        line-height: 1.5;
         display: flex;
       }
 
@@ -713,7 +715,7 @@
       .row {
         margin: 0;
         .introduce {
-          width: 215px;
+          width: 250px;
           .movie__title {
             text-align: left;
             width: 270px;
@@ -756,6 +758,26 @@
             max-height: 170px;
           }
         }
+        .comment-wrapper {
+          .comments-section {
+            .comment-actions {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              .image-upload-section {
+                .custom-upload-btn {
+                  margin-bottom: 0;
+                }
+              }
+            }
+            .tag-selector {
+              .tag-title {
+                margin: 0 0 10px 0;
+              }
+            }
+          }
+        }
+
         .comment-wrapper {
           width: 100vw;
           padding: 5px;

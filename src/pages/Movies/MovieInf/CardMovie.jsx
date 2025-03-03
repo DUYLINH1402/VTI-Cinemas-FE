@@ -3,15 +3,14 @@ import LazyImage from "../../../components/LazyImage";
 import { renderStars } from "../../../components/Cards/Cards";
 import notification_bg from "../../../assets/image/notification_bg.jpg";
 import { fetchMoviesByTab } from "../../../services/dataService";
-import { useNavigate } from "react-router-dom";
 import Comments from "./Comments";
 import MovieList from "../../../components/MovieList/MovieList";
 import SkeletonSection from "../../../components/Skeleton/SkeletonSection";
+import { parseReleaseDate } from "../../../utils/validation";
 
 export const CardInfMovie = ({ movie, onBookTicket }) => {
   const [movies, setMovies] = useState([]);
   const [activeTab, setActiveTab] = useState("nowShowing");
-  const [showMore, setShowMore] = useState(false); // Trạng thái để hiển thị thêm phim
   const [loading, setLoading] = useState(false);
   const [showMoreDes, setShowMoreDes] = useState(false);
 
@@ -35,10 +34,16 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
     setLoading(true); // Bắt đầu hiển thị Skeleton
     const timer = setTimeout(() => {
       setLoading(false); // Kết thúc loading sau khi dữ liệu được cập nhật
+      setShowMoreDes(false);
     }, 500); // Điều chỉnh thời gian theo nhu cầu
 
     return () => clearTimeout(timer); // Dọn dẹp timeout khi component unmount
   }, [movie]);
+
+  // Xử lý ngày phát hành của phim
+  const releaseDate = parseReleaseDate(movie.release_date);
+  const today = new Date();
+  const isUpcoming = releaseDate && releaseDate > today;
 
   return (
     <>
@@ -62,8 +67,25 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
               width="250px"
             />
             <div className="showtime">
-              {/* Sử dụng callback để mở Modal */}
-              <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
+              {releaseDate ? (
+                isUpcoming ? (
+                  <button
+                    disabled
+                    style={{ cursor: "not-allowed", opacity: 0.8 }}
+                  >
+                    Sắp chiếu
+                  </button>
+                ) : (
+                  <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
+                )
+              ) : (
+                <button
+                  disabled
+                  style={{ cursor: "not-allowed", opacity: 0.8 }}
+                >
+                  Đang cập nhật
+                </button>
+              )}
             </div>
           </div>
 

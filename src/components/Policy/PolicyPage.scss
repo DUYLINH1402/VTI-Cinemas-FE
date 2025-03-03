@@ -1,3 +1,6 @@
+@use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
+
 .policy-container {
   max-width: 900px;
   margin: 40px auto;
@@ -47,5 +50,16 @@
 
   li {
     margin-bottom: 8px;
+  }
+}
+
+@include respond-to(xs) {
+  .content {
+    .policy-container {
+      max-width: 95vw;
+      .policy-content {
+        padding: 20px;
+      }
+    }
   }
 }

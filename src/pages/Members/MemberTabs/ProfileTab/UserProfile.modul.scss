@@ -1,3 +1,6 @@
+@use "../../../../assets/styles/mixins.scss" as *;
+@use "../../../../assets/styles/variables.scss" as *;
+
 .profile-info {
   max-width: 730px;
   margin: 0 auto;
@@ -97,6 +100,27 @@
 
     &:hover {
       background-color: #0056b3;
+    }
+  }
+}
+
+// RESPONSIVE
+@include respond-to(xs) {
+  .profile-info-wrap {
+    .profile-info {
+      max-width: 360px;
+      padding: 30px;
+      .avatar-section {
+        margin: 0;
+      }
+      .form-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .selecte-birth-date {
+          width: 298px; // adjust width to fit the date picker
+        }
+      }
     }
   }
 }

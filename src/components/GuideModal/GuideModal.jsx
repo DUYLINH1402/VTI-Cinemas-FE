@@ -60,11 +60,16 @@ const GuideModal = ({ autoOpen = false }) => {
           onClose={handleClose} // Đóng Modal khi nhấn overlay
           disableScrollLock={true} // Không khóa cuộn trang khi Modal hiển thị
           scroll="body" // Nội dung Modal không khóa cuộn
+          maxWidth="sm" // Giới hạn chiều rộng tối đa
+          fullWidth // Cho phép Modal chiếm toàn bộ chiều rộng trên mobile
           PaperProps={{
             // Gán class animation cho phần tử Modal
             className: `${isClosing ? styles.modalShrink : ""} ${
               isOpening ? styles.modalExpand : ""
             }`,
+            style: {
+              minWidth: "300px", // Đảm bảo modal không quá nhỏ
+            },
           }}
           aria-labelledby="guide-modal-title" // Thẻ `aria` để tăng khả năng truy cập
         >
@@ -99,7 +104,7 @@ const GuideModal = ({ autoOpen = false }) => {
                 Tải App tại đây (bản thử nghiệm)
               </a>
             </div>
-            <FontAwesomeIcon icon={faCheck} className={styles.check_icon} />
+
             <div className={styles.guide_content}>
               <p className={styles.guide_intro}>
                 2. Thanh toán bằng thẻ Visa, Master, JCB
@@ -133,67 +138,12 @@ const GuideModal = ({ autoOpen = false }) => {
                 01/26 <br />
                 <strong className={styles.title_card}>Mã CVV :</strong> 123
               </p>
-            </div>
-
-            <div className={styles.guide_content}>
-              <p className={styles.guide_intro}>
-                3. Thanh toán bằng thẻ ATM (Test với Bank SBI)
-              </p>
-              <p>
-                <strong className={styles.title_card}>Tên chủ thẻ : </strong>{" "}
-                NGUYEN VAN A
-              </p>
-              <p>
-                <strong className={styles.title_card}>Ngày phát hành : </strong>
-                1018
-              </p>
-              <p>
-                <strong className={styles.title_card}> - Thẻ hợp lệ : </strong>{" "}
-                9704540000000062{" "}
-                <Button
-                  size="small"
-                  startIcon={<ContentCopyIcon />}
-                  className={styles.copyButton}
-                  onClick={() => handleCopy("9704540000000062")}
-                >
-                  Copy
-                </Button>
-              </p>
-              <p>
-                <strong className={styles.title_card}>
-                  {" "}
-                  - Thẻ bị mất/đánh cắp :{" "}
-                </strong>{" "}
-                9704540000000013{" "}
-                <Button
-                  size="small"
-                  startIcon={<ContentCopyIcon />}
-                  className={styles.copyButton}
-                  onClick={() => handleCopy("9704540000000013")}
-                >
-                  Copy
-                </Button>
-              </p>
-              <p>
-                <strong className={styles.title_card}>
-                  {" "}
-                  - Thẻ hết tiền :{" "}
-                </strong>{" "}
-                9704540000000047{" "}
-                <Button
-                  size="small"
-                  startIcon={<ContentCopyIcon />}
-                  className={styles.copyButton}
-                  onClick={() => handleCopy("9704540000000047")}
-                >
-                  Copy
-                </Button>
-              </p>
+              <FontAwesomeIcon icon={faCheck} className={styles.check_icon} />
             </div>
             <div
               className={classNames(styles.guide_content, styles.guide_intro)}
             >
-              4. Để trải nghiệm giao diện quản lý vui lòng liên hệ Team phát
+              3. Để trải nghiệm giao diện quản lý vui lòng liên hệ Team phát
               triển để được cung cấp tài khoản Admin thông qua email:{" "}
               <Link to="mailto:mock2406@gmail.com">mock2406@gmail.com</Link>
             </div>
@@ -209,7 +159,7 @@ const GuideModal = ({ autoOpen = false }) => {
             onClick={handleReopen} // Xử lý mở lại Modal
             className={styles.reopenButton} // Class CSS cho FAB
           >
-            <HelpOutlineIcon /> {/* Icon trợ giúp */}
+            <HelpOutlineIcon className="help=icon" /> {/* Icon trợ giúp */}
           </Fab>
         </Zoom>
       )}

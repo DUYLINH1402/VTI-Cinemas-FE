@@ -267,3 +267,22 @@
     }
   }
 }
+
+@include respond-to(xxs) {
+  .content {
+    margin-top: 10px;
+    .promotions-layout {
+      padding: 0;
+      .promotion-wrapper {
+        .promotion-detail {
+          padding: 15px;
+          .promotion-content {
+            img {
+              max-width: 300px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,5 @@
+@use "../../../assets/styles/mixins.scss" as *;
+@use "../../../assets/styles/variables.scss" as *;
 .theater-input-container {
   position: relative;
   width: 100%;
@@ -19,6 +21,9 @@
 .MuiDialogContent-root {
   padding: 15px 35px !important;
   font-size: 1.4rem !important;
+  @include respond-to(xxs) {
+    padding: 10px 15px !important;
+  }
 }
 
 .dialog-actions-btn {

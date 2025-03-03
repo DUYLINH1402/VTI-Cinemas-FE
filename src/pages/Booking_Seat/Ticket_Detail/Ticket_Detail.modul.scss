@@ -1,3 +1,6 @@
+@use "../../../assets/styles/mixins.scss" as *;
+@use "../../../assets/styles/variables.scss" as *;
+
 .detail_movie_container {
   display: flex;
   flex-direction: column;
@@ -40,6 +43,19 @@
       flex: 2;
       text-align: right;
       font-style: italic;
+    }
+  }
+}
+
+@include respond-to(xxs) {
+  .detail_movie_container {
+    .detail_movie_title {
+      font-size: $mobase-font-size-2xl;
+      margin-bottom: 5px;
+    }
+    .detail_movie_info {
+      line-height: 1.1;
+      font-size: $mobase-font-size-xl !important;
     }
   }
 }

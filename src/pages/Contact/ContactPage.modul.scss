@@ -431,3 +431,23 @@ $dot-colors: (
     }
   }
 }
+
+@include respond-to(xxs) {
+  .contact-page {
+    .my-cinema {
+      .my-services {
+        .contact-form-section {
+          .service-info {
+            width: 90vw;
+            margin: 0 auto;
+            height: 200px;
+            .service-info-details {
+              max-height: 120px;
+              width: 300px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

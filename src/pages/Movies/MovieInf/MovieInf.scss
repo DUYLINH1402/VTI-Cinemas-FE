@@ -794,8 +794,25 @@
     .card__inf {
       .row {
         .introduce {
+          width: 200px;
           .movie__title {
             width: 210px;
+          }
+        }
+      }
+    }
+    .movie-page {
+      .left-section {
+        .comment-wrapper {
+          .comments-section {
+            .comments-list {
+              .comment-item {
+                .actions {
+                  gap: 30px;
+                  justify-content: space-between;
+                }
+              }
+            }
           }
         }
       }

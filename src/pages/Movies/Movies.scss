@@ -28,3 +28,17 @@
     max-height: 100%;
   }
 }
+@include respond-to(xxs) {
+  .home__movie.movies__list {
+    display: grid;
+    gap: 20px 5px;
+    grid-template-columns: repeat(
+      2,
+      minmax(170px, 1fr)
+    ); // Thiết lập số cột tự động
+    grid-auto-rows: auto;
+    padding: 5px;
+    justify-items: center; // Căn giữa các thẻ phim
+    max-height: 100%;
+  }
+}

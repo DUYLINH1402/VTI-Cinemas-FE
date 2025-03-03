@@ -104,7 +104,7 @@
     display: flex;
     max-width: 190px;
     padding: 10px;
-    justify-content: center;
+    justify-content: space-evenly;
     max-height: 430px;
     .lazy-load-image-loaded {
       height: 230px !important;

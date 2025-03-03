@@ -95,6 +95,9 @@
   border: 1px solid green;
   border-radius: 5px;
   padding: 5px;
+  @include respond-to(xxs) {
+    display: none;
+  }
 }
 
 @include respond-to(xs) {

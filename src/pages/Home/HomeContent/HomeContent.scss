@@ -54,13 +54,17 @@
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(
-      4,
+      5,
       minmax(240px, 1fr)
     ); // Thiết lập số cột tự động
     grid-auto-rows: auto;
     padding: 20px;
     justify-items: center;
     overflow: hidden;
+
+    @media screen and (max-width: 1320px) {
+      grid-template-columns: repeat(4, minmax(193px, 1fr));
+    }
     @media screen and (max-width: 1050px) {
       grid-template-columns: repeat(3, minmax(193px, 1fr));
     }

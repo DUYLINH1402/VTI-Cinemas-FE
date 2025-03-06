@@ -76,7 +76,7 @@ export const CardMovie = ({ item }) => {
             <h3 className="line-clamp title-movie">{item.movie_name}</h3>
             <p className="line-clamp"> Diễn viên: {item.actor}</p>
             <div className="row_stars">
-              <p>Thời lượng: {item.duration} phút</p>
+              <p>Time: {item.duration} phút</p>
               <div>{renderStars(item.rating || 0)}</div>
             </div>
           </div>

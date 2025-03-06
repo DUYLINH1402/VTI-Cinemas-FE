@@ -121,6 +121,12 @@
         max-width: 600px;
         border-radius: 10px;
         margin: 15px auto;
+        @media screen and (max-width: 1050px) {
+          max-width: 400px;
+        }
+        @media screen and (max-width: 750px) {
+          max-width: 400px;
+        }
       }
     }
   }

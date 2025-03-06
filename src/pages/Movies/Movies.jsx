@@ -9,7 +9,7 @@ import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton"; // Im
 export const Movies = () => {
   const [movies, setMovies] = useState([]); // State lưu danh sách phim
   const [currentPage, setCurrentPage] = useState(1); // State lưu trang hiện tại
-  const moviesPerPage = 10; // Số lượng phim hiển thị trên mỗi trang
+  const moviesPerPage = 15; // Số lượng phim hiển thị trên mỗi trang
   const [activeTab, setActiveTab] = useState("nowShowing"); // Tab hiện tại (default là "PHIM ĐANG CHIẾU")
   const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
   const { searchResults, isSearching } = useSelector((state) => state.search);

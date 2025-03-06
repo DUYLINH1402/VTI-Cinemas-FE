@@ -2,19 +2,22 @@
 @use "../../assets/styles/variables.scss" as *;
 
 .promotions-layout {
+  position: relative;
   display: flex;
   gap: 20px;
   padding: 20px;
   margin: 0 auto;
   max-width: 1270px;
+
   .left-section {
     flex: 3;
+    min-width: 60%;
   }
 
   .right-section {
     flex: 1;
-    position: sticky;
-    top: 100px; // Giữ MovieList cố định khi cuộn
+    width: 300px;
+    margin: 0 auto;
   }
 }
 

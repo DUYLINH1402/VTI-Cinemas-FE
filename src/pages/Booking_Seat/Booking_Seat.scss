@@ -10,7 +10,19 @@
       display: grid;
       grid-template-columns: 2fr 1fr;
       border-radius: 10px;
+      @media screen and (max-width: 1050px) {
+        display: flex;
+        flex-direction: column;
+      }
       .col1 {
+        img {
+          max-width: -webkit-fill-available;
+          margin-top: 20px;
+          width: 800px;
+          @media screen and (max-width: 1350px) {
+            width: 90%;
+          }
+        }
         .status_seat {
           margin: 0 auto;
           width: 500px;
@@ -38,30 +50,73 @@
           }
         }
 
-        img {
-          margin-right: 20px;
-          margin-top: 20px;
-          width: 800px;
-        }
-
         div.row_seat {
           margin-left: 60px;
           margin-right: 60px;
-          height: 400px;
+          height: auto;
           img {
             width: 40px;
             float: left;
-            margin-top: 5px;
+            margin-top: 15px;
             margin-left: 25px;
             margin-right: 20px;
             cursor: pointer;
+            @media screen and (max-width: 1400px) {
+              margin-left: 20px;
+              margin-right: 20px;
+            }
+            @media screen and (max-width: 1350px) {
+              margin-left: 15px;
+              margin-right: 15px;
+            }
+            @media screen and (max-width: 1300px) {
+              margin-left: 12px;
+              margin-right: 12px;
+            }
+            @media screen and (max-width: 1200px) {
+              margin-left: 10px;
+              margin-right: 10px;
+            }
+            @media screen and (max-width: 1150px) {
+              margin-left: 6px;
+              margin-right: 6px;
+            }
+            @media screen and (max-width: 1050px) {
+              margin-left: 25px;
+              margin-right: 25px;
+            }
+            @include respond-to(md) {
+              width: 40px;
+              margin-left: 15px;
+              margin-right: 15px;
+            }
+          }
+
+          .seat {
+            .seat-row {
+              display: flex;
+              flex-wrap: nowrap;
+              justify-content: center;
+              .seat {
+                position: relative;
+                .seat-name {
+                  color: #122449;
+                  position: absolute;
+                  top: 50%;
+                  right: 40%;
+                  background-color: transparent;
+                  &:hover {
+                    cursor: pointer;
+                  }
+                }
+              }
+            }
           }
         }
 
         div.detail_seat {
           display: grid;
           grid-template-columns: 2.5fr 0.5fr;
-          // border-top: 1px solid #ccc;
           height: 87px;
         }
         .row_price {
@@ -108,6 +163,47 @@
 }
 
 // REPONSIVE
+// @include respond-to(md) {
+//   .content {
+//     .card_seat {
+//       .content_tab {
+//         display: flex;
+//         flex-direction: column;
+//         .col1 {
+//           div.row_seat {
+//             img {
+//               width: 40px;
+//               margin-left: 20px;
+
+//               cursor: pointer;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+@include respond-to(sm) {
+  .content {
+    .card_seat {
+      .content_tab {
+        display: flex;
+        flex-direction: column;
+        .col1 {
+          div.row_seat {
+            img {
+              width: 40px;
+              margin-left: 7px;
+              margin-right: 7px;
+
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 @include respond-to(xs) {
   .content {
     .card_seat {
@@ -125,15 +221,21 @@
           }
           div.row_seat {
             margin: 0;
-            height: 285px;
             .seat-row {
-              display: flex;
-              flex-wrap: nowrap;
-              justify-content: center;
-              .seat img {
-                width: 25px; /* Kích thước nhỏ hơn cho mobile */
-                height: 25px;
-                margin: 5px;
+              // display: flex;
+              // flex-wrap: nowrap;
+              // justify-content: center;
+              .seat {
+                img {
+                  width: 25px; /* Kích thước nhỏ hơn cho mobile */
+                  height: 25px;
+                  margin: 5px;
+                }
+                .seat-name {
+                  position: absolute;
+                  top: 35% !important;
+                  right: 30% !important;
+                }
               }
             }
           }

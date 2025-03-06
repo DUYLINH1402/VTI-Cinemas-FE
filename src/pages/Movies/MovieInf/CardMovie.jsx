@@ -51,7 +51,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         <SkeletonSection />
       ) : (
         <div
-          className="card__inf"
+          className="card-info-wrapper"
           style={{
             backgroundImage: `url(${notification_bg})`,
             backgroundSize: "cover",
@@ -59,50 +59,55 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
             backgroundRepeat: "no-repeat",
           }}
         >
-          <div className="image ">
-            <LazyImage
-              src={movie.image}
-              alt={movie.movie_name}
-              height="320px"
-              width="250px"
-            />
-            <div className="showtime">
-              {releaseDate ? (
-                isUpcoming ? (
+          <div className="card__inf">
+            <div className="image">
+              <LazyImage
+                src={movie.image}
+                alt={movie.movie_name}
+                height="320px"
+                width="250px"
+              />
+              <div className="showtime">
+                {releaseDate ? (
+                  isUpcoming ? (
+                    <button
+                      disabled
+                      style={{ cursor: "not-allowed", opacity: 0.8 }}
+                    >
+                      Sắp chiếu
+                    </button>
+                  ) : (
+                    <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
+                  )
+                ) : (
                   <button
                     disabled
                     style={{ cursor: "not-allowed", opacity: 0.8 }}
                   >
-                    Sắp chiếu
+                    Đang cập nhật
                   </button>
-                ) : (
-                  <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
-                )
-              ) : (
-                <button
-                  disabled
-                  style={{ cursor: "not-allowed", opacity: 0.8 }}
-                >
-                  Đang cập nhật
-                </button>
-              )}
+                )}
+              </div>
+            </div>
+            <div className="row">
+              <div className="introduce">
+                <p className="movie__title">{movie.movie_name}</p>
+                <div className="render_stars">
+                  {renderStars(movie.rating || 0)}
+                </div>
+                <p>Ngày phát hành : {movie.release_date}</p>
+                <p>Thời gian : {movie.duration} phút</p>
+                <p>Thể loại : {movie.genre}</p>
+                <p>Đạo diễn : {movie.director}</p>
+                <p>Diễn viên : {movie.actor}</p>
+                <p>Ngôn ngữ : {movie.language}</p>
+              </div>
             </div>
           </div>
-
-          <div className="row">
-            <div className="introduce">
-              <p className="movie__title">{movie.movie_name}</p>
-              <div className="render_stars">
-                {renderStars(movie.rating || 0)}
-              </div>
-              <p>Ngày phát hành : {movie.release_date}</p>
-              <p>Thời gian : {movie.duration} phút</p>
-              <p>Thể loại : {movie.genre}</p>
-              <p>Đạo diễn : {movie.director}</p>
-              <p>Diễn viên : {movie.actor}</p>
-              <p>Ngôn ngữ : {movie.language}</p>
-              <p className="description-lable">Nội dung</p>
-              <p className="description">
+          <div className="description-wrapper">
+            <p className="description-lable">Nội dung</p>
+            <p className="description">
+              <div>
                 {showMoreDes
                   ? movie.description
                   : `${movie.description.substring(0, 200)}...`}
@@ -114,8 +119,8 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
                     {showMoreDes ? "Ẩn bớt" : "Xem thêm"}
                   </button>
                 </span>
-              </p>
-            </div>
+              </div>
+            </p>
           </div>
         </div>
       )}

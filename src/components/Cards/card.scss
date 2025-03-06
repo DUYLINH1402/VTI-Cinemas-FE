@@ -10,7 +10,7 @@
   }
 }
 .card__movie {
-  width: 280px; // Chiều rộng của mỗi thẻ phim, điều chỉnh theo nhu cầu
+  max-width: 240px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -102,10 +102,10 @@
 @include respond-to(xs) {
   .card__movie {
     display: flex;
-    max-width: 190px;
+    // max-width: 190px;
     padding: 10px;
     justify-content: space-evenly;
-    max-height: 430px;
+    // max-height: 430px;
     .lazy-load-image-loaded {
       height: 230px !important;
     }
@@ -115,8 +115,8 @@
     }
   }
   .card__movie__img {
-    width: 165px;
-    height: 245px;
+    // width: 165px;
+    // height: 245px;
   }
 }
 

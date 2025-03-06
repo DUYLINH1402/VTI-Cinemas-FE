@@ -13,6 +13,7 @@
     margin: 10px;
     padding: 20px;
     background-color: #134c0f1a;
+    gap: 10px;
     .col1 {
       title {
         padding: 5px 0;
@@ -30,8 +31,26 @@
           justify-content: space-around;
           align-items: center;
           font-size: 1.4rem;
-          margin-bottom: 30px;
+          margin-bottom: 10px;
+          @media screen and (max-width: 1050px) {
+            flex-direction: column;
+          }
+          .row_info {
+            margin-bottom: 10px;
+            @media screen and (max-width: 1050px) {
+              width: 100%;
+              display: grid;
+              grid-template-columns: 1fr 2.5fr;
+              align-items: baseline;
+              text-align: left;
+              padding: 0 5px;
+            }
+          }
           label {
+            @media screen and (max-width: 1050px) {
+              width: 100%;
+              text-align: left;
+            }
             padding: 10px;
             font-size: 1.4rem;
             font-weight: 600;
@@ -68,10 +87,10 @@
         }
         .combo_img {
           left: 0px;
-          top: 90px;
+          top: -30px;
           position: absolute;
-          width: 100px;
-          height: 100px;
+          width: 70px;
+          height: auto;
         }
       }
       .service > h1 {
@@ -261,8 +280,7 @@
   justify-content: center;
 
   .quantity-btn {
-    width: 20px;
-    height: 20px;
+    width: 15px;
     border: none;
     border-radius: 50%;
     background-color: #126ec44d;
@@ -291,14 +309,13 @@
   }
 
   .quantity-input {
-    width: 40px;
-    height: 27px;
+    width: 35px;
     text-align: end;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
     outline: none;
-
+    padding: 0;
     &:focus {
       border-color: #126ec44d; /* Đổi màu viền khi focus */
     }
@@ -306,6 +323,37 @@
 }
 
 // REPONSIVE
+@include respond-to(sm) {
+  .content {
+    .card_payment {
+      .content_tab {
+        display: block;
+        padding: 20px 30px;
+        .col1 {
+          .person_inf_wrapper {
+            .person_inf {
+              display: flex;
+              flex-direction: column;
+              padding: 5px 60px;
+
+              label,
+              div {
+                width: 100%;
+                font-size: $mobase-font-size-1xl;
+              }
+            }
+          }
+
+          .combo_img {
+            left: 0;
+            top: -10px;
+            width: 55px;
+          }
+        }
+      }
+    }
+  }
+}
 @include respond-to(xs) {
   .content {
     .card_payment {
@@ -317,22 +365,8 @@
             margin: 10px 0 0 0;
           }
           .person_inf_wrapper {
-            max-height: 180px;
             .person_inf {
-              display: flex;
-              flex-direction: column;
-              label,
-              div {
-                width: 100%;
-                font-size: $mobase-font-size-1xl;
-              }
-              .row_info {
-                display: grid;
-                grid-template-columns: 1fr 2.5fr;
-                align-items: baseline;
-                text-align: left;
-                padding: 0 5px;
-              }
+              padding: 0;
             }
           }
           .service {
@@ -354,12 +388,7 @@
               }
             }
           }
-          .combo_img {
-            left: 0;
-            top: -10px;
-            width: 50px;
-            height: 50px;
-          }
+
           .voucher {
             .code_voucher {
               padding: 0;
@@ -433,7 +462,6 @@
             margin: 10px 0 0 0;
           }
           .person_inf_wrapper {
-            max-height: 180px;
             .person_inf {
               display: flex;
               flex-direction: column;
@@ -460,21 +488,9 @@
             .lable_service {
               font-size: $mobase-font-size-xl;
             }
-            .service_data {
-              .quantity-control {
-                gap: 2px;
-                .quantity-input {
-                  width: 25px;
-                  font-size: $mobase-font-size-1xl;
-                }
-              }
-            }
           }
           .combo_img {
-            left: 0;
-            top: -10px;
             width: 50px;
-            height: 50px;
           }
           .voucher {
             font-size: $mobase-font-size-xl;

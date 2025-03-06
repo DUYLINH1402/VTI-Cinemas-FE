@@ -65,7 +65,9 @@ export const HomeContent = () => {
         ) : (
           <div className="home__movie">
             {movies.length > 0 ? (
-              movies.map((item, index) => <CardMovie item={item} key={index} />)
+              movies
+                .slice(0, 8)
+                .map((item, index) => <CardMovie item={item} key={index} />)
             ) : (
               <p>Không có phim nào theo yêu cầu.</p>
             )}

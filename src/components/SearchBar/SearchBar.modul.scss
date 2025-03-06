@@ -133,7 +133,16 @@
 }
 
 // REPONSIVE
-@include respond-to(xs) {
+@include respond-to(md) {
+  .search-dropdown-wrapper {
+    .search-dropdown {
+      right: 80px;
+      width: 330px;
+      max-height: 430px;
+    }
+  }
+}
+@include respond-to(sm) {
   .search-dropdown-wrapper {
     .search-dropdown {
       top: 40px;

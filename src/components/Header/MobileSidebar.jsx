@@ -5,10 +5,8 @@ import { removeAuthToken } from "../../utils/authStorage";
 import { handleLogout } from "../../utils/authActions";
 import LoginModal from "../LoginModal/LoginModal";
 import "./MobileSidebar.scss";
-import logo from "./../../../src/assets/image/logo.png";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { Footer } from "../Footer/Footer";
-import { Header } from "./Header";
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,11 +42,6 @@ const MobileSidebar = () => {
 
       {/* Sidebar Menu */}
       <div className={`sidebar-header ${isOpen ? "open" : ""}`}>
-        {/* LOGO  */}
-        <Link to="/">
-          <img className="header-logo" src={logo} alt="logo" />
-        </Link>
-
         {/* MENU  */}
         <div className="sidebar-menu">
           <ul className="header__nav navbar-nav mx-auto">
@@ -118,15 +111,6 @@ const MobileSidebar = () => {
                 >
                   Đăng nhập
                 </button>
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => {
-                    setModalType("register");
-                    setIsOpen(false);
-                  }}
-                >
-                  Đăng ký
-                </button>
               </div>
             )}
           </div>
@@ -145,7 +129,6 @@ const MobileSidebar = () => {
 
       {/* Modals */}
       {modalType === "login" && <LoginModal closeModal={closeModal} />}
-      {modalType === "register" && <RegisterModal closeModal={closeModal} />}
     </>
   );
 };

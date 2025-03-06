@@ -102,6 +102,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName }) => {
                 ) : (
                   <img src={seatInf.imgURL} alt={seatInf.seat_name} />
                 )}
+                <p className="seat-name">{seatInf.seat_name}</p>
               </div>
             );
           })}

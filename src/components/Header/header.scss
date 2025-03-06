@@ -3,8 +3,8 @@
 
 .navbar-toggler {
   display: none; // Ẩn mặc định
-  @include respond-to(xs) {
-    display: block; // Chỉ hiển thị trên mobile
+  @include respond-to(sm) {
+    display: block; // Chỉ hiển thị  từ 768px (Ipad Mini) trở xuống
     padding: 5px;
     margin-right: 5px;
     border: none;
@@ -41,6 +41,10 @@
           display: inline-block;
           width: 100%;
           object-fit: cover;
+        }
+        // Ẩn khi màn hình nhỏ hơn 1199.98px;
+        @include respond-to(lg) {
+          display: none;
         }
       }
       .header-center {
@@ -97,22 +101,24 @@
       }
       .header-right {
         align-items: center;
-        justify-content: flex-end;
-        flex: 1;
         .login-actions {
           .user-info {
-            position: absolute;
-            top: 25px;
-            right: 20px;
             display: flex;
             align-items: center;
-
+            justify-content: center;
+            width: 200px;
             &:hover {
               cursor: pointer;
             }
             .user-name {
-              max-width: 135px;
               margin-right: 8px;
+              // Ẩn khi màn hình nhỏ hơn 991.98px
+              @include respond-to(md) {
+                display: none;
+              }
+            }
+            @include respond-to(md) {
+              max-width: 70px;
             }
           }
         }
@@ -162,9 +168,7 @@
       top: 15px;
       right: 5px;
     }
-    .header-left {
-      display: none;
-    }
+
     .header-center {
       display: none; // Ẩn menu khi chưa mở toggler
     }
@@ -177,5 +181,37 @@
   }
   .support__icon {
     bottom: 25px;
+  }
+}
+@include respond-to(sm) {
+  .navbar {
+    .nav-content {
+      .header {
+        position: relative;
+        .search-wrapper {
+          position: absolute;
+          top: 15px;
+          right: 5px;
+        }
+        .header-left {
+          .header-logo {
+            width: 120px;
+            max-height: min-content;
+          }
+        }
+        .header-center {
+          display: none; // Ẩn menu khi chưa mở toggler
+        }
+        .header-right {
+          display: none;
+        }
+      }
+      .top__scroll {
+        bottom: 70px;
+      }
+      .support__icon {
+        bottom: 25px;
+      }
+    }
   }
 }

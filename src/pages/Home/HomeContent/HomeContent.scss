@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 50px; // Khoảng cách giữa nút và banner
+    margin-top: 25px; // Khoảng cách giữa nút và banner
 
     button {
       min-width: 216px;
@@ -59,52 +59,77 @@
     ); // Thiết lập số cột tự động
     grid-auto-rows: auto;
     padding: 20px;
-    justify-items: center; // Căn giữa các thẻ phim
-
-    /* Giới hạn chiều cao hiển thị cho 2 hàng */
-    max-height: 1035px;
+    justify-items: center;
     overflow: hidden;
+    @media screen and (max-width: 1050px) {
+      grid-template-columns: repeat(3, minmax(193px, 1fr));
+    }
+    @media screen and (max-width: 700px) {
+      grid-template-columns: repeat(2, minmax(193px, 1fr));
+      display: grid;
+      gap: 15px 5px;
+      padding: 20px;
+    }
   }
 }
 
 // REPONSIVE
-@include respond-to(xs) {
+@include respond-to(sm) {
   .content {
     padding-top: 55px;
     .movie-buttons {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
       font-size: 1.4rem;
       margin-top: 25px;
       align-items: center;
-      justify-content: space-around;
       gap: 3px;
       button {
-        min-width: 115px;
+        min-width: 165px;
         padding: 10px 5px;
-        font-size: 1rem;
-        margin-bottom: 10px;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
+      }
+    }
+    .view-more-button {
+      display: none;
+    }
+  }
+}
+
+@include respond-to(xs) {
+  .content {
+    padding-top: 55px;
+    .movie-buttons {
+      button {
+        min-width: 165px;
+        padding: 10px 5px;
+        font-size: 1.2rem;
+        margin-bottom: 5px;
       }
     }
     .view-more-button {
       display: none;
     }
     .home__movie {
-      display: grid;
-      gap: 15px 5px;
       grid-template-columns: repeat(2, minmax(193px, 1fr));
-      grid-auto-rows: auto;
-      padding: 10px;
-      justify-items: center;
-      overflow: hidden;
-      max-height: 1745px;
+      // max-height: 2035px;
     }
   }
 }
 @include respond-to(xxs) {
   .content {
+    .movie-buttons {
+      flex-wrap: nowrap;
+      button {
+        min-width: 115px;
+        font-size: 1rem;
+      }
+    }
     .home__movie {
       grid-template-columns: repeat(2, minmax(165px, 1fr));
-      max-height: 1670px;
+      // max-height: 1670px;
     }
   }
 }

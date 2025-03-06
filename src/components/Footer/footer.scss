@@ -52,6 +52,9 @@
         margin-right: 20px;
       }
     }
+    @include respond-to(lg) {
+      display: none;
+    }
   }
   .footer__social {
     flex: 1;
@@ -76,6 +79,9 @@
   .footer__contact {
     flex: 1;
     margin-right: 15px;
+  }
+  @include respond-to(lg) {
+    padding: 5px 50px;
   }
 }
 .copyright {

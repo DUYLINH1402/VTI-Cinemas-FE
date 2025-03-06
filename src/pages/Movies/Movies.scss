@@ -11,9 +11,33 @@
   grid-auto-rows: auto;
   padding: 20px;
   justify-items: center; // Căn giữa các thẻ phim
+
+  @media screen and (max-width: 1310px) {
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+  }
+  @media screen and (max-width: 1050px) {
+    grid-template-columns: repeat(3, minmax(193px, 1fr));
+  }
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(2, minmax(193px, 1fr));
+  }
 }
 
 // REPONSIVE
+@include respond-to(xs) {
+  .home__movie.movies__list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(
+      2,
+      minmax(175px, 1fr)
+    ); // Thiết lập số cột tự động
+    grid-auto-rows: auto;
+    padding: 20px;
+    justify-items: center; // Căn giữa các thẻ phim
+    max-height: 100%;
+  }
+}
 @include respond-to(xs) {
   .home__movie.movies__list {
     display: grid;

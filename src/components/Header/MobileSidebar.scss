@@ -1,3 +1,5 @@
+@use "../../assets/styles/mixins.scss" as *;
+
 .sidebar-header {
   position: fixed;
   top: 0;
@@ -14,10 +16,6 @@
   &.open {
     left: 0; // Khi mở, sidebar trượt vào
   }
-  .header-logo {
-    width: 140px;
-  }
-
   ul {
     list-style: none;
     padding: 0;

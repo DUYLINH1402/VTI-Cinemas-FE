@@ -53,10 +53,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         <div
           className="card-info-wrapper"
           style={{
-            backgroundImage: `url(${notification_bg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "bottom",
-            backgroundRepeat: "no-repeat",
+            backgroundImage: `url(${movie.background})`,
           }}
         >
           <div className="card__inf">

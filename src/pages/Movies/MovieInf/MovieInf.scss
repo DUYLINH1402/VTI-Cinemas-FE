@@ -3,15 +3,39 @@
 
 .content {
   width: 100%;
+
+  .card-info-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45); /* Điều chỉnh độ tối */
+    z-index: 1;
+  }
+
+  .card__inf,
+  .description-wrapper {
+    position: relative;
+    z-index: 2; /* Đảm bảo nội dung hiển thị trên lớp phủ */
+    color: white; /* Giúp chữ dễ đọc hơn trên nền tối */
+  }
+
   .card-info-wrapper {
     color: #fff;
     font-size: 1.4rem;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     .card__inf {
       position: relative;
       margin-top: 20px;
+      padding-left: 50px;
       display: grid;
-      justify-content: center;
-      grid-template-columns: repeat(1fr 2fr);
+      justify-content: start;
+      gap: 50px;
       .lazy-load-image-background.blur {
         margin: 0 30px;
         img {
@@ -71,32 +95,33 @@
         }
       }
     }
-    .description-lable {
-      margin-left: 30%;
-      padding-left: 40px;
-      text-align: left;
-      font-size: $mobase-font-size-3xl;
-      color: yellow;
-    }
-    .description {
-      margin-left: 30%;
-      line-height: 1.5;
-      padding: 10px 50px;
-      position: relative;
-      text-align: justify;
-      .read-more-description-button {
-        background-color: transparent;
-        border: none;
+    .description-wrapper {
+      max-width: 1000px;
+      .description-lable {
+        padding-left: 75px;
+        text-align: left;
+        font-size: $mobase-font-size-3xl;
         color: yellow;
-        font-size: $mobase-font-size-2xl;
+      }
+      .description {
+        line-height: 1.5;
+        padding: 10px 75px;
+        position: relative;
+        text-align: justify;
+        .read-more-description-button {
+          background-color: transparent;
+          border: none;
+          color: yellow;
+          font-size: $mobase-font-size-2xl;
 
-        cursor: pointer;
-        right: 0;
-        bottom: -5px;
-        background: transparent;
-        padding: 0 5px;
-        @include respond-to(xs) {
-          font-size: $mobase-font-size-1xl;
+          cursor: pointer;
+          right: 0;
+          bottom: -5px;
+          background: transparent;
+          padding: 0 5px;
+          @include respond-to(xs) {
+            font-size: $mobase-font-size-1xl;
+          }
         }
       }
     }
@@ -708,7 +733,7 @@
     .card-info-wrapper {
       .card__inf {
         position: relative;
-        padding: 10px;
+        padding: 10px !important;
         grid-template-columns: repeat(1, 1fr 2fr);
         .image {
           position: relative;
@@ -752,12 +777,9 @@
         }
       }
       .description-lable {
-        margin-left: 10px;
-
         padding-left: 20px;
       }
       .description {
-        margin-left: 10px;
         text-align: justify;
         padding: 20px;
       }
@@ -814,6 +836,7 @@
     padding-top: 35px;
     .card-info-wrapper {
       .card__inf {
+        gap: 10px;
         .image {
           position: relative;
           margin: 10px;
@@ -839,6 +862,13 @@
             }
           }
         }
+      }
+      .description-lable {
+        padding-left: 20px !important;
+      }
+      .description {
+        text-align: justify;
+        padding: 20px !important;
       }
     }
     .movie-page {

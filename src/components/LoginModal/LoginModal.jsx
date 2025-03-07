@@ -27,7 +27,11 @@ import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoadingIcon from "../LoadingIcon.jsx";
 import { fetchAccountByEmail } from "../../services/dataService.js";
 
-const LoginModal = ({ closeModal }) => {
+const LoginModal = ({
+  closeModal,
+  openRegisterModal,
+  openForgotPasswordModal,
+}) => {
   // state quản lý đóng mở Modal
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -225,35 +229,12 @@ const LoginModal = ({ closeModal }) => {
       toast.error(err.message || "Gửi lại email xác nhận thất bại.");
     }
   };
-  // Mở ForgotPasswordModal
-  const openForgotPasswordModal = () => {
-    setIsForgotPasswordOpen(true);
-    setIsRegisterOpen(false); // Đảm bảo modal Đăng ký đóng
-  };
-
-  // Mở RegisterModal
-  const openRegisterModal = () => {
-    setIsRegisterOpen(true);
-    setIsForgotPasswordOpen(false); // Đảm bảo modal Quên mật khẩu đóng
-  };
-
-  // Mở lại LoginModal từ bất kỳ modal nào
-  const openLoginModal = () => {
-    setIsForgotPasswordOpen(false);
-    setIsRegisterOpen(false);
-  };
   return (
     <>
       {isForgotPasswordOpen ? (
-        <ForgotPasswordModal
-          closeModal={openLoginModal}
-          openLoginModal={openLoginModal}
-        />
+        <ForgotPasswordModal />
       ) : isRegisterOpen ? (
-        <RegisterModal
-          closeModal={openLoginModal}
-          openLoginModal={openLoginModal}
-        />
+        <RegisterModal />
       ) : (
         <div className="modal-overlay">
           <div

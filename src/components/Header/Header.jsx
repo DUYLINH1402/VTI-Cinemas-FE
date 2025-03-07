@@ -303,7 +303,10 @@ export const Header = () => {
                   />
                 )}
                 {modalType === "forgotPassword" && (
-                  <ForgotPasswordModal closeModal={closeModal} />
+                  <ForgotPasswordModal
+                    closeModal={closeModal}
+                    openLoginModal={openLoginModal}
+                  />
                 )}
               </div>
             </div>

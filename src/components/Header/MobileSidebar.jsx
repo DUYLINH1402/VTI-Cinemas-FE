@@ -7,6 +7,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import "./MobileSidebar.scss";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import { Footer } from "../Footer/Footer";
+import ForgotPasswordModal from "../ForgotPasswordModal/ForgotPasswordModal";
 
 const MobileSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,15 +17,16 @@ const MobileSidebar = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
 
+  // State Mở các Modal
+  const closeModal = () => setModalType(null);
+  const openRegisterModal = () => setModalType("register");
+  const openForgotPasswordModal = () => setModalType("forgotPassword");
+
   // Đóng menu sau khi chọn mục
   const handleNavigation = (path) => {
     navigate(path);
     setIsOpen(false);
   };
-
-  // Đóng modal khi hoàn tất
-  const closeModal = () => setModalType(null);
-
   // Xử lý đăng xuất
   const onLogout = () => {
     removeAuthToken();
@@ -128,7 +130,25 @@ const MobileSidebar = () => {
       ></div>
 
       {/* Modals */}
-      {modalType === "login" && <LoginModal closeModal={closeModal} />}
+      {modalType === "login" && (
+        <LoginModal
+          closeModal={closeModal}
+          openRegisterModal={openRegisterModal}
+          openForgotPasswordModal={openForgotPasswordModal}
+        />
+      )}
+      {modalType === "register" && (
+        <RegisterModal
+          closeModal={closeModal}
+          openLoginModal={() => setModalType("login")}
+        />
+      )}
+      {modalType === "forgotPassword" && (
+        <ForgotPasswordModal
+          closeModal={closeModal}
+          openLoginModal={() => setModalType("login")}
+        />
+      )}
     </>
   );
 };

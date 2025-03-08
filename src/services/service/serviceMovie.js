@@ -11,6 +11,7 @@ import {
   updateMovieRatingInFirebase,
   checkUserHasCommentedInFirebase,
   updateCommentInFirebase,
+  checkUserPurchaseInFirebase,
 } from "../firebase/firebaseMovie.js";
 import {} from "../sql/sqlMovie";
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
@@ -94,4 +95,11 @@ export const checkUserHasCommented = async (movieId, userEmail) => {
   return useFirebase
     ? await checkUserHasCommentedInFirebase(movieId, userEmail)
     : await checkUserHasCommentedInSQL(movieId, userEmail);
+};
+
+// HÀM KIỂM TRA XEM NGƯỜI DÙNG ĐÃ MUA VÉ HAY CHƯA
+export const checkUserPurchase = async (email, movieId) => {
+  return useFirebase
+    ? await checkUserPurchaseInFirebase(email, movieId)
+    : await checkUserPurchaseInSQL(email, movieId);
 };

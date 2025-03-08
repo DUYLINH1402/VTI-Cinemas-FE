@@ -205,11 +205,7 @@ export const handleDeleteComment = async (commentId, movieId) => {
 };
 
 // HÀM XOÁ SUBCOMMENT
-export const handleDeleteSubcomment = async (
-  commentId,
-  subcommentId,
-  setComments
-) => {
+export const handleDeleteSubcomment = async (commentId, subcommentId) => {
   if (!commentId || !subcommentId) return;
 
   try {
@@ -222,22 +218,6 @@ export const handleDeleteSubcomment = async (
 
     // Cập nhật số lượng subcomments
     await updateCommentCount(commentId, -1);
-
-    // Cập nhật UI bằng cách loại bỏ subcomment đã xoá
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment.id === commentId
-          ? {
-              ...comment,
-              subcomments: Object.fromEntries(
-                Object.entries(comment.subcomments || {}).filter(
-                  ([key]) => key !== subcommentId
-                )
-              ),
-            }
-          : comment
-      )
-    );
 
     toast.success("Đã xoá phản hồi!");
   } catch (error) {
@@ -261,8 +241,14 @@ export const handleAddComment = async ({
   setPreviewImage,
   setIsSubmitting,
 }) => {
+  const minCharacters = 10; // Giới hạn ký tự tối thiểu
   if (rating === 0) {
     toast.warning("Vui lòng chọn số sao đánh giá!");
+    console.log("Vui lòng chọn số sao đánh giá!");
+    return;
+  }
+  if (newComment.length < minCharacters) {
+    toast.warning(`Nội dung tối thiểu ${minCharacters} ký tự`);
     return;
   }
   if (!newComment.trim()) {
@@ -333,8 +319,7 @@ export const handleEditComment = async (
   updatedContent,
   newImage, // Ảnh mới có thể là file hoặc URL
   removeImage, // Nếu true, sẽ xóa ảnh cũ
-  setIsEditingComment,
-  setComments
+  setIsEditingComment
 ) => {
   if (!commentId || !updatedContent) {
     console.error("Lỗi: Thiếu dữ liệu để chỉnh sửa bình luận!");
@@ -365,21 +350,12 @@ export const handleEditComment = async (
         return;
       }
     }
-    // console.log("Dữ liệu cập nhật:", updatedData);
     // Cập nhật bình luận trong Firebase
     const success = await updateComment(commentId, updatedData);
     if (!success) {
       toast.error("Lỗi khi cập nhật bình luận!");
       return;
     }
-
-    // Cập nhật UI ngay lập tức mà không cần tải lại trang
-    // setComments((prevComments) =>
-    //   prevComments.map((comment) =>
-    //     comment.id === commentId ? { ...comment, ...updatedData } : comment
-    //   )
-    // );
-
     toast.success("Bình luận đã được chỉnh sửa!");
   } catch (error) {
     console.error("Lỗi khi chỉnh sửa bình luận:", error);

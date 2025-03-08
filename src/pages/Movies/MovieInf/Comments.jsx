@@ -8,9 +8,14 @@ import {
   onValue,
   get,
 } from "firebase/database";
+import { fetchMoviesByIdFromFirebase } from "../../../services/firebase/firebaseMovie.js";
+import { checkUserPurchase } from "../../../services/service/serviceMovie.js";
 import comment_icon from "../../../assets/icon/comment_icon.svg";
 import liked_icon from "../../../assets/icon/liked_icon.svg";
 import unlike_icon from "../../../assets/icon/unlike_icon.svg";
+import MoreVertIcon from "@mui/icons-material/MoreVert"; // Icon 3 chấm
+import EditIcon from "@mui/icons-material/Edit"; // Icon sửa
+import DeleteIcon from "@mui/icons-material/Delete"; // Icon xóa
 import TagSelector from "./TagSelector";
 import useAutosizeTextarea from "../../../utils/utilsFunction";
 import LazyImage from "../../../components/LazyImage.jsx";
@@ -18,10 +23,6 @@ import RenderRatingStars from "./RatingStars.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar, faX } from "@fortawesome/free-solid-svg-icons";
 import { Menu, MenuItem, IconButton } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert"; // Icon 3 chấm
-import EditIcon from "@mui/icons-material/Edit"; // Icon sửa
-import DeleteIcon from "@mui/icons-material/Delete"; // Icon xóa
-import { fetchMoviesByIdFromFirebase } from "../../../services/firebase/firebaseMovie.js";
 import { LoadingScreen } from "../../../components/Loading/LoadingScreen.jsx";
 import LoadingIcon from "../../../components/LoadingIcon.jsx";
 import { CSSTransition } from "react-transition-group";
@@ -260,11 +261,6 @@ const Comments = ({ movieId }) => {
       equalTo(userInfo.email) // Tìm các đơn hàng của người dùng dựa trên email
     );
     const unsubscribe = onValue(ordersQuery, (snapshot) => {
-      if (!snapshot.exists()) {
-        console.log("Không có giao dịch nào!");
-        setCanComment(false);
-        return;
-      }
       let hasOrder = false;
       snapshot.forEach((order) => {
         const data = order.val();
@@ -320,7 +316,7 @@ const Comments = ({ movieId }) => {
     );
     const unsubscribe = onValue(
       commentsQuery,
-      (snapshot) => {
+      async (snapshot) => {
         if (!snapshot.exists()) {
           setComments([]); // Nếu không có bình luận, đặt danh sách bình luận rỗng
         } else {
@@ -333,7 +329,42 @@ const Comments = ({ movieId }) => {
               timestamp: new Date(value.timestamp).getTime(),
             }))
             .sort((a, b) => b.timestamp - a.timestamp); // Sắp xếp giảm dần theo thời gian
-          setComments(fetchedComments); // Cập nhật danh sách bình luận
+
+          // Tạo danh sách email của người bình luận & người trả lời (subcomment)
+          const uniqueEmails = new Set();
+          fetchedComments.forEach((comment) => {
+            uniqueEmails.add(comment.email); // Email của người comment chính
+            if (comment.subcomments) {
+              Object.values(comment.subcomments).forEach((sub) =>
+                uniqueEmails.add(sub.email)
+              );
+            }
+          });
+
+          // Kiểm tra trạng thái mua vé của tất cả người dùng trong danh sách trên
+          const purchaseStatuses = {};
+          for (let email of uniqueEmails) {
+            purchaseStatuses[email] = await checkUserPurchase(email, movieId);
+          }
+
+          // Cập nhật trạng thái "Đã xem phim" cho từng bình luận & subcomment
+          const updatedComments = fetchedComments.map((comment) => ({
+            ...comment,
+            purchased: purchaseStatuses[comment.email] || false, // Kiểm tra trạng thái bình luận chính
+            subcomments: comment.subcomments
+              ? Object.entries(comment.subcomments).reduce(
+                  (acc, [subId, sub]) => {
+                    acc[subId] = {
+                      ...sub,
+                      purchased: purchaseStatuses[sub.email] || false, // Kiểm tra trạng thái subcomment
+                    };
+                    return acc;
+                  },
+                  {}
+                )
+              : null,
+          }));
+          setComments(updatedComments);
         }
         setIsLoadingComments(false); // Tắt trạng thái loading sau khi xử lý xong
       },
@@ -369,6 +400,8 @@ const Comments = ({ movieId }) => {
                 disabled={isLoading || hasRated} // Vô hiệu hóa nếu loading hoặc đã gửi đánh giá
               />
             </div>
+            {/* Hiển thị TagSelector ngay dưới đánh giá sao */}
+
             {/* Giao diện nhập bình luận */}
             <textarea
               ref={textareaRef}
@@ -423,8 +456,8 @@ const Comments = ({ movieId }) => {
                     <button
                       className="send-comment-btn"
                       onClick={() => {
-                        if (newComment.length >= minCharacters && canComment) {
-                          setIsSubmitting(true);
+                        if (canComment) {
+                          // setIsSubmitting(true);
                           handleAddComment({
                             movieId,
                             userInfo,
@@ -492,6 +525,7 @@ const Comments = ({ movieId }) => {
                         {formatDate(comment.timestamp)}
                       </p>
                     </div>
+                    {/* Hiển thị dòng "Đã mua vé" nếu user đã mua */}
                     {comment.purchased && (
                       <span className="verified-badge">Đã xem phim</span>
                     )}
@@ -544,10 +578,19 @@ const Comments = ({ movieId }) => {
                   )}
                 </div>
 
-                <p className="user-rating">
+                <span className="user-rating">
                   <FontAwesomeIcon icon={solidStar} /> {comment.rating || 0}/10
-                </p>
-
+                </span>
+                {/* Hiển thị danh sách tag đã chọn */}
+                {comment.tags && comment.tags.length > 0 && (
+                  <div className="comment-tags ">
+                    {comment.tags.map((tag, index) => (
+                      <span key={index} className="tag-item ">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
                 {/* Nếu comment đang được chỉnh sửa, chỉ hiển thị form chỉnh sửa */}
                 {editingCommentId === comment.id ? (
                   <div className="edit-comment-wrapper">
@@ -720,6 +763,12 @@ const Comments = ({ movieId }) => {
                                     </p>
                                   </div>
                                 </div>
+                                {/* Hiển thị "Đã xem phim" nếu subcomment của người đã mua vé */}
+                                {sub.purchased && (
+                                  <span className="verified-badge">
+                                    Đã xem phim
+                                  </span>
+                                )}
                               </div>
                               <div className="content-subcomment">
                                 {sub.subcontent}

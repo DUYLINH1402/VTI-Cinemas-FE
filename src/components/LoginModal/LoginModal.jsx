@@ -118,8 +118,10 @@ const LoginModal = ({
             localStorage.setItem("rememberToken", rememberToken);
           }
           toast.success("Đăng nhập thành công!");
-          console.log("User: ", user);
           closeModal(); // Đóng modal nếu đăng nhập thành công
+          window.location.reload(); // Reload trang để cập nhật dữ liệu
+
+          // CHUYỂN HƯỚNG NẾU LÀ ADMIN
           navigate(user.role === "admin" ? "/admin/dashboard" : "/");
         })
         .catch((error) => {

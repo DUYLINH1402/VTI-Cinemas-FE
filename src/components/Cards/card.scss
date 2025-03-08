@@ -102,10 +102,8 @@
 @include respond-to(xs) {
   .card__movie {
     display: flex;
-    // max-width: 190px;
     padding: 10px;
     justify-content: space-evenly;
-    // max-height: 430px;
     .lazy-load-image-loaded {
       height: 230px !important;
     }
@@ -113,10 +111,6 @@
       justify-content: space-between;
       flex-direction: column;
     }
-  }
-  .card__movie__img {
-    // width: 165px;
-    // height: 245px;
   }
 }
 

@@ -8,6 +8,9 @@ import {
   update,
   remove,
   runTransaction,
+  query,
+  orderByChild,
+  equalTo,
 } from "firebase/database";
 import { getAuth } from "firebase/auth";
 
@@ -356,4 +359,31 @@ export const checkUserHasCommentedInFirebase = async (movieId, userEmail) => {
     console.error("Lỗi khi kiểm tra bình luận người dùng:", error);
     return false;
   }
+};
+
+// HÀM KIỂM TRA XEM NGƯỜI DÙNG ĐÃ MUA VÉ CHƯA
+export const checkUserPurchaseInFirebase = async (email, movieId) => {
+  const db = getDatabase();
+  const ordersRef = ref(db, "Orders");
+
+  try {
+    const ordersQuery = query(
+      ordersRef,
+      orderByChild("app_user"),
+      equalTo(email)
+    );
+    const snapshot = await get(ordersQuery);
+
+    if (snapshot.exists()) {
+      const orders = Object.values(snapshot.val());
+      return orders.some(
+        (order) =>
+          order.movieDetails?.movie_id === movieId && order.status === "success"
+      );
+    }
+  } catch (error) {
+    console.error("Lỗi khi kiểm tra vé đã mua:", error);
+  }
+
+  return false;
 };

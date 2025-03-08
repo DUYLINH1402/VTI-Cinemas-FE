@@ -128,24 +128,23 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
         })
       ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
       toast.success(
-        "Đăng ký thành công! Vui lòng kiểm tra email của bạn để xác nhận tài khoản."
+        "Đăng ký thành công! Kiểm tra email để xác nhận tài khoản."
       );
       closeModal();
     } catch (error) {
-      toast.error("Đăng ký thất bại!");
-
       // Xử lý lỗi từ Firebase
       if (error && error === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "Email này đã được sử dụng. Vui lòng sử dụng email khác.",
+          email: "Email này đã được sử dụng.",
         }));
       } else {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          global: "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại.",
+          global: "Đã xảy ra lỗi. Vui lòng thử lại.",
         }));
       }
+      // toast.error("Đăng ký thất bại!");
     } finally {
       setIsSubmitting(false); // Kết thúc trạng thái chờ
     }

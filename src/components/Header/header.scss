@@ -102,6 +102,9 @@
       .header-right {
         align-items: center;
         .login-actions {
+          .action-btn {
+            margin-left: 20px;
+          }
           .user-info {
             display: flex;
             align-items: center;

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchCinemas } from "../../../services/dataService"; // Import hàm fetchCinemas từ dataService
+import { fetchCinemas } from "../../../services/service/serviceCinemas"; // Import hàm fetchCinemas từ dataService
 import "./BookingModal.modul.scss";
 
-const BookingModal = ({ movie_id, onNext, onClose }) => {
+const BookingModal = ({ movie_id, onNext, onClose, cinema_id }) => {
   const [cinema, setCinema] = useState(""); // State lưu rạp được chọn
   const [cinemaList, setCinemaList] = useState([]); // State lưu danh sách rạp
   const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
@@ -26,12 +26,21 @@ const BookingModal = ({ movie_id, onNext, onClose }) => {
     getCinemas(); // Gọi hàm lấy danh sách rạp
   }, []); // Chỉ gọi API một lần khi component được render lần đầu
 
+  const handleCinemaChange = (e) => {
+    const selectedCinema = cinemaList.find(
+      (cinema) => String(cinema.cinema_id) === String(e.target.value) // So sánh chính xác
+    );
+    setCinema(selectedCinema || ""); // Lưu object cinema thay vì chỉ lưu tên
+  };
+
   // Xử lý khi người dùng nhấn nút "Tiếp theo"
   const handleSubmit = () => {
     if (cinema) {
+      
       onNext({
-        cinema: cinema, // Truyền thông tin rạp đã chọn
-        movie_id: movie_id, // Truyền ID phim đã chọn
+        cinema_id: cinema.cinema_id, // Truyền đúng cinema_id
+      cinema_name: cinema.name, // Truyền thêm tên rạp nếu cần hiển thị
+      movie_id: movie_id,
       });
       console.log("Cinema Selected:", cinema); // Log thông tin rạp đã chọn
     }
@@ -48,13 +57,13 @@ const BookingModal = ({ movie_id, onNext, onClose }) => {
         {loading ? (
           <p>Đang tải danh sách rạp...</p>
         ) : (
-          <select onChange={(e) => setCinema(e.target.value)} value={cinema}>
+          <select onChange={handleCinemaChange} value={cinema?.cinema_id || ""}>
             {/* Tùy chọn mặc định */}
             <option value="">--- Vị trí rạp ---</option>
             {/* Hiển thị danh sách các rạp */}
             {cinemaList.map((cinemaItem) => (
-              <option key={cinemaItem.cinema_id} value={cinemaItem.cinema_name}>
-                {cinemaItem.cinema_name}
+              <option key={cinemaItem.cinema_id} value={cinemaItem.cinema_id}>
+                {cinemaItem.name}
               </option>
             ))}
           </select>

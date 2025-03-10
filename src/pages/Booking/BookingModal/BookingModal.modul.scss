@@ -24,8 +24,20 @@
     border-radius: 10px;
     margin-right: 5px;
   }
+  .showtime-date{
+  .button-chose-date {
+    min-width: 80px;
+    font-weight: 500;
+  }}
+  .showtime-time{
+    padding: 20px 0;
+    .button-chose-time{
+    min-width: 50px;
+
+    }
+  }
   .button-chose {
-    min-width: 120px;
+    min-width: 60px;
     min-height: 35px;
     margin: 5px;
     border-radius: 5px;
@@ -44,12 +56,12 @@
   .success {
     background-color: lightblue;
   }
-  .button-chose-date {
-    font-weight: 500;
-  }
+  
+  
 }
 .button-action {
-  min-width: 100px;
+  margin-top: 10px;
+  min-width: 120px;
   min-height: 35px;
   margin: 5px;
   border-radius: 5px;

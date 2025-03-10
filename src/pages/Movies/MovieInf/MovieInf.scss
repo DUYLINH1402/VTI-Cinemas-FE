@@ -399,11 +399,9 @@
       }
 
       .actions {
-        margin-left: 20px;
         display: flex;
         justify-content: flex-start;
         align-items: baseline;
-        margin-top: 10px;
         font-size: 14px;
         color: gray;
         gap: 50px;
@@ -418,7 +416,6 @@
           transform: translateY(3px);
         }
         span {
-          margin-left: 5px;
           font-size: 1.4rem;
           padding: 8px 12px;
           border-radius: 8px;

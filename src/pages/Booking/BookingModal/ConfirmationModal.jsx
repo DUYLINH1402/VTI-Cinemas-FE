@@ -8,20 +8,24 @@ const ConfirmationModal = ({
   movie_name, // Tên phim được chọn
 }) => {
   const navigate = useNavigate(); // Hook của React Router để điều hướng
-
+  // console.log("Thông tin rạp đã chọn: ",selectedCinema)
   const handleConfirm = () => {
+
+    localStorage.setItem("selectedCinemaID", selectedCinema.cinema_id);
     localStorage.setItem("timerCount", 600);
     localStorage.setItem("statusSeats", JSON.stringify({}));
     localStorage.setItem("selectedSeatPrice", 0);
     localStorage.setItem("selectedSeatNames", JSON.stringify([]));
-    console.log("movie_id in ConfirmationModal: ", movie_id);
+    // console.log("movie_id in ConfirmationModal: ", movie_id);
     // Điều hướng đến trang chọn ghế và truyền dữ liệu đã chọn
     navigate(`/booking_seat/${movie_id}`, {
       state: {
-        cinema: selectedCinema, // Thông tin rạp đã chọn
+        cinema: selectedCinema.cinema_name, // Thông tin rạp đã chọn
         date: selectedSchedule.date, // Ngày chiếu
         time: selectedSchedule.time, // Giờ chiếu
         movie_id: movie_id, // ID của phim
+        cinema_id: selectedCinema.cinema_id,
+        showtime_id: selectedSchedule.showtime_id,
       },
     });
   };
@@ -34,7 +38,7 @@ const ConfirmationModal = ({
         <h3 className="movie_name">{movie_name}</h3>
 
         {/* Hiển thị thông tin rạp, ngày và giờ chiếu */}
-        <p>Rạp chiếu : {selectedCinema.cinema}</p>
+        <p>Rạp chiếu : {selectedCinema.cinema_name}</p>
         <p>Ngày chiếu : {selectedSchedule.date}</p>
         <p>Giờ chiếu : {selectedSchedule.time}</p>
 

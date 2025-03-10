@@ -6,6 +6,7 @@ import {
   fetchCinemasByRegionFromFirebase,
   sendContactInfoToFirebase,
   addCinemaToFirebase,
+  fetchShowtimesFromFirebase,
 } from "../firebase/firebaseCinemas.js";
 import {
   fetchRegionsOfCinemasFromSQL,
@@ -32,6 +33,13 @@ export const fetchCinemasByRegion = async (region) => {
   return useFirebase
     ? await fetchCinemasByRegionFromFirebase(region)
     : await fetchCinemasByRegionFromSQL(region);
+};
+
+// API LẤY DỮ LIỆU SHOWTIMES
+export const fetchShowtimes = async (cinema_id) => {
+  return useFirebase
+    ? await fetchShowtimesFromFirebase(cinema_id)
+    : await fetchShowtimesFromSQL(cinema_id);
 };
 
 // API GỬI THÔNG TIN LIÊN HỆ

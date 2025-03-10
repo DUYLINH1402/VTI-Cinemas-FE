@@ -276,7 +276,7 @@ export const fetchSeatsFromFirebase = async () => {
 export const fetchCinemasFromFirebase = async () => {
   try {
     const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Cinema.json"
+      "https://vticinema-default-rtdb.firebaseio.com/Cinemas.json"
     );
     return response.data; // Trả về dữ liệu danh sách rạp
   } catch (error) {

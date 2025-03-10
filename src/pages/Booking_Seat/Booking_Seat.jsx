@@ -6,7 +6,7 @@ import { CardSeats } from "./CardSeats";
 
 export const Booking_Seat = () => {
   const { state } = useLocation();
-  const { cinema, date, time, movie_id } = state || {};
+  const { cinema, cinema_id, date, time, movie_id, showtime_id } = state || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -19,6 +19,8 @@ export const Booking_Seat = () => {
           date={date}
           time={time}
           movie_id={movie_id}
+          cinema_id={cinema_id}  
+        showtime_id={showtime_id} 
         />
       </div>
     </>

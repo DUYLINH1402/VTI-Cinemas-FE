@@ -155,3 +155,45 @@ export const addCinemaToFirebase = async (newCinema) => {
     throw error;
   }
 };
+
+// API LẤY DANH SÁCH SUẤT CHIẾU TỪ FIREBASE
+export const fetchShowtimesFromFirebase = async (cinema_id) => {
+  if (!cinema_id) {
+    console.error("fetchShowtimes: Missing cinema_id");
+    return [];
+  }
+
+  try {
+    const response = await axios.get(
+      "https://vticinema-default-rtdb.firebaseio.com/Cinema.json"
+    );
+
+    const cinemas = response.data;
+    if (!cinemas) {
+      console.warn("⚠ Không có dữ liệu rạp chiếu trong Firebase.");
+      return [];
+    }
+
+    //  Tìm key rạp theo `cinema_id`
+    const cinemaKey = Object.keys(cinemas).find(
+      (key) => cinemas[key].cinema_id === cinema_id
+    );
+
+    if (!cinemaKey) {
+      console.warn(`Không tìm thấy rạp có cinema_id: ${cinema_id}`);
+      return [];
+    }
+
+    const showtimes = cinemas[cinemaKey].showtimes || {};
+    console.log(" Suất chiếu lấy từ Firebase:", showtimes);
+
+    return Object.entries(showtimes).map(([key, value]) => ({
+      id: key,
+      ...value,
+    }));
+  } catch (error) {
+    console.error(" Lỗi khi lấy suất chiếu từ Firebase:", error);
+    return [];
+  }
+};
+

@@ -5,6 +5,7 @@ import BookingDetailsModal from "./BookingDetailsModal";
 import "./BookingHistory.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const BookingHistory = () => {
   const [bookings, setBookings] = useState([]);
@@ -25,6 +26,16 @@ const BookingHistory = () => {
       title: "Tên phim",
       dataIndex: ["movieDetails", "movieName"],
       key: "movieName",
+
+      // Liên kết dẫn đến trang chi tiết phim
+      render: (text, record) => (
+        <Link
+          to={`/movieinf/${record.movieDetails.movie_id}`}
+          style={{ color: "#1890ff" }}
+        >
+          {text}
+        </Link>
+      ),
     },
     {
       title: "Rạp",

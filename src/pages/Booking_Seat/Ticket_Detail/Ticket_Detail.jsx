@@ -29,7 +29,7 @@ export const Ticket_Detail = ({
             format: "2D", // Hình thức chiếu cố định
             genre: findMovieById.genre,
             duration: findMovieById.duration,
-            theater: cinema?.cinema || "Không xác định",
+            theater: cinema|| "Không xác định",
             showDate: date || "Không xác định",
             showTime: time || "Không xác định",
             room: "P1",
@@ -43,6 +43,7 @@ export const Ticket_Detail = ({
     fetchMovieData();
   }, [movie_id, cinema, date, time, seat_name, onFetchMovieDetails]);
   // console.log("movie_id in Ticket_Detail:", movie_id);
+  // console.log("Cinema: ", cinema);
 
   return (
     <>
@@ -97,7 +98,7 @@ export const Detail_Movie = ({
           </div>
           <div className="row">
             <p className="label">Rạp chiếu:</p>
-            <p className="value">{cinema.cinema}</p>
+            <p className="value">{cinema}</p>
           </div>
           <div className="row">
             <p className="label">Ngày chiếu:</p>

@@ -6,7 +6,7 @@ import { Ticket_Detail } from "./Ticket_Detail/Ticket_Detail";
 import { Price } from "./Timeout/Price";
 import { toast } from "react-toastify";
 
-export const CardSeats = ({ cinema, date, time }) => {
+export const CardSeats = ({ cinema, cinema_id, showtime_id, date, time  }) => {
   const [selectedSeatPrice, setSelectedSeatPrice] = useState(() => {
     return Number(localStorage.getItem("selectedSeatPrice")) || 0; // Lấy giá vé từ localStorage
   });
@@ -71,6 +71,8 @@ export const CardSeats = ({ cinema, date, time }) => {
                 <Seats
                   setSelectedSeatPrice={setSelectedSeatPrice}
                   setSelectSeatName={setSelectSeatName}
+                  cinema_id={cinema_id} // Truyền thêm cinema_id
+                showtime_id={showtime_id} // Truyền thêm showtime_id
                 />
               </div>
             </div>

@@ -51,7 +51,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
       let seatData = snapshot.val();
 
       if (seatData.status === "sold") {
-        toast.error("Ghế này đã được đặt!");
+        toast.error("Ghế này đã được đặt!Chúng tôi đang phát triển tính năng này");
         return;
       }
 
@@ -85,7 +85,17 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
 
       // Cập nhật tổng giá vé
       setSelectedSeatPrice((prevPrice) => {
-        const newTotalPrice = newStatus === "reserved" ? prevPrice + price : prevPrice - price;
+        let newTotalPrice;
+
+        if (newStatus === "reserved") {
+          newTotalPrice = prevPrice + price;
+        } else if (newStatus === "empty" && prevPrice >= price) {
+          // Đảm bảo không trừ khi giá trị chưa đủ lớn
+          newTotalPrice = prevPrice - price;
+        } else {
+          newTotalPrice = 0; // Tránh giá trị âm
+        }
+
         localStorage.setItem("selectedSeatPrice", newTotalPrice);
         return newTotalPrice;
       });

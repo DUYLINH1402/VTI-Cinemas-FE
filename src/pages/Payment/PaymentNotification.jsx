@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Typography,
-  CircularProgress,
-  Paper,
-  Button,
-  Grid,
-  Fade,
-} from "@mui/material";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { Box, Typography, CircularProgress, Paper, Button, Grid, Fade } from "@mui/material";
+import { getDatabase, ref, onValue, get, update } from "firebase/database";
 import { useNavigate } from "react-router-dom";
 import module from "./PaymentNotification.module.scss";
 import ServiceOrders from "./Service_Cinema/ServiceOrders";
@@ -17,6 +9,7 @@ export const PaymentNotification = ({ appTransId }) => {
   const [status, setStatus] = useState("loading");
   const [paymentData, setPaymentData] = useState(null);
   const navigate = useNavigate();
+  const db = getDatabase(); // Kết nối tới database Firebase
 
   useEffect(() => {
     if (!appTransId) {
@@ -34,6 +27,12 @@ export const PaymentNotification = ({ appTransId }) => {
         console.log("Dữ liệu Firebase:", data); // In toàn bộ dữ liệu giao dịch
         setStatus(data.status); // Cập nhật trạng thái
         setPaymentData(data); // Lưu thông tin giao dịch
+
+        // Nếu giao dịch thành công, cập nhật trạng thái ghế
+        if (data.status === "success") {
+          console.log("Gọi hàm updateSeatStatus với data:", data);
+          updateSeatStatus(data);
+        }
       } else {
         setStatus("not_found");
         console.error("Không tìm thấy giao dịch:", appTransId);
@@ -43,14 +42,61 @@ export const PaymentNotification = ({ appTransId }) => {
     return () => unsubscribe(); // Cleanup listener khi component bị unmount
   }, [appTransId]);
 
+  // Hàm cập nhật trạng thái ghế
+  const updateSeatStatus = async (data) => {
+    let movieDetails = data.movieDetails;
+    if (!movieDetails && data.embed_data) {
+      movieDetails = JSON.parse(data.embed_data).movieDetails;
+    }
+
+    const { cinema_id, showtime_id } = movieDetails;
+    const seats = movieDetails?.seat.split(", ").map((seat) => seat.trim());
+
+    if (!cinema_id || !showtime_id || !seats) {
+      console.error("Thiếu thông tin cần thiết để cập nhật ghế");
+      return;
+    }
+
+    try {
+      const seatsRef = ref(db, `Cinema/${cinema_id}/showtimes/${showtime_id}/seats/${seats}`);
+      const snapshot = await get(seatsRef);
+      if (!snapshot.exists()) {
+        console.error(`Không tìm thấy ghế trong suất chiếu ${showtime_id}`);
+        return;
+      }
+
+      const seatsData = snapshot.val();
+      const updates = {};
+
+      for (const seatName of seats) {
+        if (seatsData[seatName]) {
+          console.log(`Trạng thái ghế ${seatName} trước khi cập nhật:`, seatsData[seatName]);
+          updates[`${seatName}`] = {
+            status: "sold",
+            selected: false,
+            user: null,
+            timestamp: null,
+          };
+          console.log(`Ghế ${seatName} đã được cập nhật thành "sold"`);
+        } else {
+          console.error(`Không tìm thấy ghế ${seatName} trong Firebase`);
+        }
+      }
+
+      if (Object.keys(updates).length > 0) {
+        await update(seatsRef, updates);
+        console.log("Đã cập nhật trạng thái ghế thành công");
+      } else {
+        console.log("Không có ghế nào được cập nhật");
+      }
+    } catch (error) {
+      console.error("Lỗi khi cập nhật trạng thái ghế:", error);
+    }
+  };
+
   if (status === "loading") {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <CircularProgress />
       </Box>
     );
@@ -58,15 +104,9 @@ export const PaymentNotification = ({ appTransId }) => {
 
   if (status === "not_found") {
     return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
         <Typography variant="h6" color="error">
-          Giao dịch thất bại!{" "}
-          {paymentData ? `Mã lỗi: ${paymentData.errorCode}` : ""}
+          Giao dịch thất bại! {paymentData ? `Mã lỗi: ${paymentData.errorCode}` : ""}
         </Typography>
       </Box>
     );
@@ -195,8 +235,7 @@ export const PaymentNotification = ({ appTransId }) => {
                         align="right"
                         className={module.notification_value}
                       >
-                        {paymentData.movieDetails?.room} -{" "}
-                        {paymentData.movieDetails?.seat}
+                        {paymentData.movieDetails?.room} - {paymentData.movieDetails?.seat}
                       </Typography>
                     </Grid>
 
@@ -251,10 +290,7 @@ export const PaymentNotification = ({ appTransId }) => {
                       </Typography>
                     </Grid>
                     <Grid item xs={8}>
-                      <Box
-                        className={module.notification_value}
-                        sx={{ textAlign: "right" }}
-                      >
+                      <Box className={module.notification_value} sx={{ textAlign: "right" }}>
                         {/* Lấy danh sách dịch vụ đã Orders */}
                         <ServiceOrders services={paymentData.services} />
                       </Box>
@@ -276,10 +312,7 @@ export const PaymentNotification = ({ appTransId }) => {
                         align="right"
                         className={module.notification_title}
                       >
-                        {new Intl.NumberFormat("vi-VN").format(
-                          paymentData.amount
-                        )}{" "}
-                        VNĐ
+                        {new Intl.NumberFormat("vi-VN").format(paymentData.amount)} VNĐ
                       </Typography>
                     </Grid>
                   </Grid>

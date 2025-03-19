@@ -58,7 +58,7 @@
             width: 40px;
             float: left;
             margin-top: 15px;
-            margin-left: 25px;
+            margin-left: 20px;
             margin-right: 20px;
             cursor: pointer;
             @media screen and (max-width: 1400px) {
@@ -101,9 +101,6 @@
                 position: relative;
                 .seat-name {
                   color: #122449;
-                  position: absolute;
-                  top: 50%;
-                  right: 40%;
                   background-color: transparent;
                   &:hover {
                     cursor: pointer;
@@ -222,9 +219,7 @@
           div.row_seat {
             margin: 0;
             .seat-row {
-              // display: flex;
-              // flex-wrap: nowrap;
-              // justify-content: center;
+              margin-bottom: 5px;
               .seat {
                 img {
                   width: 25px; /* Kích thước nhỏ hơn cho mobile */
@@ -232,9 +227,7 @@
                   margin: 5px;
                 }
                 .seat-name {
-                  position: absolute;
-                  top: 35% !important;
-                  right: 30% !important;
+                  font-size: $mobase-font-size-xs;
                 }
               }
             }

@@ -90,19 +90,11 @@ export const CardPayment = () => {
               <div className="person_inf">
                 <div className="row_info">
                   <label htmlFor="">Họ tên</label>
-                  <input
-                    type="text"
-                    value={userInfo?.fullname || userInfo?.displayName}
-                    readOnly
-                  />
+                  <input type="text" value={userInfo?.fullname || userInfo?.displayName} readOnly />
                 </div>
                 <div className="row_info">
                   <label htmlFor="">Điện thoại</label>
-                  <input
-                    type="text"
-                    value={userInfo?.phone || "Không có"}
-                    readOnly
-                  />
+                  <input type="text" value={userInfo?.phone || "Không có"} readOnly />
                 </div>
                 <div className="row_info">
                   <label htmlFor="">Email</label>
@@ -126,10 +118,7 @@ export const CardPayment = () => {
               </div>
               <div className="service_data">
                 <img className="combo_img" src={combo} alt="Combo ưu đãi" />
-                <Service
-                  setComboPrice={setComboPrice}
-                  setSelectedService={setSelectedService}
-                />
+                <Service setComboPrice={setComboPrice} setSelectedService={setSelectedService} />
               </div>
             </div>
             {/*  */}
@@ -141,9 +130,7 @@ export const CardPayment = () => {
               </div> */}
               <div className="code_voucher">
                 <label htmlFor="">Mã voucher</label>
-                <select
-                  onChange={(e) => setDiscount(parseInt(e.target.value) || 0)}
-                >
+                <select onChange={(e) => setDiscount(parseInt(e.target.value) || 0)}>
                   <option value="0">---</option>
                   <option value="5000">Mã giảm giá 5000đ</option>
                   <option value="10000">Mã giảm giá 10.000đ</option>
@@ -164,10 +151,7 @@ export const CardPayment = () => {
               <div className="price">
                 <div class="title_price">
                   <p>Số tiền được giảm: </p>
-                  <p>
-                    {discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}{" "}
-                    VNĐ
-                  </p>
+                  <p>{discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} VNĐ</p>
                 </div>
                 <div className="title_price">
                   <p>Số tiền cần thanh toán: </p>
@@ -237,9 +221,7 @@ export const CardPayment = () => {
                   <div>
                     <Grid item xs={4}>
                       <Typography variant="body1" align="left">
-                        <strong className={module.service_order_label}>
-                          Dịch vụ kèm:
-                        </strong>
+                        <strong className={module.service_order_label}>Dịch vụ kèm:</strong>
                       </Typography>
                     </Grid>
                     <Grid item xs={8}>
@@ -279,11 +261,7 @@ export const CardPayment = () => {
                     marginTop: "10px",
                   }}
                 >
-                  <Button
-                    onClick={handleCloseModal}
-                    sx={{ fontSize: "1.2rem" }}
-                    color="secondary"
-                  >
+                  <Button onClick={handleCloseModal} sx={{ fontSize: "1.2rem" }} color="secondary">
                     Hủy
                   </Button>
                   <Button

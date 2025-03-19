@@ -19,8 +19,8 @@ export const Booking_Seat = () => {
           date={date}
           time={time}
           movie_id={movie_id}
-          cinema_id={cinema_id}  
-        showtime_id={showtime_id} 
+          cinema_id={cinema_id}
+          showtime_id={showtime_id}
         />
       </div>
     </>

@@ -6,22 +6,20 @@ import { Ticket_Detail } from "./Ticket_Detail/Ticket_Detail";
 import { Price } from "./Timeout/Price";
 import { toast } from "react-toastify";
 
-export const CardSeats = ({ cinema, cinema_id, showtime_id, date, time  }) => {
+export const CardSeats = ({ cinema, movie_id, cinema_id, showtime_id, date, time }) => {
   const [selectedSeatPrice, setSelectedSeatPrice] = useState(() => {
     return Number(localStorage.getItem("selectedSeatPrice")) || 0; // Lấy giá vé từ localStorage
   });
   const [selectSeatName, setSelectSeatName] = useState(() => {
     return JSON.parse(localStorage.getItem("selectedSeatNames")) || []; // Lấy tên ghế từ localStorage
   });
-  const { movie_id } = useParams();
+  // const { movie_id } = useParams();
   const navigate = useNavigate();
 
   // Tải trạng thái chỗ đã lưu trước đó từ localStorage (nếu tồn tại)
   useEffect(() => {
-    const savedSeatNames =
-      JSON.parse(localStorage.getItem("selectedSeatNames")) || [];
-    const savedSeatPrice =
-      JSON.parse(localStorage.getItem("selectedSeatPrice")) || 0;
+    const savedSeatNames = JSON.parse(localStorage.getItem("selectedSeatNames")) || [];
+    const savedSeatPrice = JSON.parse(localStorage.getItem("selectedSeatPrice")) || 0;
 
     setSelectSeatName(savedSeatNames);
     setSelectedSeatPrice(savedSeatPrice);
@@ -30,10 +28,7 @@ export const CardSeats = ({ cinema, cinema_id, showtime_id, date, time  }) => {
   // Lưu chỗ ngồi đã chọn và giá vào localStorage
   useEffect(() => {
     localStorage.setItem("selectedSeatNames", JSON.stringify(selectSeatName));
-    localStorage.setItem(
-      "selectedSeatPrice",
-      JSON.stringify(selectedSeatPrice)
-    );
+    localStorage.setItem("selectedSeatPrice", JSON.stringify(selectedSeatPrice));
   }, [selectSeatName, selectedSeatPrice]);
 
   const handlePayment = () => {
@@ -48,6 +43,9 @@ export const CardSeats = ({ cinema, cinema_id, showtime_id, date, time  }) => {
         cinema: cinema,
         date: date,
         time: time,
+        movie_id,
+        cinema_id,
+        showtime_id,
       },
     });
   };
@@ -72,7 +70,7 @@ export const CardSeats = ({ cinema, cinema_id, showtime_id, date, time  }) => {
                   setSelectedSeatPrice={setSelectedSeatPrice}
                   setSelectSeatName={setSelectSeatName}
                   cinema_id={cinema_id} // Truyền thêm cinema_id
-                showtime_id={showtime_id} // Truyền thêm showtime_id
+                  showtime_id={showtime_id} // Truyền thêm showtime_id
                 />
               </div>
             </div>

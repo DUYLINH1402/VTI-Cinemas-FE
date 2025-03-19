@@ -3,23 +3,17 @@ import { useParams, useLocation } from "react-router-dom";
 import { fetchMovies } from "../../../services/service/serviceMovie";
 import "./Ticket_Detail.modul.scss";
 
-export const Ticket_Detail = ({
-  seat_name,
-  showImage = true,
-  onFetchMovieDetails,
-}) => {
+export const Ticket_Detail = ({ seat_name, showImage = true, onFetchMovieDetails }) => {
   const [movie, setMovie] = useState(null);
   const { movie_id } = useParams();
   const { state } = useLocation(); // Lấy dữ liệu từ navigate state
-  const { cinema, date, time } = state || {}; // Dữ liệu truyền từ ConfirmationModal
+  const { cinema, date, time, cinema_id, showtime_id } = state || {}; // Dữ liệu truyền từ ConfirmationModal
 
   useEffect(() => {
     const fetchMovieData = async () => {
       try {
         const data = await fetchMovies();
-        const findMovieById = data.find(
-          (movie) => movie.movie_id === parseInt(movie_id)
-        );
+        const findMovieById = data.find((movie) => movie.movie_id === parseInt(movie_id));
         setMovie(findMovieById);
         // Gửi thông tin phim lên CardPayment qua callback
         if (findMovieById && onFetchMovieDetails) {
@@ -29,11 +23,13 @@ export const Ticket_Detail = ({
             format: "2D", // Hình thức chiếu cố định
             genre: findMovieById.genre,
             duration: findMovieById.duration,
-            theater: cinema|| "Không xác định",
+            theater: cinema || "Không xác định",
             showDate: date || "Không xác định",
             showTime: time || "Không xác định",
             room: "P1",
             seat: seat_name.join(", "),
+            cinema_id,
+            showtime_id,
           });
         }
       } catch (error) {
@@ -64,24 +60,11 @@ export const Ticket_Detail = ({
   );
 };
 
-export const Detail_Movie = ({
-  movie,
-  cinema,
-  date,
-  time,
-  seat_name,
-  showImage,
-}) => {
+export const Detail_Movie = ({ movie, cinema, date, time, seat_name, showImage }) => {
   return (
     <>
       <div className="detail_movie_container">
-        {showImage && (
-          <img
-            className="detail_movie_img"
-            src={movie.image}
-            alt={movie.movie_name}
-          />
-        )}
+        {showImage && <img className="detail_movie_img" src={movie.image} alt={movie.movie_name} />}
         <p className="detail_movie_title">{movie.movie_name}</p>
         <div className="detail_movie_info">
           <div className="row">

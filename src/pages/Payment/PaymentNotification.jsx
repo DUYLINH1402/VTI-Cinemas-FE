@@ -58,7 +58,7 @@ export const PaymentNotification = ({ appTransId }) => {
     }
 
     try {
-      const seatsRef = ref(db, `Cinema/${cinema_id}/showtimes/${showtime_id}/seats/${seats}`);
+      const seatsRef = ref(db, `Cinema/${cinema_id}/showtimes/${showtime_id}/seats`);
       const snapshot = await get(seatsRef);
       if (!snapshot.exists()) {
         console.error(`Không tìm thấy ghế trong suất chiếu ${showtime_id}`);
@@ -84,6 +84,7 @@ export const PaymentNotification = ({ appTransId }) => {
       }
 
       if (Object.keys(updates).length > 0) {
+        // Cập nhật tất cả ghế cùng lúc
         await update(seatsRef, updates);
         console.log("Đã cập nhật trạng thái ghế thành công");
       } else {

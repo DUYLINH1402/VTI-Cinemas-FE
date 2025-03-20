@@ -56,6 +56,7 @@ export const PaymentNotification = ({ appTransId }) => {
       console.error("Thiếu thông tin cần thiết để cập nhật ghế");
       return;
     }
+    console.log(`Đường dẫn seatsRef: Cinema/${cinema_id}/showtimes/${showtime_id}/seats`);
 
     try {
       const seatsRef = ref(db, `Cinema/${cinema_id}/showtimes/${showtime_id}/seats`);

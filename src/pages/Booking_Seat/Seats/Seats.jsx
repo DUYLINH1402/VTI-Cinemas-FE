@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue, update, get } from "firebase/database";
 import { toast } from "react-toastify";
-// import "./Seats.scss"; // Import SCSS
 
 const db = getDatabase();
 
@@ -20,6 +19,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
     onValue(seatsRef, (snapshot) => {
       if (snapshot.exists()) {
         const allSeats = snapshot.val();
+        console.log("Dữ liệu ghế từ Seats:", allSeats); // Kiểm tra dữ liệu ghế
 
         onValue(bookingsRef, (bookingSnapshot) => {
           const seatStatuses = bookingSnapshot.exists() ? bookingSnapshot.val() : {};
@@ -39,6 +39,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
             }, {});
             return acc;
           }, {});
+          console.log("Dữ liệu ghế sau khi gộp (seatsByRow):", mergedSeats); // Kiểm tra dữ liệu sau khi gộp
           setSeatsByRow(mergedSeats);
         });
       } else {
@@ -167,46 +168,61 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
     return <div>Không có dữ liệu ghế cho suất chiếu này.</div>;
   }
 
+  // Định nghĩa thứ tự các hàng ghế (A, B, C, ..., G)
+  const rowOrder = ["A", "B", "C", "D", "E", "F", "G"];
+
   return (
-    <div className="content">
+    <div>
       <div className="card_seat">
-        <div className="content_tab">
+        <div>
           <div className="col1">
             <div className="row_seat">
-              {Object.entries(seatsByRow).map(([row, seats]) => (
-                <div key={row} className="seat-row">
-                  <span className="row-label">{row}</span>
-                  <div className="seat">
-                    {Object.entries(seats)
-                      .sort((a, b) => a[1].seat_name.localeCompare(b[1].seat_name))
-                      .map(([seat_id, seatInf]) => (
-                        <div key={seat_id} className="seat-wrapper">
+              {rowOrder
+                .filter((row) => seatsByRow[row]) // Chỉ lấy các hàng có trong seatsByRow
+                .map((row) => (
+                  <div key={row} className="seat-row">
+                    <div className="seat">
+                      {Object.entries(seatsByRow[row])
+                        .sort((a, b) => {
+                          // Tách số từ seat_name (ví dụ: "A1" -> 1, "A10" -> 10)
+                          const numA = parseInt(a[1].seat_name.slice(1));
+                          const numB = parseInt(b[1].seat_name.slice(1));
+                          return numA - numB; // Sắp xếp theo số
+                        })
+                        .map(([seat_id, seatInf]) => (
                           <div
-                            className="seat"
-                            onClick={() =>
-                              handleSeatClick(seatInf.price, seatInf.seat_name, seat_id)
-                            }
+                            key={seat_id}
+                            // TẠO LỐI ĐI
+                            // className={`seat-wrapper ${
+                            //   seatInf.seat_name.endsWith("4") ? "aisle-before" : ""
+                            // }`}
                           >
-                            {seatInf.status === "sold" ? (
-                              <img src={seatInf.imgURL_sold} alt={seatInf.seat_name} />
-                            ) : seatInf.status === "reserved" ? (
-                              seatInf.user === user?.email ? (
-                                <img src={seatInf.imgURL_select} alt={seatInf.seat_name} />
+                            <div
+                              className="seat"
+                              onClick={() =>
+                                handleSeatClick(seatInf.price, seatInf.seat_name, seat_id)
+                              }
+                            >
+                              {seatInf.status === "sold" ? (
+                                <img src={seatInf.imgURL_sold} alt={seatInf.seat_name} />
+                              ) : seatInf.status === "reserved" ? (
+                                seatInf.user === user?.email ? (
+                                  <img src={seatInf.imgURL_select} alt={seatInf.seat_name} />
+                                ) : (
+                                  <img src={seatInf.imgURL_reserved} alt={seatInf.seat_name} />
+                                )
                               ) : (
-                                <img src={seatInf.imgURL_reserved} alt={seatInf.seat_name} />
-                              )
-                            ) : (
-                              <img src={seatInf.imgURL} alt={seatInf.seat_name} />
-                            )}
-                            <p className="seat-name">{seatInf.seat_name}</p>
+                                <img src={seatInf.imgURL} alt={seatInf.seat_name} />
+                              )}
+                              <p className="seat-name">{seatInf.seat_name}</p>
+                            </div>
+                            {/* Thêm lối đi sau ghế số 5 */}
+                            {seatInf.seat_name.endsWith("5") && <div className="aisle" />}
                           </div>
-                          {/* Thêm lối đi sau ghế số 5 */}
-                          {seatInf.seat_name.endsWith("5") && <div className="aisle" />}
-                        </div>
-                      ))}
+                        ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>

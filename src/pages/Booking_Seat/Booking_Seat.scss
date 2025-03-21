@@ -6,11 +6,9 @@
   font-family: "Poppins", sans-serif;
   .card_seat {
     .content_tab {
-      margin: 20px;
       display: grid;
       grid-template-columns: 2fr 1fr;
-      border-radius: 10px;
-
+      justify-content: center;
       @media screen and (max-width: 1050px) {
         display: flex;
         flex-direction: column;
@@ -29,9 +27,10 @@
           margin-left: 60px;
           margin-right: 60px;
           height: auto;
-
+          position: relative; // Để đường kẻ lối đi có thể căn chỉnh theo hàng
           .seat-row {
             display: flex;
+            justify-content: center;
             align-items: center;
             margin-bottom: 15px;
 
@@ -86,18 +85,18 @@
                     margin-right: 15px;
                   }
                   @include respond-to(xs) {
-                    width: 25px;
-                    height: 25px;
-                    margin: 5px;
+                    width: 30px;
+                    height: 30px;
+                    margin: 4px;
                   }
                 }
 
                 .seat-name {
                   position: absolute;
-                  top: 50%;
+                  top: 55%;
                   left: 50%;
                   transform: translate(-50%, -50%);
-                  color: #122449;
+                  color: white;
                   background-color: transparent;
                   font-size: 12px;
                   margin: 0;
@@ -109,14 +108,41 @@
                 }
 
                 &:hover {
+                  transform: scale(1.1);
                   img {
-                    opacity: 0.8;
+                    opacity: 0.9;
                   }
                 }
               }
               .seat-wrapper {
-                .aisle {
-                  // padding: 200px;
+                display: flex;
+                align-items: center;
+
+                &.aisle-before {
+                  position: relative;
+                  .seat {
+                    margin-right: 100px;
+
+                    @media screen and (max-width: 1050px) {
+                      margin-right: 60px;
+                    }
+                    @include respond-to(xs) {
+                      margin-right: 40px;
+                    }
+                  }
+                  // TẠO LỐI ĐI
+                  // &.aisle-before {
+                  //   &:after {
+                  //     content: "↕"; // Thêm biểu tượng mũi tên dọc
+                  //     position: absolute;
+                  //     top: 50%;
+                  //     right: 0;
+                  //     transform: translate(-50%, -50%);
+                  //     color: #999;
+                  //     font-size: 20px;
+                  //     background: transparent;
+                  //   }
+                  // }
                 }
               }
             }
@@ -222,6 +248,7 @@
       .content_tab {
         padding: 10px;
         display: flex;
+        justify-content: center;
         flex-direction: column;
         align-items: center;
         margin: 10px 0 0 0;
@@ -236,11 +263,6 @@
             .seat-row {
               margin-bottom: 5px;
               .seat {
-                img {
-                  width: 25px; /* Kích thước nhỏ hơn cho mobile */
-                  height: 25px;
-                  margin: 5px;
-                }
                 .seat-name {
                   font-size: $mobase-font-size-xs;
                 }

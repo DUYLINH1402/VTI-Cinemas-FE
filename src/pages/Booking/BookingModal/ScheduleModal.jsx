@@ -1,161 +1,167 @@
 import React, { useState, useEffect } from "react";
-import { fetchShowtimes } from "../../../services/service/serviceCinemas"; // Import hàm fetchShowtimes từ dataService
+import { fetchShowtimes, fetchCinemas } from "../../../services/service/serviceCinemas";
 import { toast } from "react-toastify";
 
-const ScheduleModal = ({
-  onNext,
-  onBack,
-  onClose,
-  selectedCinema,
-  movie_id
-}) => {
-  const [showtimes, setShowtimes] = useState([]); // State lưu danh sách suất chiếu
-  const [selectedDate, setSelectedDate] = useState(""); // State lưu ngày được chọn
-  const [selectedTime, setSelectedTime] = useState(""); // State lưu suất chiếu được chọn
-  const [loading, setLoading] = useState(true); // State kiểm soát trạng thái loading
-  const [error, setError] = useState(null); // State lưu lỗi (nếu có)
+const ScheduleModal = ({ onNext, onBack, onClose, selectedCinema, movie_id }) => {
+  const [showtimes, setShowtimes] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [availableCinemas, setAvailableCinemas] = useState([]);
 
-  // Gọi API lấy danh sách suất chiếu khi Modal được mở
   useEffect(() => {
     const fetchShowtimeData = async () => {
       try {
-        setLoading(true); // Bật trạng thái loading trước khi gọi API
-        console.log(
-          "Fetching showtimes for cinema_id:",
-          selectedCinema?.cinema_id
-        );
-
+        setLoading(true);
+        console.log("Fetching showtimes for cinema_id:", selectedCinema?.cinema_id);
+        console.log("MovieId truyền vào ScheduleModal: ", movie_id);
         if (!selectedCinema?.cinema_id) {
-          console.error("Error: selectedCinema is missing cinema_id");
           setError("Không tìm thấy rạp chiếu phù hợp.");
           return;
         }
 
-        const data = await fetchShowtimes(selectedCinema.cinema_id); // Gọi API với thông tin rạp đã chọn
-        console.log("Suất chiếu lấy được", data);
-        if (!data || data.length === 0) {
-          setError("Rạp này hiện không có suất chiếu nào");
+        // Lấy dữ liệu suất chiếu cho rạp đã chọn
+        const data = await fetchShowtimes(selectedCinema.cinema_id);
+        console.log("Suất chiếu lấy được:", data);
+
+        if (!data || Object.keys(data).length === 0) {
+          setError("Rạp này hiện không có suất chiếu nào.");
           setShowtimes([]);
           return;
         }
-        
-        // Lọc các suất chiếu có movie_id trùng với phim đang chọn
-        const filteredShowtimes = data.filter(
-          showtime => String(showtime.movie_id) === String(movie_id)
-        );
-        
-      if (filteredShowtimes.length === 0) {
-        setError("Phim này không có suất chiếu tại rạp đã chọn.");
-        setShowtimes([]);
-        return;
-      }
 
-        //  Chuyển đổi dữ liệu `showtimes` thành dạng có `date` và `sessions`
-      const formattedShowtimes = {};
-      data.forEach((showtime) => {
-        const dateKey = showtime.id.split("_")[1]; // Lấy phần "20250308" từ `showtime_20250308_1000`
-        const time = showtime.id.split("_")[2]; // Lấy phần "1000" từ `showtime_20250308_1000`
+        // Lấy toàn bộ suất chiếu để tìm rạp có suất chiếu cho phim này
+        const allShowtimes = await fetchShowtimes(null); // Lấy tất cả suất chiếu
+        const cinemas = await fetchCinemas();
 
-        //  Chuyển ngày thành `dd/MM`
-        const formattedDate = `${dateKey.substring(6, 8)}/${dateKey.substring(4, 6)}`;
+        // Tìm các rạp có suất chiếu cho phim này
+        const cinemasWithShowtimes = Object.entries(allShowtimes)
+          .filter(([key, value]) => String(value.movie_id) === String(movie_id))
+          .map(([key]) => key.split("_")[3]); // Lấy cinema_id từ key (ví dụ: cinema_10)
 
-        if (!formattedShowtimes[formattedDate]) {
-          formattedShowtimes[formattedDate] = { date: formattedDate, sessions: [] };
+        const uniqueCinemas = [...new Set(cinemasWithShowtimes)];
+        const availableCinemaNames = uniqueCinemas
+          .map((cinemaId) => {
+            const cinema = Object.values(cinemas).find((c) => c.cinema_id === cinemaId);
+            return cinema ? cinema.cinema_name : null;
+          })
+          .filter((name) => name && name !== selectedCinema.cinema_name);
+
+        setAvailableCinemas(availableCinemaNames);
+
+        // Lọc suất chiếu theo movie_id (không cần kiểm tra cinema_id vì API đã lọc)
+        const filteredShowtimes = Object.entries(data).filter(([key, value]) => {
+          return String(value.movie_id) === String(movie_id);
+        });
+
+        if (filteredShowtimes.length === 0) {
+          setError(
+            `Phim này hiện không có suất chiếu tại rạp ${selectedCinema.cinema_name}.${
+              availableCinemaNames.length > 0
+                ? ` Bạn có thể thử tại: ${availableCinemaNames.join(", ")}.`
+                : ""
+            }`
+          );
+          setShowtimes([]);
+          return;
         }
 
-        formattedShowtimes[formattedDate].sessions.push({
-          time: `${time.substring(0, 2)}:${time.substring(2, 4)}`, // Chuyển "1000" thành "10:00"
-          movie_id: showtime.movie_id,
-          showtime_id: showtime.id,
-        });
-      });
+        // Định dạng dữ liệu suất chiếu thành { date, sessions }
+        const formattedShowtimes = {};
+        filteredShowtimes.forEach(([showtimeId, showtime]) => {
+          const dateKey = showtimeId.split("_")[1];
+          const timeKey = showtimeId.split("_")[2];
+          const formattedDate = `${dateKey.substring(6, 8)}/${dateKey.substring(4, 6)}`;
+          const formattedTime = `${timeKey.substring(0, 2)}:${timeKey.substring(2, 4)}`;
 
-      setShowtimes(Object.values(formattedShowtimes)); // Chuyển object thành array để sử dụng trong `map()`
-        console.log(selectedCinema);
+          if (!formattedShowtimes[formattedDate]) {
+            formattedShowtimes[formattedDate] = { date: formattedDate, sessions: [] };
+          }
+
+          formattedShowtimes[formattedDate].sessions.push({
+            time: formattedTime,
+            movie_id: showtime.movie_id,
+            showtime_id: showtimeId,
+          });
+        });
+
+        setShowtimes(Object.values(formattedShowtimes));
       } catch (err) {
         console.error("Failed to load showtimes:", err);
-        setError(err.message || "Lỗi tải suất chiếu"); // Lưu lỗi nếu gọi API thất bại
+        setError(err.message || "Lỗi tải suất chiếu");
       } finally {
-        setLoading(false); // Tắt trạng thái loading sau khi hoàn tất
+        setLoading(false);
       }
     };
 
-    if (selectedCinema) fetchShowtimeData(); // Gọi API nếu có rạp đã được chọn
-  }, [selectedCinema]); // useEffect chạy lại khi `selectedCinema` thay đổi
+    if (selectedCinema) fetchShowtimeData();
+  }, [selectedCinema, movie_id]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setSelectedTime(null); // Reset lại giờ khi đổi ngày
+    setSelectedTime("");
   };
-  
 
-  // Xử lý khi người dùng nhấn nút "Tiếp theo"
   const handleSubmit = () => {
-    if (!selectedDate){
-      toast.warning("Vui lòng chọn suất chiếu.");
+    if (!selectedDate) {
+      toast.warning("Vui lòng chọn ngày chiếu.");
       return;
     }
-    if (!selectedTime){
+    if (!selectedTime) {
       toast.warning("Vui lòng chọn giờ chiếu.");
       return;
     }
-    
-  // Lấy `showtime_id` từ danh sách đã lưu
-  const selectedShowtime = showtimes
-  .find(showtime => showtime.date === selectedDate)
-  ?.sessions.find(session => session.time === selectedTime);
 
-if (!selectedShowtime) {
-  toast.warning("Không tìm thấy suất chiếu phù hợp.");
-  return;
-} 
-     else {
-      onNext({ date: selectedDate, time: selectedTime, showtime_id: selectedShowtime.showtime_id, }); // Truyền dữ liệu ngày và giờ chiếu đến bước tiếp theo
+    const selectedShowtime = showtimes
+      .find((showtime) => showtime.date === selectedDate)
+      ?.sessions.find((session) => session.time === selectedTime);
+
+    if (!selectedShowtime) {
+      toast.warning("Không tìm thấy suất chiếu phù hợp.");
+      return;
     }
+
+    onNext({
+      date: selectedDate,
+      time: selectedTime,
+      showtime_id: selectedShowtime.showtime_id,
+    });
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content modal-booking-content modal-schedule">
         <p className="title-booking">Chọn suất chiếu</p>
-        {/* Hiển thị lỗi nếu có */}
         {error && <p className="error">{error}</p>}
-
-        {/* Hiển thị trạng thái loading hoặc danh sách suất chiếu */}
         {loading ? (
           <p>Đang tải danh sách suất chiếu...</p>
         ) : (
           <>
-            {/* Hiển thị danh sách ngày chiếu */}
             <div className="showtime-date">
               {showtimes.map((showtime) => (
                 <button
                   className="button-chose button-chose-date"
                   key={showtime.date}
-                  onClick={() => handleDateChange(showtime.date)} // Cập nhật ngày được chọn
+                  onClick={() => handleDateChange(showtime.date)}
                   style={{
-                    backgroundColor:
-                      selectedDate === showtime.date ? "lightblue" : "white", // Đổi màu khi ngày được chọn
+                    backgroundColor: selectedDate === showtime.date ? "lightblue" : "white",
                   }}
                 >
                   {showtime.date}
                 </button>
               ))}
             </div>
-
-            {/* Hiển thị danh sách giờ chiếu theo ngày đã chọn */}
             <div className="showtime-time">
-            
               {showtimes
-                .find((showtime) => showtime.date === selectedDate) // Tìm ngày đã chọn
+                .find((showtime) => showtime.date === selectedDate)
                 ?.sessions.map((session) => (
                   <button
                     className="button-chose button-chose-time"
                     key={session.time}
-                    onClick={() => setSelectedTime(session.time)} // Cập nhật giờ chiếu được chọn
+                    onClick={() => setSelectedTime(session.time)}
                     style={{
-                      backgroundColor:
-                        selectedTime === session.time ? "lightblue" : "white", // Đổi màu khi giờ chiếu được chọn
+                      backgroundColor: selectedTime === session.time ? "lightblue" : "white",
                     }}
                   >
                     {session.time}
@@ -164,23 +170,13 @@ if (!selectedShowtime) {
             </div>
           </>
         )}
-
-        {/* Nút "Quay lại" */}
         <button className="button-action" onClick={onBack}>
           Quay lại
         </button>
-
-        {/* Nút "Hủy" */}
         <button className="button-action cancel" onClick={onClose}>
           Hủy
         </button>
-
-        {/* Nút "Tiếp theo" */}
-        <button
-          className="button-action success"
-          onClick={handleSubmit}
-          // disabled={!selectedDate || !selectedTime} // Chỉ kích hoạt nếu đã chọn ngày và giờ chiếu
-        >
+        <button className="button-action success" onClick={handleSubmit}>
           Tiếp theo
         </button>
       </div>
@@ -188,4 +184,4 @@ if (!selectedShowtime) {
   );
 };
 
-export default ScheduleModal; // Xuất component để sử dụng trong các phần khác
+export default ScheduleModal;

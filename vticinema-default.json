@@ -206,7 +206,10 @@
   "Cinema": {
     "cinema1": {
       "background": "",
-      "cinema_id": 1,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_01",
       "cinema_name": "VTI Hà Nội Cinema",
       "city": "Hà Nội",
       "is_protected": true,
@@ -214,7 +217,10 @@
     },
     "cinema10": {
       "background": "",
-      "cinema_id": 10,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_10",
       "cinema_name": "VTI Pleiku Movies",
       "city": "Pleiku",
       "is_protected": true,
@@ -222,7 +228,10 @@
     },
     "cinema11": {
       "background": "",
-      "cinema_id": 11,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_11",
       "cinema_name": "VTI Sài Gòn Film House",
       "city": "Sài Gòn",
       "is_protected": true,
@@ -230,7 +239,10 @@
     },
     "cinema12": {
       "background": "",
-      "cinema_id": 12,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_12",
       "cinema_name": "VTI Mekong Movie Center",
       "city": "Mekong",
       "is_protected": true,
@@ -238,7 +250,10 @@
     },
     "cinema13": {
       "background": "",
-      "cinema_id": 13,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_13",
       "cinema_name": "VTI Vũng Tàu Ocean Cinema",
       "city": "Vũng Tàu",
       "is_protected": true,
@@ -246,7 +261,10 @@
     },
     "cinema14": {
       "background": "",
-      "cinema_id": 14,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_14",
       "cinema_name": "VTI Cần Thơ Riverside Theater",
       "city": "Cần Thơ",
       "is_protected": true,
@@ -254,23 +272,21 @@
     },
     "cinema15": {
       "background": "",
-      "cinema_id": 15,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_15",
       "cinema_name": "VTI Biên Hòa Galaxy",
       "city": "Biên Hòa",
       "is_protected": true,
       "location": "102 Đường MNO, Biên Hòa"
     },
-    "cinema16": {
-      "background": "",
-      "cinema_id": 16,
-      "cinema_name": "VTICinema",
-      "city": "Tiền Giang",
-      "is_protected": false,
-      "location": "Tien Giang 2"
-    },
     "cinema2": {
       "background": "",
-      "cinema_id": 2,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_2",
       "cinema_name": "VTI Thăng Long Movie",
       "city": "Hà Nội",
       "is_protected": true,
@@ -278,7 +294,10 @@
     },
     "cinema3": {
       "background": "",
-      "cinema_id": 3,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_3",
       "cinema_name": "VTI Royal Hanoi Theater",
       "city": "Hà Nội",
       "is_protected": true,
@@ -286,7 +305,10 @@
     },
     "cinema4": {
       "background": "",
-      "cinema_id": 4,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_4",
       "cinema_name": "VTI West Lake Cinema",
       "city": "Hà Nội",
       "is_protected": true,
@@ -294,35 +316,50 @@
     },
     "cinema5": {
       "background": "",
-      "cinema_id": 5,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_5",
       "cinema_name": "VTI Red River Film House",
       "city": "Hà Nội",
       "is_protected": true,
       "location": "102 Đường MNO, Hà Nội"
     },
     "cinema6": {
-      "cinema_id": 6,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_6",
       "cinema_name": "VTI Đà Nẵng Star Cinema",
       "city": "Đà Nẵng",
       "is_protected": true,
       "location": "123 Đường ABC, Đà Nẵng"
     },
     "cinema7": {
-      "cinema_id": 7,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_7",
       "cinema_name": "VTI Huế Heritage Cinema",
       "city": "Huế",
       "is_protected": true,
       "location": "456 Đường DEF, Huế"
     },
     "cinema8": {
-      "cinema_id": 8,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_8",
       "cinema_name": "VTI Đồng Hới Film Center",
       "city": "Đồng Hới",
       "is_protected": true,
       "location": "789 Đường GHI, Đồng Hới"
     },
     "cinema9": {
-      "cinema_id": 9,
+      "rooms": {
+        "Room 1": { "seat_template": "Seats" }
+      },
+      "cinema_id": "cinema_9",
       "cinema_name": "VTI Nha Trang Sun Theater",
       "city": "Nha Trang",
       "is_protected": true,
@@ -376,10 +413,7 @@
           "username": "Nguyen Duy Linh"
         }
       },
-      "tags": [
-        "Tạm được!",
-        "Hài lòng"
-      ],
+      "tags": ["Tạm được!", "Hài lòng"],
       "timestamp": 1739074327694,
       "username": "3 Team"
     },
@@ -390,10 +424,7 @@
       "email": "mock2406@gmail.com",
       "email_movieId": "mock2406@gmail.com_12",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1739077935/VTI_Cinemas/Comments/wdb67ptsfesgwrwwvlaa.jpg",
-      "likedUsers": [
-        "mock2406@gmail.com",
-        "duylinh63b5@gmail.com"
-      ],
+      "likedUsers": ["mock2406@gmail.com", "duylinh63b5@gmail.com"],
       "likes": 2,
       "movieId": "12",
       "rating": 8,
@@ -406,10 +437,7 @@
           "username": "3 Team"
         }
       },
-      "tags": [
-        "Đáng xem",
-        "Tạm được!"
-      ],
+      "tags": ["Đáng xem", "Tạm được!"],
       "timestamp": 1739077936382,
       "username": "3 Team"
     },
@@ -420,10 +448,7 @@
       "email": "duylinh63b5@gmail.com",
       "email_movieId": "duylinh63b5@gmail.com_22",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1740959464/VTI_Cinemas/Comments/fzmwjd4du685cr6mfzyc.jpg",
-      "likedUsers": [
-        "duylinh63b5@gmail.com",
-        "nganle0503@gmail.com"
-      ],
+      "likedUsers": ["duylinh63b5@gmail.com", "nganle0503@gmail.com"],
       "likes": 2,
       "movieId": "22",
       "rating": 10,
@@ -443,12 +468,7 @@
           "username": "Lê Thị Kim Ngân "
         }
       },
-      "tags": [
-        "Tuyệt vời!",
-        "Siêu phẩm",
-        "Đáng xem",
-        "Hài hước"
-      ],
+      "tags": ["Tuyệt vời!", "Siêu phẩm", "Đáng xem", "Hài hước"],
       "timestamp": 1740959465313,
       "username": "Nguyen Duy Linh"
     },
@@ -459,10 +479,7 @@
       "email": "duylinh63b5@gmail.com",
       "email_movieId": "duylinh63b5@gmail.com_11",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1741004440/VTI_Cinemas/Comments/yomxpgzvuxhn53bcttur.jpg",
-      "likedUsers": [
-        "duylinh63b5@gmail.com",
-        "nganle0503@gmail.com"
-      ],
+      "likedUsers": ["duylinh63b5@gmail.com", "nganle0503@gmail.com"],
       "likes": 2,
       "movieId": "11",
       "rating": 10,
@@ -475,11 +492,7 @@
           "username": "Lê Thị Kim Ngân "
         }
       },
-      "tags": [
-        "Hài lòng",
-        "Tuyệt vời!",
-        "Cảm động"
-      ],
+      "tags": ["Hài lòng", "Tuyệt vời!", "Cảm động"],
       "timestamp": 1741004441002,
       "username": "Nguyen Duy Linh"
     },
@@ -490,11 +503,7 @@
       "email": "duylinh63b5@gmail.com",
       "email_movieId": "duylinh63b5@gmail.com_10",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1741348649/VTI_Cinemas/Comments/iewltz3qbtonddlewjuy.png",
-      "likedUsers": [
-        "duylinh63b5@gmail.com",
-        "vticinema@gmail.com",
-        "nganle0503@gmail.com"
-      ],
+      "likedUsers": ["duylinh63b5@gmail.com", "vticinema@gmail.com", "nganle0503@gmail.com"],
       "likes": 3,
       "movieId": "10",
       "rating": 6,
@@ -528,10 +537,7 @@
           "username": "Lê Thị Kim Ngân "
         }
       },
-      "tags": [
-        "Hài lòng",
-        "Tạm được!"
-      ],
+      "tags": ["Hài lòng", "Tạm được!"],
       "timestamp": 1741348649751,
       "username": "Nguyen Duy Linh"
     },
@@ -542,10 +548,7 @@
       "email": "nganle0503@gmail.com",
       "email_movieId": "nganle0503@gmail.com_1",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1741402243/VTI_Cinemas/Comments/vslharoadsctseg1kcsp.jpg",
-      "likedUsers": [
-        "nganle0503@gmail.com",
-        "duylinh63b5@gmail.com"
-      ],
+      "likedUsers": ["nganle0503@gmail.com", "duylinh63b5@gmail.com"],
       "likes": 2,
       "movieId": "1",
       "rating": 10,
@@ -565,13 +568,7 @@
           "username": "Nguyen Duy Linh"
         }
       },
-      "tags": [
-        "Tuyệt vời!",
-        "Cảm động",
-        "Đáng xem",
-        "Siêu phẩm",
-        "Hài lòng"
-      ],
+      "tags": ["Tuyệt vời!", "Cảm động", "Đáng xem", "Siêu phẩm", "Hài lòng"],
       "timestamp": 1741402244526,
       "username": "Lê Thị Kim Ngân "
     },
@@ -582,16 +579,11 @@
       "email": "nganle0503@gmail.com",
       "email_movieId": "nganle0503@gmail.com_11",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1741402947/VTI_Cinemas/Comments/as0jepxupgsx0b1wptlb.jpg",
-      "likedUsers": [
-        "nganle0503@gmail.com"
-      ],
+      "likedUsers": ["nganle0503@gmail.com"],
       "likes": 1,
       "movieId": "11",
       "rating": 6,
-      "tags": [
-        "Hài lòng",
-        "Tạm được!"
-      ],
+      "tags": ["Hài lòng", "Tạm được!"],
       "timestamp": 1741402948001,
       "username": "Lê Thị Kim Ngân "
     },
@@ -602,17 +594,11 @@
       "email": "duylinh63b5@gmail.com",
       "email_movieId": "duylinh63b5@gmail.com_1",
       "image": "https://res.cloudinary.com/ddia5yfia/image/upload/v1741424361/VTI_Cinemas/Comments/pwvszj9znigmewpiqp5u.jpg",
-      "likedUsers": [
-        "duylinh63b5@gmail.com"
-      ],
+      "likedUsers": ["duylinh63b5@gmail.com"],
       "likes": 1,
       "movieId": "1",
       "rating": 10,
-      "tags": [
-        "Cảm động",
-        "Đáng xem",
-        "Tuyệt vời!"
-      ],
+      "tags": ["Cảm động", "Đáng xem", "Tuyệt vời!"],
       "timestamp": 1741424362255,
       "username": "Nguyen Duy Linh"
     }

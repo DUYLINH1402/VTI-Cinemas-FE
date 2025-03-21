@@ -10,7 +10,7 @@ const ConfirmationModal = ({
   const navigate = useNavigate(); // Hook của React Router để điều hướng
   // console.log("Thông tin rạp đã chọn: ",selectedCinema)
   const handleConfirm = () => {
-
+    console.log("movie_id in ConfirmationModal:", movie_id); // Thêm log
     localStorage.setItem("selectedCinemaID", selectedCinema.cinema_id);
     localStorage.setItem("timerCount", 600);
     localStorage.setItem("statusSeats", JSON.stringify({}));

@@ -46,20 +46,32 @@ export const PaymentNotification = ({ appTransId }) => {
   const updateSeatStatus = async (data) => {
     let movieDetails = data.movieDetails;
     if (!movieDetails && data.embed_data) {
-      movieDetails = JSON.parse(data.embed_data).movieDetails;
+      try {
+        movieDetails = JSON.parse(data.embed_data).movieDetails;
+      } catch (error) {
+        console.error("Lỗi khi parse embed_data:", error);
+        return;
+      }
     }
 
-    const { cinema_id, showtime_id } = movieDetails;
-    const seats = movieDetails?.seat.split(", ").map((seat) => seat.trim());
-
-    if (!cinema_id || !showtime_id || !seats) {
-      console.error("Thiếu thông tin cần thiết để cập nhật ghế");
+    if (!movieDetails) {
+      console.error("Không tìm thấy movieDetails trong data hoặc embed_data:", data);
       return;
     }
-    console.log(`Đường dẫn seatsRef: Cinema/${cinema_id}/showtimes/${showtime_id}/seats`);
+
+    const { cinema_id, showtime_id, seat } = movieDetails;
+
+    if (!cinema_id || !showtime_id || !seat) {
+      console.error("Thiếu thông tin cần thiết để cập nhật ghế:", { cinema_id, showtime_id, seat });
+      return;
+    }
+
+    const seats = seat.split(", ").map((seatName) => seatName.trim().toLowerCase()); // Chuẩn hóa seatName thành chữ thường
+    console.log(`Đường dẫn seatsRef: Bookings/${showtime_id}/seats`);
+    console.log("Danh sách ghế cần cập nhật:", seats);
 
     try {
-      const seatsRef = ref(db, `Cinema/${cinema_id}/showtimes/${showtime_id}/seats`);
+      const seatsRef = ref(db, `Bookings/${showtime_id}/seats`);
       const snapshot = await get(seatsRef);
       if (!snapshot.exists()) {
         console.error(`Không tìm thấy ghế trong suất chiếu ${showtime_id}`);
@@ -67,18 +79,26 @@ export const PaymentNotification = ({ appTransId }) => {
       }
 
       const seatsData = snapshot.val();
+      console.log("Dữ liệu ghế từ Firebase:", seatsData);
+
       const updates = {};
 
       for (const seatName of seats) {
         if (seatsData[seatName]) {
           console.log(`Trạng thái ghế ${seatName} trước khi cập nhật:`, seatsData[seatName]);
-          updates[`${seatName}`] = {
-            status: "sold",
-            selected: false,
-            user: null,
-            timestamp: null,
-          };
-          console.log(`Ghế ${seatName} đã được cập nhật thành "sold"`);
+          // Chỉ cập nhật nếu ghế đang ở trạng thái "reserved"
+          if (seatsData[seatName].status === "reserved") {
+            updates[seatName] = {
+              status: "sold",
+              user: null,
+              timestamp: null,
+            };
+            console.log(`Ghế ${seatName} đã được cập nhật thành "sold"`);
+          } else {
+            console.warn(
+              `Ghế ${seatName} không ở trạng thái "reserved", trạng thái hiện tại: ${seatsData[seatName].status}`
+            );
+          }
         } else {
           console.error(`Không tìm thấy ghế ${seatName} trong Firebase`);
         }
@@ -87,9 +107,9 @@ export const PaymentNotification = ({ appTransId }) => {
       if (Object.keys(updates).length > 0) {
         // Cập nhật tất cả ghế cùng lúc
         await update(seatsRef, updates);
-        console.log("Đã cập nhật trạng thái ghế thành công");
+        console.log("Đã cập nhật trạng thái ghế thành công:", updates);
       } else {
-        console.log("Không có ghế nào được cập nhật");
+        console.log("Không có ghế nào được cập nhật, kiểm tra trạng thái ghế hoặc danh sách ghế.");
       }
     } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái ghế:", error);

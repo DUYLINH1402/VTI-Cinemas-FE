@@ -18,9 +18,7 @@ import {
 
 // API LẤY DANH SÁCH TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG
 export const fetchCinemas = async () => {
-  return useFirebase
-    ? await fetchCinemasFromFirebase()
-    : await fetchCinemasFromSQL();
+  return useFirebase ? await fetchCinemasFromFirebase() : await fetchCinemasFromSQL();
 };
 // API LẤY DANH SÁCH KHU VỰC CỦA TẤT CẢ RẠP PHIM CÓ TRONG HỆ THỐNG
 export const fetchRegionsOfCinemas = async () => {
@@ -51,7 +49,5 @@ export const saveContactInfoToData = async (formData) => {
 
 //API THÊM RẠP MỚI
 export const addCinema = async (newCinema) => {
-  return useFirebase
-    ? await addCinemaToFirebase(newCinema)
-    : await addCinemaToSQL(newCinema);
+  return useFirebase ? await addCinemaToFirebase(newCinema) : await addCinemaToSQL(newCinema);
 };

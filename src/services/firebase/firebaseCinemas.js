@@ -1,6 +1,3 @@
-// DO HỆ THỐNG MỞ RỘNG NÊN CẦN CHIA CÁC API THEO TỪNG BẢNG ĐỂ DỄ QUẢN LÝ
-// SAU NÀY CÓ THỜI GIAN SẼ CHIA LẠI CÁC API ĐÃ LÀM
-
 import axios from "axios";
 import {
   getDatabase,
@@ -15,11 +12,7 @@ import {
   startAt,
   endAt,
 } from "firebase/database";
-import {
-  getAuth,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { setAuthToken } from "../../utils/authStorage";
 import { normalizeString } from "../../utils/validation.js";
 import app from "../firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
@@ -57,9 +50,7 @@ export const fetchRegionsOfCinemasFromFirebase = async () => {
 
     if (snapshot.exists()) {
       const cinemas = snapshot.val();
-      const allRegions = Object.values(cinemas).map((cinema) =>
-        normalizeString(cinema.city)
-      );
+      const allRegions = Object.values(cinemas).map((cinema) => normalizeString(cinema.city));
       // Loại bỏ các khu vực trùng lặp
       return [...new Set(allRegions)];
     }
@@ -158,42 +149,42 @@ export const addCinemaToFirebase = async (newCinema) => {
 
 // API LẤY DANH SÁCH SUẤT CHIẾU TỪ FIREBASE
 export const fetchShowtimesFromFirebase = async (cinema_id) => {
-  if (!cinema_id) {
-    console.error("fetchShowtimes: Missing cinema_id");
-    return [];
-  }
-
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Cinema.json"
-    );
+    const db = getDatabase();
+    const showtimesRef = ref(db, "Showtimes");
+    const snapshot = await get(showtimesRef);
 
-    const cinemas = response.data;
-    if (!cinemas) {
-      console.warn("⚠ Không có dữ liệu rạp chiếu trong Firebase.");
-      return [];
+    if (!snapshot.exists()) {
+      console.warn("Không có dữ liệu suất chiếu trong Firebase.");
+      return {};
     }
 
-    //  Tìm key rạp theo `cinema_id`
-    const cinemaKey = Object.keys(cinemas).find(
-      (key) => cinemas[key].cinema_id === cinema_id
-    );
+    const showtimesData = snapshot.val();
 
-    if (!cinemaKey) {
-      console.warn(`Không tìm thấy rạp có cinema_id: ${cinema_id}`);
-      return [];
+    // Nếu không truyền cinema_id, trả về toàn bộ suất chiếu
+    if (!cinema_id) {
+      return showtimesData;
     }
 
-    const showtimes = cinemas[cinemaKey].showtimes || {};
-    console.log(" Suất chiếu lấy từ Firebase:", showtimes);
+    // Lọc các suất chiếu theo cinema_id
+    const filteredShowtimes = Object.entries(showtimesData).reduce((acc, [key, value]) => {
+      const cinemaIdInKey = key.includes(cinema_id);
+      if (cinemaIdInKey && value.cinema_id === cinema_id) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
 
-    return Object.entries(showtimes).map(([key, value]) => ({
-      id: key,
-      ...value,
-    }));
+    // console.log(`Suất chiếu lấy được cho cinema_id ${cinema_id}:`, filteredShowtimes);
+
+    if (Object.keys(filteredShowtimes).length === 0) {
+      console.warn(`Không tìm thấy suất chiếu cho cinema_id: ${cinema_id}`);
+      return {};
+    }
+
+    return filteredShowtimes;
   } catch (error) {
-    console.error(" Lỗi khi lấy suất chiếu từ Firebase:", error);
-    return [];
+    console.error("Lỗi khi lấy suất chiếu từ Firebase:", error);
+    return {};
   }
 };
-

@@ -1,18 +1,10 @@
-import axios from "axios";
 import { getAuth } from "firebase/auth"; // Lấy module Firebase Authentication
-import { setAuthToken } from "../../utils/authStorage"; // Hàm lưu token xác thực
-import { normalizeString } from "../../utils/validation.js"; // Hàm chuẩn hóa chuỗi
 import app from "../firebase/firebaseConfig"; // Import Firebase App đã được khởi tạo
-import {
-  getDatabase,
-  ref,
-  get, onValue, update,
- 
-} from "firebase/database"; // Các module để làm việc với Firebase Realtime Database
+import { getDatabase, ref, get, onValue, update } from "firebase/database"; // Các module để làm việc với Firebase Realtime Database
 
 // Khởi tạo Authentication của Firebase
 const auth = getAuth();
-const db = getDatabase(); 
+const db = getDatabase();
 /**
  * HÀM LẤY LỊCH SỬ ĐẶT CHỖ TỪ FIREBASE
  * @param {string} email - Địa chỉ email của người dùng để tìm kiếm lịch sử
@@ -45,7 +37,6 @@ export const fetchBookingHistoryFromFirebase = async (email) => {
     throw new Error("Failed to fetch booking history"); // Ném lỗi để bên gọi xử lý
   }
 };
-
 
 /**
  * LẮNG NGHE TRẠNG THÁI GHẾ THEO THỜI GIAN THỰC TỪ FIREBASE

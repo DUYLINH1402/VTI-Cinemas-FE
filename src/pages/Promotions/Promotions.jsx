@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  fetchPromotions,
-  subscribeToPromotions,
-} from "../../services/service/servicePromotion";
+import { fetchPromotions, subscribeToPromotions } from "../../services/service/servicePromotion";
 import "./Promotions.scss";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton";
 import { useNavigate } from "react-router-dom";
@@ -40,9 +37,7 @@ const Promotions = () => {
       // Kích hoạt animation khi có dữ liệu mới
       setTimeout(() => {
         setAnimate((prev) =>
-          prev.map((_, index) =>
-            index < visiblePromotions ? true : prev[index]
-          )
+          prev.map((_, index) => (index < visiblePromotions ? true : prev[index]))
         );
       }, 100);
     });
@@ -54,9 +49,7 @@ const Promotions = () => {
 
     // Kích hoạt animation từ từ cho các mục mới hiển thị
     setTimeout(() => {
-      setAnimate((prev) =>
-        prev.map((_, index) => index < visiblePromotions + ITEMS_PER_PAGE)
-      );
+      setAnimate((prev) => prev.map((_, index) => index < visiblePromotions + ITEMS_PER_PAGE));
     }, 100);
   };
   // Hàm xử lý khi bấm vào một sự kiện
@@ -88,10 +81,7 @@ const Promotions = () => {
                     <img src={promo.thumbnail} alt={promo.title} />
                     <div className="event-info">
                       <h3 className="event-title">{promo.title}</h3>
-                      <a
-                        href={`/promotions/${promo.slug}`}
-                        className="read-more"
-                      >
+                      <a href={`/promotions/${promo.slug}`} className="read-more">
                         Xem chi tiết →
                       </a>
                     </div>

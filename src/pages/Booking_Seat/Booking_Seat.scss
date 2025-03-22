@@ -24,15 +24,20 @@
         }
 
         .row_seat {
-          margin-left: 60px;
-          margin-right: 60px;
-          height: auto;
+          overflow-x: auto;
+          white-space: nowrap;
+          min-height: 45px 0px; // Đảm bảo đủ chiều cao để hiển thị các hàng
+
+          @include respond-to(xs) {
+            min-height: 300px; // Giảm chiều cao trên mobile
+          }
           position: relative; // Để đường kẻ lối đi có thể căn chỉnh theo hàng
           .seat-row {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 15px;
+            min-width: max-content;
 
             .row-label {
               width: 30px;
@@ -85,8 +90,8 @@
                     margin-right: 15px;
                   }
                   @include respond-to(xs) {
-                    width: 30px;
-                    height: 30px;
+                    width: 25px;
+                    height: 25px;
                     margin: 4px;
                   }
                 }
@@ -96,7 +101,7 @@
                   top: 55%;
                   left: 50%;
                   transform: translate(-50%, -50%);
-                  color: white;
+                  color: rgb(17, 3, 3);
                   background-color: transparent;
                   font-size: 12px;
                   margin: 0;
@@ -264,6 +269,7 @@
               margin-bottom: 5px;
               .seat {
                 .seat-name {
+                  // display: none;
                   font-size: $mobase-font-size-xs;
                 }
               }

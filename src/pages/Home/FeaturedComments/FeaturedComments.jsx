@@ -6,22 +6,22 @@ import { faArrowDown, faArrowRight, faCirclePlay } from "@fortawesome/free-solid
 import "./FeaturedComments.scss";
 import LazyImage from "../../../components/LazyImage.jsx";
 import { useNavigate } from "react-router-dom";
+import TrailerModal from "../../../components/TrailerModal/TrailerModal.jsx";
 
-const ITEMS_PER_PAGE = 3; // Số phim hiển thị ban đầu
-const MAX_COMMENTS_PER_MOVIE = 2; // Tối đa 2 bình luận cho mỗi phim
+const ITEMS_PER_PAGE = 3;
+const MAX_COMMENTS_PER_MOVIE = 2;
 
 const FeaturedComments = () => {
-  const [commentsByMovie, setCommentsByMovie] = useState({}); // Nhóm bình luận theo movieId
+  const [commentsByMovie, setCommentsByMovie] = useState({});
   const [moviesData, setMoviesData] = useState({});
-  const [visibleMovies, setVisibleMovies] = useState(ITEMS_PER_PAGE); // Số phim hiển thị
+  const [visibleMovies, setVisibleMovies] = useState(ITEMS_PER_PAGE);
   const [loading, setLoading] = useState(true);
-  const [openCommentModal, setOpenCommentModal] = useState(false); // Trạng thái mở/đóng modal bình luận
-  const [selectedComment, setSelectedComment] = useState(null); // Bình luận được chọn
-  const [openTrailerModal, setOpenTrailerModal] = useState(false); // Trạng thái mở/đóng modal trailer
-  const [selectedMovie, setSelectedMovie] = useState(null); // Lưu thông tin phim được chọn để hiển thị trong modal trailer
+  const [openCommentModal, setOpenCommentModal] = useState(false);
+  const [selectedComment, setSelectedComment] = useState(null);
+  const [openTrailerModal, setOpenTrailerModal] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
   const navigate = useNavigate();
 
-  // Hàm định dạng ngày tháng
   const formatDate = (timestamp) => {
     const date = new Date(timestamp);
     const day = String(date.getDate()).padStart(2, "0");
@@ -30,7 +30,6 @@ const FeaturedComments = () => {
     return `${day}/${month}/${year}`;
   };
 
-  // Lấy tất cả bình luận từ Firebase và nhóm theo movieId
   useEffect(() => {
     const db = getDatabase();
     const commentsRef = ref(db, "Comments");
@@ -49,9 +48,8 @@ const FeaturedComments = () => {
           ...value,
           timestamp: new Date(value.timestamp).getTime(),
         }))
-        .sort((a, b) => b.timestamp - a.timestamp); // Sắp xếp theo thời gian mới nhất
+        .sort((a, b) => b.timestamp - a.timestamp);
 
-      // Nhóm bình luận theo movieId và giới hạn tối đa 2 bình luận cho mỗi phim
       const groupedComments = {};
       fetchedComments.forEach((comment) => {
         const movieId = comment.movieId;
@@ -63,34 +61,35 @@ const FeaturedComments = () => {
         }
       });
 
-      // Lấy thông tin phim cho từng movieId
-      const movieIds = Object.keys(groupedComments);
-      const movies = {};
-      for (const movieId of movieIds) {
-        try {
-          const movie = await fetchMoviesByIdFromFirebase(movieId);
-          if (movie) {
-            movies[movieId] = movie;
+      if (JSON.stringify(groupedComments) !== JSON.stringify(commentsByMovie)) {
+        const movieIds = Object.keys(groupedComments);
+        const movies = {};
+        for (const movieId of movieIds) {
+          try {
+            const movie = await fetchMoviesByIdFromFirebase(movieId);
+            if (movie) {
+              movies[movieId] = movie;
+            }
+          } catch (error) {
+            console.error(`Lỗi khi lấy dữ liệu phim ${movieId}:`, error);
           }
-        } catch (error) {
-          console.error(`Lỗi khi lấy dữ liệu phim ${movieId}:`, error);
         }
-      }
 
-      setMoviesData(movies);
-      setCommentsByMovie(groupedComments);
-      setLoading(false);
+        setMoviesData(movies);
+        setCommentsByMovie(groupedComments);
+        setLoading(false);
+      }
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [commentsByMovie]);
 
   const handleShowMore = () => {
     setVisibleMovies((prev) => prev + ITEMS_PER_PAGE);
   };
 
   const handleClickComment = (movieId) => {
-    navigate(`/movieinf/${movieId}`); // Điều hướng đến trang chi tiết phim
+    navigate(`/movieinf/${movieId}`);
   };
 
   const handleOpenCommentModal = (comment) => {
@@ -103,14 +102,14 @@ const FeaturedComments = () => {
     setSelectedComment(null);
   };
 
-  // Hàm mở modal trailer và lưu thông tin phim
   const handleOpenTrailerModal = (movie) => {
+    console.log("Opening trailer modal in FeaturedComments for:", movie);
     setSelectedMovie(movie);
     setOpenTrailerModal(true);
   };
 
-  // Hàm đóng modal trailer
   const handleCloseTrailerModal = () => {
+    console.log("Closing trailer modal in FeaturedComments");
     setOpenTrailerModal(false);
     setSelectedMovie(null);
   };
@@ -119,7 +118,6 @@ const FeaturedComments = () => {
     return <div>Đang tải bình luận...</div>;
   }
 
-  // Chuyển commentsByMovie thành mảng để hiển thị
   const movieIds = Object.keys(commentsByMovie);
 
   return (
@@ -130,16 +128,13 @@ const FeaturedComments = () => {
         {movieIds.slice(0, visibleMovies).map((movieId) => {
           const movie = moviesData[movieId];
           const comments = commentsByMovie[movieId];
-          if (!movie || !comments) return null; // Bỏ qua nếu không tìm thấy phim hoặc bình luận
+          if (!movie || !comments) return null;
 
           return (
             <div key={movieId} className="featured-comment-card">
               <div className="featured-comment-thumbnail">
                 <LazyImage src={movie.background} alt={movie.title} />
-                <div
-                  className="play-icon"
-                  onClick={() => handleOpenTrailerModal(movie)} // Truyền toàn bộ movie vào modal
-                >
+                <div className="play-icon" onClick={() => handleOpenTrailerModal(movie)}>
                   <FontAwesomeIcon icon={faCirclePlay} />
                 </div>
               </div>
@@ -163,10 +158,7 @@ const FeaturedComments = () => {
                       </div>
                       {comment.purchased && <span className="verified-badge">Đã mua qua MoMo</span>}
                     </div>
-                    <p
-                      className="comment-content"
-                      onClick={() => handleOpenCommentModal(comment)} // Mở modal bình luận khi nhấn
-                    >
+                    <p className="comment-content" onClick={() => handleOpenCommentModal(comment)}>
                       {comment.content}
                     </p>
                   </div>
@@ -192,7 +184,6 @@ const FeaturedComments = () => {
         </button>
       )}
 
-      {/* Modal hiển thị toàn bộ nội dung bình luận */}
       {openCommentModal && selectedComment && (
         <div className="custom-modal-overlay" onClick={handleCloseCommentModal}>
           <div className="custom-modal" onClick={(e) => e.stopPropagation()}>
@@ -219,51 +210,11 @@ const FeaturedComments = () => {
         </div>
       )}
 
-      {/* Modal hiển thị trailer và thông tin phim */}
-      {openTrailerModal && selectedMovie && (
-        <div className="custom-modal-overlay" onClick={handleCloseTrailerModal}>
-          <div className="custom-trailer-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="close-button" onClick={handleCloseTrailerModal}>
-              ✕
-            </button>
-            <div className="modal-trailer-wrapper">
-              <iframe
-                width="100%"
-                height="315"
-                src={selectedMovie.trailer}
-                title="Movie Trailer"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-              {/* Thông tin phim bên dưới trailer */}
-              <div>
-                <div className="modal-movie-info">
-                  <div className="modal-movie-thumbnail">
-                    <img
-                      src={selectedMovie.image}
-                      alt="Movie Thumbnail"
-                      onClick={() => handleClickComment(selectedMovie.movie_id)}
-                    />
-                  </div>
-                  <div className="modal-movie-detail">
-                    <span
-                      className="modal-movie-title"
-                      onClick={() => handleClickComment(selectedMovie.movie_id)}
-                    >
-                      {selectedMovie.movie_name}
-                    </span>
-                    <span className="modal-movie-genre"> - {selectedMovie.genre}</span>
-                    <p className="modal-movie-description">{selectedMovie.description}</p>
-                  </div>
-                </div>
-                <button className="modal-close-button" onClick={handleCloseTrailerModal}>
-                  Đóng
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      <TrailerModal
+        isOpen={openTrailerModal}
+        onClose={handleCloseTrailerModal}
+        movie={selectedMovie}
+      />
     </div>
   );
 };

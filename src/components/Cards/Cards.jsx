@@ -1,11 +1,12 @@
 import "./card.scss";
 import { Link } from "react-router-dom";
-
+import { useState, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
-import { faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
+import { faStarHalfStroke, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import LazyImage from "../LazyImage";
+import TrailerModal from "../TrailerModal/TrailerModal";
 
 // HÀM HIỂN THỊ SAO
 export const renderStars = (rating) => {
@@ -47,12 +48,7 @@ export const CardCarousel = ({ item }) => {
       <div className="card_carousel_img">
         <Link to="#!">
           <div>
-            <LazyImage
-              src={item.image_url}
-              alt="Image not found"
-              height="350px"
-              width="100%"
-            />
+            <LazyImage src={item.image_url} alt="Image not found" height="350px" width="100%" />
           </div>
         </Link>
       </div>
@@ -89,3 +85,57 @@ export const CardMovie = ({ item }) => {
     </>
   );
 };
+
+// Component CardMovieHome (cập nhật để tích hợp TrailerModal)
+export const CardMovieHome = memo(({ item }) => {
+  const [openTrailerModal, setOpenTrailerModal] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const handleOpenTrailerModal = (e) => {
+    e.stopPropagation();
+    console.log("Opening trailer modal for:", item);
+    setSelectedMovie(item);
+    setOpenTrailerModal(true);
+  };
+
+  const handleCloseTrailerModal = () => {
+    console.log("Closing trailer modal");
+    setOpenTrailerModal(false);
+    setSelectedMovie(null);
+  };
+
+  // Debug trước khi render TrailerModal
+  console.log("Rendering TrailerModal with:", { isOpen: openTrailerModal, movie: selectedMovie });
+
+  return (
+    <div className="card__movie__home">
+      <div className="card__movie__home__poster">
+        <Link to={`/movieinf/${item.movie_id}`}>
+          <LazyImage
+            className="card__movie__home__img"
+            src={item.image}
+            alt={item.movie_name}
+            width="100%"
+          />
+        </Link>
+        <div className="play-button" onClick={handleOpenTrailerModal}>
+          <FontAwesomeIcon icon={faCirclePlay} />
+        </div>
+      </div>
+      <Link to={`/movieinf/${item.movie_id}`}>
+        <div className="card__movie__home__info">
+          <h3 className="line-clamp title-movie">{item.movie_name}</h3>
+          <p className="line-clamp">{item.genre}</p>
+          <div className="rating">
+            <div>{renderStars(item.rating || 0)}</div>
+          </div>
+        </div>
+      </Link>
+      <TrailerModal
+        isOpen={openTrailerModal}
+        onClose={handleCloseTrailerModal}
+        movie={selectedMovie}
+      />
+    </div>
+  );
+});

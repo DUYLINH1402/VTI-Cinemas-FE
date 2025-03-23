@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchMoviesByTab } from "../../services/dataService";
+import { fetchMoviesByTab } from "../../services/service/serviceMovie";
 import LazyImage from "../../components/LazyImage";
 import { renderStars } from "../../components/Cards/Cards";
 import { useNavigate } from "react-router-dom";
@@ -55,44 +55,30 @@ const MovieList = ({ initialTab = "nowShowing" }) => {
         ) : movies.length > 0 ? (
           <>
             <ul className="movie-list">
-              {movies
-                .slice(0, showMore ? movies.length : 7)
-                .map((movie, index) => (
-                  <li
-                    key={index}
-                    className="movie-item"
-                    onClick={() => handleMovieClick(movie.movie_id)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    <LazyImage
-                      src={movie.image}
-                      alt={movie.movie_name}
-                      height="90px"
-                      width="64px"
-                    />
-                    {movie.viewing_age && (
-                      <span className={`age-rating age-${movie.viewing_age}`}>
-                        {movie.viewing_age}+
-                      </span>
-                    )}
-                    <div className="movie-thumbnail">
-                      <p className="movie-thumbnail__title ">
-                        {movie.movie_name}
-                      </p>
-                      <p className="movie-thumbnail__genre">{movie.genre}</p>
-                      <p className="movie-thumbnail__rating">
-                        {renderStars(movie.rating)}
-                      </p>
-                    </div>
-                  </li>
-                ))}
+              {movies.slice(0, showMore ? movies.length : 7).map((movie, index) => (
+                <li
+                  key={index}
+                  className="movie-item"
+                  onClick={() => handleMovieClick(movie.movie_id)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <LazyImage src={movie.image} alt={movie.movie_name} height="90px" width="64px" />
+                  {movie.viewing_age && (
+                    <span className={`age-rating age-${movie.viewing_age}`}>
+                      {movie.viewing_age}+
+                    </span>
+                  )}
+                  <div className="movie-thumbnail">
+                    <p className="movie-thumbnail__title ">{movie.movie_name}</p>
+                    <p className="movie-thumbnail__genre">{movie.genre}</p>
+                    <p className="movie-thumbnail__rating">{renderStars(movie.rating)}</p>
+                  </div>
+                </li>
+              ))}
             </ul>
             {/* Giới hạn số lượng phim hiển thị */}
             {movies.length > 7 && (
-              <button
-                className="show-more-button"
-                onClick={() => setShowMore(!showMore)}
-              >
+              <button className="show-more-button" onClick={() => setShowMore(!showMore)}>
                 {showMore ? "Ẩn bớt" : "Xem thêm"}
               </button>
             )}

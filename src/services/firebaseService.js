@@ -16,7 +16,6 @@ import {
   updatePassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { setAuthToken } from "../utils/authStorage";
 import app from "../services/firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
 
@@ -76,11 +75,7 @@ export const searchFromFireBase = {
 };
 
 // API ĐỔI MẬT KHẨU TRONG FIREBASE AUTHENTICATION (ĐÃ CHẠY OK)
-export const updatePasswordInFirebase = async (
-  email,
-  oldPassword,
-  newPassword
-) => {
+export const updatePasswordInFirebase = async (email, oldPassword, newPassword) => {
   const auth = getAuth();
   const user = auth.currentUser;
   if (!user) {
@@ -105,8 +100,7 @@ export const updatePasswordInFirebase = async (
         errorMessage = "Mật khẩu mới quá yếu.";
         break;
       case `auth/too-many-requests`:
-        errorMessage =
-          "Bạn nhập sai mật khẩu quá nhiều lần. Vui lòng thử lại sau.";
+        errorMessage = "Bạn nhập sai mật khẩu quá nhiều lần. Vui lòng thử lại sau.";
         break;
       case `auth/requires-recent-login`:
         errorMessage = "Vui lòng đăng nhập lại trước khi đổi mật khẩu.";
@@ -132,9 +126,7 @@ export const getAccountFromFirebase = async (account_id) => {
 // HÀM LẤY DỮ LIỆU CHO MOVIES (ĐÃ CHẠY OK)
 export const fetchMoviesFromFirebase = async () => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Movies.json");
     return Object.values(response.data); // Chuyển đổi thành array nếu dữ liệu là object
   } catch (error) {
     console.error("Error fetching movies from Firebase:", error);
@@ -145,9 +137,7 @@ export const fetchMoviesFromFirebase = async () => {
 // HÀM LẤY DỮ LIỆU CHO MOVIES BY ID (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromFirebase = async (movie_id) => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Movies.json");
 
     if (response.data) {
       // Chuyển dữ liệu từ object sang array và lọc theo `movie_id`
@@ -164,66 +154,10 @@ export const fetchMoviesByIdFromFirebase = async (movie_id) => {
   }
 };
 
-// HÀM LẤY DỮ LIỆU CHO MOVIES BẰNG 3 NÚT LỌC (ĐÃ CHẠY OK)
-export const fetchMoviesByTabFromFirebase = async (tab) => {
-  try {
-    // Lấy toàn bộ dữ liệu từ Firebase
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-    );
-
-    const movies = response.data ? Object.values(response.data) : [];
-    const currentDate = new Date(); // Ngày hiện tại để so sánh
-
-    // Chuyển đổi ngày phát hành về dạng chuẩn YYYY-MM-DD
-    const parseDate = (dateString) => {
-      if (!dateString) return null;
-
-      const parts = dateString.split("-");
-      if (parts.length === 3) {
-        if (parts[0].length === 4) {
-          // Định dạng YYYY-MM-DD (đúng chuẩn)
-          return new Date(dateString);
-        } else {
-          // Định dạng DD-MM-YYYY -> Chuyển thành YYYY-MM-DD
-          return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-        }
-      }
-      return null;
-    };
-
-    // Lọc dữ liệu dựa trên tab
-    let filteredMovies = [];
-    if (tab === "upcoming") {
-      // Phim sắp chiếu: release_date > currentDate
-      filteredMovies = movies.filter((movie) => {
-        const releaseDate = parseDate(movie.release_date);
-        return releaseDate && releaseDate > currentDate;
-      });
-    } else if (tab === "nowShowing") {
-      // Phim đang chiếu: release_date <= currentDate
-      filteredMovies = movies.filter((movie) => {
-        const releaseDate = parseDate(movie.release_date);
-        return releaseDate && releaseDate <= currentDate;
-      });
-    } else if (tab === "specialShows") {
-      // Suất chiếu đặc biệt: is_special_show === true
-      filteredMovies = movies.filter((movie) => movie.is_special_show);
-    }
-
-    return filteredMovies;
-  } catch (error) {
-    console.error(`Error fetching ${tab} movies from Firebase:`, error);
-    throw error;
-  }
-};
-
 // HÀM LẤY DỮ LIỆU CHO CAROUSEL (ĐÃ CHẠY OK)
 export const fetchCarouselDataFromFirebase = async () => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Banners.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Banners.json");
     const data = response.data;
     const bannersArray = Object.keys(data).map((key) => ({
       ...data[key],
@@ -263,9 +197,7 @@ export const getAccountByEmailFromFirebase = async (email) => {
 // HÀM LƯU THÔNG TIN SEATS (ĐÃ CHẠY OK)
 export const fetchSeatsFromFirebase = async () => {
   try {
-    const reponse = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Seats.json"
-    );
+    const reponse = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Seats.json");
     return Object.values(reponse.data);
   } catch (error) {
     console.error("Error fetching seats from Firebase:", error);
@@ -275,25 +207,10 @@ export const fetchSeatsFromFirebase = async () => {
 // HÀM GỌI API ĐỂ LẤY DANH SÁCH RẠP (ĐÃ CHẠY OK)
 export const fetchCinemasFromFirebase = async () => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Cinemas.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Cinemas.json");
     return response.data; // Trả về dữ liệu danh sách rạp
   } catch (error) {
     console.error("Error fetching cinemas:", error);
-    throw error;
-  }
-};
-
-// API LẤY DANH SÁCH SUẤT CHIẾU TỪ FIREBASE (ĐÃ CHẠY OK)
-export const fetchShowtimesFromFirebase = async (cinema_id) => {
-  try {
-    const response = await axios.get(
-      `https://vticinema-default-rtdb.firebaseio.com/Showtimes.json`
-    );
-    return Object.values(response.data); // Trả về danh sách suất chiếu
-  } catch (error) {
-    console.error("Error fetching showtimes from Firebase:", error);
     throw error;
   }
 };
@@ -306,9 +223,7 @@ export const forgotPassword = {
       return "Email đặt lại mật khẩu đã được gửi. Vui lòng kiểm tra hộp thư!";
     } catch (error) {
       console.error("Lỗi reset mật khẩu:", error);
-      throw new Error(
-        "Không thể gửi email đặt lại mật khẩu. Vui lòng thử lại."
-      );
+      throw new Error("Không thể gửi email đặt lại mật khẩu. Vui lòng thử lại.");
     }
   },
 };

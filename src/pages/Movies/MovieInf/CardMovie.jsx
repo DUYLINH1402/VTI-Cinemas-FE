@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import LazyImage from "../../../components/LazyImage";
 import { renderStars } from "../../../components/Cards/Cards";
-import notification_bg from "../../../assets/image/notification_bg.jpg";
-import { fetchMoviesByTab } from "../../../services/dataService";
+import { fetchMoviesByTab } from "../../../services/service/serviceMovie";
 import Comments from "./Comments";
 import MovieList from "../../../components/MovieList/MovieList";
 import SkeletonSection from "../../../components/Skeleton/SkeletonSection";
-import { parseReleaseDate } from "../../../utils/validation";
 
 export const CardInfMovie = ({ movie, onBookTicket }) => {
   const [movies, setMovies] = useState([]);
@@ -40,11 +38,6 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
     return () => clearTimeout(timer); // Dọn dẹp timeout khi component unmount
   }, [movie]);
 
-  // Xử lý ngày phát hành của phim
-  const releaseDate = parseReleaseDate(movie.release_date);
-  const today = new Date();
-  const isUpcoming = releaseDate && releaseDate > today;
-
   return (
     <>
       {loading ? (
@@ -58,29 +51,20 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         >
           <div className="card__inf">
             <div className="image">
-              <LazyImage
-                src={movie.image}
-                alt={movie.movie_name}
-                height="320px"
-                width="250px"
-              />
+              <LazyImage src={movie.image} alt={movie.movie_name} height="320px" width="250px" />
               <div className="showtime">
-                {releaseDate ? (
-                  isUpcoming ? (
-                    <button
-                      disabled
-                      style={{ cursor: "not-allowed", opacity: 0.8 }}
-                    >
-                      Sắp chiếu
-                    </button>
-                  ) : (
-                    <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
-                  )
+                {movie.status === "active" ? (
+                  <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
+                ) : movie.status === "close" ? (
+                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
+                    Đã đóng
+                  </button>
+                ) : movie.status === "upcoming" ? (
+                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
+                    Sắp chiếu
+                  </button>
                 ) : (
-                  <button
-                    disabled
-                    style={{ cursor: "not-allowed", opacity: 0.8 }}
-                  >
+                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
                     Đang cập nhật
                   </button>
                 )}
@@ -89,9 +73,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
             <div className="row">
               <div className="introduce">
                 <p className="movie__title">{movie.movie_name}</p>
-                <div className="render_stars">
-                  {renderStars(movie.rating || 0)}
-                </div>
+                <div className="render_stars">{renderStars(movie.rating || 0)}</div>
                 <p>Ngày phát hành : {movie.release_date}</p>
                 <p>Thời gian : {movie.duration} phút</p>
                 <p>Thể loại : {movie.genre}</p>
@@ -105,9 +87,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
             <p className="description-lable">Nội dung</p>
             <p className="description">
               <div>
-                {showMoreDes
-                  ? movie.description
-                  : `${movie.description.substring(0, 200)}...`}
+                {showMoreDes ? movie.description : `${movie.description.substring(0, 200)}...`}
                 <span>
                   <button
                     onClick={() => setShowMoreDes(!showMoreDes)}
@@ -126,13 +106,11 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
         {/* Left Section */}
         <div className="left-section">
           <div className="trailer">
-            {/* <p className="title">Trailer</p> */}
             <iframe
               width="600"
               height="300"
               src={movie.trailer}
               title={movie.movie_name}
-              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen

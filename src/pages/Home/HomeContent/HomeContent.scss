@@ -1,139 +1,162 @@
 @use "./../../../assets/styles/cssBase.scss";
 @use "./../../../assets/styles/mixins.scss" as *;
+@use "./../../../assets/styles/variables.scss" as *;
 
-.content {
+.home__content {
   font-family: "Poppins", sans-serif;
-  .movie-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 25px; // Khoảng cách giữa nút và banner
 
-    button {
-      min-width: 216px;
-      padding: 10px 20px;
-      font-size: 1.6rem;
-      background-color: #fff;
-      border: 1px solid #000;
-      border-radius: 5px;
+  .movie-section-nowShowing {
+    margin-top: 30px;
+    padding: 50px;
+    background: url(../../../assets/image/notification_bg.jpg) center / cover no-repeat;
+    .card__movie__home {
+      .title-movie {
+        color: $green-color;
+      }
+    }
+  }
+  .movie-section-upcoming {
+    padding: 70px 50px;
+    background-color: #b3c3a726;
+    .card__movie__home {
+      .title-movie {
+        color: $blue-color;
+      }
+    }
+  }
+  .movie-section {
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: $blue-color;
+      text-align: center;
+      // margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .section-title-nowShowing {
+      color: #e3dbdb;
+    }
+
+    // Container cho danh sách cuộn ngang
+    .movie-scroll-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      border-radius: 10px;
+    }
+
+    // Nút cuộn trái/phải
+    .scroll-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #c3c2ae80;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.8rem;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      z-index: 1;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #eee;
-        transform: scale(1.05); // Hiệu ứng phóng to nhẹ khi hover
+        background-color: rgba(0, 0, 0, 0.8);
       }
-      &.active {
-        background: #0e1b4c;
-        color: white;
-        border-color: #0e1b4c;
+
+      &.left {
+        left: 0px;
+      }
+
+      &.right {
+        right: 0px;
       }
     }
-  }
-  //   Nút xem thêm
-  .view-more-button {
-    padding: 10px 20px;
-    font-size: 1.6rem;
-    background-color: cssBase.$primary-color;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-left: auto;
-    margin-right: 30px;
-    display: block;
-    transition: background-color 0.3s ease, transform 0.3s ease;
 
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
+    // Danh sách phim dạng cuộn ngang
+    .home__movie {
+      display: flex;
+      justify-content: space-evenly; // Bắt đầu từ bên trái
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 20px;
+      padding: 20px 40px; // Thêm padding trái/phải để tránh cắt phim đầu tiên và cuối cùng
+      width: 100%;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
 
-  .home__movie {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(
-      5,
-      minmax(240px, 1fr)
-    ); // Thiết lập số cột tự động
-    grid-auto-rows: auto;
-    padding: 20px;
-    justify-items: center;
-    overflow: hidden;
+      &::-webkit-scrollbar {
+        display: none;
+      }
 
-    @media screen and (max-width: 1320px) {
-      grid-template-columns: repeat(4, minmax(193px, 1fr));
-    }
-    @media screen and (max-width: 1050px) {
-      grid-template-columns: repeat(3, minmax(193px, 1fr));
-    }
-    @media screen and (max-width: 700px) {
-      grid-template-columns: repeat(2, minmax(193px, 1fr));
-      display: grid;
-      gap: 15px 5px;
-      padding: 20px;
+      // Mỗi card phim
+      > div {
+        flex: 0 0 auto;
+        width: 300px;
+        height: auto;
+      }
     }
   }
 }
 
-// REPONSIVE
+// RESPONSIVE
 @include respond-to(sm) {
-  .content {
-    padding-top: 55px;
-    .movie-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      font-size: 1.4rem;
-      margin-top: 25px;
-      align-items: center;
-      gap: 3px;
-      button {
-        min-width: 165px;
-        padding: 10px 5px;
-        font-size: 1.2rem;
-        margin-bottom: 5px;
+  .home__content {
+    .movie-section {
+      .section-title {
+        font-size: 2rem;
       }
-    }
-    .view-more-button {
-      display: none;
+
+      .home__movie {
+        gap: 15px; // Giảm khoảng cách giữa các card
+        padding: 20px 30px; // Giảm padding trên màn hình nhỏ
+
+        > div {
+          width: 250px;
+        }
+      }
     }
   }
 }
 
 @include respond-to(xs) {
-  .content {
-    padding-top: 55px;
-    .movie-buttons {
-      button {
-        min-width: 165px;
-        padding: 10px 5px;
-        font-size: 1.2rem;
-        margin-bottom: 5px;
+  .home__content {
+    .movie-section {
+      padding: 30px 10px;
+      .section-title {
+        font-size: 1.8rem;
       }
-    }
-    .view-more-button {
-      display: none;
-    }
-    .home__movie {
-      grid-template-columns: repeat(2, minmax(193px, 1fr));
-      // max-height: 2035px;
+
+      .home__movie {
+        gap: 10px; // Giảm khoảng cách giữa các card
+        padding: 20px 20px; // Giảm padding trên mobile
+
+        > div {
+          width: 200px;
+        }
+      }
     }
   }
 }
+
 @include respond-to(xxs) {
-  .content {
-    .movie-buttons {
-      flex-wrap: nowrap;
-      button {
-        min-width: 115px;
-        font-size: 1rem;
+  .home__content {
+    .movie-section {
+      .section-title {
+        font-size: 1.6rem;
       }
-    }
-    .home__movie {
-      grid-template-columns: repeat(2, minmax(165px, 1fr));
-      // max-height: 1670px;
+
+      .home__movie {
+        gap: 10px;
+        padding: 20px 15px; // Đảm bảo padding đủ để phim đầu tiên không bị cắt
+
+        > div {
+          width: 180px;
+        }
+      }
     }
   }
 }

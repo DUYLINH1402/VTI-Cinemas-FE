@@ -1,79 +1,141 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./HomeContent.scss";
 import { Link } from "react-router-dom";
-import { CardMovie } from "../../../components/Cards/Cards";
-import { fetchMoviesByTab } from "../../../services/dataService";
-import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton"; // Skeleton loader
+import { CardMovieHome } from "../../../components/Cards/Cards";
+import { fetchMoviesByTab } from "../../../services/service/serviceMovie";
+import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton";
 
 export const HomeContent = () => {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("nowShowing"); // Tab hiện tại (default là "PHIM ĐANG CHIẾU")
+  const [nowShowingMovies, setNowShowingMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [loadingNowShowing, setLoadingNowShowing] = useState(true);
+  const [loadingUpcoming, setLoadingUpcoming] = useState(true);
 
-  // useEffect để gọi API khi tab thay đổi
+  const nowShowingScrollRef = useRef(null);
+  const upcomingScrollRef = useRef(null);
+
   useEffect(() => {
-    const fetchMoviesDataByTab = async () => {
-      setLoading(true);
+    const fetchNowShowingMovies = async () => {
+      setLoadingNowShowing(true);
       try {
-        const data = await fetchMoviesByTab(activeTab); // Gọi API theo tab
-        setMovies(data);
+        const data = await fetchMoviesByTab("nowShowing");
+        setNowShowingMovies(data);
       } catch (error) {
-        console.error("Error fetching movies:", error);
+        console.error("Error fetching now showing movies:", error);
       } finally {
-        setLoading(false);
+        setLoadingNowShowing(false);
       }
     };
 
-    fetchMoviesDataByTab();
-  }, [activeTab]); // Xóa `isSearching` vì không còn cần thiết
+    fetchNowShowingMovies();
+  }, []);
+
+  useEffect(() => {
+    const fetchUpcomingMovies = async () => {
+      setLoadingUpcoming(true);
+      try {
+        const data = await fetchMoviesByTab("upcoming");
+        setUpcomingMovies(data);
+      } catch (error) {
+        console.error("Error fetching upcoming movies:", error);
+      } finally {
+        setLoadingUpcoming(false);
+      }
+    };
+
+    fetchUpcomingMovies();
+  }, []);
+
+  // Đặt lại vị trí cuộn khi danh sách được tải
+  useEffect(() => {
+    if (!loadingNowShowing && nowShowingScrollRef.current) {
+      nowShowingScrollRef.current.scrollLeft = 0; // Cuộn về đầu danh sách
+    }
+  }, [loadingNowShowing]);
+
+  useEffect(() => {
+    if (!loadingUpcoming && upcomingScrollRef.current) {
+      upcomingScrollRef.current.scrollLeft = 0; // Cuộn về đầu danh sách
+    }
+  }, [loadingUpcoming]);
+
+  const scrollNowShowingLeft = () => {
+    if (nowShowingScrollRef.current) {
+      nowShowingScrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollNowShowingRight = () => {
+    if (nowShowingScrollRef.current) {
+      nowShowingScrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
+
+  const scrollUpcomingLeft = () => {
+    if (upcomingScrollRef.current) {
+      upcomingScrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    }
+  };
+
+  const scrollUpcomingRight = () => {
+    if (upcomingScrollRef.current) {
+      upcomingScrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    }
+  };
 
   return (
-    <>
-      <div className="home__content">
-        {/* Nút chuyển tab */}
-        <div className="movie-buttons">
-          <button
-            className={activeTab === "upcoming" ? "active" : ""}
-            onClick={() => setActiveTab("upcoming")}
-          >
-            PHIM SẮP CHIẾU
-          </button>
-          <button
-            className={activeTab === "nowShowing" ? "active" : ""}
-            onClick={() => setActiveTab("nowShowing")}
-          >
-            PHIM ĐANG CHIẾU
-          </button>
-          <button
-            className={activeTab === "specialShows" ? "active" : ""}
-            onClick={() => setActiveTab("specialShows")}
-          >
-            SUẤT CHIẾU ĐẶC BIỆT
-          </button>
-        </div>
-
-        {/* Nút "Xem Thêm" */}
-        <div>
-          <Link to="/movies">
-            <button className="view-more-button">Xem Thêm</button>
-          </Link>
-        </div>
-
-        {/* Danh sách phim */}
-        {loading ? (
+    <div className="home__content">
+      {/* Section 1: Phim Đang Chiếu */}
+      <section className="movie-section movie-section-nowShowing">
+        <h2 className="section-title section-title-nowShowing">Phim Đang Chiếu</h2>
+        {loadingNowShowing ? (
           <FullPageSkeleton />
         ) : (
-          <div className="home__movie">
-            {movies.length > 0 ? (
-              movies
-                .slice(0, 10)
-                .map((item, index) => <CardMovie item={item} key={index} />)
-            ) : (
-              <p>Không có phim nào theo yêu cầu.</p>
-            )}
+          <div className="movie-scroll-container">
+            <button className="scroll-button left" onClick={scrollNowShowingLeft}>
+              &lt;
+            </button>
+            <div className="home__movie" ref={nowShowingScrollRef}>
+              {nowShowingMovies.length > 0 ? (
+                nowShowingMovies
+                  .slice(0, 10)
+                  .map((item, index) => <CardMovieHome item={item} key={index} />)
+              ) : (
+                <p>Không có phim nào đang chiếu.</p>
+              )}
+            </div>
+            <button className="scroll-button right" onClick={scrollNowShowingRight}>
+              &gt;
+            </button>
           </div>
         )}
-      </div>
-    </>
+      </section>
+
+      {/* Section 2: Phim Sắp Chiếu */}
+      <section className="movie-section movie-section-upcoming">
+        <h2 className="section-title">Phim Sắp Chiếu</h2>
+        {loadingUpcoming ? (
+          <FullPageSkeleton />
+        ) : (
+          <div className="movie-scroll-container">
+            <button className="scroll-button left" onClick={scrollUpcomingLeft}>
+              &lt;
+            </button>
+            <div className="home__movie" ref={upcomingScrollRef}>
+              {upcomingMovies.length > 0 ? (
+                upcomingMovies
+                  .slice(0, 10)
+                  .map((item, index) => <CardMovieHome item={item} key={index} />)
+              ) : (
+                <p>Không có phim nào sắp chiếu.</p>
+              )}
+            </div>
+            <button className="scroll-button right" onClick={scrollUpcomingRight}>
+              &gt;
+            </button>
+          </div>
+        )}
+      </section>
+    </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Movies.scss";
 import { CardMovie } from "../../components/Cards/Cards";
-import { fetchMoviesByTab } from "../../../src/services/dataService";
+import { fetchMoviesByTab } from "../../services/service/serviceMovie";
 import { Pagination } from "antd";
 import { useSelector } from "react-redux";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton"; // Import Skeleton để hiển thị khi tải dữ liệu
@@ -67,6 +67,12 @@ export const Movies = () => {
           >
             SUẤT CHIẾU ĐẶC BIỆT
           </button>
+          <button
+            className={activeTab === "all" ? "active" : ""}
+            onClick={() => setActiveTab("all")}
+          >
+            TẤT CẢ CÁC PHIM
+          </button>
         </div>
 
         {/* Phần nội dung danh sách phim */}
@@ -75,9 +81,7 @@ export const Movies = () => {
         ) : (
           <div className="home__movie movies__list">
             {movies.length > 0 ? (
-              currentMovies.map((item, index) => (
-                <CardMovie item={item} key={index} />
-              ))
+              currentMovies.map((item, index) => <CardMovie item={item} key={index} />)
             ) : (
               <p>Không có phim nào theo yêu cầu.</p>
             )}

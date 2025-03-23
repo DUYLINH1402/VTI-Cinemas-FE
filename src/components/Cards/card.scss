@@ -1,5 +1,6 @@
 @use "./../../../src/assets/styles/cssBase.scss";
 @use "../../assets/styles/mixins.scss" as *;
+@use "../../assets/styles/variables.scss" as *;
 
 .card-content {
   .card_carousel_img {
@@ -9,6 +10,8 @@
     }
   }
 }
+
+// Style cho CardMovie (giữ nguyên)
 .card__movie {
   max-width: 240px;
   display: flex;
@@ -24,7 +27,7 @@
   background-color: #ffffff;
 
   &:hover {
-    transform: translateY(-5px); // Hiệu ứng khi hover
+    transform: translateY(-5px);
   }
 
   a {
@@ -48,6 +51,7 @@
     overflow: hidden;
     min-height: 32px;
   }
+
   .title-movie {
     font-size: 1.6rem;
     font-weight: 600;
@@ -55,6 +59,7 @@
     color: #0e1b4c;
     line-height: 1.35;
   }
+
   p {
     font-size: 1.4rem;
     color: #777;
@@ -78,38 +83,160 @@
   .book-ticket-button:hover {
     background-color: #e64a19;
   }
+
   .row_stars {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
   }
 }
+
+// Style cho CardMovieHome
+.card__movie__home {
+  max-width: 250px; // Kích thước lớn hơn cho trang Home
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card__movie__home__poster {
+    position: relative;
+    width: 100%;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    .card__movie__home__img {
+      width: 100%;
+      max-height: 350px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      &:hover {
+        cursor: pointer;
+        background: #ff0000d4;
+      }
+    }
+
+    &:hover .play-button {
+      opacity: 1;
+    }
+  }
+
+  .card__movie__home__info {
+    margin-top: 10px;
+    text-align: left;
+
+    .title-movie {
+      font-size: 1.6rem;
+      font-weight: 600;
+      max-height: 20px;
+      // color: $green-color;
+      line-height: 1.35;
+      display: -webkit-box;
+      line-clamp: 1;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: #777;
+      min-height: 15px;
+      margin: 5px 0;
+      display: -webkit-box;
+      line-clamp: 1;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .rating {
+      font-size: 1.4rem;
+      color: #f5c518; // Màu vàng cho sao
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
 .star-rating {
   margin-top: 5px;
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #ff6347; /* orange */
+  color: #ff6347;
+
+  .fas,
+  .far {
+    color: #ff6347;
+    font-size: 16px;
+  }
 }
 
-.star-rating .fas,
-.star-rating .far {
-  color: #ff6347; /* Màu vàng cho sao */
-  font-size: 16px; /* Kích thước */
-}
-
-// REPONSIVE
+// RESPONSIVE
 @include respond-to(xs) {
   .card__movie {
     display: flex;
     padding: 10px;
     justify-content: space-evenly;
+
     .lazy-load-image-loaded {
       height: 230px !important;
     }
+
     .row_stars {
       justify-content: space-between;
       flex-direction: column;
+    }
+  }
+
+  .card__movie__home {
+    max-width: 200px;
+
+    .card__movie__home__img {
+      height: 300px !important;
+    }
+
+    .title-movie {
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    .rating {
+      font-size: 1.2rem;
     }
   }
 }
@@ -117,9 +244,30 @@
 @include respond-to(xxs) {
   .card__movie {
     max-width: 165px;
+
+    .card__movie__img {
+      width: 145px;
+      height: 220px;
+    }
   }
-  .card__movie__img {
-    width: 145px;
-    height: 220px;
+
+  .card__movie__home {
+    max-width: 180px;
+
+    .card__movie__home__img {
+      height: 270px !important;
+    }
+
+    .title-movie {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .rating {
+      font-size: 1rem;
+    }
   }
 }

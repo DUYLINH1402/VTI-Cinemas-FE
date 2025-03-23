@@ -21,9 +21,7 @@ const auth = getAuth();
 // API LẤY DANH SÁCH PHIM (ĐÃ CHẠY OK)
 export const fetchMoviesFromFirebase = async () => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Movies.json");
     return Object.values(response.data); // Chuyển đổi thành array nếu dữ liệu là object
   } catch (error) {
     console.error("Error fetching movies from Firebase:", error);
@@ -34,14 +32,11 @@ export const fetchMoviesFromFirebase = async () => {
 // API LẤY DANH SÁCH PHIM THEO ID (ĐÃ CHẠY OK)
 export const fetchMoviesByIdFromFirebase = async (movie_id) => {
   try {
-    const response = await axios.get(
-      "https://vticinema-default-rtdb.firebaseio.com/Movies.json"
-    );
+    const response = await axios.get("https://vticinema-default-rtdb.firebaseio.com/Movies.json");
 
     if (response.status === 200 && response.data) {
       const entries = Object.entries(response.data);
-      const [key, movie] =
-        entries.find(([_, m]) => String(m.movie_id) === String(movie_id)) || [];
+      const [key, movie] = entries.find(([_, m]) => String(m.movie_id) === String(movie_id)) || [];
 
       if (key && movie) {
         // console.log(`Lấy dữ liệu phim thành công (Key: ${key})`, movie);
@@ -56,6 +51,47 @@ export const fetchMoviesByIdFromFirebase = async (movie_id) => {
     }
   } catch (error) {
     console.error("Lỗi khi lấy dữ liệu phim từ Firebase:", error);
+    throw error;
+  }
+};
+
+// HÀM LẤY DỮ LIỆU CHO MOVIES BẰNG TAB (ĐÃ CHẠY OK)
+export const fetchMoviesByTabFromFirebase = async (tab) => {
+  try {
+    // Khởi tạo kết nối tới Firebase Realtime Database
+    const db = getDatabase();
+    const moviesRef = ref(db, "Movies");
+
+    // Lấy toàn bộ dữ liệu từ Firebase
+    const snapshot = await get(moviesRef);
+
+    // Kiểm tra xem dữ liệu có tồn tại không
+    if (!snapshot.exists()) {
+      return []; // Trả về mảng rỗng nếu không có dữ liệu
+    }
+
+    const movies = Object.values(snapshot.val()); // Chuyển dữ liệu từ object sang array
+    // Lọc dữ liệu dựa trên tab
+    let filteredMovies = [];
+    if (tab === "upcoming") {
+      // Phim sắp chiếu: status === "upcoming"
+      filteredMovies = movies.filter((movie) => movie.status === "upcoming");
+    } else if (tab === "nowShowing") {
+      // Phim đang chiếu: status === "active"
+      filteredMovies = movies.filter((movie) => movie.status === "active");
+    } else if (tab === "specialShows") {
+      // Suất chiếu đặc biệt: is_special_show === true
+      filteredMovies = movies.filter((movie) => movie.is_special_show);
+    } else if (tab === "all") {
+      // Tất cả các phim: trả về toàn bộ danh sách
+      filteredMovies = movies;
+    } else if (tab === "close") {
+      // Phim đã đóng: status === "close"
+      filteredMovies = movies.filter((movie) => movie.status === "close");
+    }
+    return filteredMovies;
+  } catch (error) {
+    console.error(`Error fetching ${tab} movies from Firebase:`, error);
     throw error;
   }
 };
@@ -78,10 +114,7 @@ export const getSubcommentsFromFirebase = async (commentId) => {
 };
 
 // API THÊM SUBCOMMENT (ĐÃ CHẠY OK)
-export const pushSubcommentToFirebase = async (
-  commentId,
-  newSubcommentData
-) => {
+export const pushSubcommentToFirebase = async (commentId, newSubcommentData) => {
   try {
     const db = getDatabase();
     const subcommentsRef = ref(db, `Comments/${commentId}/subcomments`);
@@ -95,10 +128,7 @@ export const pushSubcommentToFirebase = async (
 };
 
 // API CẬP NHẬT COMMENTCOUNT (ĐÃ CHẠY OK)
-export const updateCommentsCountInFirebase = async (
-  commentId,
-  increment = 1
-) => {
+export const updateCommentsCountInFirebase = async (commentId, increment = 1) => {
   try {
     const db = getDatabase();
     const commentRef = ref(db, `Comments/${commentId}`);
@@ -119,21 +149,14 @@ export const updateCommentsCountInFirebase = async (
 };
 
 // API CHỈNH SỬA SUBCOMMENT (ĐÃ CHẠY OK)
-export const updateSubcommentInFirebase = async (
-  commentId,
-  subcommentId,
-  newText
-) => {
+export const updateSubcommentInFirebase = async (commentId, subcommentId, newText) => {
   if (!commentId || !subcommentId || !newText.trim()) {
     console.error("Lỗi: Dữ liệu cập nhật không hợp lệ.");
     return false;
   }
   try {
     const db = getDatabase();
-    const subcommentRef = ref(
-      db,
-      `Comments/${commentId}/subcomments/${subcommentId}`
-    );
+    const subcommentRef = ref(db, `Comments/${commentId}/subcomments/${subcommentId}`);
     await update(subcommentRef, { subcontent: newText });
     console.log("Subcomment đã được cập nhật:", subcommentId);
     return true;
@@ -180,10 +203,7 @@ export const deleteSubcommentInFirebase = async (commentId, subcommentId) => {
 
   try {
     const db = getDatabase();
-    const subcommentRef = ref(
-      db,
-      `Comments/${commentId}/subcomments/${subcommentId}`
-    );
+    const subcommentRef = ref(db, `Comments/${commentId}/subcomments/${subcommentId}`);
     await remove(subcommentRef);
     return true;
   } catch (error) {
@@ -233,11 +253,7 @@ export const addCommentToFirebase = async (commentData) => {
 };
 
 // API CẬP NHẬT TỔNG SỐ BÌNH LUẬN VÀ ĐÁNH GIÁ CỦA PHIM (ĐÃ CHẠY OK)
-export const updateMovieRatingInFirebase = async (
-  movieId,
-  ratingDelta,
-  isAdding = true
-) => {
+export const updateMovieRatingInFirebase = async (movieId, ratingDelta, isAdding = true) => {
   if (!movieId) {
     console.error("Lỗi: `movieId` không được truyền vào updateMovieRating!");
     return false;
@@ -256,14 +272,10 @@ export const updateMovieRatingInFirebase = async (
     const movies = snapshot.val();
 
     // Tìm phim theo `movie_id`
-    const movieKey = Object.keys(movies).find(
-      (key) => movies[key].movie_id === movieId
-    );
+    const movieKey = Object.keys(movies).find((key) => movies[key].movie_id === movieId);
 
     if (!movieKey) {
-      console.error(
-        `Lỗi: Không tìm thấy phim với movie_id = ${movieId} trong Firebase!`
-      );
+      console.error(`Lỗi: Không tìm thấy phim với movie_id = ${movieId} trong Firebase!`);
       return false;
     }
     const movieRef = ref(db, `Movies/${movieKey}`);
@@ -272,9 +284,7 @@ export const updateMovieRatingInFirebase = async (
     // Tính tổng số bình luận mới dựa trên `totalReviews`
     const newTotalReviews = Math.max(
       0,
-      isAdding
-        ? (movieData.totalReviews || 0) + 1
-        : (movieData.totalReviews || 0) - 1
+      isAdding ? (movieData.totalReviews || 0) + 1 : (movieData.totalReviews || 0) - 1
     );
 
     // Tính tổng điểm đánh giá mới
@@ -287,9 +297,7 @@ export const updateMovieRatingInFirebase = async (
 
     // Tính điểm trung bình mới
     const newAverageRating =
-      newTotalReviews === 0
-        ? 0
-        : parseFloat((newTotalRatings / newTotalReviews).toFixed(1));
+      newTotalReviews === 0 ? 0 : parseFloat((newTotalRatings / newTotalReviews).toFixed(1));
 
     // Cập nhật Firebase
     await update(movieRef, {
@@ -367,18 +375,13 @@ export const checkUserPurchaseInFirebase = async (email, movieId) => {
   const ordersRef = ref(db, "Orders");
 
   try {
-    const ordersQuery = query(
-      ordersRef,
-      orderByChild("app_user"),
-      equalTo(email)
-    );
+    const ordersQuery = query(ordersRef, orderByChild("app_user"), equalTo(email));
     const snapshot = await get(ordersQuery);
 
     if (snapshot.exists()) {
       const orders = Object.values(snapshot.val());
       return orders.some(
-        (order) =>
-          order.movieDetails?.movie_id === movieId && order.status === "success"
+        (order) => order.movieDetails?.movie_id === movieId && order.status === "success"
       );
     }
   } catch (error) {

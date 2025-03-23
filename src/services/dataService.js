@@ -3,10 +3,8 @@ import {
   fetchCarouselDataFromFirebase,
   getAccountFromFirebase,
   getAccountByEmailFromFirebase,
-  fetchMoviesByTabFromFirebase,
   fetchSeatsFromFirebase,
   fetchCinemasFromFirebase,
-  fetchShowtimesFromFirebase,
   updateAccountToFirebase,
   fetchMoviesByIdFromFirebase,
   updatePasswordInFirebase,
@@ -17,13 +15,11 @@ import {
   fetchCarouselDataFromSQL,
   fetchAccountFromSQL,
   fetchAccountByEmailFromSQL,
-  fetchMoviesByTabFromSQL,
   fetchSeatsFromSQL,
   fetchCinemasFromSQL,
   fetchMoviesByIdFromSQL,
   updatePasswordInSQL,
   searchFromSQL,
-  fetchShowtimesFromSQL,
 } from "./sql/sqlService";
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
 // console.log("Value of VITE_USE_FIREBASE:", import.meta.env.VITE_USE_FIREBASE);
@@ -73,23 +69,10 @@ export const fetchMoviesById = async (movie_id) => {
     ? await fetchMoviesByIdFromFirebase(movie_id)
     : await fetchMoviesByIdFromSQL(movie_id);
 };
-// API lấy dữ liệu Movies (hỗ trợ theo tab)
-export const fetchMoviesByTab = async (tab) => {
-  try {
-    return useFirebase
-      ? await fetchMoviesByTabFromFirebase(tab)
-      : await fetchMoviesByTabFromSQL(tab);
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-    return [];
-  }
-};
 
 // API lấy dữ liệu cho Carousel
 export const fetchCarouselData = async () => {
-  return useFirebase
-    ? await fetchCarouselDataFromFirebase()
-    : await fetchCarouselDataFromSQL();
+  return useFirebase ? await fetchCarouselDataFromFirebase() : await fetchCarouselDataFromSQL();
 };
 
 // API lấy Account By email
@@ -107,19 +90,9 @@ export const updateAccount = async (formData) => {
 };
 // Hàm lấy dữ liệu Seats
 export const fetchSeats = async () => {
-  return useFirebase
-    ? await fetchSeatsFromFirebase()
-    : await fetchSeatsFromSQL();
+  return useFirebase ? await fetchSeatsFromFirebase() : await fetchSeatsFromSQL();
 };
 // API lấy dữ liệu Cinemas
 export const fetchCinemas = async () => {
-  return useFirebase
-    ? await fetchCinemasFromFirebase()
-    : await fetchCinemasFromSQL();
-};
-// API lấy dữ liệu Showtimes
-export const fetchShowtimes = async (movie_id) => {
-  return useFirebase
-    ? await fetchShowtimesFromFirebase(movie_id)
-    : await fetchShowtimesFromSQL(movie_id);
+  return useFirebase ? await fetchCinemasFromFirebase() : await fetchCinemasFromSQL();
 };

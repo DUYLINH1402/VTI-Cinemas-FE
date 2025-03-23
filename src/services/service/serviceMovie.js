@@ -12,15 +12,18 @@ import {
   checkUserHasCommentedInFirebase,
   updateCommentInFirebase,
   checkUserPurchaseInFirebase,
+  fetchMoviesByTabFromFirebase,
 } from "../firebase/firebaseMovie.js";
 import {} from "../sql/sqlMovie";
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
 
 // API LẤY DANH SÁCH PHIM
 export const fetchMovies = async () => {
-  return useFirebase
-    ? await fetchMoviesFromFirebase()
-    : await fetchMoviesFromSQL();
+  return useFirebase ? await fetchMoviesFromFirebase() : await fetchMoviesFromSQL();
+};
+// API LẤY DANH SÁCH PHIM (THEO TAB)
+export const fetchMoviesByTab = async (tab) => {
+  return useFirebase ? await fetchMoviesByTabFromFirebase(tab) : await fetchMoviesByTabFromSQL(tab);
 };
 
 // API LẤY DANH SÁCH SUBCOMMENT CHO 1 COMMENT CỤ THỂ
@@ -32,9 +35,7 @@ export const getSubcomments = async (commentId) => {
 
 // API THÊM COMMENT
 export const addComment = async (commentData) => {
-  return useFirebase
-    ? await addCommentToFirebase(commentData)
-    : await addCommentToSQL(commentData);
+  return useFirebase ? await addCommentToFirebase(commentData) : await addCommentToSQL(commentData);
 };
 
 // API THÊM SUBCOMMENT

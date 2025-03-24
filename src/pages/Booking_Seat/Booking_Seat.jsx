@@ -11,6 +11,13 @@ export const Booking_Seat = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   // Log để kiểm tra dữ liệu
+  //   console.log("Booking_Seat state:", { cinema, cinema_id, date, time, movie_id, showtime_id });
+  // }, []);
+
   return (
     <>
       <div className="content">

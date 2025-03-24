@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 const TrailerModal = ({ isOpen, onClose, movie }) => {
   const navigate = useNavigate();
 
-  console.log("TrailerModal props:", { isOpen, movie });
+  // console.log("TrailerModal props:", { isOpen, movie });
 
   if (!isOpen || !movie) {
-    console.log("TrailerModal not rendered due to:", { isOpen, movie });
+    // console.log("TrailerModal not rendered due to:", { isOpen, movie });
     return null;
   }
 

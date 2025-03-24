@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, query, onValue } from "firebase/database";
 import { fetchMoviesByIdFromFirebase } from "../../../services/firebase/firebaseMovie.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown, faArrowRight, faCirclePlay } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faArrowRight,
+  faCirclePlay,
+  faComment,
+  faStar,
+} from "@fortawesome/free-solid-svg-icons";
 import "./FeaturedComments.scss";
 import LazyImage from "../../../components/LazyImage.jsx";
 import { useNavigate } from "react-router-dom";
@@ -114,18 +120,29 @@ const FeaturedComments = () => {
     setSelectedMovie(null);
   };
 
+  // Định dạng số lượng comment (ví dụ: 27600 thành "27.6K")
+  const formatNumber = (num) => {
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "K";
+    }
+    return num;
+  };
   if (loading) {
     return <div>Đang tải bình luận...</div>;
   }
-
-  const movieIds = Object.keys(commentsByMovie);
+  // Sắp xếp movieIds dựa trên timestamp của bình luận mới nhất
+  const sortedMovieIds = Object.keys(commentsByMovie).sort((a, b) => {
+    const latestCommentA = commentsByMovie[a][0]; // Bình luận đầu tiên là mới nhất vì đã sắp xếp trước đó
+    const latestCommentB = commentsByMovie[b][0];
+    return latestCommentB.timestamp - latestCommentA.timestamp; // Sắp xếp giảm dần
+  });
 
   return (
     <div className="featured-comments-container">
       <h2 className="featured-comments-title">Bình luận nổi bật</h2>
 
       <div className="featured-comments-grid">
-        {movieIds.slice(0, visibleMovies).map((movieId) => {
+        {sortedMovieIds.slice(0, visibleMovies).map((movieId) => {
           const movie = moviesData[movieId];
           const comments = commentsByMovie[movieId];
           if (!movie || !comments) return null;
@@ -137,11 +154,20 @@ const FeaturedComments = () => {
                 <div className="play-icon" onClick={() => handleOpenTrailerModal(movie)}>
                   <FontAwesomeIcon icon={faCirclePlay} />
                 </div>
+                {/* Thêm phần hiển thị thông tin phim trên thumbnail */}
+                <div className="thumbnail-info">
+                  <h3 className="thumbnail-movie-title">{movie.movie_name}</h3>
+                  <div className="thumbnail-stats">
+                    <span className="imdb">
+                      <FontAwesomeIcon icon={faStar} /> {movie.rating || "0"}
+                    </span>
+                    <span className="comments">
+                      <FontAwesomeIcon icon={faComment} /> {formatNumber(movie.totalRatings || 0)}
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="featured-comment-info">
-                <h3 className="movie-title">
-                  {movie.title} <span className="imdb">IMDb {movie.rating || "N/A"}</span>
-                </h3>
                 {comments.map((comment) => (
                   <div key={comment.id} className="comment-item">
                     <div className="comment-header">
@@ -175,7 +201,7 @@ const FeaturedComments = () => {
         })}
       </div>
 
-      {visibleMovies < movieIds.length && (
+      {visibleMovies < sortedMovieIds.length && (
         <button className="show-more-button" onClick={handleShowMore}>
           Xem tiếp nhé!
           <span className="arrow-icon">

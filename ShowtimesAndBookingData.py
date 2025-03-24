@@ -1,15 +1,14 @@
-# CODE TẠO BẢNG SHOWTIMES VÀ BOOKING CHO 3 NGÀY
 import json
 from datetime import datetime, timedelta
 import random
 
-# Khởi tạo danh sách các rạp (cinema_01 đến cinema_10)
-cinemas = [f"cinema_0{i}" if i < 10 else f"cinema_{i}" for i in range(1, 11)]
+# Khởi tạo danh sách các rạp từ cinema_01 đến cinema_20 dựa trên tài liệu JSON
+cinemas = [f"cinema_0{i}" if i < 10 else f"cinema_{i}" for i in range(1, 21)]
 
-# Khởi tạo danh sách các phim (1 đến 23 và 41 đến 56)
-movies = list(range(1, 24)) + list(range(41, 57))
+# Khởi tạo danh sách các phim (50 đến 60)
+movies = list(range(50, 61))
 
-# Hàm tạo khung giờ ngẫu nhiên (giữ nguyên từ code của bạn)
+# Hàm tạo khung giờ ngẫu nhiên
 def generate_random_showtimes():
     showtimes = []
     for _ in range(3):
@@ -19,10 +18,10 @@ def generate_random_showtimes():
         showtimes.append(showtime)
     return sorted(showtimes)
 
-# Tính thời gian kết thúc (giữ nguyên từ code của bạn)
+# Tính thời gian kết thúc
 def calculate_end_time(start_time):
     start = datetime.strptime(start_time, "%H:%M")
-    total_minutes = start.hour * 60 + start.minute + 1 * 60 + 54
+    total_minutes = start.hour * 60 + start.minute + 1 * 60 + 54  # Giả sử phim dài 1h54m
     end_hour = (total_minutes // 60) % 24
     end_minute = total_minutes % 60
     return f"{end_hour:02d}:{end_minute:02d}"
@@ -41,7 +40,7 @@ def generate_sold_seats():
 
 # Tạo dữ liệu showtimes trước
 showtimes_data = {"Showtimes": {}}
-start_date = datetime(2025, 3, 21)
+start_date = datetime(2025, 3, 23)  # Ngày bắt đầu là 23/03/2025
 days = [start_date + timedelta(days=i) for i in range(3)]
 
 for day in days:

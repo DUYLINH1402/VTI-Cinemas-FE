@@ -87,7 +87,7 @@ export const CardMovie = ({ item }) => {
 };
 
 // Component CardMovieHome (cập nhật để tích hợp TrailerModal)
-export const CardMovieHome = memo(({ item }) => {
+export const CardMovieHome = memo(({ item, index }) => {
   const [openTrailerModal, setOpenTrailerModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
@@ -105,10 +105,12 @@ export const CardMovieHome = memo(({ item }) => {
   };
 
   // Debug trước khi render TrailerModal
-  console.log("Rendering TrailerModal with:", { isOpen: openTrailerModal, movie: selectedMovie });
+  // console.log("Rendering TrailerModal with:", { isOpen: openTrailerModal, movie: selectedMovie });
 
   return (
     <div className="card__movie__home">
+      {/* Hiển thị số thứ tự */}
+      <div className="movie-index">{index}</div>
       <div className="card__movie__home__poster">
         <Link to={`/movieinf/${item.movie_id}`}>
           <LazyImage

@@ -22,6 +22,12 @@
       .title-movie {
         color: $blue-color;
       }
+      .rating {
+        display: none;
+      }
+      .movie-index {
+        display: none;
+      }
     }
   }
   .movie-section {
@@ -79,7 +85,7 @@
     // Danh sách phim dạng cuộn ngang
     .home__movie {
       display: flex;
-      justify-content: space-evenly; // Bắt đầu từ bên trái
+      justify-content: flex-start; // Bắt đầu từ bên trái
       overflow-x: auto;
       scroll-behavior: smooth;
       gap: 20px;

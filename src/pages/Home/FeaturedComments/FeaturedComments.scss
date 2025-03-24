@@ -60,6 +60,48 @@
         background: #ff0000d4;
       }
     }
+    .thumbnail-info {
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      background: rgba(0, 0, 0, 0.7); // Nền tối để chữ dễ đọc
+      padding: 8px 12px;
+      border-radius: 5px;
+      color: #fff;
+
+      .thumbnail-movie-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+        display: -webkit-box;
+        line-clamp: 1;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .imdb {
+        font-size: 1.4rem;
+        color: $orange-color;
+        font-weight: normal;
+        margin-left: 5px;
+      }
+      .thumbnail-stats {
+        display: flex;
+        gap: 10px;
+        font-size: 1.4rem;
+
+        .comments {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          svg {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
   }
 
   .featured-comment-info {

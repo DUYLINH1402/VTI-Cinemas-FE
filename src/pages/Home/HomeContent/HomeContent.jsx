@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./HomeContent.scss";
-import { Link } from "react-router-dom";
 import { CardMovieHome } from "../../../components/Cards/Cards";
 import { fetchMoviesByTab } from "../../../services/service/serviceMovie";
 import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton";
@@ -61,25 +60,25 @@ export const HomeContent = () => {
 
   const scrollNowShowingLeft = () => {
     if (nowShowingScrollRef.current) {
-      nowShowingScrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+      nowShowingScrollRef.current.scrollBy({ left: -700, behavior: "smooth" });
     }
   };
 
   const scrollNowShowingRight = () => {
     if (nowShowingScrollRef.current) {
-      nowShowingScrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      nowShowingScrollRef.current.scrollBy({ left: 700, behavior: "smooth" });
     }
   };
 
   const scrollUpcomingLeft = () => {
     if (upcomingScrollRef.current) {
-      upcomingScrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+      upcomingScrollRef.current.scrollBy({ left: -700, behavior: "smooth" });
     }
   };
 
   const scrollUpcomingRight = () => {
     if (upcomingScrollRef.current) {
-      upcomingScrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      upcomingScrollRef.current.scrollBy({ left: 700, behavior: "smooth" });
     }
   };
 
@@ -97,9 +96,9 @@ export const HomeContent = () => {
             </button>
             <div className="home__movie" ref={nowShowingScrollRef}>
               {nowShowingMovies.length > 0 ? (
-                nowShowingMovies
-                  .slice(0, 10)
-                  .map((item, index) => <CardMovieHome item={item} key={index} />)
+                nowShowingMovies.map((item, index) => (
+                  <CardMovieHome item={item} index={index + 1} />
+                ))
               ) : (
                 <p>Không có phim nào đang chiếu.</p>
               )}
@@ -123,9 +122,7 @@ export const HomeContent = () => {
             </button>
             <div className="home__movie" ref={upcomingScrollRef}>
               {upcomingMovies.length > 0 ? (
-                upcomingMovies
-                  .slice(0, 10)
-                  .map((item, index) => <CardMovieHome item={item} key={index} />)
+                upcomingMovies.map((item, index) => <CardMovieHome item={item} index={index + 1} />)
               ) : (
                 <p>Không có phim nào sắp chiếu.</p>
               )}

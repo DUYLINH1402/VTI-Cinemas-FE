@@ -188,3 +188,73 @@ export const fetchShowtimesFromFirebase = async (cinema_id) => {
     return {};
   }
 };
+
+// API LẤY DANH SÁCH RẠP PHIM CÓ SUẤT CHIẾU TỪ FIREBASE KÈM TÊN RẠP
+export const fetchCinemasWithShowtimesFromFirebase = async () => {
+  try {
+    const db = getDatabase(); // Kết nối tới Firebase Realtime Database
+
+    // Lấy dữ liệu từ nhánh Showtimes
+    const showtimesRef = ref(db, "Showtimes");
+    const showtimesSnapshot = await get(showtimesRef);
+
+    if (!showtimesSnapshot.exists()) {
+      console.warn("Không tìm thấy dữ liệu suất chiếu trong Firebase.");
+      return [];
+    }
+
+    const showtimesData = showtimesSnapshot.val();
+
+    // Tạo một Set để lưu các cinema_id duy nhất
+    const cinemaIds = new Set();
+    Object.values(showtimesData).forEach((showtime) => {
+      if (showtime.cinema_id) {
+        cinemaIds.add(showtime.cinema_id);
+      }
+    });
+
+    if (cinemaIds.size === 0) {
+      console.warn("Không tìm thấy rạp nào có suất chiếu.");
+      return [];
+    }
+
+    // Lấy dữ liệu từ nhánh Cinema
+    const cinemasRef = ref(db, "Cinema");
+    const cinemasSnapshot = await get(cinemasRef);
+    // console.log("Danh sách Cinemas: ", cinemasSnapshot.val());
+    if (!cinemasSnapshot.exists()) {
+      console.warn("Không tìm thấy dữ liệu rạp trong nhánh Cinema.");
+      return Array.from(cinemaIds)
+        .sort()
+        .map((id) => ({ id, name: "Unknown" }));
+    }
+
+    const cinemasData = cinemasSnapshot.val();
+    // Tạo danh sách rạp với id và tên
+    const cinemaList = Array.from(cinemaIds)
+      .sort()
+      .map((cinemaId) => {
+        // Tìm thông tin rạp tương ứng trong nhánh Cinema
+        const cinemaInfo = Object.entries(cinemasData).find(
+          ([key, value]) => value.cinema_id === cinemaId
+        );
+
+        return {
+          id: cinemaId,
+          name: cinemaInfo ? cinemaInfo[1].cinema_name : "Unknown",
+          latitude: cinemaInfo ? cinemaInfo[1].latitude : null, // Lấy latitude từ cinemaInfo
+          longitude: cinemaInfo ? cinemaInfo[1].longitude : null, // Lấy longitude từ cinemaInfo
+          city: cinemaInfo ? cinemaInfo[1].city : "Unknown", // Lấy city để lọc theo khu vực
+          location: cinemaInfo ? cinemaInfo[1].location : "Unknown",
+          logo: cinemaInfo ? cinemaInfo[1].logo : "Unknown",
+        };
+      });
+
+    // console.log("Danh sách rạp có suất chiếu kèm tên:", cinemaList);
+
+    return cinemaList;
+  } catch (error) {
+    console.error("Lỗi khi lấy danh sách rạp có suất chiếu từ Firebase:", error);
+    return [];
+  }
+};

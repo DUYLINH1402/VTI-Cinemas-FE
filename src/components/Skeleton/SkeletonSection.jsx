@@ -13,8 +13,7 @@ const SkeletonSection = () => {
         justifyContent: "center",
         padding: "20px",
         borderRadius: "8px",
-      }}
-    >
+      }}>
       <Skeleton
         active
         title={{ width: "60%" }} // Tiêu đề chiếm 60% chiều rộng

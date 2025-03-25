@@ -3,7 +3,6 @@
 @use "./../../assets/styles/variables.scss" as *;
 
 .content {
-  font-family: "Poppins", sans-serif;
   .content_tab {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -289,7 +288,9 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s, transform 0.2s;
+    transition:
+      background-color 0.3s,
+      transform 0.2s;
 
     &:hover {
       background-color: #0e43ef70;

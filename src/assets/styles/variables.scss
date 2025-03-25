@@ -16,19 +16,26 @@ $mobase-font-size-8xl: 6rem;
 $mobase-font-size-9xl: 8rem;
 
 // COLOR
+
+$background-gray: rgba(204, 204, 204, 0.168627451);
+$background-green: rgba(19, 76, 15, 0.1019607843);
+$background-pink: #f9e6f0;
+$background-light: #f9f9f9;
+$white: #fff;
+
 $orange-color: #ff6347;
 $green-color: #b0d427;
 $blue-color: #0f1b4c;
-$background-gray: rgba(204, 204, 204, 0.168627451);
-$background-green: rgba(19, 76, 15, 0.1019607843);
 $primary-color: #0f1b4c;
 $primary-hover: #ff6347;
-$background-light: #f9f9f9;
+$primary-pink: #ff4081;
+
 $border-light: #ddd;
 $border-medium: #eee;
 $text-dark: #333;
+$text-gray: #666;
 $text-medium: #666;
-$white: #fff;
+
 $shadow-light: rgba(0, 0, 0, 0.05);
 $shadow-medium: rgba(0, 0, 0, 0.1);
 $shadow-dark: rgba(20, 16, 11, 0.1);

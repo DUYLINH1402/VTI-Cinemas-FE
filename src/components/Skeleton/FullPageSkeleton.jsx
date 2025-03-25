@@ -2,7 +2,7 @@ import "./FullPageSkeleton.modul.scss";
 import React from "react";
 import { Skeleton, Layout, Row, Col } from "antd";
 import "./FullPageSkeleton.modul.scss";
-const { Header, Content, Footer } = Layout; // Giải cấu trúc các phần của Layout từ Ant Design
+const { Content } = Layout; // Giải cấu trúc các phần của Layout từ Ant Design
 
 const FullPageSkeleton = () => {
   return (

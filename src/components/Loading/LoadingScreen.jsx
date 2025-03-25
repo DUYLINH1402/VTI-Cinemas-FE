@@ -10,7 +10,7 @@ export const LoadingScreen = ({ message = "Đang tải..." }) => {
         <div></div>
         <div></div>
       </div>
-      <p>{message}</p>
+      <p className="message">{message}</p>
     </div>
   );
 };

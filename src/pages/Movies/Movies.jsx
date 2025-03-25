@@ -4,6 +4,7 @@ import { CardMovie } from "../../components/Cards/Cards";
 import { fetchMoviesByTab } from "../../services/service/serviceMovie";
 import { Pagination } from "antd";
 import { useSelector } from "react-redux";
+import { CarouselSlide } from "../../components/Carousel/Carousel";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton"; // Import Skeleton để hiển thị khi tải dữ liệu
 
 export const Movies = () => {
@@ -47,30 +48,27 @@ export const Movies = () => {
   return (
     <>
       <div className="content">
+        <CarouselSlide />
         {/* Các nút lựa chọn loại phim */}
         <div className="movie-buttons">
           <button
             className={activeTab === "upcoming" ? "active" : ""}
-            onClick={() => setActiveTab("upcoming")}
-          >
+            onClick={() => setActiveTab("upcoming")}>
             PHIM SẮP CHIẾU
           </button>
           <button
             className={activeTab === "nowShowing" ? "active" : ""}
-            onClick={() => setActiveTab("nowShowing")}
-          >
+            onClick={() => setActiveTab("nowShowing")}>
             PHIM ĐANG CHIẾU
           </button>
           <button
             className={activeTab === "specialShows" ? "active" : ""}
-            onClick={() => setActiveTab("specialShows")}
-          >
+            onClick={() => setActiveTab("specialShows")}>
             SUẤT CHIẾU ĐẶC BIỆT
           </button>
           <button
             className={activeTab === "all" ? "active" : ""}
-            onClick={() => setActiveTab("all")}
-          >
+            onClick={() => setActiveTab("all")}>
             TẤT CẢ CÁC PHIM
           </button>
         </div>

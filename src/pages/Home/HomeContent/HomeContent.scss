@@ -3,10 +3,10 @@
 @use "./../../../assets/styles/variables.scss" as *;
 
 .home__content {
-  font-family: "Poppins", sans-serif;
-
   .movie-section-nowShowing {
-    margin-top: 30px;
+    .loading-screen {
+      color: aliceblue;
+    }
     padding: 50px;
     background: url(../../../assets/image/notification_bg.jpg) center / cover no-repeat;
     .card__movie__home {
@@ -15,9 +15,11 @@
       }
     }
   }
+
   .movie-section-upcoming {
     padding: 70px 50px;
     background-color: #b3c3a726;
+
     .card__movie__home {
       .title-movie {
         color: $blue-color;
@@ -31,12 +33,14 @@
     }
   }
   .movie-section {
+    min-height: 600px;
+
     .section-title {
       font-size: 2.4rem;
       font-weight: 600;
       color: $blue-color;
       text-align: center;
-      // margin-bottom: 20px;
+
       text-transform: uppercase;
     }
 

@@ -7,6 +7,7 @@
   position: relative;
   width: 80px;
   height: 80px;
+  margin: 10px;
 }
 .lds-ellipsis div {
   position: absolute;
@@ -16,6 +17,9 @@
   border-radius: 50%;
   background: currentColor;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.message {
+  font-size: 1.4rem;
 }
 .lds-ellipsis div:nth-child(1) {
   left: 8px;

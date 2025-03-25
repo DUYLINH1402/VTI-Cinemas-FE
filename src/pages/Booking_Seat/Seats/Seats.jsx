@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getDatabase, ref, onValue, update, get } from "firebase/database";
 import { toast } from "react-toastify";
+import { LoadingScreen } from "../../../components/Loading/LoadingScreen";
 
 const db = getDatabase();
 
@@ -19,7 +20,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
     onValue(seatsRef, (snapshot) => {
       if (snapshot.exists()) {
         const allSeats = snapshot.val();
-        console.log("Dữ liệu ghế từ Seats:", allSeats); // Kiểm tra dữ liệu ghế
+        // console.log("Dữ liệu ghế từ Seats:", allSeats); // Kiểm tra dữ liệu ghế
 
         onValue(bookingsRef, (bookingSnapshot) => {
           const seatStatuses = bookingSnapshot.exists() ? bookingSnapshot.val() : {};
@@ -39,7 +40,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
             }, {});
             return acc;
           }, {});
-          console.log("Dữ liệu ghế sau khi gộp (seatsByRow):", mergedSeats); // Kiểm tra dữ liệu sau khi gộp
+          // console.log("Dữ liệu ghế sau khi gộp (seatsByRow):", mergedSeats); // Kiểm tra dữ liệu sau khi gộp
           setSeatsByRow(mergedSeats);
         });
       } else {
@@ -165,7 +166,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
   }, [showtime_id]);
 
   if (!seatsByRow || Object.keys(seatsByRow).length === 0) {
-    return <div>Không có dữ liệu ghế cho suất chiếu này.</div>;
+    return <LoadingScreen />;
   }
 
   // Định nghĩa thứ tự các hàng ghế (A, B, C, ..., G)
@@ -201,8 +202,7 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
                               className="seat"
                               onClick={() =>
                                 handleSeatClick(seatInf.price, seatInf.seat_name, seat_id)
-                              }
-                            >
+                              }>
                               {seatInf.status === "sold" ? (
                                 <img src={seatInf.imgURL_sold} alt={seatInf.seat_name} />
                               ) : seatInf.status === "reserved" ? (

@@ -3,7 +3,6 @@
 @use "../../assets/styles/variables.scss" as *;
 
 .content {
-  font-family: "Poppins", sans-serif;
   .card_seat {
     .content_tab {
       display: grid;
@@ -26,7 +25,7 @@
         .row_seat {
           overflow-x: auto;
           white-space: nowrap;
-          min-height: 45px 0px; // Đảm bảo đủ chiều cao để hiển thị các hàng
+          min-height: 450px; // Đảm bảo đủ chiều cao để hiển thị các hàng
 
           @include respond-to(xs) {
             min-height: 300px; // Giảm chiều cao trên mobile

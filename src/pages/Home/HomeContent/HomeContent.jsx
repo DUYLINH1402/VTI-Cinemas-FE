@@ -3,7 +3,8 @@ import "./HomeContent.scss";
 import { CardMovieHome } from "../../../components/Cards/Cards";
 import { fetchMoviesByTab } from "../../../services/service/serviceMovie";
 import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton";
-
+import LoadingIcon from "../../../components/LoadingIcon";
+import LoadingScreen from "../../../components/Loading/LoadingScreen";
 export const HomeContent = () => {
   const [nowShowingMovies, setNowShowingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
@@ -88,7 +89,9 @@ export const HomeContent = () => {
       <section className="movie-section movie-section-nowShowing">
         <h2 className="section-title section-title-nowShowing">Phim Đang Chiếu</h2>
         {loadingNowShowing ? (
-          <FullPageSkeleton />
+          <div className="loading-screen">
+            <LoadingScreen />
+          </div>
         ) : (
           <div className="movie-scroll-container">
             <button className="scroll-button left" onClick={scrollNowShowingLeft}>
@@ -114,7 +117,9 @@ export const HomeContent = () => {
       <section className="movie-section movie-section-upcoming">
         <h2 className="section-title">Phim Sắp Chiếu</h2>
         {loadingUpcoming ? (
-          <FullPageSkeleton />
+          <div className="loading-screen">
+            <LoadingScreen />
+          </div>
         ) : (
           <div className="movie-scroll-container">
             <button className="scroll-button left" onClick={scrollUpcomingLeft}>

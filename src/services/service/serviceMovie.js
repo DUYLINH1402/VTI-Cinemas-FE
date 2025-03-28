@@ -13,6 +13,10 @@ import {
   updateCommentInFirebase,
   checkUserPurchaseInFirebase,
   fetchMoviesByTabFromFirebase,
+  addMovieToFirebase,
+  updateMovieInFirebase,
+  deleteMovieFromFirebase,
+  getcommentsFromFirebase,
 } from "../firebase/firebaseMovie.js";
 import {} from "../sql/sqlMovie";
 const useFirebase = import.meta.env.VITE_USE_FIREBASE === "true"; // QUAN TRỌNG! // Chọn nguồn dữ liệu trong .env
@@ -26,6 +30,10 @@ export const fetchMoviesByTab = async (tab) => {
   return useFirebase ? await fetchMoviesByTabFromFirebase(tab) : await fetchMoviesByTabFromSQL(tab);
 };
 
+// API LẤY DANH SÁCH COMMENT
+export const getcomments = async () => {
+  return useFirebase ? await getcommentsFromFirebase() : await getcommentsFromSQL();
+};
 // API LẤY DANH SÁCH SUBCOMMENT CHO 1 COMMENT CỤ THỂ
 export const getSubcomments = async (commentId) => {
   return useFirebase
@@ -103,4 +111,21 @@ export const checkUserPurchase = async (email, movieId) => {
   return useFirebase
     ? await checkUserPurchaseInFirebase(email, movieId)
     : await checkUserPurchaseInSQL(email, movieId);
+};
+
+// HÀM THÊM PHIM MỚI
+export const addMovie = async (movieData) => {
+  return useFirebase ? await addMovieToFirebase(movieData) : await addMovieToSQL(movieData);
+};
+
+// API CHỈNH SỬA PHIM
+export const updateMovie = async (movieId, updatedMovieData) => {
+  return useFirebase
+    ? await updateMovieInFirebase(movieId, updatedMovieData)
+    : await updateMovieInSQL(movieId, updatedMovieData);
+};
+
+// API XÓA PHIM
+export const deleteMovie = async (movieId) => {
+  return useFirebase ? await deleteMovieFromFirebase(movieId) : await deleteMovieFromSQL(movieId); // Giả định bạn có hàm SQL
 };

@@ -3,21 +3,13 @@ import "./LoginModal.modul.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, get, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
-import {
-  googleLogin,
-  loginUser,
-  facebookLogin,
-} from "../../../store/authSlice.js";
+import { googleLogin, loginUser, facebookLogin } from "../../../store/authSlice.js";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import google from "../../assets/icon/google.svg";
 import facebook from "../../assets/icon/facebook.svg";
 import { faXmark, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import {
-  validateEmailOrPhone,
-  validatePassword,
-  validateLoginForm,
-} from "../../utils/validation";
+import { validateEmailOrPhone, validatePassword, validateLoginForm } from "../../utils/validation";
 import { toast } from "react-toastify";
 import { saveUserToDatabase } from "../../utils/authActions.js";
 import { setAuthToken } from "../../utils/authStorage.js";
@@ -27,11 +19,7 @@ import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import LoadingIcon from "../LoadingIcon.jsx";
 import { fetchAccountByEmail } from "../../services/dataService.js";
 
-const LoginModal = ({
-  closeModal,
-  openRegisterModal,
-  openForgotPasswordModal,
-}) => {
+const LoginModal = ({ closeModal, openRegisterModal, openForgotPasswordModal }) => {
   // state quản lý đóng mở Modal
   const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -127,18 +115,13 @@ const LoginModal = ({
         .catch((error) => {
           console.error("Lỗi đăng nhập:", error);
           // Kiểm tra nếu `error.message` tồn tại trước khi gọi `.includes()`
-          const errorMessage =
-            error?.message || "Đăng nhập thất bại. Vui lòng thử lại!";
+          const errorMessage = error?.message || "Đăng nhập thất bại. Vui lòng thử lại!";
           setIsLoading(false);
           // Cập nhật Redux store với lỗi
           setErrors((prevErrors) => ({
             ...prevErrors,
-            emailOrPhone: errorMessage.includes("Tài khoản không tồn tại")
-              ? error.message
-              : "",
-            password: errorMessage.includes("Mật khẩu không đúng")
-              ? error.message
-              : "",
+            emailOrPhone: errorMessage.includes("Tài khoản không tồn tại") ? error.message : "",
+            password: errorMessage.includes("Mật khẩu không đúng") ? error.message : "",
           }));
         })
         .finally(() => {
@@ -169,9 +152,7 @@ const LoginModal = ({
               setPassword(matchedToken.password); // Điền mật khẩu vào input
             } else {
               localStorage.removeItem("rememberToken"); // Xóa token hết hạn
-              toast.error(
-                "Thông tin đăng nhập đã hết hạn. Vui lòng đăng nhập lại."
-              );
+              toast.error("Thông tin đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
             }
           } else {
             localStorage.removeItem("rememberToken"); // Xóa nếu không hợp lệ
@@ -239,10 +220,7 @@ const LoginModal = ({
         <RegisterModal />
       ) : (
         <div className="modal-overlay">
-          <div
-            className="modal-content modal-login-content"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modal-content modal-login-content" onClick={(e) => e.stopPropagation()}>
             <h2 className="modal-title">Đăng nhập</h2>
             {/* Form đăng nhập với noValidate để tắt validate mặc định của trình duyệt */}
             <form onSubmit={handleSubmit} noValidate>
@@ -278,9 +256,7 @@ const LoginModal = ({
                       className="show-password"
                       onClick={togglePasswordVisibility} // Toggle hiển thị mật khẩu
                     >
-                      <FontAwesomeIcon
-                        icon={showPassword ? faEyeSlash : faEye}
-                      />
+                      <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                     </button>
                   </div>
                   {errors.password && (
@@ -301,9 +277,7 @@ const LoginModal = ({
                 </div>
                 <div className="error-message-wrapper">
                   {/* Hiển thị lỗi đăng nhập nếu có */}
-                  {error && (
-                    <p className="error-message error-message-all">{error}</p>
-                  )}
+                  {error && <p className="error-message error-message-all">{error}</p>}
                   {/* Nếu lỗi do email chưa được xác nhận, hiển thị nút gửi lại email xác nhận */}
                   {error && error.includes("chưa được xác nhận") && (
                     <div className="resend-verification">
@@ -317,8 +291,7 @@ const LoginModal = ({
                 <button
                   type="submit"
                   className="submit-button submit-login-button"
-                  disabled={isLoading}
-                >
+                  disabled={isLoading}>
                   {isLoading ? <LoadingIcon size={10} /> : "Đăng nhập"}
                 </button>
               </div>
@@ -326,28 +299,16 @@ const LoginModal = ({
             <div className="social-login">
               <p>Hoặc đăng nhập bằng</p>
               <div className="social-icons">
-                <a
-                  href="#"
-                  className="social-button google"
-                  onClick={handleGoogleLogin}
-                >
+                <a href="#" className="social-button google" onClick={handleGoogleLogin}>
                   <img src={google} alt="Google" />
                 </a>
-                <a
-                  href="#"
-                  className="social-button facebook"
-                  onClick={handleFacebookLogin}
-                >
+                <a href="#" className="social-button facebook" onClick={handleFacebookLogin}>
                   <img src={facebook} alt="Facebook" />
                 </a>
               </div>
             </div>
             {/* Link mở modal quên mật khẩu */}
-            <a
-              href="#"
-              className="forgot-password"
-              onClick={openForgotPasswordModal}
-            >
+            <a href="#" className="forgot-password" onClick={openForgotPasswordModal}>
               Quên mật khẩu?
             </a>
             {/* Link mở modal đăng ký */}

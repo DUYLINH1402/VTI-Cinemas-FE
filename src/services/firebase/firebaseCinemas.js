@@ -12,8 +12,7 @@ import {
   startAt,
   endAt,
 } from "firebase/database";
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
-import { setAuthToken } from "../../utils/authStorage";
+import { getAuth } from "firebase/auth";
 import { normalizeString } from "../../utils/validation.js";
 import app from "../firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
 const auth = getAuth();
@@ -80,7 +79,7 @@ export const fetchCinemasByRegionFromFirebase = async (region) => {
       const filteredCinemas = Object.values(cinemas).filter(
         (cinema) => normalizeString(cinema.city) === normalizedRegion
       );
-      console.log("Danh sách rạp trong khu vực:", filteredCinemas);
+      // console.log("Danh sách rạp trong khu vực:", filteredCinemas);
 
       return filteredCinemas;
     }
@@ -98,52 +97,10 @@ export const sendContactInfoToFirebase = async (data) => {
     const db = getDatabase(); // Lấy instance của Realtime Database
     const contactRef = ref(db, "Contacts"); // Đường dẫn đến collection "Contacts"
     await push(contactRef, data); // Thêm một object mới vào "Contacts"
-    console.log("Dữ liệu đã được lưu thành công vào Realtime Database!");
+    // console.log("Dữ liệu đã được lưu thành công vào Realtime Database!");
   } catch (error) {
     console.error("Lỗi khi lưu dữ liệu lên Realtime Database:", error);
     throw error; // Bắn lỗi để xử lý phía trên
-  }
-};
-
-// API THÊM RẠP MỚI (ĐÃ CHẠY OK)
-export const addCinemaToFirebase = async (newCinema) => {
-  try {
-    const db = getDatabase(); // Kết nối tới Firebase
-    const cinemaRef = ref(db, "Cinema"); // Đường dẫn tới nhánh Cinema
-
-    // Lấy danh sách hiện có để tính toán key mới
-    const snapshot = await get(cinemaRef);
-    let maxId = 0;
-
-    if (snapshot.exists()) {
-      const cinemas = snapshot.val();
-      // Tìm ID lớn nhất trong các key hiện tại
-      maxId = Math.max(
-        ...Object.keys(cinemas)
-          .filter((key) => key.startsWith("cinema")) // Lọc các key theo format cinemaX
-          .map((key) => parseInt(key.replace("cinema", ""), 10)),
-        0
-      );
-    }
-
-    // Tạo key mới dạng cinemaX
-    const newCinemaKey = `cinema${maxId + 1}`;
-    const newCinemaData = {
-      cinema_name: newCinema.name,
-      city: newCinema.city,
-      location: newCinema.location,
-      is_protected: newCinema.is_protected || false,
-      cinema_id: maxId + 1,
-    };
-
-    // Lưu dữ liệu vào Firebase với key mới
-    await set(ref(db, `Cinema/${newCinemaKey}`), newCinemaData);
-
-    console.log("Rạp mới đã thêm vào Firebase với key:", newCinemaKey);
-    return newCinemaKey;
-  } catch (error) {
-    console.error("Lỗi khi thêm rạp vào Firebase:", error);
-    throw error;
   }
 };
 
@@ -178,7 +135,7 @@ export const fetchShowtimesFromFirebase = async (cinema_id) => {
     // console.log(`Suất chiếu lấy được cho cinema_id ${cinema_id}:`, filteredShowtimes);
 
     if (Object.keys(filteredShowtimes).length === 0) {
-      console.warn(`Không tìm thấy suất chiếu cho cinema_id: ${cinema_id}`);
+      // console.warn(`Không tìm thấy suất chiếu cho cinema_id: ${cinema_id}`);
       return {};
     }
 
@@ -256,5 +213,130 @@ export const fetchCinemasWithShowtimesFromFirebase = async () => {
   } catch (error) {
     console.error("Lỗi khi lấy danh sách rạp có suất chiếu từ Firebase:", error);
     return [];
+  }
+};
+
+// API THÊM RẠP MỚI (ĐÃ CHẠY OK)
+export const addCinemaToFirebase = async (newCinema) => {
+  try {
+    const db = getDatabase();
+    const cinemaRef = ref(db, "Cinema");
+
+    const snapshot = await get(cinemaRef);
+    let maxId = 0;
+
+    if (snapshot.exists()) {
+      const cinemas = snapshot.val();
+      maxId = Math.max(
+        ...Object.keys(cinemas)
+          .filter((key) => key.startsWith("cinema"))
+          .map((key) => parseInt(key.replace("cinema", ""), 10)),
+        0
+      );
+    }
+
+    const newCinemaKey = `cinema${maxId + 1}`;
+    const newCinemaData = {
+      cinema_name: newCinema.name, // Không gán mặc định
+      city: newCinema.city, // Không gán mặc định
+      location: newCinema.location, // Không gán mặc định
+      is_protected: newCinema.is_protected || false, // Có thể để mặc định
+      cinema_id: `cinema_${String(maxId + 1).padStart(2, "0")}`,
+      latitude: newCinema.latitude, // Không gán mặc định
+      longitude: newCinema.longitude, // Không gán mặc định
+      logo: newCinema.logo, // Không gán mặc định
+      phone_number: newCinema.phone_number || "",
+      email: newCinema.email || "",
+      website: newCinema.website || "",
+      opening_hours: newCinema.opening_hours, // Không gán mặc định
+      capacity: newCinema.capacity || 0,
+      description: newCinema.description, // Không gán mặc định
+      status: newCinema.status, // Không gán mặc định
+      rooms: newCinema.rooms || { "Room 1": { seat_template: "Seats" } },
+    };
+
+    await set(ref(db, `Cinema/${newCinemaKey}`), newCinemaData);
+
+    console.log("Rạp mới đã thêm vào Firebase với key:", newCinemaKey);
+    return newCinemaKey;
+  } catch (error) {
+    console.error("Lỗi khi thêm rạp vào Firebase:", error);
+    throw error;
+  }
+};
+
+// API XÓA RẠP TỪ FIREBASE
+export const deleteCinemaFromFirebase = async (cinemaKey) => {
+  try {
+    const db = getDatabase();
+    const cinemaRef = ref(db, `Cinema/${cinemaKey}`);
+
+    // Lấy dữ liệu của rạp để kiểm tra is_protected
+    const snapshot = await get(cinemaRef);
+    if (!snapshot.exists()) {
+      throw new Error("Rạp không tồn tại!");
+    }
+
+    const cinemaData = snapshot.val();
+    if (cinemaData.is_protected) {
+      throw new Error("Bạn không thể xoá dữ liệu do Team phát triển xây dựng!");
+    }
+
+    // Xóa rạp nếu không được bảo vệ
+    await set(cinemaRef, null);
+    console.log(`Rạp ${cinemaKey} đã được xóa thành công!`);
+    return true;
+  } catch (error) {
+    console.error("Lỗi khi xóa rạp từ Firebase:", error.message);
+    throw error;
+  }
+};
+
+// API CHỈNH SỬA RẠP TRONG FIREBASE
+export const updateCinemaInFirebase = async (cinemaKey, updatedCinema) => {
+  try {
+    const db = getDatabase();
+    const cinemaRef = ref(db, `Cinema/${cinemaKey}`);
+
+    // Lấy dữ liệu hiện tại của rạp để kiểm tra is_protected
+    const snapshot = await get(cinemaRef);
+    if (!snapshot.exists()) {
+      throw new Error("Rạp không tồn tại!");
+    }
+
+    const currentCinema = snapshot.val();
+    if (currentCinema.is_protected) {
+      throw new Error("Bạn không thể chỉnh sửa dữ liệu do Team phát triển xây dựng!");
+    }
+
+    // Dữ liệu cập nhật (giữ nguyên các trường không thay đổi)
+    const updatedCinemaData = {
+      cinema_name: updatedCinema.name || currentCinema.cinema_name,
+      city: updatedCinema.city || currentCinema.city,
+      location: updatedCinema.location || currentCinema.location,
+      is_protected: currentCinema.is_protected, // Giữ nguyên giá trị is_protected
+      cinema_id: currentCinema.cinema_id, // Giữ nguyên cinema_id
+      latitude:
+        updatedCinema.latitude !== undefined ? updatedCinema.latitude : currentCinema.latitude,
+      longitude:
+        updatedCinema.longitude !== undefined ? updatedCinema.longitude : currentCinema.longitude,
+      logo: updatedCinema.logo || currentCinema.logo,
+      phone_number: updatedCinema.phone_number || currentCinema.phone_number,
+      email: updatedCinema.email || currentCinema.email,
+      website: updatedCinema.website || currentCinema.website,
+      opening_hours: updatedCinema.opening_hours || currentCinema.opening_hours,
+      capacity:
+        updatedCinema.capacity !== undefined ? updatedCinema.capacity : currentCinema.capacity,
+      description: updatedCinema.description || currentCinema.description,
+      status: updatedCinema.status || currentCinema.status,
+      // rooms: updatedCinema.rooms || currentCinema.rooms,
+    };
+
+    await set(cinemaRef, updatedCinemaData);
+    console.log(`Rạp ${cinemaKey} đã được cập nhật thành công!`);
+    return true;
+  } catch (error) {
+    console.error("Lỗi khi cập nhật rạp trong Firebase:", error.message);
+    throw error;
   }
 };

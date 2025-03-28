@@ -5,9 +5,16 @@ import React from "react";
 import ProtectedRoute from "./ProtectedRoute"; // Component dùng để bảo vệ các route
 import AdminApp from "../admin/AdminApp"; // Component layout chính cho phần admin
 import AdminDashboard from "../admin/pages/AdminDashboard"; // Trang tổng quan cho admin
-import TheaterManagement from "../admin/pages/CinemaManangenment/TheaterManagement"; // Trang quản lý rạp
+import TheaterManagement from "../admin/pages/CinemaManagenment/TheaterManagement"; // Trang quản lý rạp
 import { AdminErrorPage } from "../pages/Error/ErrorPage"; // Trang hiển thị khi gặp lỗi
 import MovieManagement from "../admin/pages/MovieManagement/MovieManagement";
+import TicketDashboard from "../admin/pages/TicketManagement/TicketDashboard/TicketDashboard";
+import TicketList from "../admin/pages/TicketManagement/TicketList/TicketList";
+import MovieStatsDashboard from "../admin/pages/MovieManagement/MovieStatsDashboard/MovieStatsDashboard";
+import CinemaStatsDashboard from "../admin/pages/CinemaManagenment/CinemaStatsDashboard/CinemaStatsDashboard";
+import ShowtimeList from "../admin/pages/ShowtimeManagement/ShowtimeList/ShowtimeList";
+import ShowtimeDashboard from "../admin/pages/ShowtimeManagement/ShowtimeDashboard/ShowtimeDashboard";
+import RevenueDashboard from "../admin/pages/RevenueManagement/RevenueDashboard";
 
 // Định nghĩa các route cho phần admin
 export const AdminRoutes = [
@@ -34,17 +41,26 @@ export const AdminRoutes = [
         parent: "/admin/dashboard", // Breadcrumbs parent của route này
         // Không có `element` vì đây chỉ là menu cha, không hiển thị nội dung
       },
+
+      // CINEMA
       {
-        path: "theaters/list", // Route con của "Quản lý rạp phim"
-        element: <TheaterManagement />, // Component hiển thị cho "Danh sách rạp"
-        label: "Danh sách rạp", // Label hiển thị
-        parent: "/admin/theaters", // Breadcrumbs parent là "Quản lý rạp phim"
+        path: "theaters/list",
+        element: <TheaterManagement />,
+        label: "Danh sách rạp",
+        parent: "/admin/theaters",
       },
       {
-        path: "movies", // Route menu cha cho "Quản lý rạp phim"
-        label: "Quản lý phim", // Label menu
-        parent: "/admin/dashboard", // Breadcrumbs parent của route này
-        // Không có `element` vì đây chỉ là menu cha, không hiển thị nội dung
+        path: "theaters/dashboard-theaters",
+        element: <CinemaStatsDashboard />,
+        label: "Danh sách rạp",
+        parent: "/admin/theaters",
+      },
+
+      //MOVIE
+      {
+        path: "movies",
+        label: "Quản lý phim",
+        parent: "/admin/dashboard",
       },
       {
         path: "movies/list",
@@ -52,6 +68,76 @@ export const AdminRoutes = [
         label: "Danh sách phim",
         parent: "/admin/movies",
       },
+      {
+        path: "movies/dashboard-movie",
+        element: <MovieStatsDashboard />,
+        label: "Thống kê phim",
+        parent: "/admin/movies",
+      },
+
+      // TICKET
+      {
+        path: "tickets",
+        label: "Quản lý vé",
+        parent: "/admin/dashboard",
+      },
+      {
+        path: "tickets/list",
+        element: <TicketList />,
+        label: "Danh sách vé",
+        parent: "/admin/tickets",
+      },
+      {
+        path: "tickets/dashboard-ticket",
+        element: <TicketDashboard />,
+        label: "Thống kê vé",
+        parent: "/admin/tickets",
+      },
+
+      // SCHEDULES
+      {
+        path: "showtime",
+        label: "Quản lý suất chiếu",
+        parent: "/admin/dashboard",
+      },
+      {
+        path: "showtime/list",
+        element: <ShowtimeList />,
+        label: "Danh sách suất chiếu",
+        parent: "/admin/showtime",
+      },
+      {
+        path: "showtime/dashboard-showtime",
+        element: <ShowtimeDashboard />,
+        label: "Thống kê suất chiếu",
+        parent: "/admin/showtime",
+      },
+      // REVENUE
+      {
+        path: "revenue",
+        label: "Quản lý doanh thu",
+        element: <RevenueDashboard />,
+        parent: "/admin/dashboard",
+      },
+
+      // {
+      //   path: "tickets/requests",
+      //   element: <TicketRequests />,
+      //   label: "Quản lý yêu cầu",
+      //   parent: "/admin/tickets",
+      // },
+      // {
+      //   path: "tickets/employees",
+      //   element: <EmployeeManagement />,
+      //   label: "Quản lý nhân viên",
+      //   parent: "/admin/tickets",
+      // },
+      // {
+      //   path: "tickets/policies",
+      //   element: <TicketPolicies />,
+      //   label: "Quản lý chính sách vé",
+      //   parent: "/admin/tickets",
+      // },
     ],
   },
 ];

@@ -127,6 +127,8 @@
         .cinema-logo {
           flex: 1;
           img {
+            border: 1px solid $cgv-border-light;
+            border-radius: 5px;
             width: 40px;
             height: 40px;
             object-fit: contain;
@@ -153,14 +155,8 @@
         }
 
         &.active {
-          background-color: $cgv-primary;
+          background-color: #e4e6ee;
           border-color: $cgv-primary;
-          span.cinema-name {
-            color: $cgv-white;
-          }
-          .distance {
-            color: $cgv-white;
-          }
         }
       }
 

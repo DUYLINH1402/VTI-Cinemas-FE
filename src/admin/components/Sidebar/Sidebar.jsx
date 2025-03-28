@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Collapse,
-} from "@mui/material";
+import { Drawer, List, ListItem, ListItemText, ListItemIcon, Collapse } from "@mui/material";
 import {
   Home,
   ExpandLess,
@@ -52,24 +45,24 @@ const Sidebar = () => {
             boxSizing: "border-box",
             backgroundColor: "rgba(22, 10, 95, 0.2)",
           },
-        }}
-      >
+        }}>
         <List>
           <div className="logo">
             <img src={logo} alt="Logo" />
           </div>
+
           {/* Trang chủ */}
           <ListItem
             button
             component={Link}
             to="/admin/dashboard"
-            className={isActive("/admin/dashboard") ? "sidebar-active" : ""}
-          >
+            className={isActive("/admin/dashboard") ? "sidebar-active" : ""}>
             <ListItemIcon>
               <Home />
             </ListItemIcon>
             <ListItemText primary="Trang chủ" />
           </ListItem>
+
           {/* Quản lý rạp phim */}
           <ListItem button onClick={() => toggleMenu("cinema")}>
             <ListItemIcon>
@@ -86,12 +79,23 @@ const Sidebar = () => {
                 button
                 component={Link}
                 to="theaters/list"
-                className={isActive("theaters/list") ? "sidebar-active" : ""}
-              >
+                className={isActive("theaters/list") ? "sidebar-active" : ""}>
                 <ListItemText inset primary="Danh sách rạp" />
               </ListItem>
             </List>
           </Collapse>
+          <Collapse in={openMenus.cinema} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="theaters/dashboard-theaters"
+                className={isActive("theaters/dashboard-theaters") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê rạp" />
+              </ListItem>
+            </List>
+          </Collapse>
+
           {/* Quản lý phim */}
           <ListItem button onClick={() => toggleMenu("movies")}>
             <ListItemIcon>
@@ -106,74 +110,86 @@ const Sidebar = () => {
                 button
                 component={Link}
                 to="movies/list"
-                className={isActive("movies/list") ? "sidebar-active" : ""}
-              >
+                className={isActive("movies/list") ? "sidebar-active" : ""}>
                 <ListItemText inset primary="Danh sách phim" />
               </ListItem>
             </List>
           </Collapse>
-          {/* Quản lý phòng chiếu */}
-          <ListItem button onClick={() => toggleMenu("rooms")}>
-            <ListItemIcon>
-              <Schedule />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý phòng chiếu" />
-            {openMenus.rooms ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openMenus.rooms} timeout="auto" unmountOnExit>
+          <Collapse in={openMenus.movies} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem
                 button
                 component={Link}
-                to="admin/rooms"
-                className={isActive("admin/rooms") ? "sidebar-active" : ""}
-              >
-                <ListItemText inset primary="Danh sách phòng chiếu" />
-              </ListItem>
-              <ListItem button component={Link} to="/admin/add-room">
-                <ListItemText inset primary="Thêm phòng chiếu" />
+                to="movies/dashboard-movie"
+                className={isActive("movies/dashboard-movie") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê phim" />
               </ListItem>
             </List>
           </Collapse>
+
           {/* Quản lý vé */}
-          <ListItem button component={Link} to="/admin/tickets">
-            <ListItemIcon>
-              <CreditCard />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý vé" />
-          </ListItem>
-          {/* Quản lý lịch chiếu */}
-          <ListItem button onClick={() => toggleMenu("schedules")}>
+          <ListItem button onClick={() => toggleMenu("tickets")}>
             <ListItemIcon>
               <CalendarToday />
             </ListItemIcon>
-            <ListItemText primary="Quản lý lịch chiếu" />
-            {openMenus.schedules ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary="Quản lý vé" />
+            {openMenus.tickets ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse in={openMenus.schedules} timeout="auto" unmountOnExit>
+          <Collapse in={openMenus.tickets} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem
                 button
                 component={Link}
-                to="/admin/schedules"
-                className={isActive("admin/schedules") ? "asidebar-ctive" : ""}
-              >
-                <ListItemText inset primary="Danh sách lịch chiếu" />
-              </ListItem>
-              <ListItem button component={Link} to="/admin/add-schedule">
-                <ListItemText inset primary="Thêm lịch chiếu" />
+                to="tickets/list"
+                className={isActive("tickets/list") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Danh sách vé" />
               </ListItem>
             </List>
           </Collapse>
-          {/* Phân cách */}
-          <hr />
-          {/* Quản lý doanh thu */}
-          <ListItem button component={Link} to="/admin/revenue">
+          <Collapse in={openMenus.tickets} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="tickets/dashboard-ticket"
+                className={isActive("tickets/dashboard-ticket") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê vé" />
+              </ListItem>
+            </List>
+          </Collapse>
+
+          {/* Quản lý lịch chiếu */}
+          <ListItem button onClick={() => toggleMenu("showtime")}>
             <ListItemIcon>
-              <AttachMoney />
+              <CalendarToday />
             </ListItemIcon>
-            <ListItemText primary="Quản lý doanh thu" />
+            <ListItemText primary="Quản lý suất chiếu" />
+            {openMenus.showtime ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
+
+          <Collapse in={openMenus.showtime} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="showtime/list"
+                className={isActive("showtime/list") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Danh sách suất chiếu" />
+              </ListItem>
+            </List>
+          </Collapse>
+          <Collapse in={openMenus.showtime} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="showtime/dashboard-showtime"
+                className={isActive("showtime/dashboard-showtime") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê suất chiếu" />
+              </ListItem>
+            </List>
+          </Collapse>
+
           {/* Quản lý sự kiện */}
           <ListItem button component={Link} to="/admin/events">
             <ListItemIcon>
@@ -181,6 +197,18 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Quản lý sự kiện" />
           </ListItem>
+
+          {/* Phân cách */}
+          <hr />
+
+          {/* Quản lý doanh thu */}
+          <ListItem button component={Link} to="/admin/revenue">
+            <ListItemIcon>
+              <AttachMoney />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý doanh thu" />
+          </ListItem>
+
           {/* Quản lý tài khoản */}
           <ListItem button component={Link} to="/admin/accounts">
             <ListItemIcon>
@@ -188,6 +216,7 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Quản lý tài khoản" />
           </ListItem>
+
           {/* Quản lý thanh toán */}
           <ListItem button component={Link} to="/admin/payments">
             <ListItemIcon>
@@ -195,6 +224,7 @@ const Sidebar = () => {
             </ListItemIcon>
             <ListItemText primary="Quản lý thanh toán" />
           </ListItem>
+
           {/* Quản lý hỗ trợ */}
           <ListItem button component={Link} to="/admin/support">
             <ListItemIcon>

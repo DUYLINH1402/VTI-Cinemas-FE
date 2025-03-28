@@ -28,6 +28,7 @@ a {
 /* Chỉnh cỡ chữ của toast */
 .Toastify__toast {
   font-size: 1.6rem;
+  line-height: 1.5;
   @include respond-to(xs) {
     margin: 10px auto;
     width: 90vw;

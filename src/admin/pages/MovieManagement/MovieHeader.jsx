@@ -1,11 +1,9 @@
-// src/components/MoviesHeader.jsx
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Button, Typography, TextField } from "@mui/material";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import zIndex from "@mui/material/styles/zIndex";
 
-const MovieHeader = ({ onSearch, onSort }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
+const MovieHeader = ({ onSearch, onSort, onOpenAddForm }) => {
   return (
     <Box
       sx={{
@@ -13,13 +11,11 @@ const MovieHeader = ({ onSearch, onSort }) => {
         justifyContent: "space-between",
         alignItems: "center",
         marginBottom: 2,
-      }}
-    >
+      }}>
       <Typography variant="h5">Danh sách Phim</Typography>
       <TextField
         select
         label="Sắp xếp theo"
-        // value={sortCriterion}
         onChange={(e) => onSort(e.target.value)}
         SelectProps={{ native: true }}
         variant="outlined"
@@ -27,8 +23,7 @@ const MovieHeader = ({ onSearch, onSort }) => {
         sx={{ width: "150px", marginLeft: "50px" }}
         InputLabelProps={{
           shrink: true, // Giữ label cố định phía trên
-        }}
-      >
+        }}>
         <option value="id">Không</option>
         <option value="movie_name">Tên phim</option>
         <option value="actor">Diễn viên</option>
@@ -38,10 +33,7 @@ const MovieHeader = ({ onSearch, onSort }) => {
         <option value="duration">Thời lượng</option>
       </TextField>
       <div className="search-admin">
-        <SearchBar
-          onSearch={onSearch}
-          placeholder="Tìm kiếm theo phim, thể loại, diễn viên..."
-        />
+        <SearchBar onSearch={onSearch} placeholder="Tìm kiếm theo phim, thể loại, diễn viên..." />
       </div>
       <Button
         sx={{
@@ -51,7 +43,7 @@ const MovieHeader = ({ onSearch, onSort }) => {
         }}
         variant="contained"
         color="primary"
-        // onClick={handleOpen}
+        onClick={onOpenAddForm} // Gọi hàm mở form
       >
         Thêm phim mới
       </Button>

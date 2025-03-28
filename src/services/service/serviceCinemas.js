@@ -7,6 +7,8 @@ import {
   sendContactInfoToFirebase,
   addCinemaToFirebase,
   fetchShowtimesFromFirebase,
+  deleteCinemaFromFirebase,
+  updateCinemaInFirebase,
 } from "../firebase/firebaseCinemas.js";
 import {
   fetchRegionsOfCinemasFromSQL,
@@ -50,4 +52,18 @@ export const saveContactInfoToData = async (formData) => {
 //API THÊM RẠP MỚI
 export const addCinema = async (newCinema) => {
   return useFirebase ? await addCinemaToFirebase(newCinema) : await addCinemaToSQL(newCinema);
+};
+
+// API XÓA RẠP
+export const deleteCinema = async (cinemaKey) => {
+  return useFirebase
+    ? await deleteCinemaFromFirebase(cinemaKey)
+    : await deleteCinemaFromSQL(cinemaKey);
+};
+
+// API CHỈNH SỬA RẠP
+export const updateCinema = async (cinemaKey, updatedCinema) => {
+  return useFirebase
+    ? await updateCinemaInFirebase(cinemaKey, updatedCinema)
+    : await updateCinemaInSQL(cinemaKey, updatedCinema);
 };

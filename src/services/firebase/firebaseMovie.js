@@ -13,11 +13,11 @@ import {
   equalTo,
 } from "firebase/database";
 import { getAuth } from "firebase/auth";
-
 import { setAuthToken } from "../../utils/authStorage";
 import app from "../firebase/firebaseConfig"; // Import Firebase App đã khởi tạo. Nếu khống có khi chạy chương trình sẽ lỗi
-const auth = getAuth();
 
+const db = getDatabase();
+const auth = getAuth();
 // API LẤY DANH SÁCH PHIM (ĐÃ CHẠY OK)
 export const fetchMoviesFromFirebase = async () => {
   try {
@@ -94,6 +94,16 @@ export const fetchMoviesByTabFromFirebase = async (tab) => {
     console.error(`Error fetching ${tab} movies from Firebase:`, error);
     throw error;
   }
+};
+
+// API LẤY DANH SÁCH COMMENT (ĐÃ CHẠY OK)
+export const getcommentsFromFirebase = async () => {
+  const commentsRef = ref(getDatabase(), "Comments");
+  const snapshot = await get(commentsRef);
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+  return {};
 };
 
 // API LẤY DNH SÁCH SUBCOMMENT (ĐÃ CHẠY OK)
@@ -389,4 +399,131 @@ export const checkUserPurchaseInFirebase = async (email, movieId) => {
   }
 
   return false;
+};
+
+// HÀM THÊM PHIM MỚI (TẠO KEY VÀ MOVIE_ID TĂNG DẦN)
+export const addMovieToFirebase = async (movieData) => {
+  try {
+    const moviesRef = ref(db, "Movies");
+    const snapshot = await get(moviesRef);
+
+    let newKeyNumber = 1; // Mặc định bắt đầu từ 1 nếu không có phim nào
+
+    if (snapshot.exists()) {
+      // Lấy danh sách các key hiện có (movie1, movie10, movie60, ...)
+      const keys = Object.keys(snapshot.val());
+
+      // Tìm số lớn nhất từ các key (movie60 -> 60)
+      const keyNumbers = keys
+        .map((key) => {
+          const match = key.match(/^movie(\d+)$/); // Tìm số trong key (movie60 -> 60)
+          return match ? parseInt(match[1], 10) : 0;
+        })
+        .filter((num) => !isNaN(num)); // Lọc bỏ các giá trị không phải số
+
+      if (keyNumbers.length > 0) {
+        newKeyNumber = Math.max(...keyNumbers) + 1; // Tăng số lớn nhất lên 1 (60 -> 61)
+      }
+    }
+
+    // Tạo key mới (movie61) và movie_id mới (61)
+    const newKey = `movie${newKeyNumber}`;
+    const newMovieId = newKeyNumber; // movie_id là "61"
+
+    // Thêm movie_id vào movieData
+    const movieDataWithId = {
+      ...movieData,
+      movie_id: newMovieId,
+    };
+
+    // Sử dụng set() để thêm phim mới với key thủ công (movie61)
+    const newMovieRef = ref(db, `Movies/${newKey}`);
+    await set(newMovieRef, movieDataWithId);
+
+    console.log(`Phim đã được thêm với key: ${newKey} và movie_id: ${newMovieId}`);
+    return newMovieId; // Trả về movie_id (61)
+  } catch (error) {
+    console.error("Error adding movie to Firebase:", error);
+    throw error;
+  }
+};
+
+// API CHỈNH SỬA PHIM
+export const updateMovieInFirebase = async (movieId, updatedMovieData) => {
+  if (!movieId || !updatedMovieData) {
+    console.error("Lỗi: Thiếu movieId hoặc dữ liệu cập nhật!");
+    return false;
+  }
+
+  try {
+    const db = getDatabase();
+    const moviesRef = ref(db, "Movies");
+    const snapshot = await get(moviesRef);
+
+    if (!snapshot.exists()) {
+      console.error("Không tìm thấy danh sách Movies trong Firebase!");
+      return false;
+    }
+
+    const movies = snapshot.val();
+    // Tìm key của phim dựa trên movie_id
+    const movieKey = Object.keys(movies).find((key) => movies[key].movie_id === movieId);
+
+    if (!movieKey) {
+      console.error(`Không tìm thấy phim với movie_id = ${movieId} trong Firebase!`);
+      return false;
+    }
+
+    // Tham chiếu đến phim cần cập nhật
+    const movieRef = ref(db, `Movies/${movieKey}`);
+
+    // Cập nhật dữ liệu phim
+    await update(movieRef, updatedMovieData);
+
+    console.log(`Phim với movie_id = ${movieId} đã được cập nhật thành công!`);
+    return true;
+  } catch (error) {
+    console.error("Lỗi khi cập nhật phim trong Firebase:", error);
+    return false;
+  }
+};
+
+// API XÓA PHIM
+export const deleteMovieFromFirebase = async (movieId) => {
+  if (!movieId) {
+    console.error("Lỗi: Thiếu movieId để xóa phim!");
+    return false;
+  }
+
+  try {
+    const db = getDatabase();
+    const moviesRef = ref(db, "Movies");
+    const snapshot = await get(moviesRef);
+
+    if (!snapshot.exists()) {
+      console.error("Không tìm thấy danh sách Movies trong Firebase!");
+      return false;
+    }
+
+    const movies = snapshot.val();
+    // Tìm key của phim dựa trên movie_id
+    const movieKey = Object.keys(movies).find((key) => movies[key].movie_id === movieId);
+
+    if (!movieKey) {
+      console.error(`Không tìm thấy phim với movie_id = ${movieId} trong Firebase!`);
+      return false;
+    }
+
+    // Tham chiếu đến phim cần xóa
+    const movieRef = ref(db, `Movies/${movieKey}`);
+
+    // Xóa phim
+    await remove(movieRef);
+
+    console.log(`Phim với movie_id = ${movieId} đã được xóa thành công!`);
+    return true;
+  } catch (error) {
+    console.error("Lỗi khi xóa phim trong Firebase:", error);
+    return false;
+  }
 };

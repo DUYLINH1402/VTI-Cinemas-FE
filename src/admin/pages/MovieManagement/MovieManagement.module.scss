@@ -1,11 +1,6 @@
 .MuiTableRow-head {
   background-color: #60c5ac;
-  background-image: linear-gradient(
-    90deg,
-    #61c0ac 10%,
-    #784ba0 50%,
-    #2b86c5 100%
-  ) !important;
+  background-image: linear-gradient(90deg, #61c0ac 10%, #784ba0 50%, #2b86c5 100%) !important;
 }
 
 .tableRow {
@@ -28,7 +23,9 @@
   background-color: #f9f9f9;
   overflow: hidden; /* Ẩn nội dung vượt quá */
   max-height: 0; /* Chiều cao mặc định khi đóng */
-  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Hiệu ứng mượt */
+  transition:
+    max-height 0.5s ease-in-out,
+    padding 0.5s ease-in-out; /* Hiệu ứng mượt */
 }
 
 .detailContainerOpen {
@@ -46,4 +43,11 @@
 .lableDetail {
   font-weight: bold;
   margin-right: 4px;
+}
+
+.MuiTooltip-tooltip {
+  font-size: 20px !important; /* Điều chỉnh kích thước chữ */
+  padding: 8px 12px !important; /* Tùy chỉnh padding */
+  background-color: rgba(0, 0, 0, 0.8) !important; /* Màu nền */
+  color: #fff !important; /* Màu chữ */
 }

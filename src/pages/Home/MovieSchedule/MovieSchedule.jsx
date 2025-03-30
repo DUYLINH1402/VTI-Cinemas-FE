@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import CustomModal from "./CustomModal/CustomModal";
 import not_found_showtimes from "../../../assets/image/not_found_showtimes.svg";
 import "./MovieSchedule.scss";
-import { useMovieSchedule, calculateDistance } from "./MovieScheduleHandle";
+import { useMovieSchedule } from "./MovieScheduleHandle";
+import { calculateDistance } from "../../../utils/utilsFunction";
 
 const MovieSchedule = () => {
   const {
@@ -27,7 +29,33 @@ const MovieSchedule = () => {
     userLocation,
   } = useMovieSchedule();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // Trạng thái cho từ khóa tìm kiếm
+
   const selectedCinemaData = filteredCinemas.find((cinema) => cinema.id === selectedCinema);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setSearchTerm(""); // Reset từ khóa tìm kiếm khi mở modal
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleRegionSelect = (region) => {
+    handleRegionChange({ target: { value: region } });
+    closeModal();
+  };
+
+  // Lọc danh sách vùng dựa trên từ khóa tìm kiếm
+  const filteredRegions = regions.filter((region) =>
+    region.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  );
+
+  // Debug để kiểm tra giá trị searchTerm
+  // console.log("Search Term:", searchTerm);
+  // console.log("Filtered Regions:", filteredRegions);
 
   return (
     <div className="movie-schedule-wrapper">
@@ -35,13 +63,9 @@ const MovieSchedule = () => {
       <div className="movie-schedule-controls">
         <div className="movie-schedule-dropdown">
           <span>Vị trí</span>
-          <select value={selectedRegion} onChange={handleRegionChange}>
-            {regions.map((region, index) => (
-              <option key={index} value={region}>
-                {region}
-              </option>
-            ))}
-          </select>
+          <button className="region-select-button" onClick={openModal}>
+            {selectedRegion || "Chọn địa điểm"} <span className="dropdown-icon">▼</span>
+          </button>
           {isSortedByLocation ? (
             <button className="near-you-button" onClick={handleDisableNearYou}>
               <FontAwesomeIcon icon={faLocationCrosshairs} />
@@ -58,6 +82,42 @@ const MovieSchedule = () => {
           )}
         </div>
       </div>
+
+      {/* Sử dụng CustomModal */}
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        title={
+          <div className="modal-title-with-search">
+            <span>Chọn địa điểm</span>
+            <div className="custom-modal-search-container">
+              <span className="custom-modal-search-icon"></span>
+              <input
+                type="text"
+                placeholder="Tìm địa điểm..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="custom-modal-search-input"
+              />
+            </div>
+          </div>
+        }>
+        <div className="region-list">
+          {filteredRegions.length > 0 ? (
+            filteredRegions.map((region, index) => (
+              <div
+                key={index}
+                className={`region-item ${selectedRegion === region ? "active" : ""}`}
+                onClick={() => handleRegionSelect(region)}>
+                {region}
+              </div>
+            ))
+          ) : (
+            <p className="no-results">Không tìm thấy địa điểm.</p>
+          )}
+        </div>
+      </CustomModal>
+
       <div className="movie-schedule">
         <div className="cinema-list movie-schedule-left">
           {filteredCinemas.length > 0 ? (

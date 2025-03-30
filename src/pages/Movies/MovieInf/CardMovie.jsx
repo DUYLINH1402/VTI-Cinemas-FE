@@ -47,24 +47,25 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
           className="card-info-wrapper"
           style={{
             backgroundImage: `url(${movie.background})`,
-          }}
-        >
+          }}>
           <div className="card__inf">
             <div className="image">
               <LazyImage src={movie.image} alt={movie.movie_name} height="320px" width="250px" />
               <div className="showtime">
                 {movie.status === "active" ? (
-                  <button onClick={() => onBookTicket(movie)}>Đặt vé</button>
+                  <button onClick={() => onBookTicket(movie)} className="book-ticket-btn">
+                    Đặt vé ngay
+                  </button>
                 ) : movie.status === "close" ? (
-                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
+                  <button disabled className="disabled-btn">
                     Đã đóng
                   </button>
                 ) : movie.status === "upcoming" ? (
-                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
+                  <button disabled className="disabled-btn">
                     Sắp chiếu
                   </button>
                 ) : (
-                  <button disabled style={{ cursor: "not-allowed", opacity: 0.8 }}>
+                  <button disabled className="disabled-btn">
                     Đang cập nhật
                   </button>
                 )}
@@ -91,8 +92,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
                 <span>
                   <button
                     onClick={() => setShowMoreDes(!showMoreDes)}
-                    className="read-more-description-button"
-                  >
+                    className="read-more-description-button">
                     {showMoreDes ? "Ẩn bớt" : "Xem thêm"}
                   </button>
                 </span>
@@ -113,8 +113,7 @@ export const CardInfMovie = ({ movie, onBookTicket }) => {
               title={movie.movie_name}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
+              allowFullScreen></iframe>
           </div>
           <div>
             {/* Bình luận */}

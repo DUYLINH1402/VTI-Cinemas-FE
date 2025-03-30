@@ -129,9 +129,45 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
   }, [statusSeats, showtime_id, user?.email]);
 
   // RESET GHẾ NẾU RỜI KHỎI TRANG CHỌN GHẾ
+  // useEffect(() => {
+  //   const handleBeforeUnload = async () => {
+  //     // Nếu rời khỏi trang, reset giá trị về {},0,[]
+  //     localStorage.setItem("statusSeats", JSON.stringify({}));
+  //     setStatusSeats({});
+  //     localStorage.setItem("selectedSeatPrice", 0);
+  //     setSelectedSeatPrice(0);
+  //     localStorage.setItem("selectedSeatNames", JSON.stringify([]));
+  //     setSelectSeatName([]);
+
+  //     const showtimeSeatRef = ref(db, `Bookings/${showtime_id}/seats`);
+  //     const snapshot = await get(showtimeSeatRef);
+  //     if (snapshot.exists()) {
+  //       const seatStatuses = snapshot.val();
+
+  //       // Chỉ reset ghế nếu user hiện tại là người giữ ghế đó
+  //       Object.entries(seatStatuses).forEach(async ([seat_id, seatData]) => {
+  //         if (seatData.status === "reserved" && seatData.user === user?.email) {
+  //           const seatRef = ref(db, `Bookings/${showtime_id}/seats/${seat_id}`);
+  //           await update(seatRef, {
+  //             status: "empty",
+  //             user: null,
+  //             timestamp: null,
+  //           });
+  //         }
+  //       });
+  //     }
+  //   };
+
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, [showtime_id]);
   useEffect(() => {
-    const handleBeforeUnload = async () => {
-      // Nếu rời khỏi trang, reset giá trị về {},0,[]
+    // Hàm reset trạng thái ghế
+    const resetSeats = async () => {
+      // Reset localStorage
       localStorage.setItem("statusSeats", JSON.stringify({}));
       setStatusSeats({});
       localStorage.setItem("selectedSeatPrice", 0);
@@ -139,12 +175,11 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
       localStorage.setItem("selectedSeatNames", JSON.stringify([]));
       setSelectSeatName([]);
 
+      // Reset ghế trong Firebase
       const showtimeSeatRef = ref(db, `Bookings/${showtime_id}/seats`);
       const snapshot = await get(showtimeSeatRef);
       if (snapshot.exists()) {
         const seatStatuses = snapshot.val();
-
-        // Chỉ reset ghế nếu user hiện tại là người giữ ghế đó
         Object.entries(seatStatuses).forEach(async ([seat_id, seatData]) => {
           if (seatData.status === "reserved" && seatData.user === user?.email) {
             const seatRef = ref(db, `Bookings/${showtime_id}/seats/${seat_id}`);
@@ -158,19 +193,37 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
       }
     };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    // Xử lý khi rời khỏi trang (beforeunload)
+    const handleBeforeUnload = async () => {
+      await resetSeats();
+    };
 
+    // Xử lý khi trang được hiển thị lại (pageshow)
+    const handlePageShow = async (event) => {
+      if (event.persisted) {
+        // Nếu trang được khôi phục từ BFCache (người dùng nhấn nút "quay lại")
+        await resetSeats();
+      }
+    };
+
+    // Gắn sự kiện beforeunload
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    // Gắn sự kiện pageshow
+    window.addEventListener("pageshow", handlePageShow);
+
+    // Dọn dẹp sự kiện khi component unmount
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener("pageshow", handlePageShow);
     };
-  }, [showtime_id]);
+  }, [showtime_id, user?.email, setSelectedSeatPrice, setSelectSeatName]);
 
   if (!seatsByRow || Object.keys(seatsByRow).length === 0) {
     return <LoadingScreen />;
   }
 
-  // Định nghĩa thứ tự các hàng ghế (A, B, C, ..., G)
-  const rowOrder = ["A", "B", "C", "D", "E", "F", "G"];
+  // Định nghĩa thứ tự các hàng ghế (A, B, C, ..., H)
+  const rowOrder = ["A", "B", "C", "D", "E", "F", "G", "H"];
 
   return (
     <div>

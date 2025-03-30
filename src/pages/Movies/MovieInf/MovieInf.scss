@@ -192,6 +192,62 @@
     }
   }
 }
+
+// MODAL BOOKINGFLOW
+.booking-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+
+  .booking-modal-container {
+    width: 95%;
+    max-width: 1200px;
+    height: 90vh;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-out;
+
+    .booking-flow {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Nút đóng modal */
+.booking-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+
 //  COMMENT COMPONENT
 .comment-wrapper {
   padding: 30px;
@@ -236,7 +292,9 @@
       gap: 20px;
       align-items: center;
       max-height: 100%; /* Chiều cao mặc định khi đóng */
-      transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Hiệu ứng mượt */
+      transition:
+        max-height 0.5s ease-in-out,
+        padding 0.5s ease-in-out; /* Hiệu ứng mượt */
 
       &.expanded {
         opacity: 1; /* Hiển thị */
@@ -272,7 +330,9 @@
         font-size: 2.5rem;
         margin-right: 10px;
         color: #ff6347;
-        transition: transform 0.2s ease, color 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          color 0.2s ease;
       }
       .core {
         font-size: 2.5rem;
@@ -609,7 +669,9 @@
   .comments-expand-enter-active {
     opacity: 1;
     transform: translateY(0);
-    transition: opacity 1s ease, transform 1s ease;
+    transition:
+      opacity 1s ease,
+      transform 1s ease;
   }
 
   .comments-expand-exit {
@@ -620,7 +682,9 @@
   .comments-expand-exit-active {
     opacity: 0;
     transform: translateY(-10px);
-    transition: opacity 1s ease, transform 1s ease;
+    transition:
+      opacity 1s ease,
+      transform 1s ease;
   }
 
   // HIỆU ỨNG ẨN/HIỆN SUBCOMMENT
@@ -636,7 +700,9 @@
   .subcomments-enter-active {
     max-height: 500px; /* Hoặc chiều cao tối đa của nội dung */
     opacity: 1;
-    transition: max-height 1s ease, opacity 1s ease;
+    transition:
+      max-height 1s ease,
+      opacity 1s ease;
   }
 
   .subcomments-exit {
@@ -647,7 +713,9 @@
   .subcomments-exit-active {
     max-height: 0;
     opacity: 0;
-    transition: max-height 1s ease, opacity 1s ease;
+    transition:
+      max-height 1s ease,
+      opacity 1s ease;
   }
 }
 // PREVIEW IMAGE

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPromotions, subscribeToPromotions } from "../../services/service/servicePromotion";
+import { fetchPromotions } from "../../services/service/servicePromotion";
 import "./Promotions.scss";
 import FullPageSkeleton from "../../components/Skeleton/FullPageSkeleton";
 import { useNavigate } from "react-router-dom";
@@ -29,18 +29,18 @@ const Promotions = () => {
     });
 
     // Lắng nghe cập nhật danh sách khuyến mãi từ server (real-time update)
-    subscribeToPromotions((data) => {
-      setPromotions(data);
-      setLoadingPromotions(false);
-      setAnimate(new Array(data.length).fill(false));
+    // subscribeToPromotions((data) => {
+    //   setPromotions(data);
+    //   setLoadingPromotions(false);
+    //   setAnimate(new Array(data.length).fill(false));
 
-      // Kích hoạt animation khi có dữ liệu mới
-      setTimeout(() => {
-        setAnimate((prev) =>
-          prev.map((_, index) => (index < visiblePromotions ? true : prev[index]))
-        );
-      }, 100);
-    });
+    //   // Kích hoạt animation khi có dữ liệu mới
+    //   setTimeout(() => {
+    //     setAnimate((prev) =>
+    //       prev.map((_, index) => (index < visiblePromotions ? true : prev[index]))
+    //     );
+    //   }, 100);
+    // });
   }, []);
 
   // Hàm xử lý khi người dùng bấm "Xem thêm"
@@ -76,8 +76,7 @@ const Promotions = () => {
                   <div
                     key={promo.id}
                     className={`event-card ${animate[index] ? "show" : ""}`}
-                    onClick={() => handleClickEvent(promo.slug)}
-                  >
+                    onClick={() => handleClickEvent(promo.slug)}>
                     <img src={promo.thumbnail} alt={promo.title} />
                     <div className="event-info">
                       <h3 className="event-title">{promo.title}</h3>

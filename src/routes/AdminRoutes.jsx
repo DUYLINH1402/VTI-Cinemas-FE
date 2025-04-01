@@ -15,6 +15,10 @@ import CinemaStatsDashboard from "../admin/pages/CinemaManagenment/CinemaStatsDa
 import ShowtimeList from "../admin/pages/ShowtimeManagement/ShowtimeList/ShowtimeList";
 import ShowtimeDashboard from "../admin/pages/ShowtimeManagement/ShowtimeDashboard/ShowtimeDashboard";
 import RevenueDashboard from "../admin/pages/RevenueManagement/RevenueDashboard";
+import UserList from "../admin/pages/UserManagement/UserList/UserList";
+import UserStats from "../admin/pages/UserManagement/UserDashboard/UserStats";
+import EventList from "../admin/pages/EventManagement/EvenList/EventList";
+import EventDashboard from "../admin/pages/EventManagement/EventDashboard/EventDashboard";
 
 // Định nghĩa các route cho phần admin
 export const AdminRoutes = [
@@ -120,24 +124,43 @@ export const AdminRoutes = [
         parent: "/admin/dashboard",
       },
 
-      // {
-      //   path: "tickets/requests",
-      //   element: <TicketRequests />,
-      //   label: "Quản lý yêu cầu",
-      //   parent: "/admin/tickets",
-      // },
-      // {
-      //   path: "tickets/employees",
-      //   element: <EmployeeManagement />,
-      //   label: "Quản lý nhân viên",
-      //   parent: "/admin/tickets",
-      // },
-      // {
-      //   path: "tickets/policies",
-      //   element: <TicketPolicies />,
-      //   label: "Quản lý chính sách vé",
-      //   parent: "/admin/tickets",
-      // },
+      // USER
+      {
+        path: "user",
+        label: "Quản lý tài khoản",
+        parent: "/admin/dashboard",
+      },
+      {
+        path: "user/list",
+        element: <UserList />,
+        label: "Danh sách tài khoản",
+        parent: "/admin/user",
+      },
+      {
+        path: "user/dashboard-user",
+        element: <UserStats />,
+        label: "Thống kê tài khoản",
+        parent: "/admin/user",
+      },
+
+      // EVENT
+      {
+        path: "event",
+        label: "Quản lý sự kiện",
+        parent: "/admin/dashboard",
+      },
+      {
+        path: "event/list",
+        element: <EventList />,
+        label: "Danh sách sự kiện",
+        parent: "/admin/event",
+      },
+      {
+        path: "event/dashboard-event",
+        element: <EventDashboard />,
+        label: "Thống kê sự kiện",
+        parent: "/admin/event",
+      },
     ],
   },
 ];

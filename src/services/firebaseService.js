@@ -178,6 +178,7 @@ export const getAccountByEmailFromFirebase = async (email) => {
 
   try {
     const snapshot = await get(emailQuery);
+    console.log("emailQuery: ", emailQuery);
     if (!snapshot.exists()) {
       throw new Error("Tài khoản không tồn tại trong hệ thống.");
     }

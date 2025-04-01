@@ -35,9 +35,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
         // Gửi yêu cầu reset mật khẩu qua Firebase
         await forgotPassword.resetPassword(emailOrPhone);
         // Thông báo thành công bằng Toast
-        toast.success(
-          "Yêu cầu quên mật khẩu đã được gửi. Vui lòng kiểm tra email."
-        );
+        toast.success("Yêu cầu quên mật khẩu đã được gửi. Vui lòng kiểm tra email.");
         // setMessage(
         //   "Yêu cầu quên mật khẩu đã được gửi. Vui lòng kiểm tra email."
         // );
@@ -71,12 +69,9 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
       className={`modal-overlay ${isClosing ? "fade-out" : ""}`}
       onClick={(e) => {}}
       aria-modal="true"
-      role="dialog"
-    >
+      role="dialog">
       <div
-        className={`modal-content modal-content-forgot ${
-          isClosing ? "scale-out" : ""
-        }`}
+        className={`modal-content modal-content-forgot ${isClosing ? "scale-out" : ""}`}
         onClick={(e) => e.stopPropagation()} // Ngăn việc đóng modal khi click bên trong nội dung
       >
         <button className="back-login-button" onClick={openLoginModal}>
@@ -98,9 +93,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
                 required
               />
               {errors.emailOrPhone && (
-                <p className="error-message error-forgot-message">
-                  {errors.emailOrPhone}
-                </p> // Hiển thị thông báo lỗi
+                <p className="error-message error-forgot-message">{errors.emailOrPhone}</p> // Hiển thị thông báo lỗi
               )}
             </div>
           </div>
@@ -116,11 +109,7 @@ const ForgotPasswordModal = ({ closeModal, openLoginModal }) => {
           </Link>
         </form>
         {/* Nút đóng modal */}
-        <button
-          onClick={closeWithAnimation}
-          className="close-button"
-          aria-label="Đóng"
-        >
+        <button onClick={closeWithAnimation} className="close-button" aria-label="Đóng">
           <FontAwesomeIcon icon={faXmark} />
         </button>
       </div>

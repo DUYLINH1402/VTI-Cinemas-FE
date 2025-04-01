@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPromotions, subscribeToPromotions } from "../../../services/service/servicePromotion";
+import { fetchPromotions } from "../../../services/service/servicePromotion";
 import FullPageSkeleton from "../../../components/Skeleton/FullPageSkeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -25,16 +25,16 @@ const HomePromotions = () => {
       }, 100);
     });
 
-    subscribeToPromotions((data) => {
-      setPromotions(data);
-      setLoadingPromotions(false);
-      setAnimate(new Array(data.length).fill(false));
-      setTimeout(() => {
-        setAnimate((prev) =>
-          prev.map((_, index) => (index < visiblePromotions ? true : prev[index]))
-        );
-      }, 100);
-    });
+    // subscribeToPromotions((data) => {
+    //   setPromotions(data);
+    //   setLoadingPromotions(false);
+    //   setAnimate(new Array(data.length).fill(false));
+    //   setTimeout(() => {
+    //     setAnimate((prev) =>
+    //       prev.map((_, index) => (index < visiblePromotions ? true : prev[index]))
+    //     );
+    //   }, 100);
+    // });
   }, []);
 
   const handleShowMore = () => {
@@ -62,8 +62,7 @@ const HomePromotions = () => {
               <div
                 key={promo.id}
                 className={`home-promotion-card ${animate[index] ? "show" : ""}`}
-                onClick={() => handleClickEvent(promo.slug)}
-              >
+                onClick={() => handleClickEvent(promo.slug)}>
                 <img src={promo.thumbnail} alt={promo.title} />
                 <div className="home-promotion-info">
                   <h3 className="home-promotion-title">{promo.title}</h3>

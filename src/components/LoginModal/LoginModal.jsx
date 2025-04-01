@@ -282,7 +282,7 @@ const LoginModal = ({ closeModal, openRegisterModal, openForgotPasswordModal }) 
                   {error && error.includes("chưa được xác nhận") && (
                     <div className="resend-verification">
                       <button type="button" onClick={handleResendVerification}>
-                        Gửi lại Email
+                        Gửi lại xác nhận
                       </button>
                     </div>
                   )}

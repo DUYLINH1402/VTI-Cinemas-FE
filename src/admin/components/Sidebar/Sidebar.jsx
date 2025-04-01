@@ -191,15 +191,70 @@ const Sidebar = () => {
           </Collapse>
 
           {/* Quản lý sự kiện */}
-          <ListItem button component={Link} to="/admin/events">
+          <ListItem button onClick={() => toggleMenu("event")}>
             <ListItemIcon>
-              <Event />
+              <CalendarToday />
             </ListItemIcon>
             <ListItemText primary="Quản lý sự kiện" />
+            {openMenus.event ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
+
+          <Collapse in={openMenus.event} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="event/list"
+                className={isActive("event/list") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Danh sách sự kiện" />
+              </ListItem>
+            </List>
+          </Collapse>
+          <Collapse in={openMenus.event} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="event/dashboard-event"
+                className={isActive("event/dashboard-event") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê sự kiện" />
+              </ListItem>
+            </List>
+          </Collapse>
 
           {/* Phân cách */}
           <hr />
+
+          {/* Quản lý tài khoản */}
+          <ListItem button onClick={() => toggleMenu("user")}>
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Quản lý tài khoản" />
+            {openMenus.user ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openMenus.user} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="user/list"
+                className={isActive("user/list") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Danh sách tài khoản" />
+              </ListItem>
+            </List>
+          </Collapse>
+          <Collapse in={openMenus.user} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem
+                button
+                component={Link}
+                to="user/dashboard-user"
+                className={isActive("user/dashboard-user") ? "sidebar-active" : ""}>
+                <ListItemText inset primary="Thống kê tài khoản" />
+              </ListItem>
+            </List>
+          </Collapse>
 
           {/* Quản lý doanh thu */}
           <ListItem button component={Link} to="/admin/revenue">
@@ -207,14 +262,6 @@ const Sidebar = () => {
               <AttachMoney />
             </ListItemIcon>
             <ListItemText primary="Quản lý doanh thu" />
-          </ListItem>
-
-          {/* Quản lý tài khoản */}
-          <ListItem button component={Link} to="/admin/accounts">
-            <ListItemIcon>
-              <Home />
-            </ListItemIcon>
-            <ListItemText primary="Quản lý tài khoản" />
           </ListItem>
 
           {/* Quản lý thanh toán */}

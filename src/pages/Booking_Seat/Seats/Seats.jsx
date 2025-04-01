@@ -129,95 +129,59 @@ export const Seats = ({ setSelectedSeatPrice, setSelectSeatName, cinema_id, show
   }, [statusSeats, showtime_id, user?.email]);
 
   // RESET GHẾ NẾU RỜI KHỎI TRANG CHỌN GHẾ
-  // useEffect(() => {
-  //   const handleBeforeUnload = async () => {
-  //     // Nếu rời khỏi trang, reset giá trị về {},0,[]
-  //     localStorage.setItem("statusSeats", JSON.stringify({}));
-  //     setStatusSeats({});
-  //     localStorage.setItem("selectedSeatPrice", 0);
-  //     setSelectedSeatPrice(0);
-  //     localStorage.setItem("selectedSeatNames", JSON.stringify([]));
-  //     setSelectSeatName([]);
+  // Hàm reset ghế
+  const resetSeats = async () => {
+    // Reset localStorage
+    localStorage.removeItem("selectedSeatPrice");
+    localStorage.removeItem("selectedSeatNames");
+    setSelectedSeatPrice(0);
+    setSelectSeatName([]);
 
-  //     const showtimeSeatRef = ref(db, `Bookings/${showtime_id}/seats`);
-  //     const snapshot = await get(showtimeSeatRef);
-  //     if (snapshot.exists()) {
-  //       const seatStatuses = snapshot.val();
-
-  //       // Chỉ reset ghế nếu user hiện tại là người giữ ghế đó
-  //       Object.entries(seatStatuses).forEach(async ([seat_id, seatData]) => {
-  //         if (seatData.status === "reserved" && seatData.user === user?.email) {
-  //           const seatRef = ref(db, `Bookings/${showtime_id}/seats/${seat_id}`);
-  //           await update(seatRef, {
-  //             status: "empty",
-  //             user: null,
-  //             timestamp: null,
-  //           });
-  //         }
-  //       });
-  //     }
-  //   };
-
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, [showtime_id]);
-  useEffect(() => {
-    // Hàm reset trạng thái ghế
-    const resetSeats = async () => {
-      // Reset localStorage
-      localStorage.setItem("statusSeats", JSON.stringify({}));
-      setStatusSeats({});
-      localStorage.setItem("selectedSeatPrice", 0);
-      setSelectedSeatPrice(0);
-      localStorage.setItem("selectedSeatNames", JSON.stringify([]));
-      setSelectSeatName([]);
-
-      // Reset ghế trong Firebase
+    // Reset Firebase nếu có user
+    if (user?.email) {
       const showtimeSeatRef = ref(db, `Bookings/${showtime_id}/seats`);
       const snapshot = await get(showtimeSeatRef);
+
       if (snapshot.exists()) {
         const seatStatuses = snapshot.val();
-        Object.entries(seatStatuses).forEach(async ([seat_id, seatData]) => {
-          if (seatData.status === "reserved" && seatData.user === user?.email) {
+        const updatePromises = Object.entries(seatStatuses)
+          .filter(([_, seatData]) => seatData.status === "reserved" && seatData.user === user.email)
+          .map(async ([seat_id]) => {
             const seatRef = ref(db, `Bookings/${showtime_id}/seats/${seat_id}`);
             await update(seatRef, {
               status: "empty",
               user: null,
               timestamp: null,
             });
-          }
-        });
+          });
+
+        await Promise.all(updatePromises);
       }
+    }
+  };
+
+  // Reset khi cinema_id hoặc showtime_id thay đổi
+  useEffect(() => {
+    resetSeats();
+  }, [cinema_id, showtime_id]);
+
+  // Xử lý khi rời trang
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      // Chỉ thực hiện reset localStorage (đồng bộ)
+      localStorage.removeItem("selectedSeatPrice");
+      localStorage.removeItem("selectedSeatNames");
+
+      // Hiển thị cảnh báo cho người dùng
+      e.preventDefault();
+      e.returnValue = "Bạn có chắc muốn rời khỏi trang?";
     };
 
-    // Xử lý khi rời khỏi trang (beforeunload)
-    const handleBeforeUnload = async () => {
-      await resetSeats();
-    };
-
-    // Xử lý khi trang được hiển thị lại (pageshow)
-    const handlePageShow = async (event) => {
-      if (event.persisted) {
-        // Nếu trang được khôi phục từ BFCache (người dùng nhấn nút "quay lại")
-        await resetSeats();
-      }
-    };
-
-    // Gắn sự kiện beforeunload
     window.addEventListener("beforeunload", handleBeforeUnload);
-    // Gắn sự kiện pageshow
-    window.addEventListener("pageshow", handlePageShow);
-
-    // Dọn dẹp sự kiện khi component unmount
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
-      window.removeEventListener("pageshow", handlePageShow);
     };
-  }, [showtime_id, user?.email, setSelectedSeatPrice, setSelectSeatName]);
-
+  }, []);
   if (!seatsByRow || Object.keys(seatsByRow).length === 0) {
     return <LoadingScreen />;
   }

@@ -42,8 +42,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
 
   // Chuyển đổi trạng thái hiển thị mật khẩu
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+  const toggleConfirmPasswordVisibility = () => setShowConfirmPassword(!showConfirmPassword);
 
   // Xử lý cập nhật dữ liệu form khi người dùng nhập
   const handleChange = (e) => {
@@ -71,10 +70,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
         error = validatePassword(formData.password); // Kiểm tra lỗi của mật khẩu
         break;
       case "confirmPassword":
-        error = validateConfirmPassword(
-          formData.password,
-          formData.confirmPassword
-        ); // Kiểm tra lỗi của mật khẩu xác nhận
+        error = validateConfirmPassword(formData.password, formData.confirmPassword); // Kiểm tra lỗi của mật khẩu xác nhận
         break;
       default:
         break;
@@ -95,9 +91,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
       formData.password,
       formData.confirmPassword
     );
-    validationErrors.acceptTerms = !formData.acceptTerms
-      ? "Vui lòng chấp nhận điều khoản"
-      : "";
+    validationErrors.acceptTerms = !formData.acceptTerms ? "Vui lòng chấp nhận điều khoản" : "";
 
     setErrors(validationErrors);
 
@@ -127,16 +121,14 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
           formData,
         })
       ).unwrap(); // unwrap giúp lấy giá trị thực từ asyncThunk
-      toast.success(
-        "Đăng ký thành công! Kiểm tra email để xác nhận tài khoản."
-      );
+      toast.success("Đăng ký thành công! Kiểm tra email để xác nhận tài khoản.");
       closeModal();
     } catch (error) {
       // Xử lý lỗi từ Firebase
       if (error && error === "auth/email-already-in-use") {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "Email này đã được sử dụng.",
+          email: "Email đã được sử dụng. (Hoặc đã đăng nhập bằng Google)",
         }));
       } else {
         setErrors((prevErrors) => ({
@@ -160,10 +152,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
 
   return (
     <div className={`modal-overlay ${isClosing ? "fade-out" : ""}`}>
-      <div
-        className="modal-content modal-register-content"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal-content modal-register-content" onClick={(e) => e.stopPropagation()}>
         <button className="back-login-button" onClick={openLoginModal}>
           <FontAwesomeIcon icon={faChevronLeft} /> Quay lại
         </button>
@@ -228,17 +217,11 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
                   onBlur={() => handleBlur("password")}
                   className={errors.password ? "input-error" : ""}
                 />
-                <button
-                  type="button"
-                  className="show-password"
-                  onClick={togglePasswordVisibility}
-                >
+                <button type="button" className="show-password" onClick={togglePasswordVisibility}>
                   <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
                 </button>
               </div>
-              {errors.password && (
-                <p className="error-message">{errors.password}</p>
-              )}
+              {errors.password && <p className="error-message">{errors.password}</p>}
             </div>
 
             {/* CONFIRM PASSWORD  */}
@@ -257,16 +240,11 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
                 <button
                   type="button"
                   className="show-password"
-                  onClick={toggleConfirmPasswordVisibility}
-                >
-                  <FontAwesomeIcon
-                    icon={showConfirmPassword ? faEyeSlash : faEye}
-                  />
+                  onClick={toggleConfirmPasswordVisibility}>
+                  <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
                 </button>
               </div>
-              {errors.confirmPassword && (
-                <p className="error-message">{errors.confirmPassword}</p>
-              )}
+              {errors.confirmPassword && <p className="error-message">{errors.confirmPassword}</p>}
             </div>
 
             {/* ACCEPT TERMS */}
@@ -280,12 +258,8 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
                 />
                 Đồng ý với Điều khoản dịch vụ
               </label>
-              {errors.acceptTerms && (
-                <p className="error-message">{errors.acceptTerms}</p>
-              )}
-              {errors.global && (
-                <p className="error-message">{errors.global}</p>
-              )}
+              {errors.acceptTerms && <p className="error-message">{errors.acceptTerms}</p>}
+              {errors.global && <p className="error-message">{errors.global}</p>}
             </div>
 
             <button
@@ -294,11 +268,7 @@ const RegisterModal = ({ closeModal, openLoginModal }) => {
               onClick={handleSubmit}
               disabled={isSubmitting} // Hiển thị trạng thái chờ
             >
-              {isSubmitting ? (
-                <FontAwesomeIcon icon={faSpinner} spin />
-              ) : (
-                "Đăng ký"
-              )}
+              {isSubmitting ? <FontAwesomeIcon icon={faSpinner} spin /> : "Đăng ký"}
             </button>
           </div>
         </form>

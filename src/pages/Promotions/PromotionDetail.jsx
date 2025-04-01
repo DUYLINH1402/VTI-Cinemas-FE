@@ -11,7 +11,6 @@ const PromotionDetail = () => {
   const [promotion, setPromotion] = useState(null);
   const [loading, setLoading] = useState(true);
   const [relatedPromotions, setRelatedPromotions] = useState([]);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -98,9 +97,7 @@ const PromotionDetail = () => {
       <div className="promotion-wrapper">
         <div className="promotion-detail">
           <h1 className="promotion-title">{promotion.title}</h1>
-          <div className="promotion-meta">
-            Ngày đăng tin: {promotion.startDate}
-          </div>
+          <div className="promotion-meta">Ngày đăng tin: {promotion.startDate}</div>
           {/* Hiển thị nội dung HTML từ Firebase */}
           <div className="promotion-content">
             <div dangerouslySetInnerHTML={{ __html: promotion.content }} />
@@ -120,8 +117,7 @@ const PromotionDetail = () => {
               <div
                 key={related.id}
                 className="related-card"
-                onClick={() => navigate(`/promotions/${related.slug}`)}
-              >
+                onClick={() => navigate(`/promotions/${related.slug}`)}>
                 <img src={related.thumbnail} alt={related.title} />
                 <h3>{related.title}</h3>
               </div>

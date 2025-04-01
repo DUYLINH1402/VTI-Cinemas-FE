@@ -2,6 +2,7 @@ import { logout } from "../../store/authSlice";
 import { toast } from "react-toastify";
 import { getDatabase, ref, set, update } from "firebase/database";
 import { removeAuthToken } from "../utils/authStorage";
+import { email } from "react-admin";
 
 export const handleLogout = (dispatch) => {
   removeAuthToken();
@@ -18,6 +19,7 @@ export const saveUserToDatabase = (user) => {
   const userRef = ref(db, `Account/${user.uid}`);
 
   update(userRef, {
+    email: user.email,
     displayName: user.displayName,
     avatar_url: user.photoURL,
     lastLoginAt: new Date().toISOString(),

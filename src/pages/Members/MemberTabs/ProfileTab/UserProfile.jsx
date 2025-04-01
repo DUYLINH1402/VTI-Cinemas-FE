@@ -1,9 +1,6 @@
 import "./UserProfile.modul.scss";
 import React, { useState, useEffect } from "react";
-import {
-  fetchAccountByEmail,
-  updateAccount,
-} from "../../../../services/dataService"; // Import các hàm API
+import { fetchAccountByEmail, updateAccount } from "../../../../services/dataService"; // Import các hàm API
 import { toast } from "react-toastify"; // Thư viện thông báo (toast)
 import ChangePasswordModal from "../../../../components/ChangePasswordModal/ChangePassword";
 import { Link } from "react-router-dom";
@@ -61,9 +58,7 @@ export const UserProfile = () => {
     try {
       // Loại bỏ các giá trị null/undefined trước khi gửi dữ liệu
       const sanitizedFormData = Object.fromEntries(
-        Object.entries(formData).filter(
-          ([_, value]) => value !== undefined && value !== null
-        )
+        Object.entries(formData).filter(([_, value]) => value !== undefined && value !== null)
       );
       // Kiểm tra dữ liệu formData
       if (!formData || Object.keys(formData).length === 0) {
@@ -76,7 +71,7 @@ export const UserProfile = () => {
       console.error("Lỗi khi cập nhật thông tin:", error.message);
       toast.error(`Cập nhật thất bại: ${error.message}`); // Hiển thị thông báo lỗi
     } finally {
-      setIsLoading(false); // 🔥 Ẩn loading sau khi hoàn tất
+      setIsLoading(false);
     }
   };
 
@@ -170,11 +165,7 @@ export const UserProfile = () => {
               </div>
               <div>
                 <label>Giới tính</label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                >
+                <select name="gender" value={formData.gender} onChange={handleInputChange}>
                   <option value="Nam">Nam</option>
                   <option value="Nữ">Nữ</option>
                 </select>
@@ -230,8 +221,7 @@ export const UserProfile = () => {
               onClick={handleSubmit}
               type="button"
               className="update-btn"
-              disabled={isLoading}
-            >
+              disabled={isLoading}>
               {isLoading ? <LoadingIcon size={10} /> : "Cập nhật"}
             </button>
           </form>

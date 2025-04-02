@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import support from "./../../../src/assets/icon/support.jpg";
 import top_scroll from "./../../../src/assets/icon/top_scroll.png";
 import logo from "./../../../src/assets/image/logo.png";
+import chatIcon from "./../../../src/assets/icon/chatIcon.svg"; // Biểu tượng cho Chatbox
+import zaloIcon from "./../../../src/assets/icon/zaloIcon.svg"; // Biểu tượng cho Zalo
+import facebook from "./../../../src/assets/icon/facebook.svg"; // Biểu tượng cho Messenger
 import "./header.scss";
 import { Outlet, Link, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,6 +21,7 @@ import { getAuthToken, removeAuthToken } from "../../utils/authStorage";
 import GuideModal from "../GuideModal/GuideModal";
 import { getAuth } from "firebase/auth";
 import MobileSidebar from "./MobileSidebar";
+import Chatbot from "../Chatbot/Chatbot";
 
 export const Header = () => {
   const token = getAuthToken();
@@ -32,6 +36,12 @@ export const Header = () => {
   const openForgotPasswordModal = () => setModalType("forgotPassword");
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const [loading, setLoading] = useState(false);
+
+  // State để quản lý hiển thị menu hỗ trợ
+  const [isSupportMenuOpen, setIsSupportMenuOpen] = useState(false);
+
+  // State để quản lý hiển thị Chatbot
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
   // STATE HIỂN THỊ TOGGLER CHO MOBILE
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -50,43 +60,38 @@ export const Header = () => {
 
   // Hàm xử lý tìm kiếm từ SearchBar
   const handleSearch = async (query) => {
-    // Xử lý khi từ khóa rỗng
     if (!query || query.trim() === "") {
-      dispatch(searchMovies([])); // Gửi từ khóa trống nếu không có nội dung
+      dispatch(searchMovies([]));
       return;
     }
-    dispatch(searchMovies(query.trim())); // Gửi từ khóa tìm kiếm
-
+    dispatch(searchMovies(query.trim()));
     try {
       const results = searchMovies(query.trim());
-      dispatch(setSearchResults(results)); // Cập nhật kết quả tìm kiếm
+      dispatch(setSearchResults(results));
     } catch (error) {
       console.error("Error in handleSearch:", error);
-      dispatch(setSearchResults([])); // Reset kết quả nếu có lỗi
+      dispatch(setSearchResults([]));
     }
   };
 
-  // useEffect để cập nhật thông tin người dùng mỗi khi đăng nhập/đăng xuất
   useEffect(() => {
     const fetchUserData = async () => {
       if (isLoggedIn) {
         setLoading(true);
         try {
           const authInstance = getAuth();
-          await authInstance.currentUser?.reload(); // Cập nhật dữ liệu mới nhất từ Firebase
+          await authInstance.currentUser?.reload();
           const updatedUser = authInstance.currentUser;
-          // Kiểm tra nếu updatedUser là null thì không làm gì cả
           if (!updatedUser) {
             console.warn("User is null after reload, retrying in 2 seconds...");
-            setTimeout(fetchUserData, 2000); // Thử lại sau 2 giây
+            setTimeout(fetchUserData, 2000);
             return;
           }
-          // Dispatch cập nhật Redux store với dữ liệu mới
           dispatch(
             setAuth({
               user: {
                 uid: updatedUser.uid,
-                email: updatedUser.email || "", // Tránh lỗi khi email bị undefined
+                email: updatedUser.email || "",
                 displayName: updatedUser.displayName || "Người dùng",
                 photoURL: updatedUser.photoURL || "",
               },
@@ -101,17 +106,13 @@ export const Header = () => {
       }
     };
     fetchUserData();
-  }, [isLoggedIn, dispatch]); // Chạy lại mỗi khi trạng thái đăng nhập thay đổi
+  }, [isLoggedIn, dispatch]);
 
   useEffect(() => {
-    // Hàm xử lý sự kiện cuộn
     const handleScroll = () => {
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
       if (scrollToTopBtn) {
-        if (
-          document.body.scrollTop > 150 ||
-          document.documentElement.scrollTop > 150
-        ) {
+        if (document.body.scrollTop > 150 || document.documentElement.scrollTop > 150) {
           scrollToTopBtn.style.display = "block";
         } else {
           scrollToTopBtn.style.display = "none";
@@ -119,10 +120,8 @@ export const Header = () => {
       }
     };
 
-    // Thêm sự kiện cuộn vào window
     window.addEventListener("scroll", handleScroll);
 
-    // Lấy nút và gắn sự kiện onclick
     const scrollToTopBtn = document.getElementById("scrollToTopBtn");
     if (scrollToTopBtn) {
       scrollToTopBtn.onclick = () => {
@@ -130,25 +129,25 @@ export const Header = () => {
       };
     }
 
-    // Cleanup sự kiện cuộn khi component unmount
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const onLogout = () => {
     removeAuthToken();
     handleLogout(dispatch);
-    navigate("/"); // Truyền dispatch vào handleLogout
+    navigate("/");
   };
+
   const handleMemberClick = (token, setModalType) => {
     if (token) {
-      // Nếu đã đăng nhập, chuyển đến trang /members
       navigate("/Members");
     } else {
-      // Nếu chưa đăng nhập, mở modal đăng nhập
       openLoginModal();
     }
   };
+
   const userMenuItems = [
     {
       key: "profile",
@@ -164,13 +163,24 @@ export const Header = () => {
     },
   ];
 
+  // Hàm xử lý khi nhấn vào các lựa chọn hỗ trợ
+  const handleSupportOptionClick = (option) => {
+    if (option === "chatbox") {
+      // Toggle hiển thị Chatbot
+      setIsChatbotOpen(!isChatbotOpen);
+    } else if (option === "zalo") {
+      window.open("https://zalo.me/0363433842", "_blank"); // Thay bằng link Zalo của bạn
+    } else if (option === "messenger") {
+      window.open("https://m.me/DuyLinhJP", "_blank"); // Thay bằng link Messenger của bạn
+    }
+    setIsSupportMenuOpen(false); // Đóng menu sau khi chọn
+  };
+
   return (
     <>
-      <div className="navbar ">
+      <div className="navbar">
         <div className="nav-content">
-          {/* Phần logo ở góc trái của header */}
-          <div className="header " id="header">
-            {/* Nút toggler menu cho mobile */}
+          <div className="header" id="header">
             <div>
               <button className="navbar-toggler">
                 <MobileSidebar />
@@ -181,69 +191,49 @@ export const Header = () => {
                 <img className="header-logo" src={logo} alt="logo" />
               </Link>
             </div>
-
-            {/* Navigation trung tâm */}
-            <div
-              className="header-center collapse navbar-collapse"
-              id="navbarNav"
-            >
+            <div className="header-center collapse navbar-collapse" id="navbarNav">
               <ul className="header__nav navbar-nav mx-auto">
                 <li className="nav-item">
                   <NavLink
                     to="/"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-link"
-                    }
-                    onClick={closeMenu}
-                  >
+                    className={({ isActive }) => (isActive ? "active" : "nav-link")}
+                    onClick={closeMenu}>
                     TRANG CHỦ
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/movies"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-link"
-                    }
-                    onClick={closeMenu}
-                  >
+                    className={({ isActive }) => (isActive ? "active" : "nav-link")}
+                    onClick={closeMenu}>
                     PHIM
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/promotions"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-link"
-                    }
-                    onClick={closeMenu}
-                  >
+                    className={({ isActive }) => (isActive ? "active" : "nav-link")}
+                    onClick={closeMenu}>
                     TIN TỨC
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/members"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-link"
-                    }
+                    className={({ isActive }) => (isActive ? "active" : "nav-link")}
                     onClick={(e) => {
-                      e.preventDefault(); // Ngăn hành vi mặc định của thẻ <a>
+                      e.preventDefault();
                       handleMemberClick(token, setModalType);
                       closeMenu();
-                    }}
-                  >
+                    }}>
                     THÀNH VIÊN
                   </NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink
                     to="/contact"
-                    className={({ isActive }) =>
-                      isActive ? "active" : "nav-link"
-                    }
-                    onClick={closeMenu}
-                  >
+                    className={({ isActive }) => (isActive ? "active" : "nav-link")}
+                    onClick={closeMenu}>
                     LIÊN HỆ
                   </NavLink>
                 </li>
@@ -255,36 +245,20 @@ export const Header = () => {
                 placeholder="Tìm kiếm phim, thể loại, diễn viên... "
               />
             </div>
-            {/* Phần login hoặc thông tin người dùng ở góc phải */}
             <div className="header-right">
               <div className="login-actions">
                 {isLoggedIn && user ? (
-                  // Nếu người dùng đã đăng nhập, hiển thị avatar với Dropdown
                   <Dropdown
                     menu={{ items: userMenuItems }}
                     trigger={["click"]}
-                    placement="bottomRight"
-                  >
-                    <div
-                      className="user-info"
-                      onClick={(e) => e.preventDefault()}
-                    >
-                      <span className="user-name">
-                        {user.fullname || user.displayName}
-                      </span>
-                      <Avatar
-                        src={user.avatar_url || user.photoURL}
-                        alt="User Avatar"
-                      />
+                    placement="bottomRight">
+                    <div className="user-info" onClick={(e) => e.preventDefault()}>
+                      <span className="user-name">{user.fullname || user.displayName}</span>
+                      <Avatar src={user.avatar_url || user.photoURL} alt="User Avatar" />
                     </div>
                   </Dropdown>
                 ) : (
-                  // Nếu người dùng chưa đăng nhập, hiển thị nút Đăng nhập
-                  <Link
-                    to="#!"
-                    className="btn action-btn btn-primary"
-                    onClick={openLoginModal}
-                  >
+                  <Link to="#!" className="btn action-btn btn-primary" onClick={openLoginModal}>
                     Đăng nhập
                   </Link>
                 )}
@@ -297,16 +271,10 @@ export const Header = () => {
                   />
                 )}
                 {modalType === "register" && (
-                  <RegisterModal
-                    closeModal={closeModal}
-                    openLoginModal={openLoginModal}
-                  />
+                  <RegisterModal closeModal={closeModal} openLoginModal={openLoginModal} />
                 )}
                 {modalType === "forgotPassword" && (
-                  <ForgotPasswordModal
-                    closeModal={closeModal}
-                    openLoginModal={openLoginModal}
-                  />
+                  <ForgotPasswordModal closeModal={closeModal} openLoginModal={openLoginModal} />
                 )}
               </div>
             </div>
@@ -314,8 +282,35 @@ export const Header = () => {
         </div>
       </div>
 
+      {/* Hiển thị Chatbot với class active dựa trên state isChatbotOpen */}
+      <div className={`chatbot-wrapper ${isChatbotOpen ? "active" : ""}`}>
+        <Chatbot onClose={() => setIsChatbotOpen(false)} />
+      </div>
       <div className="support__icon">
-        <img src={support} alt="Support icon" />
+        <div className="support-wrapper">
+          <img
+            src={support}
+            alt="Support icon"
+            onClick={() => setIsSupportMenuOpen(!isSupportMenuOpen)}
+          />
+          {isSupportMenuOpen && (
+            <div className="support-options">
+              <div
+                className="support-option chatbox"
+                onClick={() => handleSupportOptionClick("chatbox")}>
+                <img src={chatIcon} alt="Chatbox" />
+              </div>
+              <div className="support-option zalo" onClick={() => handleSupportOptionClick("zalo")}>
+                <img src={zaloIcon} alt="Zalo" />
+              </div>
+              <div
+                className="support-option messenger"
+                onClick={() => handleSupportOptionClick("messenger")}>
+                <img src={facebook} alt="Messenger" />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="top__scroll">

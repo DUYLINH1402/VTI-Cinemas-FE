@@ -131,27 +131,90 @@
   }
 }
 
+// SUPPORT ICON
 .support__icon {
   position: fixed;
-  bottom: 4px;
-  right: 10px;
+  bottom: 20px;
+  right: 20px;
   z-index: 1000;
-  img {
-    width: 40px;
-    border-radius: 50%;
-  }
-  &:hover {
-    cursor: pointer;
+  .support-wrapper {
+    position: relative;
+
+    img {
+      width: 40px;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    .support-options {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .support-option {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: scale(0);
+
+        img {
+          width: 40px;
+        }
+
+        &:hover {
+          transform: scale(1.2);
+        }
+
+        &.chatbox {
+          animation: expand 0.3s ease forwards;
+          transform-origin: center;
+          bottom: 60px;
+          right: -20;
+        }
+
+        &.zalo {
+          animation: expand 0.3s ease forwards 0.1s;
+          transform-origin: center;
+          bottom: 35px;
+          right: 45px;
+        }
+
+        &.messenger {
+          animation: expand 0.3s ease forwards 0.2s;
+          transform-origin: center;
+          bottom: -15px;
+          right: 60px;
+        }
+      }
+    }
   }
 }
+
+// CROLL TOP ICON
 .top__scroll {
   position: fixed;
-  bottom: 50px;
-  right: 10px;
+  bottom: 145px;
+  right: 20px;
   z-index: 1000;
 
   img {
     width: 40px;
+    border: 1px solid #b0b1cf;
     border-radius: 50%;
   }
   &:hover {
@@ -161,6 +224,40 @@
 .ant-dropdown {
   position: fixed; // Đảm bảo không bị ảnh hưởng bởi scroll
   z-index: 1050;
+}
+// Hiệu ứng mở rộng khi các biểu tượng xuất hiện
+@keyframes expand {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Chatbot wrapper để kiểm soát hiển thị/ẩn
+.chatbot-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 45px;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  // Đảm bảo chatbot-container bên trong không bị ảnh hưởng
+  .chatbot-container {
+    margin: 0;
+  }
 }
 
 // REPONSIVE

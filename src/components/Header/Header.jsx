@@ -171,7 +171,7 @@ export const Header = () => {
     } else if (option === "zalo") {
       window.open("https://zalo.me/0363433842", "_blank"); // Thay bằng link Zalo của bạn
     } else if (option === "messenger") {
-      window.open("https://m.me/DuyLinhJP", "_blank"); // Thay bằng link Messenger của bạn
+      window.open("https://m.me/61574673405657", "_blank"); // Thay bằng link Messenger của bạn
     }
     setIsSupportMenuOpen(false); // Đóng menu sau khi chọn
   };

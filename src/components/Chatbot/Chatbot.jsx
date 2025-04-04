@@ -119,6 +119,7 @@ const Chatbot = ({ onClose }) => {
       )}
       {/* Câu hỏi nhanh */}
       <div className="chatbot-quick-replies">
+        <button onClick={() => handleQuickReply("Đang chiếu")}>Đang chiếu</button>
         <button onClick={() => handleQuickReply("Đặt vé")}>Đặt vé</button>
         <button onClick={() => handleQuickReply("Khuyến mãi")}>Khuyến mãi</button>
         <button onClick={() => handleQuickReply("Thanh toán")}>Thanh toán</button>

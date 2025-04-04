@@ -184,14 +184,14 @@
           animation: expand 0.3s ease forwards;
           transform-origin: center;
           bottom: 60px;
-          right: -20;
+          right: -10px;
         }
 
         &.zalo {
           animation: expand 0.3s ease forwards 0.1s;
           transform-origin: center;
           bottom: 35px;
-          right: 45px;
+          right: 38px;
         }
 
         &.messenger {
@@ -242,7 +242,7 @@
   position: fixed;
   bottom: 20px;
   right: 45px;
-  z-index: 999;
+  z-index: 100000;
   opacity: 0;
   visibility: hidden;
   transform: translateY(20px);
@@ -278,7 +278,7 @@
     }
   }
   .top__scroll {
-    bottom: 70px;
+    bottom: 145px;
   }
   .support__icon {
     bottom: 25px;
@@ -307,9 +307,7 @@
           display: none;
         }
       }
-      .top__scroll {
-        bottom: 70px;
-      }
+
       .support__icon {
         bottom: 25px;
       }

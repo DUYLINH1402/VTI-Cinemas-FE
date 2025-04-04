@@ -265,7 +265,7 @@ const Sidebar = () => {
           </ListItem>
 
           {/* Quản lý thanh toán */}
-          <ListItem button component={Link} to="/admin/payments">
+          <ListItem button component={Link} to="#" disabled>
             <ListItemIcon>
               <CreditCard />
             </ListItemIcon>
@@ -273,7 +273,7 @@ const Sidebar = () => {
           </ListItem>
 
           {/* Quản lý hỗ trợ */}
-          <ListItem button component={Link} to="/admin/support">
+          <ListItem button component={Link} to="#" disabled>
             <ListItemIcon>
               <Support />
             </ListItemIcon>

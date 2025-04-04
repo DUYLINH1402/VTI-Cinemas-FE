@@ -200,20 +200,20 @@
         }
 
         p {
-          font-size: $mobase-font-size-xl;
+          font-size: $mobase-font-size-1xl;
         }
 
         ul li {
-          font-size: $mobase-font-size-xl;
+          font-size: $mobase-font-size-1xl;
           padding-left: 20px;
 
           &::before {
-            font-size: $mobase-font-size-xl;
+            font-size: $mobase-font-size-1xl;
           }
         }
 
         .cta-button {
-          font-size: $mobase-font-size-xl;
+          font-size: $mobase-font-size-1xl;
           padding: 8px 15px;
         }
       }
@@ -222,7 +222,7 @@
         max-width: 90%;
 
         .banner-image-text {
-          font-size: $mobase-font-size-xl;
+          font-size: $mobase-font-size-1xl;
         }
       }
     }

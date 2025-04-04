@@ -5,8 +5,8 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: fixed;
-  bottom: 15px;
-  right: 20px;
+  bottom: -5px;
+  right: -25px;
   font-family: "Arial", sans-serif;
   overflow: hidden;
   border: none;
@@ -170,13 +170,13 @@
   // Quick Rep
   .chatbot-quick-replies {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     padding: 10px;
     background-color: #f9f9f9;
     border-top: 1px solid #e0e0e0;
 
     button {
-      padding: 6px 12px;
+      padding: 6px;
       background-color: #007bff;
       color: #ffffff;
       border: none;

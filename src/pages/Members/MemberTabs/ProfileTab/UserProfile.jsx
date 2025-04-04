@@ -1,12 +1,13 @@
 import "./UserProfile.modul.scss";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { fetchAccountByEmail, updateAccount } from "../../../../services/dataService"; // Import các hàm API
 import { toast } from "react-toastify"; // Thư viện thông báo (toast)
 import ChangePasswordModal from "../../../../components/ChangePasswordModal/ChangePassword";
 import { Link } from "react-router-dom";
 import { closeModal } from "../../../../utils/handleAction";
 import LoadingIcon from "../../../../components/LoadingIcon";
-// import { uploadImageToCloudinary } from "../../../../services/cloudinaryService"; // Hàm upload ảnh lên Cloudinary
+import { uploadImageAvatarToCloudinary } from "../../../../services/cloudinaryService";
+import { getAuth, updateProfile } from "firebase/auth";
 
 // Component UserProfile để hiển thị và cập nhật thông tin cá nhân
 export const UserProfile = () => {
@@ -15,6 +16,8 @@ export const UserProfile = () => {
   const email = user?.email || ""; // Lấy email từ user hoặc trả về chuỗi rỗng nếu không có
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null); // State để lưu file ảnh tạm thời
+  const fileInputRef = useRef(null); // Thêm ref để reset input file
 
   // State chứa dữ liệu form để hiển thị và chỉnh sửa
   const [formData, setFormData] = useState({
@@ -29,6 +32,74 @@ export const UserProfile = () => {
     address: user.address,
     avatar_url: user.avatar_url || user.photoURL, // URL ảnh mặc định nếu không có
   });
+
+  // Xử lý khi chọn file ảnh
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file); // Lưu file ảnh vào state
+      const previewUrl = URL.createObjectURL(file); // Tạo URL tạm để hiển thị trước
+      setFormData((prev) => ({ ...prev, avatar_url: previewUrl }));
+    }
+  };
+
+  // Xử lý khi nhấn nút "Lưu ảnh"
+  const handleUploadImage = async () => {
+    if (!selectedImage) {
+      toast.error("Vui lòng chọn ảnh trước khi lưu!");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const imageUrl = await uploadImageAvatarToCloudinary(selectedImage); // Gọi hàm upload
+      if (imageUrl) {
+        // Cập nhật formData để hiển thị ảnh mới trên giao diện
+        setFormData((prev) => ({ ...prev, avatar_url: imageUrl }));
+
+        // Gửi email và avatar_url lên server
+        const avatarData = {
+          email: formData.email, // Thêm email để định danh tài khoản
+          avatar_url: imageUrl,
+        };
+        await updateAccount(avatarData); // Gọi API với dữ liệu
+
+        // Cập nhật photoURL trong Firebase Auth
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+          await updateProfile(currentUser, {
+            photoURL: imageUrl,
+          });
+
+          // Cập nhật localStorage với photoURL mới
+          const updatedUser = { ...JSON.parse(localStorage.getItem("user")), photoURL: imageUrl };
+          localStorage.setItem("user", JSON.stringify(updatedUser));
+        } else {
+          throw new Error("Không tìm thấy người dùng hiện tại!");
+        }
+
+        // Cập nhật localStorage với avatar_url mới
+        const updatedUser = { ...JSON.parse(localStorage.getItem("user")), avatar_url: imageUrl };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+        // Reset selectedImage và input file sau khi upload thành công
+        setSelectedImage(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ""; // Reset giá trị input file
+        }
+
+        toast.success("Cập nhật ảnh thành công!");
+      } else {
+        throw new Error("Upload ảnh thất bại");
+      }
+    } catch (error) {
+      console.error("Lỗi khi upload ảnh:", error);
+      toast.error("Tải ảnh thất bại!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const fetchDataAccountByEmail = async () => {
@@ -98,14 +169,14 @@ export const UserProfile = () => {
                   type="file"
                   id="avatar"
                   style={{ display: "none" }}
-                  // onChange={handleImageChange} // Xử lý khi tải ảnh
+                  onChange={handleImageChange} // Xử lý khi tải ảnh
                 />
                 <button
                   type="button"
                   className="save-btn "
-                  // onClick={handleUploadImage} // Thông báo tạm thời
-                >
-                  Lưu ảnh
+                  onClick={handleUploadImage} // Kích hoạt khi nhấn "Lưu ảnh"
+                  disabled={isLoading}>
+                  {isLoading ? <LoadingIcon size={10} /> : "Lưu ảnh"}
                 </button>
               </div>
             </div>

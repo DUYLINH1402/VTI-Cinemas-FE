@@ -280,7 +280,7 @@ const EventList = () => {
             type="primary"
             icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
-            // disabled={record.is_protected} // Vô hiệu hóa nút nếu is_protected là true
+            disabled={record.is_protected} // Vô hiệu hóa nút nếu is_protected là true
           ></Button>
           <Button
             title={record.is_protected ? "Không thể xóa dữ liệu mẫu" : "Xóa sự kiện"}

@@ -13,11 +13,7 @@ export const registerUser = createAsyncThunk(
   // Hàm async để đăng ký người dùng với email và mật khẩu
   async ({ email, password, formData }, { rejectWithValue }) => {
     try {
-      const response = await registerWithEmailAndPassword(
-        email,
-        password,
-        formData
-      );
+      const response = await registerWithEmailAndPassword(email, password, formData);
 
       return response.user; // Trả về thông tin người dùng khi thành công
     } catch (error) {
@@ -51,13 +47,10 @@ export const googleLogin = createAsyncThunk("auth/googleLogin", async () => {
 });
 
 // Async action đăng nhập bằng Facebook
-export const facebookLogin = createAsyncThunk(
-  "auth/facebookLogin",
-  async () => {
-    const response = await loginWithFacebook();
-    return response; // Trả về thông tin đăng nhập qua Facebook
-  }
-);
+export const facebookLogin = createAsyncThunk("auth/facebookLogin", async () => {
+  const response = await loginWithFacebook();
+  return response; // Trả về thông tin đăng nhập qua Facebook
+});
 
 // Tạo slice cho auth để quản lý trạng thái đăng nhập
 const authSlice = createSlice({
@@ -99,15 +92,14 @@ const authSlice = createSlice({
     builder
       // Khi đăng nhập bằng email/password thành công
       .addCase(loginUser.fulfilled, (state, action) => {
-        const { uid, email, displayName, photoURL, accessToken } =
-          action.payload;
+        const { uid, email, displayName, photoURL, accessToken } = action.payload;
         state.user = {
           uid,
           email,
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1743774512/user-profile-icon-illustration-vector_oowptl.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
@@ -120,15 +112,14 @@ const authSlice = createSlice({
       })
       // Khi đăng nhập bằng Google thành công
       .addCase(googleLogin.fulfilled, (state, action) => {
-        const { uid, email, displayName, photoURL, accessToken } =
-          action.payload;
+        const { uid, email, displayName, photoURL, accessToken } = action.payload;
         state.user = {
           uid,
           email,
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1743774512/user-profile-icon-illustration-vector_oowptl.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;
@@ -141,15 +132,14 @@ const authSlice = createSlice({
       })
       // Khi đăng nhập bằng Facebook thành công
       .addCase(facebookLogin.fulfilled, (state, action) => {
-        const { uid, email, displayName, photoURL, accessToken } =
-          action.payload;
+        const { uid, email, displayName, photoURL, accessToken } = action.payload;
         state.user = {
           uid,
           email,
           displayName,
           imageUrl:
             photoURL ||
-            "https://res.cloudinary.com/ddia5yfia/image/upload/v1740322159/user-avatar-happy_jukint.png", // URL ảnh mặc định nếu không có ảnh từ response
+            "https://res.cloudinary.com/ddia5yfia/image/upload/v1743774512/user-profile-icon-illustration-vector_oowptl.jpg", // URL ảnh mặc định nếu không có ảnh từ response
         };
         state.token = accessToken;
         state.isLoggedIn = true;

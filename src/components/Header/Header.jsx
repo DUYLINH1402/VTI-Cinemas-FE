@@ -169,9 +169,9 @@ export const Header = () => {
       // Toggle hiển thị Chatbot
       setIsChatbotOpen(!isChatbotOpen);
     } else if (option === "zalo") {
-      window.open("https://zalo.me/0363433842", "_blank"); // Thay bằng link Zalo của bạn
+      window.open("https://zalo.me/0363433842", "_blank");
     } else if (option === "messenger") {
-      window.open("https://m.me/61574673405657", "_blank"); // Thay bằng link Messenger của bạn
+      window.open("https://m.me/61574673405657", "_blank");
     }
     setIsSupportMenuOpen(false); // Đóng menu sau khi chọn
   };

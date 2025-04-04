@@ -226,11 +226,11 @@ const LoginModal = ({ closeModal, openRegisterModal, openForgotPasswordModal }) 
             <form onSubmit={handleSubmit} noValidate>
               <div className="input-container">
                 <div className="input-error-wrapper">
-                  <label>Email hoặc số điện thoại</label>
+                  <label>Nhập Email</label>
                   <input
                     id="email"
                     type="text"
-                    placeholder="Nhập email hoặc số điện thoại"
+                    placeholder="Nhập email"
                     value={emailOrPhone}
                     onChange={(e) => setEmailOrPhone(e.target.value)}
                     onBlur={handleEmailOrPhoneBlur} // Kiểm tra khi người dùng rời khỏi trường

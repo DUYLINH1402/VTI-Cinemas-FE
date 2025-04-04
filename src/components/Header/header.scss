@@ -46,6 +46,9 @@
         @include respond-to(lg) {
           display: none;
         }
+        @include respond-to(sm) {
+          display: inline-block;
+        }
       }
       .header-center {
         position: relative;
@@ -296,6 +299,9 @@
         }
         .header-left {
           .header-logo {
+            margin-left: 10px;
+            display: block;
+            text-align: left;
             width: 120px;
             max-height: min-content;
           }

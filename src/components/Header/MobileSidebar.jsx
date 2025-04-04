@@ -48,17 +48,17 @@ const MobileSidebar = () => {
         <div className="sidebar-menu">
           <ul className="header__nav navbar-nav mx-auto">
             <li className="sidebar-item">
-              <NavLink to="/" onClick={() => handleNavigation("/")}>
+              <NavLink className={({ isActive }) => (isActive ? "active-link" : "")} to="/" onClick={() => handleNavigation("/")}>
                 TRANG CHỦ
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink to="/movies" onClick={() => handleNavigation("/movies")}>
+              <NavLink className={({ isActive }) => (isActive ? "active-link" : "")} to="/movies" onClick={() => handleNavigation("/movies")}>
                 PHIM
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink
+              <NavLink className={({ isActive }) => (isActive ? "active-link" : "")}
                 to="/promotions"
                 onClick={() => handleNavigation("/promotions")}
               >
@@ -66,7 +66,7 @@ const MobileSidebar = () => {
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink
+              <NavLink className={({ isActive }) => (isActive ? "active-link" : "")}
                 to="/members"
                 onClick={() => handleNavigation("/members")}
               >
@@ -74,7 +74,7 @@ const MobileSidebar = () => {
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <NavLink
+              <NavLink className={({ isActive }) => (isActive ? "active-link" : "")}
                 to="/contact"
                 onClick={() => handleNavigation("/contact")}
               >

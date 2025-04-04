@@ -42,6 +42,10 @@
     font-size: 1.6rem;
     display: block;
     width: 100%;
+    &.active-link {
+      color: #007bff; // Màu xanh khi active, bạn có thể thay đổi
+      font-weight: bold; // In đậm
+    }
   }
 
   .menu-btn {

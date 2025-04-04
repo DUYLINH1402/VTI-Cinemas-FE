@@ -51,10 +51,11 @@ def generate_sold_seats():
         seats[seat] = {"status": "sold"}
     return seats
 
+# --------------------------------------SỬA Ở ĐÂY---------------------------------------------------
 # Tạo dữ liệu showtimes
 showtimes_data = {"Showtimes": {}}
-start_date = datetime(2025, 4, 1)
-days = [start_date + timedelta(days=i) for i in range(4)]
+start_date = datetime(2025, 4, 4)       
+days = [start_date + timedelta(days=i) for i in range(7)]
 
 for day in days:
     date = day.strftime("%Y-%m-%d")

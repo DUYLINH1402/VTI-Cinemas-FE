@@ -13,7 +13,8 @@
 
 // Style cho CardMovie (giữ nguyên)
 .card__movie {
-  max-width: 240px;
+  max-width: 280px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -50,6 +51,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 32px;
+    line-height: 1.3;
   }
 
   .title-movie {
@@ -224,6 +226,8 @@
 // RESPONSIVE
 @include respond-to(xs) {
   .card__movie {
+    max-width: 200px;
+
     display: flex;
     padding: 10px;
     justify-content: space-evenly;

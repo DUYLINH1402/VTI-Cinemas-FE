@@ -2,7 +2,7 @@
 
 .movie-ticket-banner {
   background-color: $background-green;
-  padding: 15px 40px;
+  padding: 35px 40px;
   border-radius: $border-radius-large;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,7 @@
 
   // Phần nội dung chính (text + image)
   .banner-content {
+    padding-top: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -138,9 +139,10 @@
   // Responsive cho Mobile (< 768px)
   @media (max-width: 768px) {
     padding: 10px 20px;
-
+    // max-height: 500px;
     .banner-content {
-      flex-direction: column; // Chuyển thành layout dọc
+      display: block;
+      // flex-direction: column; // Chuyển thành layout dọc
       align-items: center;
       text-align: center;
 

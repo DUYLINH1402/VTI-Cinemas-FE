@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  getDatabase,
-  ref,
-  query,
-  orderByChild,
-  equalTo,
-  onValue,
-  get,
-} from "firebase/database";
+import { getDatabase, ref, query, orderByChild, equalTo, onValue, get } from "firebase/database";
 import { fetchMoviesByIdFromFirebase } from "../../../services/firebase/firebaseMovie.js";
 import { checkUserPurchase } from "../../../services/service/serviceMovie.js";
 import comment_icon from "../../../assets/icon/comment_icon.svg";
@@ -114,9 +106,9 @@ const Comments = ({ movieId }) => {
         !containerRef.current.contains(event.target) // Nếu click ra ngoài container
       ) {
         // Kiểm tra nếu event.target có thuộc về bất kỳ subcomments nào không
-        const isClickOnSubcomments = Object.values(
-          subcommentsRefs.current
-        ).some((subRef) => subRef && subRef.contains(event.target));
+        const isClickOnSubcomments = Object.values(subcommentsRefs.current).some(
+          (subRef) => subRef && subRef.contains(event.target)
+        );
 
         if (!isClickOnSubcomments) {
           setIsExpanded(false);
@@ -229,9 +221,7 @@ const Comments = ({ movieId }) => {
           const data = snapshot.val();
           // Kiểm tra từng bình luận để chắc chắn đúng email và movieId
           const hasRatedAccurately = Object.values(data).some(
-            (comment) =>
-              comment.email === userInfo.email &&
-              comment.movieId === String(movieId)
+            (comment) => comment.email === userInfo.email && comment.movieId === String(movieId)
           );
 
           if (hasRatedAccurately) {
@@ -264,10 +254,7 @@ const Comments = ({ movieId }) => {
       let hasOrder = false;
       snapshot.forEach((order) => {
         const data = order.val();
-        if (
-          data.movieDetails?.movie_id === movieId &&
-          data.status === "success"
-        ) {
+        if (data.movieDetails?.movie_id === movieId && data.status === "success") {
           hasOrder = true;
         }
       });
@@ -335,9 +322,7 @@ const Comments = ({ movieId }) => {
           fetchedComments.forEach((comment) => {
             uniqueEmails.add(comment.email); // Email của người comment chính
             if (comment.subcomments) {
-              Object.values(comment.subcomments).forEach((sub) =>
-                uniqueEmails.add(sub.email)
-              );
+              Object.values(comment.subcomments).forEach((sub) => uniqueEmails.add(sub.email));
             }
           });
 
@@ -352,16 +337,13 @@ const Comments = ({ movieId }) => {
             ...comment,
             purchased: purchaseStatuses[comment.email] || false, // Kiểm tra trạng thái bình luận chính
             subcomments: comment.subcomments
-              ? Object.entries(comment.subcomments).reduce(
-                  (acc, [subId, sub]) => {
-                    acc[subId] = {
-                      ...sub,
-                      purchased: purchaseStatuses[sub.email] || false, // Kiểm tra trạng thái subcomment
-                    };
-                    return acc;
-                  },
-                  {}
-                )
+              ? Object.entries(comment.subcomments).reduce((acc, [subId, sub]) => {
+                  acc[subId] = {
+                    ...sub,
+                    purchased: purchaseStatuses[sub.email] || false, // Kiểm tra trạng thái subcomment
+                  };
+                  return acc;
+                }, {})
               : null,
           }));
           setComments(updatedComments);
@@ -384,9 +366,7 @@ const Comments = ({ movieId }) => {
       {/* Nếu người dùng đã gửi đánh giá */}
       {hasRated && <p className="info">Bạn đã gửi đánh giá cho phim này!</p>}
       {/* Nếu người dùng không có quyền bình luận */}
-      {!canComment && !hasRated && (
-        <p className="info">Bạn cần mua vé để gửi đánh giá phim!</p>
-      )}
+      {!canComment && !hasRated && <p className="info">Bạn cần mua vé để gửi đánh giá phim!</p>}
       <div className="comments-section" ref={containerRef}>
         {/* Chỉ hiển thị phần đánh giá và bình luận nếu có quyền và chưa gửi */}
         {canComment && !hasRated && (
@@ -413,14 +393,12 @@ const Comments = ({ movieId }) => {
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               maxLength={maxCharacters}
-              onClick={handleTextareaClick}
-            ></textarea>
+              onClick={handleTextareaClick}></textarea>
             <CSSTransition
               in={isExpanded} // Kiểm soát hiển thị theo trạng thái mở rộng
               timeout={500} // Thời gian hiệu ứng
               classNames="comments-expand"
-              unmountOnExit
-            >
+              unmountOnExit>
               <div className="comments-actions-wrapper">
                 <div className="comment-actions" ref={actionsRef}>
                   {/* Nút tải ảnh */}
@@ -438,10 +416,7 @@ const Comments = ({ movieId }) => {
                     {previewImage && (
                       <div className="image-preview">
                         <LazyImage src={previewImage} alt="Preview" />
-                        <button
-                          className="remove-image-btn"
-                          onClick={handleRemoveImage}
-                        >
+                        <button className="remove-image-btn" onClick={handleRemoveImage}>
                           <FontAwesomeIcon icon={faX} />
                         </button>
                       </div>
@@ -474,13 +449,8 @@ const Comments = ({ movieId }) => {
                           });
                         }
                       }}
-                      disabled={isSubmitting || hasRated || !canComment}
-                    >
-                      {isSubmitting ? (
-                        <LoadingIcon size="1.2rem" color="white" />
-                      ) : (
-                        "Gửi"
-                      )}
+                      disabled={isSubmitting || hasRated || !canComment}>
+                      {isSubmitting ? <LoadingIcon size="1.2rem" color="white" /> : "Gửi"}
                     </button>
                   </div>
                 </div>
@@ -521,33 +491,24 @@ const Comments = ({ movieId }) => {
                     />
                     <div className="user-info">
                       <p className="username">{comment.username}</p>
-                      <p className="timestamp">
-                        {formatDate(comment.timestamp)}
-                      </p>
+                      <p className="timestamp">{formatDate(comment.timestamp)}</p>
                     </div>
                     {/* Hiển thị dòng "Đã mua vé" nếu user đã mua */}
-                    {comment.purchased && (
-                      <span className="verified-badge">Đã xem phim</span>
-                    )}
+                    {comment.purchased && <span className="verified-badge">Đã xem phim</span>}
                   </div>
                   {userInfo?.email === comment.email && (
                     <div>
                       {/* Nút mở menu */}
-                      <IconButton
-                        onClick={(event) => handleMenuOpen(event, comment.id)}
-                      >
+                      <IconButton onClick={(event) => handleMenuOpen(event, comment.id)}>
                         <MoreVertIcon />
                       </IconButton>
 
                       {/* Dropdown Menu */}
                       <Menu
                         anchorEl={anchorEl}
-                        open={
-                          Boolean(anchorEl) && selectedCommentId === comment.id
-                        }
+                        open={Boolean(anchorEl) && selectedCommentId === comment.id}
                         onClose={handleMenuClose}
-                        className="comment-dropdown"
-                      >
+                        className="comment-dropdown">
                         {/* SỬA COMMENT */}
                         <MenuItem
                           onClick={() => {
@@ -556,8 +517,7 @@ const Comments = ({ movieId }) => {
                             setEditCommentImage(comment.image);
                             handleMenuClose();
                           }}
-                          className="comment-dropdown-item edit"
-                        >
+                          className="comment-dropdown-item edit">
                           <EditIcon className="menu-icon edit-icon" />
                           Sửa
                         </MenuItem>
@@ -568,8 +528,7 @@ const Comments = ({ movieId }) => {
                             showDeleteModal(comment.id); // Chỉ truyền `comment.id`, không cần `subcommentId`
                             handleMenuClose();
                           }}
-                          className="comment-dropdown-item delete"
-                        >
+                          className="comment-dropdown-item delete">
                           <DeleteIcon className="menu-icon delete-icon" />
                           Xóa
                         </MenuItem>
@@ -617,21 +576,15 @@ const Comments = ({ movieId }) => {
                               setComments
                             );
                             setEditingCommentId(null);
-                          }}
-                        >
-                          {isEditingComment ? (
-                            <LoadingIcon size="1.2rem" color="white" />
-                          ) : (
-                            "Lưu"
-                          )}
+                          }}>
+                          {isEditingComment ? <LoadingIcon size="1.2rem" color="white" /> : "Lưu"}
                         </button>
 
                         <button
                           className="btn-actions btn-cancel"
                           onClick={() => {
                             setEditingCommentId(null);
-                          }}
-                        >
+                          }}>
                           Hủy
                         </button>
                       </div>
@@ -647,8 +600,7 @@ const Comments = ({ movieId }) => {
                         />
                         <button
                           className="remove-image-btn"
-                          onClick={() => handleRemoveImage(null)}
-                        >
+                          onClick={() => handleRemoveImage(null)}>
                           <FontAwesomeIcon icon={faX} />
                         </button>
                       </div>
@@ -684,16 +636,9 @@ const Comments = ({ movieId }) => {
 
                 <div className="actions">
                   <span className="comment-count">
-                    <img
-                      src={comment_icon}
-                      alt=""
-                      className="actions_icon comment-icon"
-                    />
+                    <img src={comment_icon} alt="" className="actions_icon comment-icon" />
                     {/* Nút ẩn/hiện bình luận */}
-                    <span
-                      onClick={() => toggleSubcomments(comment.id)}
-                      className="toggle-button"
-                    >
+                    <span onClick={() => toggleSubcomments(comment.id)} className="toggle-button">
                       {visibleSubcomments[comment.id]
                         ? "Ẩn bình luận"
                         : `${comment.commentsCount} Bình luận`}
@@ -702,21 +647,14 @@ const Comments = ({ movieId }) => {
 
                   <span
                     className={`like-button ${
-                      comment.likedUsers?.includes(userInfo?.email)
-                        ? "liked"
-                        : ""
+                      comment.likedUsers?.includes(userInfo?.email) ? "liked" : ""
                     } ${!userInfo ? "disabled" : ""}`}
                     onClick={() => handleLikeComment(comment.id)}
                     style={{
                       cursor: userInfo ? "pointer" : "not-allowed",
-                    }}
-                  >
+                    }}>
                     <img
-                      src={
-                        comment.likedUsers?.includes(userInfo?.email)
-                          ? liked_icon
-                          : unlike_icon
-                      }
+                      src={comment.likedUsers?.includes(userInfo?.email) ? liked_icon : unlike_icon}
                       alt="Like icon"
                       // className="actions_icon"
                     />
@@ -727,205 +665,170 @@ const Comments = ({ movieId }) => {
                   in={!!visibleSubcomments[comment.id]} // Chỉ mở khi trạng thái của comment.id là true
                   timeout={1000}
                   classNames="subcomments"
-                  unmountOnExit
-                >
+                  unmountOnExit>
                   {/* Hiển thị danh sách subcomments */}
                   <div
                     ref={(el) => {
                       subcommentsRefs.current[comment.id] = el;
                     }} // Gán ref cho từng bình luận
-                    className="subcomments-container"
-                  >
+                    className="subcomments-container">
                     <div
-                      className={`subcomments ${
-                        visibleSubcomments[comment.id] ? "visible" : ""
-                      }`}
-                    >
+                      className={`subcomments ${visibleSubcomments[comment.id] ? "visible" : ""}`}>
                       {comment.subcomments &&
-                        Object.entries(comment.subcomments).map(
-                          ([subcommentId, sub]) => (
-                            <div key={subcommentId} className="subcomment">
-                              <div className="comment-header">
-                                <div>
-                                  <LazyImage
-                                    src={sub.avatar}
-                                    alt={sub.username}
-                                    width="40px"
-                                    height="40px"
-                                    className="user-avatar"
-                                  />
-                                </div>
-                                <div>
-                                  <div className="user-info">
-                                    <p className="username">{sub.username}</p>
-                                    <p className="timestamp">
-                                      {formatDate(sub.timestamp)}
-                                    </p>
-                                  </div>
-                                </div>
-                                {/* Hiển thị "Đã xem phim" nếu subcomment của người đã mua vé */}
-                                {sub.purchased && (
-                                  <span className="verified-badge">
-                                    Đã xem phim
-                                  </span>
-                                )}
+                        Object.entries(comment.subcomments).map(([subcommentId, sub]) => (
+                          <div key={subcommentId} className="subcomment">
+                            <div className="comment-header">
+                              <div>
+                                <LazyImage
+                                  src={sub.avatar}
+                                  alt={sub.username}
+                                  width="40px"
+                                  height="40px"
+                                  className="user-avatar"
+                                />
                               </div>
-                              <div className="content-subcomment">
-                                {sub.subcontent}
-                              </div>
-                              {/* Kiểm tra xem comment này có đang được chỉnh sửa không */}
-                              {editingSubcommentId.commentId === comment.id &&
-                              editingSubcommentId.subcommentId ===
-                                subcommentId ? (
-                                <div className="edit-subComment-wrapper">
-                                  <textarea
-                                    ref={editSubcommentTextareaRef} // Ref cho textarea Subcomment
-                                    className="edit-subComment"
-                                    value={editText}
-                                    onChange={(e) =>
-                                      setEditText(e.target.value)
-                                    }
-                                    style={{
-                                      overflow: "hidden",
-                                      resize: "none",
-                                    }}
-                                  />
-                                  <button
-                                    className="btn-actions btn-accept"
-                                    onClick={() => {
-                                      setIsEditingSubComment(true);
-                                      handleUpdateSubComment(
-                                        comment.id,
-                                        subcommentId,
-                                        editText,
-                                        setIsEditingSubComment // Truyền state riêng cho chỉnh sửa subcomment
-                                      );
-                                      setEditingSubcommentId({
-                                        commentId: null,
-                                        subcommentId: null,
-                                      }); // Đóng chế độ chỉnh sửa
-                                      setEditText(""); // Xóa nội dung chỉnh sửa
-                                    }}
-                                  >
-                                    {isEditingComment ? (
-                                      <LoadingIcon
-                                        size="1.5rem"
-                                        color="white"
-                                      />
-                                    ) : (
-                                      "Lưu"
-                                    )}
-                                  </button>
-                                  <button
-                                    className="btn-actions btn-cancel"
-                                    onClick={() => {
-                                      setEditingSubcommentId({
-                                        commentId: null,
-                                        subcommentId: null,
-                                      }); // Hủy chỉnh sửa
-                                      setEditText(""); // Reset nội dung
-                                    }}
-                                  >
-                                    Hủy
-                                  </button>
+                              <div>
+                                <div className="user-info">
+                                  <p className="username">{sub.username}</p>
+                                  <p className="timestamp">{formatDate(sub.timestamp)}</p>
                                 </div>
-                              ) : (
-                                userInfo?.email === sub.email && (
-                                  <div className="subcomment-actions">
-                                    {/* Nút mở menu 3 chấm */}
-                                    <IconButton
-                                      onClick={(event) =>
-                                        handleSubMenuOpen(
-                                          event,
-                                          comment.id,
-                                          subcommentId
-                                        )
-                                      }
-                                    >
-                                      <MoreVertIcon />
-                                    </IconButton>
-
-                                    {/* Dropdown Menu */}
-                                    <Menu
-                                      anchorEl={subAnchorEl}
-                                      open={
-                                        Boolean(subAnchorEl) &&
-                                        selectedSubcomment.commentId ===
-                                          comment.id &&
-                                        selectedSubcomment.subcommentId ===
-                                          subcommentId
-                                      }
-                                      onClose={handleSubMenuClose}
-                                      className="subcomment-dropdown"
-                                    >
-                                      {/* Sửa Subcomment */}
-                                      <MenuItem
-                                        onClick={() => {
-                                          setEditingSubcommentId({
-                                            commentId: comment.id,
-                                            subcommentId: subcommentId,
-                                          });
-                                          setEditText(sub.subcontent);
-                                          handleSubMenuClose();
-                                        }}
-                                        className="subcomment-dropdown-item edit"
-                                      >
-                                        <EditIcon className="menu-icon edit-icon" />
-                                        Sửa
-                                      </MenuItem>
-
-                                      {/* Xóa Subcomment */}
-                                      <MenuItem
-                                        onClick={() => {
-                                          console.log(
-                                            "Nhấn nút xóa - CommentID:",
-                                            comment.id,
-                                            "SubcommentID:",
-                                            subcommentId
-                                          );
-                                          showDeleteModal(
-                                            comment.id,
-                                            subcommentId
-                                          ); // Truyền cả `comment.id` và `subcommentId`
-                                          handleSubMenuClose();
-                                        }}
-                                        className="subcomment-dropdown-item delete"
-                                      >
-                                        <DeleteIcon className="menu-icon delete-icon" />
-                                        Xóa
-                                      </MenuItem>
-                                    </Menu>
-                                  </div>
-                                )
-                              )}
+                              </div>
+                              {/* Hiển thị "Đã xem phim" nếu subcomment của người đã mua vé */}
+                              {sub.purchased && <span className="verified-badge">Đã xem phim</span>}
                             </div>
-                          )
-                        )}
+                            <div className="content-subcomment">{sub.subcontent}</div>
+                            {/* Kiểm tra xem comment này có đang được chỉnh sửa không */}
+                            {editingSubcommentId.commentId === comment.id &&
+                            editingSubcommentId.subcommentId === subcommentId ? (
+                              <div className="edit-subComment-wrapper">
+                                <textarea
+                                  ref={editSubcommentTextareaRef} // Ref cho textarea Subcomment
+                                  className="edit-subComment"
+                                  value={editText}
+                                  onChange={(e) => setEditText(e.target.value)}
+                                  style={{
+                                    overflow: "hidden",
+                                    resize: "none",
+                                  }}
+                                />
+                                <button
+                                  className="btn-actions btn-accept"
+                                  onClick={() => {
+                                    setIsEditingSubComment(true);
+                                    handleUpdateSubComment(
+                                      comment.id,
+                                      subcommentId,
+                                      editText,
+                                      setIsEditingSubComment // Truyền state riêng cho chỉnh sửa subcomment
+                                    );
+                                    setEditingSubcommentId({
+                                      commentId: null,
+                                      subcommentId: null,
+                                    }); // Đóng chế độ chỉnh sửa
+                                    setEditText(""); // Xóa nội dung chỉnh sửa
+                                  }}>
+                                  {isEditingComment ? (
+                                    <LoadingIcon size="1.5rem" color="white" />
+                                  ) : (
+                                    "Lưu"
+                                  )}
+                                </button>
+                                <button
+                                  className="btn-actions btn-cancel"
+                                  onClick={() => {
+                                    setEditingSubcommentId({
+                                      commentId: null,
+                                      subcommentId: null,
+                                    }); // Hủy chỉnh sửa
+                                    setEditText(""); // Reset nội dung
+                                  }}>
+                                  Hủy
+                                </button>
+                              </div>
+                            ) : (
+                              userInfo?.email === sub.email && (
+                                <div className="subcomment-actions">
+                                  {/* Nút mở menu 3 chấm */}
+                                  <IconButton
+                                    onClick={(event) =>
+                                      handleSubMenuOpen(event, comment.id, subcommentId)
+                                    }>
+                                    <MoreVertIcon />
+                                  </IconButton>
+
+                                  {/* Dropdown Menu */}
+                                  <Menu
+                                    anchorEl={subAnchorEl}
+                                    open={
+                                      Boolean(subAnchorEl) &&
+                                      selectedSubcomment.commentId === comment.id &&
+                                      selectedSubcomment.subcommentId === subcommentId
+                                    }
+                                    onClose={handleSubMenuClose}
+                                    className="subcomment-dropdown">
+                                    {/* Sửa Subcomment */}
+                                    <MenuItem
+                                      onClick={() => {
+                                        setEditingSubcommentId({
+                                          commentId: comment.id,
+                                          subcommentId: subcommentId,
+                                        });
+                                        setEditText(sub.subcontent);
+                                        handleSubMenuClose();
+                                      }}
+                                      className="subcomment-dropdown-item edit">
+                                      <EditIcon className="menu-icon edit-icon" />
+                                      Sửa
+                                    </MenuItem>
+
+                                    {/* Xóa Subcomment */}
+                                    <MenuItem
+                                      onClick={() => {
+                                        console.log(
+                                          "Nhấn nút xóa - CommentID:",
+                                          comment.id,
+                                          "SubcommentID:",
+                                          subcommentId
+                                        );
+                                        showDeleteModal(comment.id, subcommentId); // Truyền cả `comment.id` và `subcommentId`
+                                        handleSubMenuClose();
+                                      }}
+                                      className="subcomment-dropdown-item delete">
+                                      <DeleteIcon className="menu-icon delete-icon" />
+                                      Xóa
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        ))}
 
                       {/* Input để thêm subcomment */}
-                      <div className="subComment-wrapper">
-                        <textarea
-                          className="subComment-input"
-                          type="text"
-                          ref={newSubcommentareaRef}
-                          value={newSubcomment}
-                          onChange={(e) => setNewSubcomment(e.target.value)}
-                          placeholder="Phản hồi..."
-                          style={{
-                            overflow: "hidden",
-                            resize: "none",
-                          }}
-                        />
-                        <button
-                          className="subComment-btn"
-                          onClick={() => {
-                            handleAddSubcomment(comment.id, newSubcomment);
-                            setNewSubcomment(""); // Reset input
-                          }}
-                        >
-                          Gửi
-                        </button>
-                      </div>
+                      {userInfo && (
+                        <div className="subComment-wrapper">
+                          <textarea
+                            className="subComment-input"
+                            type="text"
+                            ref={newSubcommentareaRef}
+                            value={newSubcomment}
+                            onChange={(e) => setNewSubcomment(e.target.value)}
+                            placeholder="Phản hồi..."
+                            style={{
+                              overflow: "hidden",
+                              resize: "none",
+                            }}
+                          />
+                          <button
+                            className="subComment-btn"
+                            onClick={() => {
+                              handleAddSubcomment(comment.id, newSubcomment);
+                              setNewSubcomment(""); // Reset input
+                            }}>
+                            Gửi
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </CSSTransition>

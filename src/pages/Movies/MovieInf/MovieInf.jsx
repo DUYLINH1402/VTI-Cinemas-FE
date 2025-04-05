@@ -38,7 +38,16 @@ export const MovieInf = () => {
   return (
     <>
       <div className="content">
-        {movie && <CardInfMovie movie={movie} onBookTicket={handleBookTicket} />}
+        {movie ? (
+          <CardInfMovie movie={movie} onBookTicket={handleBookTicket} />
+        ) : (
+          <div className="not-found">
+            <h2>Không tìm thấy phim</h2>
+            <p>
+              Phim có ID là <strong>{movie_id}</strong> không tồn tại.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Sử dụng BookingFlow */}

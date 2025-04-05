@@ -3,6 +3,21 @@
 
 .content {
   width: 100%;
+  .not-found {
+    padding: 3rem;
+    text-align: center;
+
+    h2 {
+      font-size: 2.2rem;
+      color: #dc2626;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+      color: #4b5563;
+    }
+  }
 
   .card-info-wrapper::before {
     content: "";

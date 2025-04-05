@@ -1,5 +1,6 @@
 @use "./../../assets/styles/cssBase.scss";
 @use "../../assets//styles/mixins.scss" as *;
+@use "../../assets//styles/variables.scss" as *;
 
 .navbar-toggler {
   display: none; // Ẩn mặc định
@@ -30,17 +31,22 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px;
-      min-height: 48px;
+      padding: 5px;
+      min-height: 40px;
 
       .header-left {
+        display: flex;
         align-items: center;
         flex: 1;
-
+        justify-content: center;
         .header-logo {
           display: inline-block;
-          width: 100%;
+          width: 60px;
           object-fit: cover;
+          margin-right: 20px;
+        }
+        .header-title {
+          color: $primary-color;
         }
         // Ẩn khi màn hình nhỏ hơn 1199.98px;
         @include respond-to(lg) {

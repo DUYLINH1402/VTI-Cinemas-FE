@@ -190,6 +190,10 @@ export const Header = () => {
               <Link to="/">
                 <img className="header-logo" src={logo} alt="logo" />
               </Link>
+              <p className="header-title">
+                Đặt vé <br />
+                xem phim{" "}
+              </p>
             </div>
             <div className="header-center collapse navbar-collapse" id="navbarNav">
               <ul className="header__nav navbar-nav mx-auto">

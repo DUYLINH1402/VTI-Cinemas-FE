@@ -19,6 +19,7 @@ import UserList from "../admin/pages/UserManagement/UserList/UserList";
 import UserStats from "../admin/pages/UserManagement/UserDashboard/UserStats";
 import EventList from "../admin/pages/EventManagement/EvenList/EventList";
 import EventDashboard from "../admin/pages/EventManagement/EventDashboard/EventDashboard";
+import { Navigate } from "react-router-dom";
 
 // Định nghĩa các route cho phần admin
 export const AdminRoutes = [
@@ -34,6 +35,11 @@ export const AdminRoutes = [
     ),
     errorElement: <AdminErrorPage />, // Trang lỗi dành riêng cho admin
     children: [
+      // Khi đăng nhập sẽ chuyển đến /admin/dashboard
+      {
+        index: true,
+        element: <Navigate to="dashboard" replace />,
+      },
       {
         path: "dashboard", // Route cho trang Dashboard
         element: <AdminDashboard />, // Component hiển thị

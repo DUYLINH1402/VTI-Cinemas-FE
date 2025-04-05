@@ -16,9 +16,8 @@ const AdminApp = () => {
 
         {/* Nội dung chính */}
         <Box sx={{ flexGrow: 1 }}>
-          {/* Header - Hiển thị ở phía trên */}
+          ABCDE
           <Header />
-
           {/* Outlet - Hiển thị nội dung route con */}
           <div style={{ marginTop: "80px", padding: "16px" }}>
             {/* marginTop 80px để tránh nội dung bị che bởi Header */}

@@ -20,9 +20,7 @@ const Header = ({ sidebarWidth = 240 }) => {
 
   // Lấy tất cả route con trong AdminRoutes
   // Dùng `flatMap` để trải phẳng các route con vào một danh sách
-  const adminRoutes = AdminRoutes.flatMap((route) =>
-    route.children ? route.children : [route]
-  );
+  const adminRoutes = AdminRoutes.flatMap((route) => (route.children ? route.children : [route]));
 
   return (
     // AppBar - Thanh điều hướng chính của ứng dụng admin
@@ -34,20 +32,18 @@ const Header = ({ sidebarWidth = 240 }) => {
           left: `${sidebarWidth}px`, // Đẩy AppBar sang phải theo chiều rộng Sidebar
           width: `calc(100% - ${sidebarWidth}px)`, // Tính toán lại chiều rộng AppBar
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+        }}>
         <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
           {/* Tiêu đề của thanh điều hướng */}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Chào mừng bạn đến với trang Quản trị viên
+            Trang Quản Trị Viên
           </Typography>
           {/* Nút Đăng xuất */}
           <Button
             color="inherit"
             onClick={onLogout}
             sx={{ fontSize: "1.2rem" }}
-            className="button-action"
-          >
+            className="button-action">
             Đăng xuất
           </Button>
         </Toolbar>

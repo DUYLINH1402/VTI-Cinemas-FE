@@ -140,7 +140,7 @@ export const Header = () => {
     navigate("/");
   };
 
-  const handleMemberClick = (token, setModalType) => {
+  const handleMemberClick = (token) => {
     if (token) {
       navigate("/Members");
     } else {

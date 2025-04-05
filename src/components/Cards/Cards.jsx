@@ -119,6 +119,9 @@ export const CardMovieHome = memo(({ item, index }) => {
             alt={item.movie_name}
             width="100%"
           />
+          {item.viewing_age && (
+            <span className={`age-rating age-${item.viewing_age}`}>{item.viewing_age}+</span>
+          )}
         </Link>
         <div className="play-button" onClick={handleOpenTrailerModal}>
           <FontAwesomeIcon icon={faCirclePlay} />

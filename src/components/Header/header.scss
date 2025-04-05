@@ -275,7 +275,7 @@
     position: relative;
     .search-wrapper {
       position: absolute;
-      top: 15px;
+      top: 13px;
       right: 5px;
     }
 
@@ -300,15 +300,17 @@
         position: relative;
         .search-wrapper {
           position: absolute;
-          top: 15px;
+          top: 13px;
           right: 5px;
         }
         .header-left {
+          display: flex;
+          justify-content: left;
           .header-logo {
+            width: 45px;
             margin-left: 10px;
             display: block;
             text-align: left;
-            width: 120px;
             max-height: min-content;
           }
         }

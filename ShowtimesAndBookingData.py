@@ -17,8 +17,8 @@ movies = {
     60: 98    # Vietnamese Concert Film: Chúng Ta Là Người Việt Nam
 }
 
-# Khởi tạo danh sách các rạp từ cinema_01 đến cinema_20
-cinemas = [f"cinema_0{i}" if i < 10 else f"cinema_{i}" for i in range(1, 21)]
+# Khởi tạo danh sách các rạp từ cinema_01 đến cinema_50
+cinemas = [f"cinema_0{i}" if i < 10 else f"cinema_{i}" for i in range(1, 51)]
 
 # Hàm tạo khung giờ ngẫu nhiên cho từng rạp
 def generate_random_showtimes(cinema_id):
@@ -54,7 +54,7 @@ def generate_sold_seats():
 # --------------------------------------SỬA Ở ĐÂY---------------------------------------------------
 # Tạo dữ liệu showtimes
 showtimes_data = {"Showtimes": {}}
-start_date = datetime(2025, 4, 4)       
+start_date = datetime(2025, 4, 6)       
 days = [start_date + timedelta(days=i) for i in range(7)]
 
 for day in days:

@@ -14,15 +14,27 @@
 }
 
 .custom-modal {
-  background-color: #fff;
-  border-radius: 10px;
+  position: relative;
   width: 90%;
-  min-height: 450px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
+  width: 60vw;
+  min-height: 70vh;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 35px;
+  animation: slideUp 0.3s ease-out;
 
+  .modal-confirm-button {
+    position: absolute;
+    bottom: 15px;
+    right: 50%;
+    transform: translateX(50%);
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: #333;
+    cursor: pointer;
+  }
   .custom-modal-header {
     padding: 15px 20px;
     display: flex;

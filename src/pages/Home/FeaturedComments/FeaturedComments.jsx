@@ -212,7 +212,7 @@ const FeaturedComments = () => {
 
       {openCommentModal && selectedComment && (
         <div className="custom-modal-overlay" onClick={handleCloseCommentModal}>
-          <div className="custom-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="custom-modal-comment" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={handleCloseCommentModal}>
               ✕
             </button>

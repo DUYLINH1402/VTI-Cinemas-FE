@@ -80,7 +80,7 @@
       }
 
       // Màu sắc trạng thái với độ gradient nhẹ
-      &.status-success {
+      &.status-success, &.status-completed, &.status-confirmed {
         background: linear-gradient(135deg, #52c41a, #45b014);
       }
 

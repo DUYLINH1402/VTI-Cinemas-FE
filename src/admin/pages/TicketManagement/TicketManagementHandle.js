@@ -4,6 +4,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { toast } from "react-toastify";
 import { fetchOders, cancelTicket, lockTicket } from "../../../services/service/serviceOdres";
+import { formatStatus } from "../../../utils/statusFormatter";
 import { Modal } from "antd";
 
 // Xử lý tìm kiếm
@@ -176,7 +177,7 @@ export const handleExportReport = (
     const reportData = dataToExport.map((ticket) => ({
       "Mã vé": ticket.app_trans_id,
       "Tên phim": ticket.movieDetails.movieName,
-      "Trạng thái": ticket.status.charAt(0).toUpperCase() + ticket.status.slice(1),
+      "Trạng thái": formatStatus(ticket.status),
       "Chi nhánh": ticket.movieDetails.theater,
       "Khách hàng": ticket.app_user,
       "Suất chiếu": `${ticket.movieDetails.showTime}, ${ticket.movieDetails.showDate}`,

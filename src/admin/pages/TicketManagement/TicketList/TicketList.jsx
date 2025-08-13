@@ -11,6 +11,7 @@ import {
   lockTicketHandler,
   handleExportReport,
 } from "../TicketManagementHandle.js";
+import { formatStatus, getStatusClass, canCancelTicket, canLockTicket } from "../../../../utils/statusFormatter.js";
 import "./TicketList.scss";
 import SearchBar from "../../../components/SearchBar/SearchBar.jsx";
 
@@ -44,8 +45,8 @@ const TicketList = () => {
       dataIndex: "status",
       key: "status",
       render: (status) => (
-        <span className={`status-tag status-${status}`}>
-          {status.charAt(0).toUpperCase() + status.slice(1)}
+        <span className={`status-tag ${getStatusClass(status)}`}>
+          {formatStatus(status)}
         </span>
       ),
     },
@@ -75,7 +76,7 @@ const TicketList = () => {
                 setIsModalVisible
               )
             }
-            disabled={record.status !== "pending"}>
+            disabled={!canCancelTicket(record.status)}>
             Hủy
           </Button>
           <Button
@@ -91,7 +92,7 @@ const TicketList = () => {
                 setIsModalVisible
               )
             }
-            disabled={record.status === "locked" || record.status === "canceled"}>
+            disabled={!canLockTicket(record.status)}>
             Khóa
           </Button>
         </>
@@ -192,7 +193,7 @@ const TicketList = () => {
                 setIsModalVisible
               )
             }
-            disabled={selectedTicket?.status !== "pending"}>
+            disabled={!canCancelTicket(selectedTicket?.status)}>
             Hủy vé
           </Button>,
           <Button
@@ -209,7 +210,7 @@ const TicketList = () => {
                 setIsModalVisible
               )
             }
-            disabled={selectedTicket?.status === "locked" || selectedTicket?.status === "canceled"}>
+            disabled={!canLockTicket(selectedTicket?.status)}>
             Khóa vé
           </Button>,
         ]}>
@@ -232,7 +233,7 @@ const TicketList = () => {
               <strong>Giá:</strong> {selectedTicket.amount.toLocaleString()} VNĐ
             </p>
             <p>
-              <strong>Trạng thái:</strong> {selectedTicket.status}
+              <strong>Trạng thái:</strong> {formatStatus(selectedTicket.status)}
             </p>
             <p>
               <strong>Chi nhánh:</strong> {selectedTicket.movieDetails.theater}
